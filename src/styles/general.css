@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root{
+    --background-color: #EEE;
+    --body-background-color: white;
+    --text-color: #111;
+    --text-color-negative: var(--background-color);
+    --text-color-shadowed: #444;
+
+    --backdrop-color: 10,10,10;
+
+    --mild-border-radius: .5rem;
+    --default-border-radius: 1rem;
+    --high-border-radius: 2rem;
+    --aggressive-border-radius: 3rem;
+
+    --transition-duration-medium: .5s;
+    --transition-duration-fast: .25s;
+    --transition-duration-veryfast: .125s;
+
+    font-family: Noto Sans;
+    font-size: 12pt;
+}
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
+html{
+    background-color: var(--background-color);
+}
+
+body{
+    min-height: 100vh;
+    width: 65%;
+
+    margin: 0 auto;
+
+    background-color: var(--body-background-color);
+}
+
+/*******************************/
+/* Default text settings stuff */
+/*******************************/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+    margin: 1em 0 .5em 0;
+    line-height: 1.5em;
+}
+
+p{
+    line-height: 1.5em;
+}
+
+/************/
+/* Articles */
+/************/
+
+article{
+    width: 90%;
+    padding: 2em 20% 1em 5%;
+}
+
+ul{
+    margin-left: 1em;
+}
+
+article > ul > li{
+    margin-bottom: 1em;
+}
+
+li {
+    margin: .25em 0;
+    line-height: 1.5em;
+}
+
+img{
+    max-width: 100%;
+    object-fit: contain;
+
+    border-radius: var(--default-border-radius);
+}
