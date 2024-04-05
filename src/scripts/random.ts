@@ -40,6 +40,7 @@ class OutputCard extends HTMLElement {
             checkbox.checked = true;
             this.appendChild(checkbox)
         });
+        this.getRandom();
     }
 
     getRandom(){
