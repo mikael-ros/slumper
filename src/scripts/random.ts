@@ -6,15 +6,37 @@ export function getRandomChapter(includedChapters : number[]){
 }
 
 export function getRandomTaskInChapter(chapter: any){
-    return chapter.tasks[Math.floor(Math.random() * chapter.tasks.length)]; // Then a random task in that chapter
+    var currentSpent : CourseMemory[] = (localStorage.getItem("spent") != null) ? JSON.parse(localStorage.getItem("spent")!) : new Array<CourseMemory>();
+    var indexOfCourse : number = currentSpent.findIndex((course) => course.course == "FMAB20");
+    var courseSpent : TaskMemory[] = (indexOfCourse > -1) ? currentSpent[indexOfCourse].tasks : new Array<TaskMemory>();
+    var spentFromChapter = courseSpent.filter((taskmemory) => taskmemory.task.chapter == chapter.chapter.number).map((taskmemory) => taskmemory.task.task);
+    var unspentFromChapter: any[] = chapter.tasks.filter((task) => !(spentFromChapter.indexOf(task.task) > -1));
+    return unspentFromChapter[Math.floor(Math.random() * unspentFromChapter.length)]; // Then a random task in that chapter
+}
+
+interface Task {
+    chapter: number;
+    task: number;
+}
+
+interface TaskMemory{
+    timestamp: string,
+    task: Task
+}
+
+interface CourseMemory{
+    course: string,
+    tasks: TaskMemory[]
 }
 
 class OutputCard extends HTMLElement {
-    course: String;
+    course: string;
     
     taskOutput: HTMLElement;
     chapterOutput: HTMLElement;
-    button: HTMLElement;
+    randButton: HTMLElement;
+    doneButton: HTMLElement;
+    resetButton: HTMLElement;
     selector: HTMLElement;
 
     checkboxes: HTMLInputElement[];
@@ -26,11 +48,15 @@ class OutputCard extends HTMLElement {
 
         this.taskOutput = this.querySelector('#output')!;
         this.chapterOutput = this.querySelector('#chapter')!;
-        this.button = this.querySelector('#random')!;  
+        this.randButton = this.querySelector('#random')!;  
+        this.doneButton = this.querySelector('#done')!;  
+        this.resetButton = this.querySelector('#reset')!;
         this.selector = this.querySelector('#course-select')!;
         this.course = this.selector.value;
 
-        this.button.addEventListener("click", () => {this.getRandom()});
+        this.randButton.addEventListener("click", () => {this.getRandom(false)});
+        this.doneButton.addEventListener("click", () => {this.getRandom(true)});
+        this.resetButton.addEventListener("click", () => {localStorage.removeItem("spent"); this.getRandom(false)});
 
         this.checkboxes = [];
 
@@ -40,15 +66,42 @@ class OutputCard extends HTMLElement {
             checkbox.checked = true;
             this.appendChild(checkbox)
         });
-        this.getRandom();
+        this.getRandom(false);
     }
 
-    getRandom(){
+    getRandom(remember: boolean){
         var currentChapter = getRandomChapter(this.checkboxes.filter((box) => box.checked).map((box) => this.checkboxes.indexOf(box) + 1));
         var currentTask = getRandomTaskInChapter(currentChapter);
 
         this.taskOutput.textContent = currentChapter.chapter.number + "." + currentTask.task;
         this.chapterOutput.textContent = currentChapter.chapter.fullname;
+        
+        if (remember){
+            var task : TaskMemory = {
+                timestamp: Date(),
+                task: {
+                    chapter: currentChapter.chapter.number,
+                    task: currentTask.task
+                }
+            }
+
+            var currentSpent : CourseMemory[] = (localStorage.getItem("spent") != null) ? JSON.parse(localStorage.getItem("spent")!) : new Array<CourseMemory>();
+            var indexOfCourse : number = currentSpent.findIndex((course) => course.course == this.course);
+            var courseSpent : TaskMemory[] = (indexOfCourse > -1) ? currentSpent[indexOfCourse].tasks : new Array<TaskMemory>();
+
+            courseSpent.push(task);
+            if (indexOfCourse > -1){
+                currentSpent[indexOfCourse].tasks = courseSpent;
+            } else {
+                currentSpent.push({
+                    course: this.course,
+                    tasks: courseSpent
+                });
+            }
+            localStorage.setItem("spent", JSON.stringify(currentSpent));
+        }
+        
+
     }
 }
 
