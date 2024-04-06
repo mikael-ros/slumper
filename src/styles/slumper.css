@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap');
+
+:root{
+    --background-color: #EEE;
+    --body-background-color: var(--background-color);
+    --text-color: #111;
+    --text-color-negative: var(--background-color);
+    --text-color-shadowed: #444;
+
+    --backdrop-color: 10,10,10;
+
+    --secondary: #6ba7d8;
+
+    --mild-border-radius: .5rem;
+    --default-border-radius: 1rem;
+    --high-border-radius: 2rem;
+    --aggressive-border-radius: 3rem;
+
+    --transition-duration-medium: .5s;
+    --transition-duration-fast: .25s;
+    --transition-duration-veryfast: .125s;
+
+    font-family: Spline Sans Mono;
+    font-size: 12pt;
+    line-height: 1.5em;
+}
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
+html{
+    background-color: var(--background-color);
+}
+
+body{
+    height: 100vh;
+    width: 100%;
+
+    margin: 0 auto;
+
+    background-color: var(--body-background-color);
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    height: 4vh;
+    width: 100%;
+    line-height: 4vh;
+
+    background-color: rgba(var(--backdrop-color),0.1);
+    border-radius: var(--mild-border-radius) var(--mild-border-radius) 0 0;
+    backdrop-filter: blur(var(--mild-border-radius));
+    color: var(--text-color-negative);
+
+    text-align: center;
+}
+
+/*******************************/
+/* Default text settings stuff */
+/*******************************/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+    margin: 1em 0 .5em 0;
+    text-shadow: .1em .1em 0px var(--text-color-shadowed);
+}
+
+
+button, select {
+    margin: var(--mild-border-radius);
+    padding: var(--mild-border-radius);
+
+    border: none;
+    border-radius: var(--mild-border-radius);
+    background-color: var(--secondary);
+    color: var(--text-color-negative);
+
+    font-weight: 600;
+    font-size: 1.1em;
+    text-shadow: .1em .1em 0px var(--text-color-shadowed);
+
+    cursor: pointer;
+
+    transition: all;
+    transition-duration: var(--transition-duration-fast);
+
+    &:hover{
+        border-radius: var(--default-border-radius);
+        filter: brightness(0.95);
+
+        transition: all;
+        transition-duration: var(--transition-duration-fast);
+    }
+}
+
+input[type='checkbox']{
+    margin: .1em;
+}
+
+/************/
+/* Articles */
+/************/
+
+article{
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(200deg, var(--background-color), var(--secondary));
+}
+
+/***************/
+/* output-card */
+/***************/
+
+output-card{
+    display: flex;
+    flex-direction: column;
+
+    width: 70%;
+
+    margin: auto;
+    padding: var(--aggressive-border-radius);
+
+    background-color: rgba(var(--backdrop-color),0.1);
+    border-radius: var(--aggressive-border-radius);
+    backdrop-filter: blur(var(--mild-border-radius));
+
+    color: var(--text-color-negative);
+
+    #buttons{
+        display: flex;
+        width: 50%;
+
+        button{
+            width: 100%;
+        }
+    }
+
+    select {
+        width: 15rem;
+    }
+}
+

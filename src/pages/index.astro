@@ -7,12 +7,17 @@ import Layout from '../layouts/Layout.astro'
 		<output-card>
 			<h2 id="chapter">No chapter</h2>
 			<h3 id="output">No task</h3>
-			<button id="random">Random!</button>
-			<button id="done">Completed :)</button>
-			<button id="reset">Reset :o</button>
+			<div id="buttons">
+				<button id="random">Random!</button>
+				<button id="done">Completed :)</button>
+				<button id="reset">Reset :o</button>
+			</div>
 
-			<label for="course">Choose course:</label>
+			<div id="checkboxes">
+				<h4>Filter chapters:</h4>
+			</div>
 
+			<h4>Choose book:</h4>
 			<select id="course-select" name="course" id="course">
 			</select> 
 		</output-card>

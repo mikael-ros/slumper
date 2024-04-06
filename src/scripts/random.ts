@@ -44,6 +44,7 @@ class OutputCard extends HTMLElement {
     randButton: HTMLButtonElement;
     doneButton: HTMLButtonElement;
     resetButton: HTMLButtonElement;
+    checkboxContainer: HTMLDivElement;
     selector: HTMLSelectElement;
 
     checkboxes: HTMLInputElement[];
@@ -57,6 +58,7 @@ class OutputCard extends HTMLElement {
         this.doneButton = this.querySelector('#done')!;  
         this.resetButton = this.querySelector('#reset')!;
         this.selector = this.querySelector('#course-select')!;
+        this.checkboxContainer = this.querySelector('#checkboxes')!;
         this.selector.addEventListener("change", () => {this.loadNew()});
 
         this.randButton.addEventListener("click", () => {this.getRandom(false)});
@@ -80,7 +82,7 @@ class OutputCard extends HTMLElement {
             checkbox.checked = true;
             checkbox.addEventListener("change", () => {this.updateFilter()});
             this.checkboxes.push(checkbox);
-            this.appendChild(checkbox);
+            this.checkboxContainer.appendChild(checkbox);
         });
 
         this.currentChapter = this.getRandomFilteredChapter();
