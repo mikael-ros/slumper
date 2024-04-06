@@ -28,7 +28,15 @@ export function getRandomChapter(chapters: Chapter[], includedChapters : Set<num
 
 export function getRandomTaskInChapter(tasks: Task[], spentTasks: Set<number>){
     const filteredTasks: Task[] = tasks.filter((task) => !spentTasks.has(task.task));
-    return filteredTasks[Math.floor(Math.random() * filteredTasks.length)]; // Then a random task in that chapter
+    if (filteredTasks.length != 0){
+        return filteredTasks[Math.floor(Math.random() * filteredTasks.length)];
+    } else {
+        window.alert("No tasks left in chapter"); //This is temporary until I add my own popup class.
+        return {
+            task: "x",
+            section: "No tasks left in chapter"
+        }
+    }
 }
 
 class OutputCard extends HTMLElement {
