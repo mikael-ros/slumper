@@ -73,6 +73,7 @@ footer, header {
     color: var(--text-color-negative);
 
     text-align: center;
+    z-index:999;
 }
 
 footer{
@@ -99,6 +100,9 @@ h6{
 
 
 button, select {
+    display: flex;
+    align-items: center;
+
     margin: var(--mild-border-radius);
     padding: var(--mild-border-radius);
 
@@ -123,6 +127,13 @@ button, select {
 
         transition: all;
         transition-duration: var(--transition-duration-fast);
+    }
+
+    img{
+        width: 1.5em;
+        height: 1.5em;
+
+        margin: 0 .1em;
     }
 }
 
@@ -168,9 +179,36 @@ output-card{
         display: flex;
         min-width: 500px;
         width: 50%;
+    }
 
-        button{
-            width: 100%;
+    img{
+        transition: transform;
+        transition-duration: var(--transition-duration-fast);
+    }
+
+    button:active{
+        img {
+            transition: transform;
+            transition-duration: var(--transition-duration-fast);
+        }
+    }
+
+    #random:active{
+        img{
+            transform: rotate(360deg);
+        }
+    }
+
+    #done:active{
+        img{
+            transform: rotate(-30deg);
+        }
+    }
+
+    #reset:active{
+        img{
+            transition-duration: var(--transition-duration-medium);
+            transform: rotate(90deg);
         }
     }
 
