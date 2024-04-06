@@ -40,7 +40,7 @@ npm run dev
 And navigate to [localhost:4321](http://localhost:4321).
 
 ### ✨️ Adding courses
-> [!CAUTION]
+
 > Please **do not add the contents of any book**, only the task lists and chapter headings. Any addition made including copyrighted material will be rejected unless you have solid proof of permission from the authors and publishers.
 
 Courses are added in a fairly simple manner.
