@@ -26,8 +26,9 @@ export function getRandomChapter(chapters: Chapter[], includedChapters : Set<num
     return filtered[Math.floor(Math.random() * filtered.length)]; // First gets a random chapter from the book
 }
 
-export function getRandomTaskInChapter(chapter: Chapter){
-    return chapter.tasks[Math.floor(Math.random() * chapter.tasks.length)]; // Then a random task in that chapter
+export function getRandomTaskInChapter(tasks: Task[], spentTasks: Set<number>){
+    const filteredTasks: Task[] = tasks.filter((task) => !spentTasks.has(task.task));
+    return filteredTasks[Math.floor(Math.random() * filteredTasks.length)]; // Then a random task in that chapter
 }
 
 class OutputCard extends HTMLElement {
@@ -43,7 +44,6 @@ class OutputCard extends HTMLElement {
     selector: HTMLElement;
 
     checkboxes: HTMLInputElement[];
-
 
     constructor () {
         super();
@@ -87,12 +87,31 @@ class OutputCard extends HTMLElement {
     }
 
     getRandomTaskInCurrentChapter(): Task{
-        return getRandomTaskInChapter(this.currentChapter);
+        const currentSpent : Book[] = (localStorage.getItem("spent") != null) 
+        ? JSON.parse(localStorage.getItem("spent")!) : new Array<Book>();
+        const indexOfBook : number = currentSpent.findIndex((book) => book.name == this.book.name);
+        const bookSpent : Book = (indexOfBook > -1) ? currentSpent[indexOfBook] : {
+            name: this.book.name,
+            chapters: []
+        };
+
+        const indexOfChapter : number = bookSpent.chapters.findIndex((chapter) => chapter.number == this.currentChapter.number);
+        const chapterSpent : Chapter = (indexOfChapter > -1) ? bookSpent.chapters[indexOfChapter] : {
+            fullname: this.currentChapter.fullname,
+            number: this.currentChapter.number,
+            tasks: []
+        }
+
+        return getRandomTaskInChapter(this.currentChapter.tasks, this.getSpent(chapterSpent));
     }
 
     // Takes the checkboxes and returns an array of numbers, each checkbox corresponding to an index.
     getFilter(): Set<number>{
         return new Set(this.checkboxes.filter((box) => box.checked).map((box) => this.checkboxes.indexOf(box) + 1));
+    }
+
+    getSpent(chapter: Chapter){
+        return new Set(chapter.tasks.map((task) => task.task));
     }
 
     displayTask(){
