@@ -130,10 +130,8 @@ button, select {
     }
 
     img{
-        width: 1.5em;
-        height: 1.5em;
-
-        margin: 0 .1em;
+        width: 2em;
+        height: 2em;
     }
 }
 
