@@ -1,6 +1,6 @@
 # 🎲 Slumper
 
-A web tool for randomizing and gameifying course exercises.
+***A web tool for randomizing and gameifying course exercises.***
 
 🎰 **Randomizer** :: A smart randomizer that can save completed tasks and avoid them
 
