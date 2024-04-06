@@ -136,7 +136,9 @@ button, select {
 }
 
 input[type='checkbox']{
-    margin: .1em;
+    margin: .75em;
+
+    transform: scale(2); /* Visual size */
 }
 
 /************/
