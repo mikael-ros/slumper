@@ -2,19 +2,21 @@
 
 A web tool for randomizing and gameifying course exercises.
 
-- **Randomizer** :: A smart randomizer that can save completed tasks and avoid them
-- **Filters** :: Lets you filter chapters you want included
-- **Timer** :: Allows you to time your performance, and set max time goals
+🎰 **Randomizer** :: A smart randomizer that can save completed tasks and avoid them
+
+⚙️ **Filters** :: Lets you filter chapters you want included
+
+⏱️ **Timer** :: Allows you to time your performance, and set max time goals
 
 ## 🔨 Usage
 
 Simply visit [slumper.me](https://www.slumper.me).
 
-### Randomization
+### 🎰 Randomization
 To randomize, simply hit the random button!
-### Filters
+### ⚙️ Filters
 Select the chapters by checking the boxes
-### Timer
+### ⏱️ Timer
 Start the timer, stop it when finished. If you've set a maximum, and you hit it, a bell will ring.
 
 ---
@@ -23,21 +25,21 @@ Start the timer, stop it when finished. If you've set a maximum, and you hit it,
 
 > This website is made with the framework Astro.js and in the TypeScript language. In addition, only pure CSS is used. You may or may not need to know these to work on this project.
 
-#### Things to work on
+#### 🗒 Things to work on
 [**Check out the issues**](https://www.github.com/mikael-ros/slumper/issues) and pick any issue currently unassigned. Issued marked as ``good first issue`` are, like it says on the tin, good to start with.
 
-#### Prerequisites
+#### 🧰 Prerequisites
 - Node.js and npm
 - Visual Studio Code or VSCodium
 
-### Running the site locally
+### 🖥 Running the site locally
 Simply run:
 ```sh
 npm run dev
 ```
 And navigate to [localhost:4321](http://localhost:4321).
 
-### Adding courses
+### ✨️ Adding courses
 > [!CAUTION]
 > Please **do not add the contents of any book**, only the task lists and chapter headings. Any addition made including copyrighted material will be rejected unless you have solid proof of permission from the authors and publishers.
 
