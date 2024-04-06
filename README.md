@@ -20,6 +20,7 @@ Start the timer, stop it when finished. If you've set a maximum, and you hit it,
 ---
 
 <details closed><summary><h2>🪚 Contributing</h2></summary>
+
 > This website is made with the framework Astro.js and in the TypeScript language. In addition, only pure CSS is used. You may or may not need to know these to work on this project.
 
 #### Things to work on
