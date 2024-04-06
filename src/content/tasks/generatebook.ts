@@ -6,17 +6,13 @@ interface Task {
 }
 
 interface Chapter {
-    fullname: String;
+    fullname: string;
     number: number;
-}
-
-interface ChapterWithTasks {
-    chapter: Chapter;
     tasks: Task[];
 }
 
 export default async function generateJSON(input: Map<String, number>, outputPath: String){
-    var chapters: ChapterWithTasks[] = [];
+    var chapters: Chapter[] = [];
     var currentIndex = 1;
     input.forEach((length, chapter) => {
         var taskList: number[] = Array.from({length: length}, (_, i) => i + 1);
@@ -25,12 +21,10 @@ export default async function generateJSON(input: Map<String, number>, outputPat
         taskList.forEach((task) => processedTasks.push({task: task, section: "Undefined"}));
         var chapterObj: Chapter = {
             fullname: chapter,
-            number: currentIndex
-        };
-        chapters.push({
-            chapter: chapterObj,
+            number: currentIndex,
             tasks: processedTasks
-        })
+        };
+        chapters.push(chapterObj);
         currentIndex += 1;
     });
 

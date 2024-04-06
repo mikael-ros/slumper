@@ -1,32 +1,23 @@
 import FMAB20 from '../content/tasks/manssonlinalg.json';
 
+interface Task {
+    task: number;
+    section: string;
+}
+
+interface Chapter {
+    fullname: string;
+    number: number;
+    tasks: Task[];
+}
+
 export function getRandomChapter(includedChapters : number[]){
-    var filtered = FMAB20.filter((chapter) => includedChapters.indexOf(chapter.chapter.number) > -1);
+    const filtered: Chapter[] = FMAB20.filter((chapter) => includedChapters.indexOf(chapter.number) > -1);
     return filtered[Math.floor(Math.random() * filtered.length)]; // First gets a random chapter from the book
 }
 
-export function getRandomTaskInChapter(chapter: any){
-    var currentSpent : CourseMemory[] = (localStorage.getItem("spent") != null) ? JSON.parse(localStorage.getItem("spent")!) : new Array<CourseMemory>();
-    var indexOfCourse : number = currentSpent.findIndex((course) => course.course == "FMAB20");
-    var courseSpent : TaskMemory[] = (indexOfCourse > -1) ? currentSpent[indexOfCourse].tasks : new Array<TaskMemory>();
-    var spentFromChapter = courseSpent.filter((taskmemory) => taskmemory.task.chapter == chapter.chapter.number).map((taskmemory) => taskmemory.task.task);
-    var unspentFromChapter: any[] = chapter.tasks.filter((task) => !(spentFromChapter.indexOf(task.task) > -1));
-    return unspentFromChapter[Math.floor(Math.random() * unspentFromChapter.length)]; // Then a random task in that chapter
-}
-
-interface Task {
-    chapter: number;
-    task: number;
-}
-
-interface TaskMemory{
-    timestamp: string,
-    task: Task
-}
-
-interface CourseMemory{
-    course: string,
-    tasks: TaskMemory[]
+export function getRandomTaskInChapter(chapter: Chapter){
+    return chapter.tasks[Math.floor(Math.random() * chapter.tasks.length)]; // Then a random task in that chapter
 }
 
 class OutputCard extends HTMLElement {
@@ -73,35 +64,8 @@ class OutputCard extends HTMLElement {
         var currentChapter = getRandomChapter(this.checkboxes.filter((box) => box.checked).map((box) => this.checkboxes.indexOf(box) + 1));
         var currentTask = getRandomTaskInChapter(currentChapter);
 
-        this.taskOutput.textContent = currentChapter.chapter.number + "." + currentTask.task;
-        this.chapterOutput.textContent = currentChapter.chapter.fullname;
-        
-        if (remember){
-            var task : TaskMemory = {
-                timestamp: Date(),
-                task: {
-                    chapter: currentChapter.chapter.number,
-                    task: currentTask.task
-                }
-            }
-
-            var currentSpent : CourseMemory[] = (localStorage.getItem("spent") != null) ? JSON.parse(localStorage.getItem("spent")!) : new Array<CourseMemory>();
-            var indexOfCourse : number = currentSpent.findIndex((course) => course.course == this.course);
-            var courseSpent : TaskMemory[] = (indexOfCourse > -1) ? currentSpent[indexOfCourse].tasks : new Array<TaskMemory>();
-
-            courseSpent.push(task);
-            if (indexOfCourse > -1){
-                currentSpent[indexOfCourse].tasks = courseSpent;
-            } else {
-                currentSpent.push({
-                    course: this.course,
-                    tasks: courseSpent
-                });
-            }
-            localStorage.setItem("spent", JSON.stringify(currentSpent));
-        }
-        
-
+        this.taskOutput.textContent = currentChapter.number + "." + currentTask.task;
+        this.chapterOutput.textContent = currentChapter.fullname;
     }
 }
 

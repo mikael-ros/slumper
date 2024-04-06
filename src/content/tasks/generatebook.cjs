@@ -51,12 +51,10 @@ function generateJSON(input, outputPath) {
                         taskList.forEach(function (task) { return processedTasks.push({ task: task, section: "Undefined" }); });
                         var chapterObj = {
                             fullname: chapter,
-                            number: currentIndex
-                        };
-                        chapters.push({
-                            chapter: chapterObj,
+                            number: currentIndex,
                             tasks: processedTasks
-                        });
+                        };
+                        chapters.push(chapterObj);
                         currentIndex += 1;
                     });
                     _a.label = 1;
