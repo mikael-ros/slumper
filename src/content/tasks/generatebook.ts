@@ -11,7 +11,7 @@ interface Chapter {
     tasks: Task[];
 }
 
-export default async function generateJSON(input: Map<String, number>, outputPath: String){
+export default async function generateJSON(input: Map<string, number>, outputPath: String){
     var chapters: Chapter[] = [];
     var currentIndex = 1;
     input.forEach((length, chapter) => {
@@ -36,7 +36,7 @@ export default async function generateJSON(input: Map<String, number>, outputPat
     }
 }
 
-var manssonlinalg = new Map<String, number>();
+var manssonlinalg = new Map<string, number>();
 manssonlinalg.set("Vektorer", 40);
 manssonlinalg.set("Vektorer som geometriska objekt", 39);
 manssonlinalg.set("Linjära ekvationssystem", 31);

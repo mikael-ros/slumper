@@ -1,4 +1,9 @@
-import FMAB20 from '../content/tasks/manssonlinalg.json';
+import manssonlinalg from '../content/tasks/manssonlinalg.json';
+
+const manssonLinalg : Book = {
+    name: "Linjär algebra",
+    chapters: manssonlinalg
+}
 
 interface Task {
     task: number;
@@ -11,8 +16,13 @@ interface Chapter {
     tasks: Task[];
 }
 
-export function getRandomChapter(includedChapters : number[]){
-    const filtered: Chapter[] = FMAB20.filter((chapter) => includedChapters.indexOf(chapter.number) > -1);
+interface Book {
+    name: string;
+    chapters: Chapter[];
+}
+
+export function getRandomChapter(chapters: Chapter[], includedChapters : Set<number>){
+    const filtered: Chapter[] = chapters.filter((chapter) => includedChapters.has(chapter.number));
     return filtered[Math.floor(Math.random() * filtered.length)]; // First gets a random chapter from the book
 }
 
@@ -21,7 +31,9 @@ export function getRandomTaskInChapter(chapter: Chapter){
 }
 
 class OutputCard extends HTMLElement {
-    course: string;
+    book: Book;
+    currentChapter: Chapter;
+    currentTask: Task;
     
     taskOutput: HTMLElement;
     chapterOutput: HTMLElement;
@@ -35,37 +47,63 @@ class OutputCard extends HTMLElement {
 
     constructor () {
         super();
-        this.course = "No course selected";
-
+        
         this.taskOutput = this.querySelector('#output')!;
         this.chapterOutput = this.querySelector('#chapter')!;
         this.randButton = this.querySelector('#random')!;  
         this.doneButton = this.querySelector('#done')!;  
         this.resetButton = this.querySelector('#reset')!;
         this.selector = this.querySelector('#course-select')!;
-        this.course = this.selector.value;
 
         this.randButton.addEventListener("click", () => {this.getRandom(false)});
         this.doneButton.addEventListener("click", () => {this.getRandom(true)});
         this.resetButton.addEventListener("click", () => {localStorage.removeItem("spent"); this.getRandom(false)});
 
         this.checkboxes = [];
-
-        FMAB20.forEach((chapter) => this.checkboxes.push(document.createElement("input")));
+        this.book = manssonLinalg;
+    
+        this.book.chapters.forEach((chapter) => this.checkboxes.push(document.createElement("input")));
         this.checkboxes.forEach((checkbox) => {
             checkbox.setAttribute("type", "checkbox");
             checkbox.checked = true;
             this.appendChild(checkbox)
         });
-        this.getRandom(false);
+
+        this.currentChapter = this.getRandomFilteredChapter();
+        this.currentTask = this.getRandomTaskInCurrentChapter();
+        this.displayTask();
     }
 
     getRandom(remember: boolean){
-        var currentChapter = getRandomChapter(this.checkboxes.filter((box) => box.checked).map((box) => this.checkboxes.indexOf(box) + 1));
-        var currentTask = getRandomTaskInChapter(currentChapter);
+        if (remember) {this.addCurrentTaskToMemory()}
 
-        this.taskOutput.textContent = currentChapter.number + "." + currentTask.task;
-        this.chapterOutput.textContent = currentChapter.fullname;
+        this.currentChapter = this.getRandomFilteredChapter();
+        this.currentTask = this.getRandomTaskInCurrentChapter();
+        this.displayTask();
+    }
+
+    getRandomFilteredChapter(): Chapter{
+        return getRandomChapter(this.book.chapters, this.getFilter());
+    }
+
+    getRandomTaskInCurrentChapter(): Task{
+        return getRandomTaskInChapter(this.currentChapter);
+    }
+
+    // Takes the checkboxes and returns an array of numbers, each checkbox corresponding to an index.
+    getFilter(): Set<number>{
+        return new Set(this.checkboxes.filter((box) => box.checked).map((box) => this.checkboxes.indexOf(box) + 1));
+    }
+
+    displayTask(){
+        this.taskOutput.textContent = this.currentChapter.number + "." + this.currentTask.task;
+        this.chapterOutput.textContent = this.currentChapter.fullname;
+    }
+
+    addCurrentTaskToMemory(){
+        const currentSpent : Book[] = (localStorage.getItem("spent") != null) 
+        ? JSON.parse(localStorage.getItem("spent")!) : new Array<Book>();
+        const indexOfBook : number = currentSpent.findIndex((book) => book.name == this.book.name)
     }
 }
 
