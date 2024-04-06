@@ -1,47 +1,57 @@
-# Astro Starter Kit: Minimal
+# 🎲 Slumper
 
+A web tool for randomizing and gameifying course exercises.
+
+- **Randomizer** :: A smart randomizer that can save completed tasks and avoid them
+- **Filters** :: Lets you filter chapters you want included
+- **Timer** :: Allows you to time your performance, and set max time goals
+- **Solutions** :: Community-driven solution links, making it faster for you to check if you are correct
+
+## 🔨 Usage
+
+Simply visit [slumper.me](https://www.slumper.me).
+
+### Randomization
+To randomize, simply hit the random button!
+### Filters
+Select the chapters by checking the boxes
+### Timer
+Start the timer, stop it when finished. If you've set a maximum, and you hit it, a bell will ring.
+### Solutions
+At any time, view the solutions by pressing the solution button. This will stop the timer and will stop you from completing the task.
+
+---
+
+## 🪚 Contributing
+> [!NOTE]
+> This website is made with the framework Astro.js and in the TypeScript language. In addition, only pure CSS is used. You may or may not need to know these to work on this project.
+
+#### Prerequisites
+- Node.js and npm
+- Visual Studio Code or VSCodium
+
+### Running the site locally
+Simply run:
 ```sh
-npm create astro@latest -- --template minimal
+npm run dev
 ```
+And navigate to [localhost:4321](http://localhost:4321).
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+### Adding courses
+> [!CAUTION]
+> Please do not add the contents of any book, only the task lists and chapter headings. Any addition made including copyrighted material will be rejected unless you have solid proof of permission from the authors and publishers.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Courses are added in a fairly simple manner.
 
-## 🚀 Project Structure
+1. Install node.js and typescript
+2. Clone this repo
+3. Add an issue for your chapter, create a development branch and switch to it
+4. In the branch, change [``src/content/tasks/generatebook.ts``](src/content/tasks/generatebook.ts) to match your book
+5. Generate the JSON by, while in the ``src/content/tasks`` directory, running the ``./generatebook`` script (you might need to run ``chmod u+x generatebook.sh`` first)
+6. Add the entry in [``src/scripts/random.ts``](src/scripts/random.ts), by importing it, creating a ``Book`` object and registering it in the list.
+7. Push it and submit a pull request
+ 
+---
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+# ⚠️ Notice
+This project does not use any copyrighted material. The user has to own the book to use the website. 
