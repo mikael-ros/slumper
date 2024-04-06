@@ -57,6 +57,7 @@ class OutputCard extends HTMLElement {
         this.doneButton = this.querySelector('#done')!;  
         this.resetButton = this.querySelector('#reset')!;
         this.selector = this.querySelector('#course-select')!;
+        this.selector.addEventListener("change", () => {this.loadNew()});
 
         this.randButton.addEventListener("click", () => {this.getRandom(false)});
         this.doneButton.addEventListener("click", () => {this.getRandom(true)});
@@ -66,12 +67,12 @@ class OutputCard extends HTMLElement {
 
         books.forEach((book) => {
             var option : HTMLOptionElement = document.createElement("option");
-            option.value = JSON.stringify(book);
+            option.value = books.indexOf(book).toString();
             option.innerText = book.name;
             this.selector.appendChild(option);
         })
 
-        this.book = manssonLinalg;
+        this.book = books[parseInt(this.selector.value)];
     
         this.book.chapters.forEach((chapter) => {
             var checkbox = document.createElement("input");
@@ -88,6 +89,25 @@ class OutputCard extends HTMLElement {
         this.updateFilter();
     }
 
+    loadNew(){
+        this.book = books[parseInt(this.selector.value)];
+        this.checkboxes = [];
+        this.querySelectorAll("input").forEach((checkbox) => this.removeChild(checkbox));
+  
+        this.book.chapters.forEach((chapter) => {
+            var checkbox = document.createElement("input");
+            checkbox.setAttribute("type", "checkbox");
+            checkbox.checked = true;
+            checkbox.addEventListener("change", () => {this.updateFilter()});
+            this.checkboxes.push(checkbox);
+            this.appendChild(checkbox);
+        });
+
+        this.currentChapter = this.getRandomFilteredChapter();
+        this.currentTask = this.getRandomTaskInCurrentChapter();
+        this.displayTask();
+        this.updateFilter();
+    }
 
     reset(){
         localStorage.removeItem("spent");
@@ -107,13 +127,17 @@ class OutputCard extends HTMLElement {
         this.displayTask();
     }
 
+    getCurrentSpent() : Book[]{
+        return (localStorage.getItem("spent") != null) 
+        ? JSON.parse(localStorage.getItem("spent")!) : new Array<Book>(); // If there is no memory yet, create it;
+    }
+
     getRandomFilteredChapter(): Chapter{
         return getRandomChapter(this.book.chapters, this.getFilter());
     }
 
     getRandomTaskInCurrentChapter(): Task{
-        const currentSpent : Book[] = (localStorage.getItem("spent") != null) 
-        ? JSON.parse(localStorage.getItem("spent")!) : new Array<Book>();
+        const currentSpent : Book[] = this.getCurrentSpent();
         const indexOfBook : number = currentSpent.findIndex((book) => book.name == this.book.name);
         const bookSpent : Book = (indexOfBook > -1) ? currentSpent[indexOfBook] : {
             name: this.book.name,
@@ -131,8 +155,7 @@ class OutputCard extends HTMLElement {
     }
 
     updateFilter(){
-        const currentSpent : Book[] = (localStorage.getItem("spent") != null) 
-        ? JSON.parse(localStorage.getItem("spent")!) : new Array<Book>();
+        const currentSpent : Book[] = this.getCurrentSpent();
         const indexOfBook : number = currentSpent.findIndex((book) => book.name == this.book.name);
         const bookSpent : Book = (indexOfBook > -1) ? currentSpent[indexOfBook] : {
             name: this.book.name,
@@ -174,9 +197,13 @@ class OutputCard extends HTMLElement {
     }
 
     addCurrentTaskToMemory(){
-        const currentSpent : Book[] = (localStorage.getItem("spent") != null) 
-        ? JSON.parse(localStorage.getItem("spent")!) : new Array<Book>();
-        const indexOfBook : number = currentSpent.findIndex((book) => book.name == this.book.name);
+        // This code is very ugly, as I constantly need to check if it already exists or not
+
+        // Theres two ways to do this, either by copying the whole list of books and simply removing the task from the list when used, or creating a list of ignores. 
+        //For memory reasons I have chosen the latter, though it is harder and less readable
+
+        const currentSpent : Book[] = this.getCurrentSpent();
+        const indexOfBook : number = currentSpent.findIndex((book) => book.name == this.book.name); 
         const bookSpent : Book = (indexOfBook > -1) ? currentSpent[indexOfBook] : {
             name: this.book.name,
             chapters: []
@@ -189,7 +216,7 @@ class OutputCard extends HTMLElement {
             tasks: []
         }
 
-        chapterSpent.tasks.push(this.currentTask);
+        chapterSpent.tasks.push(this.currentTask); // Add the current task to spent
 
         if (indexOfChapter > -1){
             bookSpent.chapters[indexOfChapter] = chapterSpent;
@@ -204,7 +231,7 @@ class OutputCard extends HTMLElement {
         }
 
         localStorage.setItem("spent", JSON.stringify(currentSpent));
-        this.updateFilter();
+        this.updateFilter(); // Updates the filter, in case user has exhausted any chapters
     }
 }
 
