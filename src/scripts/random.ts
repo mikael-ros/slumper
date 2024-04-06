@@ -1,3 +1,4 @@
+
 import manssonlinalg from '../content/tasks/manssonlinalg.json';
 
 const manssonLinalg : Book = {
@@ -28,15 +29,7 @@ export function getRandomChapter(chapters: Chapter[], includedChapters : Set<num
 
 export function getRandomTaskInChapter(tasks: Task[], spentTasks: Set<number>){
     const filteredTasks: Task[] = tasks.filter((task) => !spentTasks.has(task.task));
-    if (filteredTasks.length != 0){
-        return filteredTasks[Math.floor(Math.random() * filteredTasks.length)];
-    } else {
-        window.alert("No tasks left in chapter"); //This is temporary until I add my own popup class.
-        return {
-            task: "x",
-            section: "No tasks left in chapter"
-        }
-    }
+    return filteredTasks[Math.floor(Math.random() * filteredTasks.length)];
 }
 
 class OutputCard extends HTMLElement {
@@ -46,10 +39,10 @@ class OutputCard extends HTMLElement {
     
     taskOutput: HTMLElement;
     chapterOutput: HTMLElement;
-    randButton: HTMLElement;
-    doneButton: HTMLElement;
-    resetButton: HTMLElement;
-    selector: HTMLElement;
+    randButton: HTMLButtonElement;
+    doneButton: HTMLButtonElement;
+    resetButton: HTMLButtonElement;
+    selector: HTMLSelectElement;
 
     checkboxes: HTMLInputElement[];
 
@@ -65,7 +58,7 @@ class OutputCard extends HTMLElement {
 
         this.randButton.addEventListener("click", () => {this.getRandom(false)});
         this.doneButton.addEventListener("click", () => {this.getRandom(true)});
-        this.resetButton.addEventListener("click", () => {localStorage.removeItem("spent"); this.getRandom(false)});
+        this.resetButton.addEventListener("click", () => {this.reset()});
 
         this.checkboxes = [];
         this.book = manssonLinalg;
@@ -74,12 +67,24 @@ class OutputCard extends HTMLElement {
         this.checkboxes.forEach((checkbox) => {
             checkbox.setAttribute("type", "checkbox");
             checkbox.checked = true;
+            checkbox.addEventListener("change", () => {this.updateFilter()});
             this.appendChild(checkbox)
         });
 
         this.currentChapter = this.getRandomFilteredChapter();
         this.currentTask = this.getRandomTaskInCurrentChapter();
         this.displayTask();
+        this.updateFilter();
+    }
+
+    reset(){
+        localStorage.removeItem("spent");
+        this.checkboxes.forEach((checkbox) => {
+            checkbox.disabled = false;
+            checkbox.checked = true;
+        })
+        this.updateFilter();
+        this.getRandom(false);
     }
 
     getRandom(remember: boolean){
@@ -111,6 +116,35 @@ class OutputCard extends HTMLElement {
         }
 
         return getRandomTaskInChapter(this.currentChapter.tasks, this.getSpent(chapterSpent));
+    }
+
+    updateFilter(){
+        const currentSpent : Book[] = (localStorage.getItem("spent") != null) 
+        ? JSON.parse(localStorage.getItem("spent")!) : new Array<Book>();
+        const indexOfBook : number = currentSpent.findIndex((book) => book.name == this.book.name);
+        const bookSpent : Book = (indexOfBook > -1) ? currentSpent[indexOfBook] : {
+            name: this.book.name,
+            chapters: []
+        };
+
+        for (let i = 0; i < bookSpent.chapters.length; i++){
+            const current : Chapter = bookSpent.chapters[i];
+            const correspondingCheckbox : HTMLInputElement = this.checkboxes[current.number - 1];
+            if (current.tasks.length >= this.book.chapters[current.number - 1].tasks.length){
+                correspondingCheckbox.checked = false;
+                correspondingCheckbox.disabled = true;
+            } else {
+                correspondingCheckbox.disabled = false;
+            }
+        }
+
+        if (!(this.checkboxes.findIndex((checkbox) => checkbox.checked && !checkbox.disabled) > -1)){
+            this.randButton.disabled = true;
+            this.doneButton.disabled = true;
+        } else {
+            this.randButton.disabled = false;
+            this.doneButton.disabled = false;
+        }
     }
 
     // Takes the checkboxes and returns an array of numbers, each checkbox corresponding to an index.
@@ -158,6 +192,7 @@ class OutputCard extends HTMLElement {
         }
 
         localStorage.setItem("spent", JSON.stringify(currentSpent));
+        this.updateFilter();
     }
 }
 
