@@ -19,9 +19,8 @@ Start the timer, stop it when finished. If you've set a maximum, and you hit it,
 
 ---
 
-<display closed>
+<details closed><summary>🪚 Contributing</summary>
 
-## 🪚 Contributing
 > [!NOTE]
 > This website is made with the framework Astro.js and in the TypeScript language. In addition, only pure CSS is used. You may or may not need to know these to work on this project.
 
@@ -54,7 +53,7 @@ Courses are added in a fairly simple manner.
 6. Add the entry in [``src/scripts/random.ts``](src/scripts/random.ts), by importing it, creating a ``Book`` object and registering it in the list.
 7. Push it and submit a **pull request**
 
-</display>
+</details>
  
 ---
 
