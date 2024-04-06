@@ -6,6 +6,8 @@ const manssonLinalg : Book = {
     chapters: manssonlinalg
 }
 
+const books : Book[] = [manssonLinalg];
+
 interface Task {
     task: number;
     section: string;
@@ -61,14 +63,23 @@ class OutputCard extends HTMLElement {
         this.resetButton.addEventListener("click", () => {this.reset()});
 
         this.checkboxes = [];
+
+        books.forEach((book) => {
+            var option : HTMLOptionElement = document.createElement("option");
+            option.value = JSON.stringify(book);
+            option.innerText = book.name;
+            this.selector.appendChild(option);
+        })
+
         this.book = manssonLinalg;
     
-        this.book.chapters.forEach((chapter) => this.checkboxes.push(document.createElement("input")));
-        this.checkboxes.forEach((checkbox) => {
+        this.book.chapters.forEach((chapter) => {
+            var checkbox = document.createElement("input");
             checkbox.setAttribute("type", "checkbox");
             checkbox.checked = true;
             checkbox.addEventListener("change", () => {this.updateFilter()});
-            this.appendChild(checkbox)
+            this.checkboxes.push(checkbox);
+            this.appendChild(checkbox);
         });
 
         this.currentChapter = this.getRandomFilteredChapter();
@@ -76,6 +87,7 @@ class OutputCard extends HTMLElement {
         this.displayTask();
         this.updateFilter();
     }
+
 
     reset(){
         localStorage.removeItem("spent");
