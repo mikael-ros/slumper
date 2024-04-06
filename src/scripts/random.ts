@@ -103,7 +103,34 @@ class OutputCard extends HTMLElement {
     addCurrentTaskToMemory(){
         const currentSpent : Book[] = (localStorage.getItem("spent") != null) 
         ? JSON.parse(localStorage.getItem("spent")!) : new Array<Book>();
-        const indexOfBook : number = currentSpent.findIndex((book) => book.name == this.book.name)
+        const indexOfBook : number = currentSpent.findIndex((book) => book.name == this.book.name);
+        const bookSpent : Book = (indexOfBook > -1) ? currentSpent[indexOfBook] : {
+            name: this.book.name,
+            chapters: []
+        };
+
+        const indexOfChapter : number = bookSpent.chapters.findIndex((chapter) => chapter.number == this.currentChapter.number);
+        const chapterSpent : Chapter = (indexOfChapter > -1) ? bookSpent.chapters[indexOfChapter] : {
+            fullname: this.currentChapter.fullname,
+            number: this.currentChapter.number,
+            tasks: []
+        }
+
+        chapterSpent.tasks.push(this.currentTask);
+
+        if (indexOfChapter > -1){
+            bookSpent.chapters[indexOfChapter] = chapterSpent;
+        } else {
+            bookSpent.chapters.push(chapterSpent);
+        }
+
+        if (indexOfBook > -1){
+            currentSpent[indexOfBook] = bookSpent;
+        } else {
+            currentSpent.push(bookSpent);
+        }
+
+        localStorage.setItem("spent", JSON.stringify(currentSpent));
     }
 }
 
