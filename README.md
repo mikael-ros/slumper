@@ -26,7 +26,7 @@ Start the timer, stop it when finished. If you've set a maximum, and you hit it,
 > This website is made with the framework Astro.js and in the TypeScript language. In addition, only pure CSS is used. You may or may not need to know these to work on this project.
 
 #### 🗒 If you cant work on the project, but have ideas
-Add them to the [**list of issues :)**](https://www.github.com/mikael-ros/slumper/issues)
+Add them to the [**list of issues**](https://www.github.com/mikael-ros/slumper/issues) :)
 
 #### 🗒 Things to work on
 [**Check out the issues**](https://www.github.com/mikael-ros/slumper/issues) and pick any issue currently unassigned. Issued marked as ``good first issue`` are, like it says on the tin, good to start with.

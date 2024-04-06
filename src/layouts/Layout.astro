@@ -11,9 +11,12 @@ const { title } = Astro.props;
 <html lang="en">
 	<Head title={title}/>
 	<body>
+		<header>
+			<h1>Slumper</h1>
+		</header>
 		<slot />
+		<footer>
+			<p>Made by Embracket</p>
+		</footer>
 	</body>
-	<footer>
-		<p>Made by Embracket</p>
-	</footer>
 </html>

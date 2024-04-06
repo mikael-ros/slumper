@@ -2,7 +2,7 @@
 import manssonlinalg from '../content/tasks/manssonlinalg.json';
 
 const manssonLinalg : Book = {
-    name: "Linjär algebra",
+    name: "Linjär algebra (Månsson; Nordbeck)",
     chapters: manssonlinalg
 }
 
@@ -39,6 +39,7 @@ class OutputCard extends HTMLElement {
     currentChapter: Chapter;
     currentTask: Task;
     
+    timer: HTMLElement;
     taskOutput: HTMLElement;
     chapterOutput: HTMLElement;
     randButton: HTMLButtonElement;
@@ -52,6 +53,7 @@ class OutputCard extends HTMLElement {
     constructor () {
         super();
         
+        this.timer = this.querySelector('#time')!;
         this.taskOutput = this.querySelector('#output')!;
         this.chapterOutput = this.querySelector('#chapter')!;
         this.randButton = this.querySelector('#random')!;  
@@ -94,7 +96,7 @@ class OutputCard extends HTMLElement {
     loadNew(){
         this.book = books[parseInt(this.selector.value)];
         this.checkboxes = [];
-        this.querySelectorAll("input").forEach((checkbox) => this.removeChild(checkbox));
+        this.checkboxContainer.querySelectorAll("input").forEach((checkbox) => this.removeChild(checkbox));
   
         this.book.chapters.forEach((chapter) => {
             var checkbox = document.createElement("input");
@@ -112,7 +114,17 @@ class OutputCard extends HTMLElement {
     }
 
     reset(){
-        localStorage.removeItem("spent");
+        const currentSpent : Book[] = this.getCurrentSpent();
+        const indexOfBook : number = currentSpent.findIndex((book) => book.name == this.book.name);
+        if (indexOfBook > -1){
+            currentSpent[indexOfBook] = {
+                name: this.book.name,
+                chapters: []
+            }
+        }
+        
+        localStorage.setItem("spent", JSON.stringify(currentSpent));
+
         this.checkboxes.forEach((checkbox) => {
             checkbox.disabled = false;
             checkbox.checked = true;

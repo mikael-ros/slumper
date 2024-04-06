@@ -87,4 +87,5 @@ manssonlinalg.set("Egenskaper hos linjära avbildningar", 28);
 manssonlinalg.set("Bas- och koordinatbyte", 10);
 manssonlinalg.set("Egenvektorer och egenvärden", 22);
 manssonlinalg.set("Diagonalisering", 16);
+manssonlinalg.set("Kapitel B", 32);
 generateJSON(manssonlinalg, "manssonlinalg");
