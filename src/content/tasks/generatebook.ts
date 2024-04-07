@@ -62,7 +62,7 @@ manssonlinalg.set("Egenvektorer och egenvärden", 22);
 manssonlinalg.set("Diagonalisering", 16);
 manssonlinalg.set("Kapitel B", 32);
 
-generateJSON(manssonlinalg, "Linjär algebra (Månsson; Nordbeck)", "", "manssonlinalg");
+generateJSON(manssonlinalg, "Linjär algebra (Månsson; Nordbeck)", "https://s1.adlibris.com/images/50965756/linjar-algebra.jpg", "manssonlinalg");
 
 var fmab20instudering = new Map<string, number>();
 fmab20instudering.set("Linjära ekvationssystem", 2);
@@ -76,4 +76,4 @@ fmab20instudering.set("Linjära avbildningar", 10);
 fmab20instudering.set("Determinanter", 14);
 fmab20instudering.set("Egenvärden och egenvektorer", 4);
 
-generateJSON(fmab20instudering, "FMAB20: Instuderingsfrågor i Linjär algebra; ht 2011", "", "fmab20instudering");
+generateJSON(fmab20instudering, "FMAB20: Instuderingsfrågor i Linjär algebra; ht 2011", "/src/assets/previews/fmab20instudering.png", "fmab20instudering");

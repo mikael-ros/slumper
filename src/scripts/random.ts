@@ -84,6 +84,9 @@ class OutputCard extends HTMLElement {
             this.checkboxContainer.appendChild(checkbox);
         });
 
+        document.body.style.background = "25% 25% url(" + this.book.previewImagePath + ") no-repeat";
+        document.body.style.backgroundSize = "cover";
+
         this.currentChapter = this.getRandomFilteredChapter();
         this.currentTask = this.getRandomTaskInCurrentChapter();
         this.displayTask();
@@ -93,7 +96,7 @@ class OutputCard extends HTMLElement {
     loadNew(){
         this.book = books[parseInt(this.selector.value)];
         this.checkboxes = [];
-        this.checkboxContainer.querySelectorAll("input").forEach((checkbox) => this.checkboxContainer.removeChild(checkbox));
+        this.checkboxContainer.querySelectorAll("input").forEach((checkbox) => this.checkboxContainer.removeChild(checkbox));  
   
         this.book.chapters.forEach((chapter) => {
             var checkbox = document.createElement("input");
@@ -103,6 +106,9 @@ class OutputCard extends HTMLElement {
             this.checkboxes.push(checkbox);
             this.checkboxContainer.appendChild(checkbox);
         });
+
+        document.body.style.background = "25% 25% url(" + this.book.previewImagePath + ") no-repeat";
+        document.body.style.backgroundSize = "cover";
 
         this.currentChapter = this.getRandomFilteredChapter();
         this.currentTask = this.getRandomTaskInCurrentChapter();
