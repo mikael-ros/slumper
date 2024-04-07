@@ -129,6 +129,10 @@ button, select {
         transition-duration: var(--transition-duration-fast);
     }
 
+    &:disabled{
+        filter: brightness(70%);
+    }
+
     img{
         width: 2em;
         height: 2em;
@@ -191,18 +195,32 @@ output-card{
             transition: transform;
             transition-duration: var(--transition-duration-fast);
         }
+
+        &:disabled{
+            
+        }
     }
 
     #random{
         img{
             transform: scale(1.2);
         }
+
+        &:disabled:hover img {
+            transform: scale(1.2) rotate(0deg);
+        }
+
         &:hover img{
             transform: scale(1.2) rotate(360deg);
         }
     }
 
     #done:hover{
+
+        &:disabled img {
+            transform: rotate(0deg);
+        }
+
         img{
             transform: rotate(-30deg);
         }
