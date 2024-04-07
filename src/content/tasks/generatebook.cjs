@@ -37,13 +37,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var promises_1 = require("fs/promises");
-function generateJSON(input, outputPath) {
+function generateJSON(input, bookName, bookPreviewImagePath, outputPath) {
     return __awaiter(this, void 0, void 0, function () {
-        var chapters, currentIndex, err_1;
+        var parsedChapters, currentIndex, book, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    chapters = [];
+                    parsedChapters = [];
                     currentIndex = 1;
                     input.forEach(function (length, chapter) {
                         var taskList = Array.from({ length: length }, function (_, i) { return i + 1; });
@@ -54,13 +54,18 @@ function generateJSON(input, outputPath) {
                             number: currentIndex,
                             tasks: processedTasks
                         };
-                        chapters.push(chapterObj);
+                        parsedChapters.push(chapterObj);
                         currentIndex += 1;
                     });
+                    book = {
+                        name: bookName,
+                        previewImagePath: bookPreviewImagePath,
+                        chapters: parsedChapters
+                    };
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, (0, promises_1.writeFile)(outputPath + ".json", JSON.stringify(chapters))];
+                    return [4 /*yield*/, (0, promises_1.writeFile)(outputPath + ".json", JSON.stringify(book))];
                 case 2:
                     _a.sent();
                     console.log('JSON file saved successfully:', outputPath);
@@ -88,4 +93,16 @@ manssonlinalg.set("Bas- och koordinatbyte", 10);
 manssonlinalg.set("Egenvektorer och egenvärden", 22);
 manssonlinalg.set("Diagonalisering", 16);
 manssonlinalg.set("Kapitel B", 32);
-generateJSON(manssonlinalg, "manssonlinalg");
+generateJSON(manssonlinalg, "Linjär algebra (Månsson; Nordbeck)", "", "manssonlinalg");
+var fmab20instudering = new Map();
+fmab20instudering.set("Linjära ekvationssystem", 2);
+fmab20instudering.set("Geometriska vektorer", 9);
+fmab20instudering.set("Linjer och plan", 11);
+fmab20instudering.set("Skalärprodukt", 12);
+fmab20instudering.set("Vektorprodukt", 6);
+fmab20instudering.set("Rummet R^n", 4);
+fmab20instudering.set("Matriser", 22);
+fmab20instudering.set("Linjära avbildningar", 10);
+fmab20instudering.set("Determinanter", 14);
+fmab20instudering.set("Egenvärden och egenvektorer", 4);
+generateJSON(fmab20instudering, "FMAB20: Instuderingsfrågor i Linjär algebra; ht 2011", "", "fmab20instudering");

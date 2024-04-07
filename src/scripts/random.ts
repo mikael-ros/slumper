@@ -1,12 +1,8 @@
 
 import manssonlinalg from '../content/tasks/manssonlinalg.json';
+import fmab20instudering from '../content/tasks/fmab20instudering.json';
 
-const manssonLinalg : Book = {
-    name: "Linjär algebra (Månsson; Nordbeck)",
-    chapters: manssonlinalg
-}
-
-const books : Book[] = [manssonLinalg];
+const books : Book[] = [manssonlinalg, fmab20instudering];
 
 interface Task {
     task: number;
@@ -21,6 +17,7 @@ interface Chapter {
 
 interface Book {
     name: string;
+    previewImagePath: string;
     chapters: Chapter[];
 }
 
@@ -96,7 +93,7 @@ class OutputCard extends HTMLElement {
     loadNew(){
         this.book = books[parseInt(this.selector.value)];
         this.checkboxes = [];
-        this.checkboxContainer.querySelectorAll("input").forEach((checkbox) => this.removeChild(checkbox));
+        this.checkboxContainer.querySelectorAll("input").forEach((checkbox) => this.checkboxContainer.removeChild(checkbox));
   
         this.book.chapters.forEach((chapter) => {
             var checkbox = document.createElement("input");
@@ -104,7 +101,7 @@ class OutputCard extends HTMLElement {
             checkbox.checked = true;
             checkbox.addEventListener("change", () => {this.updateFilter()});
             this.checkboxes.push(checkbox);
-            this.appendChild(checkbox);
+            this.checkboxContainer.appendChild(checkbox);
         });
 
         this.currentChapter = this.getRandomFilteredChapter();
@@ -119,6 +116,7 @@ class OutputCard extends HTMLElement {
         if (indexOfBook > -1){
             currentSpent[indexOfBook] = {
                 name: this.book.name,
+                previewImagePath: this.book.previewImagePath,
                 chapters: []
             }
         }
@@ -155,6 +153,7 @@ class OutputCard extends HTMLElement {
         const indexOfBook : number = currentSpent.findIndex((book) => book.name == this.book.name);
         const bookSpent : Book = (indexOfBook > -1) ? currentSpent[indexOfBook] : {
             name: this.book.name,
+            previewImagePath: this.book.previewImagePath,
             chapters: []
         };
 
@@ -173,6 +172,7 @@ class OutputCard extends HTMLElement {
         const indexOfBook : number = currentSpent.findIndex((book) => book.name == this.book.name);
         const bookSpent : Book = (indexOfBook > -1) ? currentSpent[indexOfBook] : {
             name: this.book.name,
+            previewImagePath: this.book.previewImagePath,
             chapters: []
         };
 
@@ -220,6 +220,7 @@ class OutputCard extends HTMLElement {
         const indexOfBook : number = currentSpent.findIndex((book) => book.name == this.book.name); 
         const bookSpent : Book = (indexOfBook > -1) ? currentSpent[indexOfBook] : {
             name: this.book.name,
+            previewImagePath: this.book.previewImagePath,
             chapters: []
         };
 

@@ -11,8 +11,14 @@ interface Chapter {
     tasks: Task[];
 }
 
-export default async function generateJSON(input: Map<string, number>, outputPath: String){
-    var chapters: Chapter[] = [];
+interface Book {
+    name: string;
+    previewImagePath: string;
+    chapters: Chapter[];
+}
+
+export default async function generateJSON(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, outputPath: String){
+    var parsedChapters: Chapter[] = [];
     var currentIndex = 1;
     input.forEach((length, chapter) => {
         var taskList: number[] = Array.from({length: length}, (_, i) => i + 1);
@@ -24,12 +30,18 @@ export default async function generateJSON(input: Map<string, number>, outputPat
             number: currentIndex,
             tasks: processedTasks
         };
-        chapters.push(chapterObj);
+        parsedChapters.push(chapterObj);
         currentIndex += 1;
     });
 
+    var book: Book =  {
+        name: bookName,
+        previewImagePath: bookPreviewImagePath,
+        chapters: parsedChapters
+    }
+
     try {
-        await writeFile(outputPath+".json", JSON.stringify(chapters));
+        await writeFile(outputPath+".json", JSON.stringify(book));
         console.log('JSON file saved successfully:', outputPath);
     } catch (err) {
         console.error('Error writing JSON file:', err);
@@ -50,4 +62,18 @@ manssonlinalg.set("Egenvektorer och egenvärden", 22);
 manssonlinalg.set("Diagonalisering", 16);
 manssonlinalg.set("Kapitel B", 32);
 
-generateJSON(manssonlinalg, "manssonlinalg");
+generateJSON(manssonlinalg, "Linjär algebra (Månsson; Nordbeck)", "", "manssonlinalg");
+
+var fmab20instudering = new Map<string, number>();
+fmab20instudering.set("Linjära ekvationssystem", 2);
+fmab20instudering.set("Geometriska vektorer", 9);
+fmab20instudering.set("Linjer och plan", 11);
+fmab20instudering.set("Skalärprodukt", 12);
+fmab20instudering.set("Vektorprodukt", 6);
+fmab20instudering.set("Rummet R^n", 4);
+fmab20instudering.set("Matriser", 22);
+fmab20instudering.set("Linjära avbildningar", 10);
+fmab20instudering.set("Determinanter", 14);
+fmab20instudering.set("Egenvärden och egenvektorer", 4);
+
+generateJSON(fmab20instudering, "FMAB20: Instuderingsfrågor i Linjär algebra; ht 2011", "", "fmab20instudering");
