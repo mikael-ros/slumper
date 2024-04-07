@@ -184,7 +184,7 @@ output-card{
 
     background-color: rgba(var(--backdrop-color),0.1);
     border-radius: var(--aggressive-border-radius);
-    backdrop-filter: blur(var(--mild-border-radius));
+    backdrop-filter: blur(var(--aggressive-border-radius));
 
     color: var(--text-color-negative);
 
