@@ -220,14 +220,30 @@ output-card{
         }
     }
 
+    #done{
+        img:first-of-type{
+            transform: translate(.1em, -0.2em) scale(0.9);
+        }
+
+        img:last-of-type{
+            margin-left: -2em;
+            transform: translate(-0.1em, .1em) scale(1.2) rotate(30deg);
+            opacity: 0.8;
+        }
+    }
+
     #done:hover{
 
         &:disabled img {
             transform: rotate(0deg);
         }
 
-        img{
-            transform: rotate(-30deg);
+        img:first-of-type{
+            transform: translate(.1em, -0.2em) scale(1.05) ;
+        }
+
+        img:last-of-type{
+            transform: translate(-0.1em, .1em) scale(1.2) rotate(390deg);
         }
     }
 
