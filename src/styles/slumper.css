@@ -131,6 +131,11 @@ button, select {
 
     &:disabled{
         filter: brightness(70%);
+        cursor: not-allowed;
+
+        &:hover{
+            border-radius: var(--mild-border-radius); 
+        }
     }
 
     img{
@@ -203,15 +208,15 @@ output-card{
 
     #random{
         img{
-            transform: scale(1.2);
+            transform: scale(1.2) rotate(30deg);
         }
 
         &:disabled:hover img {
-            transform: scale(1.2) rotate(0deg);
+            transform: scale(1.2) rotate(30deg);
         }
 
         &:hover img{
-            transform: scale(1.2) rotate(360deg);
+            transform: scale(1.2) rotate(390deg);
         }
     }
 
@@ -229,7 +234,7 @@ output-card{
     #reset:hover{
         img{
             transition-duration: var(--transition-duration-medium);
-            transform: rotate(90deg);
+            transform: rotate(110deg);
         }
     }
 
