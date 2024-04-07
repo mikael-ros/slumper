@@ -186,26 +186,29 @@ output-card{
         transition-duration: var(--transition-duration-fast);
     }
 
-    button:active{
+    button:hover{
         img {
             transition: transform;
             transition-duration: var(--transition-duration-fast);
         }
     }
 
-    #random:active{
+    #random{
         img{
-            transform: rotate(360deg);
+            transform: scale(1.2);
+        }
+        &:hover img{
+            transform: scale(1.2) rotate(360deg);
         }
     }
 
-    #done:active{
+    #done:hover{
         img{
             transform: rotate(-30deg);
         }
     }
 
-    #reset:active{
+    #reset:hover{
         img{
             transition-duration: var(--transition-duration-medium);
             transform: rotate(90deg);
