@@ -172,7 +172,7 @@ article{
 /* output-card */
 /***************/
 
-output-card{
+.output-card{
     display: flex;
     flex-direction: column;
 

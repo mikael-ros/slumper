@@ -1,30 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import { OutputCard } from '../components/ui/OutputCard'
 ---
 
 <Layout title="Slumper">
 	<article>
-		<output-card>
-			<div id="time-output">
-				<h1 id="time">No time</h1> 
-				<input id="time-enabled" type="checkbox" checked="false">
-			</div>
-			<h2 id="chapter">No chapter</h2>
-			<h3 id="output">No task</h3>
-			<div id="buttons">
-				<button aria-label="randomize" id="random"><img src="/src/assets/refresh.svg"></button>
-				<button aria-label="completed" id="done"><img src="/src/assets/tick.svg"><img src="/src/assets/refresh.svg"></button>
-				<button aria-label="reset book" id="reset"><img src="/src/assets/trash.svg"></button>
-			</div>
-
-			<div id="checkboxes">
-				<h4>Filter chapters:</h4>
-			</div>
-
-			<h4>Choose book:</h4>
-			<select id="course-select" name="course" id="course">
-			</select> 
-		</output-card>
-		<script src="../scripts/random.ts"></script>
+		<OutputCard client:only/>
 	</article>
 </Layout>
