@@ -106,3 +106,6 @@ fmab20instudering.set("Linjära avbildningar", 10);
 fmab20instudering.set("Determinanter", 14);
 fmab20instudering.set("Egenvärden och egenvektorer", 4);
 generateJSON(fmab20instudering, "FMAB20: Instuderingsfrågor i Linjär algebra; ht 2011", "/src/assets/previews/fmab20instudering.png", "fmab20instudering");
+var edaf052023 = new Map();
+edaf052023.set("EDAF05 example questions 2023", 40);
+generateJSON(edaf052023, "EDAF05 example questions 2023", "/src/assets/previews/edaf052023.png", "edaf052023");

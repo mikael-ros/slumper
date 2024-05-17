@@ -100,7 +100,7 @@ h6{
 }
 
 
-button, select {
+button, select, option {
     display: flex;
     align-items: center;
 

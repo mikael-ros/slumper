@@ -1,4 +1,4 @@
-import { addSpentTaskToBook, getSpentTasksFromBook, getSpentTasksFromChapter, resetSpentTasksFromBook } from "./StorageHandler";
+import { addSpentTaskToBook, getSpentTasksFromBook, getSpentTasksFromChapter, resetSpentTasksFromBook } from "./SpentHandler";
 
 export interface Task {
     task: number;
@@ -31,8 +31,15 @@ export const dummyChapter: Chapter = {
 
 import manssonlinalg from '../content/tasks/manssonlinalg.json';
 import fmab20instudering from '../content/tasks/fmab20instudering.json';
+import edaf052023 from '../content/tasks/edaf052023.json';
 
-export const BOOKS : Book[] = [manssonlinalg, fmab20instudering];
+
+export const BOOKS : Book[] = [manssonlinalg, fmab20instudering, edaf052023];
+
+export function getBook(name: string): Book {
+    const indexOfBook = BOOKS.findIndex((book) => book.name == name);
+    return indexOfBook == -1 ? BOOKS[0] : BOOKS[indexOfBook];
+}
 
 export class Randomizer{
     book: Book;
