@@ -60,6 +60,10 @@ export class Randomizer{
     addToFilter(chapter: Chapter){
         this.updateFilter(this.disclude.add(chapter.number));
     }
+
+    resetFilter(){
+        this.updateFilter(new Set);
+    }
     
     removeFromFilter(chapter: Chapter){
         this.disclude.delete(chapter.number)
@@ -83,14 +87,14 @@ export class Randomizer{
     }
 
     getRandomChapter() : Chapter{
-        return this.filteredChapters.length != 0 
+        return this.filteredChapters.length > 0 
         ? this.filteredChapters[Math.floor(Math.random() * this.filteredChapters.length)]
         : this.dummyChapter; // Return an empty dummy chapter when there are no chapters left (usually due to exhaustion)
     }
 
     getRandomTaskInChapter(chapter: Chapter) : Task{
         const spentTasksFromChapter = getSpentTasksFromChapter(this.book, chapter);
-        if (spentTasksFromChapter.length == chapter.tasks.length){
+        if (this.chapterIsSpent(chapter)){
             this.addToFilter(chapter);
             return {
                 task: -1,
@@ -100,6 +104,10 @@ export class Randomizer{
             const filteredTasks: Task[] = chapter.tasks.filter((task) => spentTasksFromChapter.find((spentTask) => spentTask.task == task.task) == undefined);
             return filteredTasks[Math.floor(Math.random() * filteredTasks.length)];
         }
+    }
+
+    chapterIsSpent(chapter: Chapter){
+        return getSpentTasksFromChapter(this.book, chapter).length == chapter.tasks.length;
     }
 
     getSpentTasks() : Book {
@@ -112,6 +120,7 @@ export class Randomizer{
 
     resetSpentTasks() {
         resetSpentTasksFromBook(this.book);
+        this.resetFilter();
         this.updateSpentTasks();
     }
 
