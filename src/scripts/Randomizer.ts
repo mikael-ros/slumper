@@ -44,8 +44,6 @@ export class Randomizer{
     currentChapter: Chapter;
     currentTask: Task;
 
-    
-
     constructor(book: Book){
         this.book = book;
         this.filteredChapters = book.chapters;

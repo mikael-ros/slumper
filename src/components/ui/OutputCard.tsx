@@ -8,23 +8,23 @@ export function OutputCard(){
     const [task, setTask] = createSignal(dummyTask);
     const [unchecked, setUnchecked] = createSignal(new Set<Number>);
     const [abort, setAbort] = createSignal(false);
-    const [randomizer, setRandomizer] = createSignal(new Randomizer(BOOKS[0]));
     
+    var randomizer : Randomizer = new Randomizer(BOOKS[0]);
 
     function setNewBook(book : Book){
         setBook(book);
+        randomizer = new Randomizer(book);
         setChapter(dummyChapter);
         setTask(dummyTask);
-        setRandomizer(new Randomizer(book));
         setUnchecked(new Set<Number>);
         updateChecks();
         random(false);
     }
 
     function random(memorize: Boolean){
-        randomizer().setNew(memorize);
-        setChapter(randomizer().getChapter());
-        setTask(randomizer().getTask());
+        randomizer.setNew(memorize);
+        setChapter(randomizer.getChapter());
+        setTask(randomizer.getTask());
         updateChecks();
     }
 
@@ -34,16 +34,16 @@ export function OutputCard(){
 
     function updateChecks(){
         var unchecked : Set<Number> = new Set<Number>();
-        book().chapters.forEach((chapter) => {if (randomizer().chapterIsSpent(chapter)){
+        book().chapters.forEach((chapter) => {if (randomizer.chapterIsSpent(chapter)){
             unchecked.add(chapter.number);
         }});
         setUnchecked(unchecked);
         
-        setAbort(unchecked.size == book().chapters.length || randomizer().disclude.size == book().chapters.length);
+        setAbort(unchecked.size == book().chapters.length || randomizer.disclude.size == book().chapters.length);
     }
 
     function filtered(chapter: Chapter){
-        return !unchecked().has(chapter.number) && !randomizer().disclude.has(chapter.number);
+        return !unchecked().has(chapter.number) && !randomizer.disclude.has(chapter.number);
     }
 
     return (
@@ -56,7 +56,7 @@ export function OutputCard(){
                     <img src="/src/assets/tick.svg" />
                     <img src="/src/assets/refresh.svg" />
                 </button>
-				<button aria-label="reset book" id="reset" onclick={(event) => {randomizer().resetSpentTasks(); random(false)}}><img src="/src/assets/trash.svg" /></button>
+				<button aria-label="reset book" id="reset" onclick={(event) => {randomizer.resetSpentTasks(); random(false)}}><img src="/src/assets/trash.svg" /></button>
 			</div>
 
 			<div >
@@ -65,9 +65,9 @@ export function OutputCard(){
                     <For each={book().chapters}>
                         {(chapter) => <input type="checkbox" disabled={unchecked().has(chapter.number)} checked={filtered(chapter)} onchange={(event) => {
                             if (filtered(chapter)){
-                                randomizer().addToFilter(chapter);
+                                randomizer.addToFilter(chapter);
                             } else {
-                                randomizer().removeFromFilter(chapter);
+                                randomizer.removeFromFilter(chapter);
                             }
                             updateChecks();}} />}
                     </For>
