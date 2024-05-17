@@ -17,6 +17,18 @@ export interface Book {
     chapters: Chapter[];
 }
 
+export const dummyTask : Task = {
+    task: -1,
+    section: "No section"
+}
+
+export const dummyChapter: Chapter = {
+    fullname: "No chapters left",
+    number: -1,
+    tasks: [dummyTask]
+}
+
+
 import manssonlinalg from '../content/tasks/manssonlinalg.json';
 import fmab20instudering from '../content/tasks/fmab20instudering.json';
 
@@ -32,14 +44,7 @@ export class Randomizer{
     currentChapter: Chapter;
     currentTask: Task;
 
-    dummyChapter: Chapter = {
-        fullname: "No chapters left",
-        number: -1,
-        tasks: [{
-            task: -1,
-            section: "No section"
-        }]
-    }
+    
 
     constructor(book: Book){
         this.book = book;
@@ -75,7 +80,7 @@ export class Randomizer{
      * @returns A new chapter and task
      */
     getNew(memorize: Boolean) : [Chapter, Task] {
-        if (memorize){
+        if (memorize && this.currentTask != dummyTask){
             addSpentTaskToBook(this.book, this.currentChapter, this.currentTask);
         }
         const chapter: Chapter = this.getRandomChapter();
@@ -89,17 +94,14 @@ export class Randomizer{
     getRandomChapter() : Chapter{
         return this.filteredChapters.length > 0 
         ? this.filteredChapters[Math.floor(Math.random() * this.filteredChapters.length)]
-        : this.dummyChapter; // Return an empty dummy chapter when there are no chapters left (usually due to exhaustion)
+        : dummyChapter; // Return an empty dummy chapter when there are no chapters left (usually due to exhaustion)
     }
 
     getRandomTaskInChapter(chapter: Chapter) : Task{
         const spentTasksFromChapter = getSpentTasksFromChapter(this.book, chapter);
         if (this.chapterIsSpent(chapter)){
             this.addToFilter(chapter);
-            return {
-                task: -1,
-                section: "No section"
-            }
+            return dummyTask;
         } else {
             const filteredTasks: Task[] = chapter.tasks.filter((task) => spentTasksFromChapter.find((spentTask) => spentTask.task == task.task) == undefined);
             return filteredTasks[Math.floor(Math.random() * filteredTasks.length)];
@@ -107,7 +109,8 @@ export class Randomizer{
     }
 
     chapterIsSpent(chapter: Chapter){
-        return getSpentTasksFromChapter(this.book, chapter).length == chapter.tasks.length;
+        const spentTasksFromChapter = getSpentTasksFromChapter(this.book, chapter);
+        return spentTasksFromChapter.length == chapter.tasks.length;
     }
 
     getSpentTasks() : Book {

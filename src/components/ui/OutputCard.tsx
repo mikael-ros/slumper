@@ -1,27 +1,30 @@
 import { createSignal, For, onMount, Show } from "solid-js";
-import {BOOKS, Randomizer} from "../../scripts/Randomizer";
-import type {Chapter, Task} from "../../scripts/Randomizer";
+import {BOOKS, Randomizer, dummyChapter, dummyTask} from "../../scripts/Randomizer";
+import type {Book, Chapter, Task} from "../../scripts/Randomizer";
 
 export function OutputCard(){
     const [book, setBook] = createSignal(BOOKS[0]);
-    const [chapter, setChapter] = createSignal({
-        fullname: "No chapter",
-        number: 0,
-        tasks: new Array<Task>()
-    })
-    const [task, setTask] = createSignal({
-        task: 0,
-        section: "Undefined"
-    })
-    const [checked, setChecked] = createSignal(new Set<Number>);
+    const [chapter, setChapter] = createSignal(dummyChapter);
+    const [task, setTask] = createSignal(dummyTask);
+    const [unchecked, setUnchecked] = createSignal(new Set<Number>);
     const [abort, setAbort] = createSignal(false);
+    const [randomizer, setRandomizer] = createSignal(new Randomizer(BOOKS[0]));
     
-    var randomizer : Randomizer = new Randomizer(book());
+
+    function setNewBook(book : Book){
+        setBook(book);
+        setChapter(dummyChapter);
+        setTask(dummyTask);
+        setRandomizer(new Randomizer(book));
+        setUnchecked(new Set<Number>);
+        updateChecks();
+        random(false);
+    }
 
     function random(memorize: Boolean){
-        randomizer.setNew(memorize);
-        setChapter(randomizer.getChapter());
-        setTask(randomizer.getTask());
+        randomizer().setNew(memorize);
+        setChapter(randomizer().getChapter());
+        setTask(randomizer().getTask());
         updateChecks();
     }
 
@@ -30,18 +33,19 @@ export function OutputCard(){
     })
 
     function updateChecks(){
-        var checked : Set<Number> = new Set<Number>();
-        book().chapters.forEach((chapter) => {if (randomizer.chapterIsSpent(chapter)){
-            checked.add(chapter.number);
+        var unchecked : Set<Number> = new Set<Number>();
+        book().chapters.forEach((chapter) => {if (randomizer().chapterIsSpent(chapter)){
+            unchecked.add(chapter.number);
         }});
-        setChecked(checked);
+        setUnchecked(unchecked);
         
-        setAbort(checked.size == book().chapters.length || randomizer.disclude.size == book().chapters.length);
+        setAbort(unchecked.size == book().chapters.length || randomizer().disclude.size == book().chapters.length);
     }
 
-    console.log(randomizer.disclude.size + " " + checked().size + " " + book().chapters.length);
+    function filtered(chapter: Chapter){
+        return !unchecked().has(chapter.number) && !randomizer().disclude.has(chapter.number);
+    }
 
-    console.log(checked());
     return (
         <div class="output-card">
 			<h2 id="chapter">{chapter().fullname}</h2>
@@ -52,30 +56,26 @@ export function OutputCard(){
                     <img src="/src/assets/tick.svg" />
                     <img src="/src/assets/refresh.svg" />
                 </button>
-				<button aria-label="reset book" id="reset" onclick={(event) => {randomizer.resetSpentTasks(); random(false)}}><img src="/src/assets/trash.svg" /></button>
+				<button aria-label="reset book" id="reset" onclick={(event) => {randomizer().resetSpentTasks(); random(false)}}><img src="/src/assets/trash.svg" /></button>
 			</div>
 
 			<div >
 				<h4>Filter chapters:</h4>
                 <div id="checkboxes">
                     <For each={book().chapters}>
-                        {(chapter) => <input type="checkbox" disabled={checked().has(chapter.number)} checked={!(checked().has(chapter.number) || randomizer.disclude.has(chapter.number))} onchange={(event) => {
-                            if (!event.target.checked){
-                                randomizer.addToFilter(chapter);
+                        {(chapter) => <input type="checkbox" disabled={unchecked().has(chapter.number)} checked={filtered(chapter)} onchange={(event) => {
+                            if (filtered(chapter)){
+                                randomizer().addToFilter(chapter);
                             } else {
-                                randomizer.removeFromFilter(chapter);
-                            }}} />}
+                                randomizer().removeFromFilter(chapter);
+                            }
+                            updateChecks();}} />}
                     </For>
                 </div>
 			</div>
 
 			<h4>Choose book:</h4>
-			<select id="course-select" name="course" onchange={(event) => {
-                setBook(JSON.parse(event.target.value));
-                randomizer = new Randomizer(book());
-                random(false);
-                setChecked(new Set<Number>);
-                updateChecks();}}>
+			<select id="course-select" name="course" onchange={(event) => {setNewBook(JSON.parse(event.target.value))}}>
                 <For each={BOOKS}>
                     {(book) =>
                         <option value={JSON.stringify(book)}>{book.name}</option>

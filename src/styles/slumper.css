@@ -233,13 +233,20 @@ article{
     }
 
     #done:hover{
-
-        &:disabled img {
-            transform: rotate(0deg);
+        &:disabled {
+            img:first-of-type{
+                transform: translate(.1em, -0.2em) scale(0.9);
+            }
+    
+            img:last-of-type{
+                margin-left: -2em;
+                transform: translate(-0.1em, .1em) scale(1.2) rotate(30deg);
+                opacity: 0.8;
+            }
         }
 
         img:first-of-type{
-            transform: translate(.1em, -0.2em) scale(1.05) ;
+            transform: translate(.1em, -0.2em) scale(1.05);
         }
 
         img:last-of-type{
