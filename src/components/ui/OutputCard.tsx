@@ -1,10 +1,12 @@
 import { createSignal, For, onMount, Show } from "solid-js";
-import {BOOKS, Randomizer, dummyChapter, dummyTask, getBook} from "../../scripts/Randomizer";
-import type {Book, Chapter, Task} from "../../scripts/Randomizer";
+import { Randomizer} from "../../scripts/Randomizer";
+
+import type {Book, Chapter, Task} from "../../scripts/Books.ts";
+import {library, dummyChapter, dummyTask, getBook} from "../../scripts/Books.ts";
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 
 export function OutputCard(){
-    const [book, setBook] = createSignal<Book>(getBook(getSetOrElse("prior", BOOKS[0].name)));
+    const [book, setBook] = createSignal<Book>(getBook(getSetOrElse("prior", library[0].name)));
     const [chapter, setChapter] = createSignal(dummyChapter);
     const [task, setTask] = createSignal(dummyTask);
     const [unchecked, setUnchecked] = createSignal<Set<Number>>(new Set<Number>);
@@ -83,7 +85,7 @@ export function OutputCard(){
 			<h4>Choose book:</h4>
 			<select id="course-select" name="course" onchange={(event) => {setNewBook(JSON.parse(event.target.value))}}>
                 <option value={JSON.stringify(book())}>{book().name}</option>
-                <For each={BOOKS.filter((BOOK) => BOOK.name != book().name)}>
+                <For each={library.filter((_book) => _book.name != book().name)}>
                     {(book) =>
                         <option value={JSON.stringify(book)}>{book.name}</option>
                     }

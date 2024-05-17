@@ -1,6 +1,49 @@
-import type {Book, Chapter, Task} from "./Randomizer.ts";
 import {getSetOrElse, set} from "./StorageHandler.ts";
 
+export interface Task {
+    task: number;
+    section: string;
+}
+
+export interface Chapter {
+    fullname: string;
+    number: number;
+    tasks: Task[];
+}
+
+export interface Book {
+    name: string;
+    previewImagePath: string;
+    chapters: Chapter[];
+}
+
+export const dummyTask : Task = {
+    task: -1,
+    section: "No section"
+}
+
+export const dummyChapter: Chapter = {
+    fullname: "No chapters left",
+    number: -1,
+    tasks: [dummyTask]
+}
+
+
+import manssonlinalg from '../content/tasks/manssonlinalg.json';
+import fmab20instudering from '../content/tasks/fmab20instudering.json';
+import edaf052023 from '../content/tasks/edaf052023.json';
+
+export const library : Book[] = [manssonlinalg, fmab20instudering, edaf052023];
+
+/**
+ * Retrieves a book from name
+ * @param name The name of the book
+ * @returns The book, if it is found, or just the first book
+ */
+export function getBook(name: string): Book {
+    const indexOfBook = library.findIndex((book) => book.name == name);
+    return indexOfBook == -1 ? library[0] : library[indexOfBook];
+}
 
 /**
  * @returns The whole memory
@@ -64,7 +107,7 @@ function initBook(book: Book){
 }
 
 /**
- * Simply calls addBook(book) to reset the book, as addBook will override the book.
+ * Simply calls initBook(book) to reset the book, as initBook will override the book.
  * @param book The book to be reset
  */
 export function resetSpentTasksFromBook(book: Book){ initBook(book);}
