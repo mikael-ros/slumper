@@ -33,7 +33,7 @@ import manssonlinalg from '../content/tasks/manssonlinalg.json';
 import fmab20instudering from '../content/tasks/fmab20instudering.json';
 import edaf052023 from '../content/tasks/edaf052023.json';
 
-export const library : Book[] = [manssonlinalg, fmab20instudering, edaf052023];
+export const library : Book[] = [manssonlinalg, fmab20instudering, edaf052023].concat(getSetOrElse("personalLibrary", new Array<Book>));
 
 /**
  * Retrieves a book from name
