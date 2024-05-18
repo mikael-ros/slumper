@@ -35,7 +35,7 @@ When all entries have been added, simply press ``Generate`` and the book will be
 
 To submit a book to be considered as a default:
 1. Check the banned books list, to see if it's banned
-2. If not banned, submit an issue with the tag ``book`` and title as the book title. The description should contain the ISBN.
+2. If not banned, submit an issue with the tag ``book`` and title as the book title. The description should atleast contain the ISBN.
 
 I will, given time, then contact the copyright holder myself and seek permission, and will respond wheter or not it got approved or not. If approved,I will ask you to provide the generated book. If the copyright holders decline, it will go in the banned books list.
 
