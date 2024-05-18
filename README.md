@@ -13,7 +13,8 @@
 Simply visit [slumper.me](https://www.slumper.me) and pick any of the pregenerated books, or add your own.
 
 ### 🎰 Randomization
-To randomize, simply hit the random button!
+To randomize, simply hit the random button! To mark a task as completed, and randomize, press the "tick" button. 
+
 ### ⚙️ Filters
 Select the chapters by checking the boxes
 ### ⏱️ Timer
