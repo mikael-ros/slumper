@@ -6,6 +6,8 @@ import {library, dummyChapter, dummyTask, getBook} from "../../scripts/Books.ts"
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 
 export function OutputCard(){
+    const [displayTimer, setDisplayTimer] = createSignal(false);
+
     const [book, setBook] = createSignal<Book>(getBook(getSetOrElse("prior", library[0].name)));
     const [chapter, setChapter] = createSignal(dummyChapter);
     const [task, setTask] = createSignal(dummyTask);
@@ -55,46 +57,55 @@ export function OutputCard(){
     }
 
     return (
-        <div class="card output">
-			<h2 id="chapter">{chapter().fullname}</h2>
-			<h3 id="output">{chapter().number + "." + task().task}</h3>
-			<div id="buttons">
-				<button class="icon-only" aria-label="randomize" id="random" onclick={(event) => {random(false)}} disabled={abort()}><img src="/src/assets/refresh.svg" /></button>
-				<button class="icon-only" aria-label="completed" id="done" onclick={(event) => {random(true)}} disabled={abort()}>
-                    <img src="/src/assets/tick.svg" />
-                    <img src="/src/assets/refresh.svg" />
-                </button>
-				<button class="icon-only" aria-label="reset book" id="reset" onclick={(event) => {randomizer.resetSpentTasks(); random(false)}}><img src="/src/assets/trash.svg" /></button>
-			</div>
-
-			<div >
-				<h4>Filter chapters:</h4>
-                <div id="checkboxes">
-                    <For each={book().chapters}>
-                        {(chapter) => <input type="checkbox" disabled={unchecked().has(chapter.number)} checked={filtered(chapter)} onchange={(event) => {
-                            if (filtered(chapter)){
-                                randomizer.addToFilter(chapter);
-                            } else {
-                                randomizer.removeFromFilter(chapter);
-                            }
-                            updateChecks();}} />}
-                    </For>
+        <div class="card-group">
+            <Show when={displayTimer()}>
+                <div class="card small timer">
+                    <h1 style="text-align: center; margin: .35em;">00:00:00</h1>
                 </div>
-			</div>
+            </Show>
+            
+            <div class="card output">
+                <button aria-label="toggle timer" id="toggle" onclick={event => setDisplayTimer(!displayTimer())}><img src="/src/assets/plus.svg" /><p>Toggle timer</p></button>
+                <h2 id="chapter">{chapter().fullname}</h2>
+                <h3 id="output">{chapter().number + "." + task().task}</h3>
+                <div id="buttons">
+                    <button class="icon-only" aria-label="randomize" id="random" onclick={(event) => {random(false)}} disabled={abort()}><img src="/src/assets/refresh.svg" /></button>
+                    <button class="icon-only" aria-label="completed" id="done" onclick={(event) => {random(true)}} disabled={abort()}>
+                        <img src="/src/assets/tick.svg" />
+                        <img src="/src/assets/refresh.svg" />
+                    </button>
+                    <button class="icon-only" aria-label="reset book" id="reset" onclick={(event) => {randomizer.resetSpentTasks(); random(false)}}><img src="/src/assets/trash.svg" /></button>
+                </div>
 
-			<h4>Choose book:</h4>
-            <div id="course-select-wrapper">
-                <select id="course-select" name="course" onchange={(event) => {setNewBook(JSON.parse(event.target.value))}}>
-                    <option value={JSON.stringify(book())}>{book().name}</option>
-                    <For each={library.filter((_book) => _book.name != book().name)}>
-                        {(book) =>
-                            <option value={JSON.stringify(book)}>{book.name}</option>
-                        }
-                    </For>
-                </select>
-                <a href="add"><button aria-label="add book" id="add"><img src="/src/assets/plus.svg" /><p>Add</p></button></a>
+                <div >
+                    <h4>Filter chapters:</h4>
+                    <div id="checkboxes">
+                        <For each={book().chapters}>
+                            {(chapter) => <input type="checkbox" disabled={unchecked().has(chapter.number)} checked={filtered(chapter)} onchange={(event) => {
+                                if (filtered(chapter)){
+                                    randomizer.addToFilter(chapter);
+                                } else {
+                                    randomizer.removeFromFilter(chapter);
+                                }
+                                updateChecks();}} />}
+                        </For>
+                    </div>
+                </div>
+
+                <h4>Choose book:</h4>
+                <div id="course-select-wrapper">
+                    <select id="course-select" name="course" onchange={(event) => {setNewBook(JSON.parse(event.target.value))}}>
+                        <option value={JSON.stringify(book())}>{book().name}</option>
+                        <For each={library.filter((_book) => _book.name != book().name)}>
+                            {(book) =>
+                                <option value={JSON.stringify(book)}>{book.name}</option>
+                            }
+                        </For>
+                    </select>
+                    <a href="add"><button aria-label="add book" id="add"><img src="/src/assets/plus.svg" /><p>Add</p></button></a>
+                </div>
+                
             </div>
-			
-		</div>
+        </div>
     )
 }

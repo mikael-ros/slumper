@@ -204,6 +204,7 @@ article{
 }
 
 .output{
+
     #random{
         img{
             transform: scale(1.2) rotate(30deg);
@@ -259,8 +260,9 @@ article{
         }
     }
 
-    #add{
+    #add, #toggle{
         height: 2em;
+        max-width: 10em;
 
         img{
             width: 1.5em;
@@ -286,7 +288,7 @@ article{
 }
 
 .add {
-    #buttons button, & > a button{
+    #buttons button, & > button, & > a button{
         img{
             transform: scale(0.9);
         }
@@ -297,6 +299,22 @@ article{
             }
         }
     }
+}
+
+.card-group{
+    margin: auto;
+
+    .card {
+        margin: 2em 0;
+    }
+}
+
+.small {
+    margin: auto !important;
+    min-width: 400px !important;
+    width: 20% !important;
+    max-height: 40vh !important;
+    padding: var(--mild-border-radius) !important;
 }
 
 .card{
