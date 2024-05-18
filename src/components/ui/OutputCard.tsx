@@ -59,12 +59,12 @@ export function OutputCard(){
 			<h2 id="chapter">{chapter().fullname}</h2>
 			<h3 id="output">{chapter().number + "." + task().task}</h3>
 			<div id="buttons">
-				<button aria-label="randomize" id="random" onclick={(event) => {random(false)}} disabled={abort()}><img src="/src/assets/refresh.svg" /></button>
-				<button aria-label="completed" id="done" onclick={(event) => {random(true)}} disabled={abort()}>
+				<button class="icon-only" aria-label="randomize" id="random" onclick={(event) => {random(false)}} disabled={abort()}><img src="/src/assets/refresh.svg" /></button>
+				<button class="icon-only" aria-label="completed" id="done" onclick={(event) => {random(true)}} disabled={abort()}>
                     <img src="/src/assets/tick.svg" />
                     <img src="/src/assets/refresh.svg" />
                 </button>
-				<button aria-label="reset book" id="reset" onclick={(event) => {randomizer.resetSpentTasks(); random(false)}}><img src="/src/assets/trash.svg" /></button>
+				<button class="icon-only" aria-label="reset book" id="reset" onclick={(event) => {randomizer.resetSpentTasks(); random(false)}}><img src="/src/assets/trash.svg" /></button>
 			</div>
 
 			<div >

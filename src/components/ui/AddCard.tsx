@@ -11,7 +11,7 @@ export function AddCard(){
     const [chapters, setChapters] = createSignal(1);
 
     return (
-        <div class="card">
+        <div class="card add">
             <a href="/"><button aria-label="back" id="import"><img src="/src/assets/home.svg" /><p>Back</p></button></a>
             <h1>Add book</h1>
 

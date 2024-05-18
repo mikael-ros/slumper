@@ -104,9 +104,11 @@ a:has(> button){
     text-decoration: none;
 }
 
-button, select, option, input:not([type=checkbox]){
-    width: 10em;
+.icon-only{
+    max-width: 3em;
+}
 
+button, select, option, input:not([type=checkbox]){
     display: flex;
     align-items: center;
     justify-content: center;
@@ -283,6 +285,20 @@ article{
     }
 }
 
+.add {
+    #buttons button, & > a button{
+        img{
+            transform: scale(0.9);
+        }
+
+        &:hover{
+            img{
+                transform: scale(1.05) rotate(10deg);
+            }
+        }
+    }
+}
+
 .card{
     display: flex;
     flex-direction: column;
@@ -306,6 +322,10 @@ article{
         display: flex;
         min-width: 500px;
         width: 50%;
+
+        button {
+            width: 100%;
+        }
     }
 
     img{
@@ -372,11 +392,24 @@ article{
     mask-position: 0 0, 100% 0;
     mask-repeat: no-repeat, no-repeat;
 
+    #add:hover{
+        img{
+            
+        }
+    }
+
     button {
         height: 2em;
         
         img {
             width: 1.5em;
+        }
+
+        &:hover {
+            img{
+                transition-duration: var(--transition-duration-medium);
+                transform: rotate(360deg);
+            }
         }
     }
 }
