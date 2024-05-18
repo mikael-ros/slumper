@@ -99,10 +99,15 @@ h6{
     text-shadow: .1em .1em 0px var(--text-color-shadowed);
 }
 
+a:has(> button){
+    text-decoration: none;
+}
 
-button, select, option {
+button, select, option, input:not([type=checkbox]){
     display: flex;
     align-items: center;
+    justify-content: center;
+    align-content: center;
 
     margin: var(--mild-border-radius);
     padding: var(--mild-border-radius);
@@ -114,6 +119,7 @@ button, select, option {
 
     font-weight: 600;
     font-size: 1.1em;
+    text-align: center;
     text-shadow: .1em .1em 0px var(--text-color-shadowed);
     text-overflow: ellipsis;
 
@@ -143,7 +149,20 @@ button, select, option {
         width: 2em;
         height: 2em;
 
+        padding: .1em;
+
         filter: brightness(200%) contrast(75%);
+    }
+
+    p{
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        padding-left: .35em;
+        
+        min-width: 2em;
+        height: 100%;
     }
 }
 
@@ -172,40 +191,12 @@ article{
 /* output-card */
 /***************/
 
-.output-card{
+.course-select-wrapper{
     display: flex;
-    flex-direction: column;
+    width: 100%;
+}
 
-    min-width: 600px;
-    width: 30%;
-
-    margin: auto;
-    padding: var(--aggressive-border-radius);
-
-    background-color: rgba(var(--backdrop-color),0.1);
-    border-radius: var(--aggressive-border-radius);
-    backdrop-filter: blur(var(--aggressive-border-radius));
-
-    color: var(--text-color-negative);
-
-    #buttons{
-        display: flex;
-        min-width: 500px;
-        width: 50%;
-    }
-
-    img{
-        transition: transform;
-        transition-duration: var(--transition-duration-fast);
-    }
-
-    button:hover{
-        img {
-            transition: transform;
-            transition-duration: var(--transition-duration-fast);
-        }
-    }
-
+.output{
     #random{
         img{
             transform: scale(1.2) rotate(30deg);
@@ -261,8 +252,19 @@ article{
         }
     }
 
-    select {
-        width: 15rem;
+    #add{
+        height: 2em;
+
+        img{
+            width: 1.5em;
+        }
+    }
+
+    #add:hover{
+        img{
+            transition-duration: var(--transition-duration-medium);
+            transform: rotate(360deg);
+        }
     }
 
     #time-output{
@@ -276,3 +278,99 @@ article{
     }
 }
 
+.card{
+    display: flex;
+    flex-direction: column;
+
+    min-width: 600px;
+    width: 30%;
+    max-height: 70vh;
+
+    overflow-y: scroll;
+
+    margin: auto;
+    padding: var(--aggressive-border-radius);
+
+    background-color: rgba(var(--backdrop-color),0.1);
+    border-radius: var(--aggressive-border-radius);
+    backdrop-filter: blur(var(--aggressive-border-radius));
+
+    color: var(--text-color-negative);
+
+    #buttons{
+        display: flex;
+        min-width: 500px;
+        width: 50%;
+    }
+
+    img{
+        transition: transform;
+        transition-duration: var(--transition-duration-fast);
+    }
+
+    button:hover{
+        img {
+            transition: transform;
+            transition-duration: var(--transition-duration-fast);
+        }
+    }
+
+    select {
+        width: 15rem;
+    }
+}
+
+
+.chapter-input{
+    display: flex;
+    height: 3.5em;
+
+    input{
+        width: 100%;
+    }
+
+    input:first-of-type{
+        min-width: 60%;
+    }
+}
+
+.chapter-input:nth-of-type(n + 2){
+    opacity: 0.8;
+}
+
+.chapter-input:nth-of-type(n + 3){
+    opacity: 0.6;
+}
+
+#chapter-inputs{
+    max-height: 80%;
+    margin: 1em 0;
+    overflow-y: scroll;
+
+    /* Inspired by
+    https://pqina.nl/blog/fade-out-overflow-using-css-mask-image/ */
+
+    --mask-height: 40%;
+
+    --mask-image-content: linear-gradient(
+        to bottom,
+        black calc(100% - var(--mask-height)),
+        transparent
+    );
+
+    mask-image: var(--mask-image-content);
+    mask-size: var(--mask-size-content);
+
+    mask-position: 0 0, 100% 0;
+    mask-repeat: no-repeat, no-repeat;
+
+    
+}
+
+#book-params{
+    display: flex;
+
+    input{
+        width: 100%;
+    }
+}

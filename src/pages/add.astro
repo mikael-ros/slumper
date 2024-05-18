@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { AddCard } from '../components/ui/AddCard'
+---
+
+<Layout title="Slumper / Add">
+	<article>
+		<AddCard client:only="solid-js"/>
+	</article>
+</Layout>

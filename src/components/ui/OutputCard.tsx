@@ -55,7 +55,7 @@ export function OutputCard(){
     }
 
     return (
-        <div class="output-card">
+        <div class="card output">
 			<h2 id="chapter">{chapter().fullname}</h2>
 			<h3 id="output">{chapter().number + "." + task().task}</h3>
 			<div id="buttons">
@@ -83,14 +83,18 @@ export function OutputCard(){
 			</div>
 
 			<h4>Choose book:</h4>
-			<select id="course-select" name="course" onchange={(event) => {setNewBook(JSON.parse(event.target.value))}}>
-                <option value={JSON.stringify(book())}>{book().name}</option>
-                <For each={library.filter((_book) => _book.name != book().name)}>
-                    {(book) =>
-                        <option value={JSON.stringify(book)}>{book.name}</option>
-                    }
-                </For>
-            </select>
+            <div id="course-select-wrapper">
+                <select id="course-select" name="course" onchange={(event) => {setNewBook(JSON.parse(event.target.value))}}>
+                    <option value={JSON.stringify(book())}>{book().name}</option>
+                    <For each={library.filter((_book) => _book.name != book().name)}>
+                        {(book) =>
+                            <option value={JSON.stringify(book)}>{book.name}</option>
+                        }
+                    </For>
+                </select>
+                <a href="add"><button aria-label="add book" id="add"><img src="/src/assets/plus.svg" /><p>Add</p></button></a>
+            </div>
+			
 		</div>
     )
 }
