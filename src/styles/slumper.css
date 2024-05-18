@@ -5,6 +5,7 @@
     --body-background-color: var(--background-color);
     --text-color: #111;
     --text-color-negative: var(--background-color);
+    --text-color-negative-dull: #CCC;
     --text-color-shadowed: #222;
 
     --backdrop-color: 10,10,10;
@@ -104,6 +105,8 @@ a:has(> button){
 }
 
 button, select, option, input:not([type=checkbox]){
+    width: 10em;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -158,6 +161,8 @@ button, select, option, input:not([type=checkbox]){
         display: inline-flex;
         align-items: center;
         justify-content: center;
+
+        color: var(--text-color-negative-dull);
 
         padding-left: .35em;
         
@@ -309,6 +314,8 @@ article{
     }
 
     button:hover{
+        
+
         img {
             transition: transform;
             transition-duration: var(--transition-duration-fast);
@@ -330,7 +337,7 @@ article{
     }
 
     input:first-of-type{
-        min-width: 60%;
+        min-width: 70%;
     }
 }
 
@@ -343,6 +350,7 @@ article{
 }
 
 #chapter-inputs{
+    min-height: 200px;
     max-height: 80%;
     margin: 1em 0;
     overflow-y: scroll;
@@ -364,7 +372,13 @@ article{
     mask-position: 0 0, 100% 0;
     mask-repeat: no-repeat, no-repeat;
 
-    
+    button {
+        height: 2em;
+        
+        img {
+            width: 1.5em;
+        }
+    }
 }
 
 #book-params{

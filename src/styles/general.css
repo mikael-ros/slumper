@@ -1,26 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-
-:root{
-    --background-color: #EEE;
-    --body-background-color: white;
-    --text-color: #111;
-    --text-color-negative: var(--background-color);
-    --text-color-shadowed: #444;
-
-    --backdrop-color: 10,10,10;
-
-    --mild-border-radius: .5rem;
-    --default-border-radius: 1rem;
-    --high-border-radius: 2rem;
-    --aggressive-border-radius: 3rem;
-
-    --transition-duration-medium: .5s;
-    --transition-duration-fast: .25s;
-    --transition-duration-veryfast: .125s;
-
-    font-family: Noto Sans;
-    font-size: 12pt;
-}
 
 *,
 *::after,

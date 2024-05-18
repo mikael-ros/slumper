@@ -8,33 +8,24 @@ import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 import {ChapterInput} from "../ChapterInput.tsx";
 
 export function AddCard(){
+    const [chapters, setChapters] = createSignal(1);
 
     return (
         <div class="card">
+            <a href="/"><button aria-label="back" id="import"><img src="/src/assets/home.svg" /><p>Back</p></button></a>
             <h1>Add book</h1>
 
             <div id="book-params">
-                <input placeholder="Book name"></input>
+                <input placeholder="Book name" required></input>
                 <input placeholder="Book image url"></input>
             </div>
             
 
             <div id="chapter-inputs">
-                <ChapterInput></ChapterInput>
-                <ChapterInput></ChapterInput>
-                <ChapterInput></ChapterInput>
-                <ChapterInput></ChapterInput>
-                <ChapterInput></ChapterInput>
-                <ChapterInput></ChapterInput>
-                <ChapterInput></ChapterInput>
-                <ChapterInput></ChapterInput>
-                <ChapterInput></ChapterInput>
-                <ChapterInput></ChapterInput>
-                <ChapterInput></ChapterInput>
-                <ChapterInput></ChapterInput>
-                <ChapterInput></ChapterInput>
-                <ChapterInput></ChapterInput>
-                <ChapterInput></ChapterInput>
+                <button aria-label="add" class="add" onclick={event => setChapters(chapters() + 1)}><img src="/src/assets/plus.svg" /><p>Add entry</p></button>
+                <For each={[...Array(chapters()).keys()]}>
+                    {chapter => <ChapterInput></ChapterInput>}
+                </For>
             </div>
             
 
