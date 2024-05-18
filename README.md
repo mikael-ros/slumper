@@ -23,17 +23,17 @@ Click the ``+`` button next to the book selector. It will bring you to a differe
 
 Add entries by writing the chapter title and number of tasks, then either press enter or click the + button. To remove or ignore a chapter, leave the amount of tasks at 0 (and the parser will simply skip it).
 
-When all entries have been added, simply press ``Generate`` and the book will be added to your local browser storage. You can also choose to save the book to disk.
+When all entries have been added, simply press ``Save`` and the book will be added to your local browser storage. You can also choose to save the book to disk by pressing ``Export``.
 
 #### ✉️ Submitting a book to the default list
 > [!NOTE]
-> As per contact with the Swedish patent office [(PRV)](https://www.prv.se/sv/), it seems like I have to ask permossion for every book added, hence why adding books wont be as simple as pull requests.
+> As per contact with the Swedish patent office [(PRV)](https://www.prv.se/sv/), it seems like I have to ask permission for every book added, hence why adding books wont be as simple as pull requests.
 
 To submit a book to be considered as a default:
 1. Check the banned books list, to see if it's banned
 2. If not banned, submit an issue with the tag ``book`` and title as the book title. The description should atleast contain the ISBN. Do NOT include an exported book.
 
-I will, given time, then contact the copyright holder myself and seek permission, and will respond wheter or not it got approved or not. If approved,I will ask you to provide the generated book. If the copyright holders decline, it will go in the banned books list.
+I will, given time, then contact the copyright holder myself and seek permission, and will respond wheter or not it got approved or not. If approved, I will ask you to provide the generated book. If the copyright holders decline, it will go in the banned books list.
 
 #### ‼️ Troubleshooting
 - 📤 ``"I tried to import a previously generated book, but it gave me an error"``: It is possible that the program has changed inbetween, which will unfortunately mean you have to regenerate the book.
