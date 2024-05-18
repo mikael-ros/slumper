@@ -1,12 +1,16 @@
 import { createSignal, For, onMount, Show } from "solid-js";
 import { Randomizer} from "../../scripts/Randomizer";
+import { Timer } from "./Timer.tsx";
 
 import type {Book, Chapter, Task} from "../../scripts/Books.ts";
 import {library, dummyChapter, dummyTask, getBook} from "../../scripts/Books.ts";
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 
 export function OutputCard(){
-    const [displayTimer, setDisplayTimer] = createSignal(false);
+    var defaultTimer : number = 180;
+
+    const [displayTimer, setDisplayTimer] = createSignal(true);
+    const [timer, setTimer] = createSignal(defaultTimer, { equals: false });
 
     const [book, setBook] = createSignal<Book>(getBook(getSetOrElse("prior", library[0].name)));
     const [chapter, setChapter] = createSignal(dummyChapter);
@@ -36,6 +40,12 @@ export function OutputCard(){
         setChapter(randomizer.getChapter());
         setTask(randomizer.getTask());
         updateChecks();
+        setTimer(defaultTimer);
+    }
+
+    function setNewTimer(timer : number){
+        defaultTimer = timer;
+        setTimer(timer);
     }
 
     onMount(() => {
@@ -59,18 +69,19 @@ export function OutputCard(){
     return (
         <div class="card-group">
             <Show when={displayTimer()}>
-                <div class="card small timer">
-                    <h1 style="text-align: center; margin: .35em;">00:00:00</h1>
-                </div>
+                <Timer time={timer()}/>
             </Show>
             
             <div class="card output">
-                <button aria-label="toggle timer" id="toggle" onclick={event => setDisplayTimer(!displayTimer())}><img src="/src/assets/plus.svg" /><p>Toggle timer</p></button>
+                <div id ="timer-config">
+                    <button aria-label="toggle timer" id="toggle" onclick={event => setDisplayTimer(!displayTimer())}><img src="/src/assets/plus.svg" /><p>Toggle timer</p></button><Show when={displayTimer()}><input placeholder={defaultTimer.toString()} onchange={event => setNewTimer(parseInt(event.target.value))} /><p>seconds</p></Show>
+                </div>
+                
                 <h2 id="chapter">{chapter().fullname}</h2>
                 <h3 id="output">{chapter().number + "." + task().task}</h3>
                 <div id="buttons">
-                    <button class="icon-only" aria-label="randomize" id="random" onclick={(event) => {random(false)}} disabled={abort()}><img src="/src/assets/refresh.svg" /></button>
-                    <button class="icon-only" aria-label="completed" id="done" onclick={(event) => {random(true)}} disabled={abort()}>
+                    <button class="icon-only" aria-label="randomize" id="random" onclick={event => random(false)} disabled={abort()}><img src="/src/assets/refresh.svg" /></button>
+                    <button class="icon-only" aria-label="completed" id="done" onclick={event => random(true)} disabled={abort()}>
                         <img src="/src/assets/tick.svg" />
                         <img src="/src/assets/refresh.svg" />
                     </button>

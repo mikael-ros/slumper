@@ -260,7 +260,7 @@ article{
         }
     }
 
-    #add, #toggle{
+    #add{
         height: 2em;
         max-width: 10em;
 
@@ -437,5 +437,30 @@ article{
 
     input{
         width: 100%;
+    }
+}
+
+#timer-config{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+
+    height: 3em;
+
+    button, input {
+        height: 100%;
+    }
+    
+    button {
+        width: 50%;
+
+        img {
+            height: 100%;
+        }
+    }
+
+    input {
+        width: 30%;
     }
 }
