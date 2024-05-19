@@ -9,7 +9,7 @@ import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 export function OutputCard(){
     var defaultTimer : number = 180;
 
-    const [displayTimer, setDisplayTimer] = createSignal(true);
+    const [displayTimer, setDisplayTimer] = createSignal(false);
     const [timer, setTimer] = createSignal(defaultTimer, { equals: false });
 
     const [book, setBook] = createSignal<Book>(getBook(getSetOrElse("prior", library[0].name)));
@@ -68,14 +68,36 @@ export function OutputCard(){
 
     return (
         <div class="card-group">
-            <Show when={displayTimer()}>
-                <Timer time={timer()}/>
-            </Show>
+            <div class ="card small timer">
+                <div style={displayTimer() ? "height: 3em; transition-property: height; transition-duration: var(--transition-duration-medium);" : "height: 0; transition-property: height; transition-duration: var(--transition-duration-medium);"}>
+                    <Show when={displayTimer()}>
+                        <Timer time={timer()}/>
+                    </Show>
+                </div>
+                <div id="timer-config">
+                    <button style={displayTimer() ? "width: 70%;" : "width: 100%"} aria-label="toggle timer" id="toggle" onclick={event => setDisplayTimer(!displayTimer())}><img src="/src/assets/timer.svg" /><p>Toggle timer</p></button>
+                    <Show when={displayTimer()}>
+                        <input placeholder={timer().toString()} 
+                        onchange={event => {
+                            const number = event.target.value.length != 0 ? parseInt(event.target.value) : defaultTimer; // Makes sure empty input is handled correctly
+                            const valid = !Number.isNaN(number) && number > 0 && number <= 3600;
+                            
+                            if (valid && number != defaultTimer) // Only set a number if it is non negative and actually a number, and if it is actually changed
+                                setNewTimer(number)
+                        }} 
+                        oninput={event => { // Change color based on input validity
+                            const number = event.target.value.length != 0 ? parseInt(event.target.value) : defaultTimer; 
+                            const valid = !Number.isNaN(number) && number > 0 && number <= 3600;
+                            event.target.style.color = valid ? "var(--text-color-negative)" : "red";
+                        }}
+                            /><p>seconds</p>
+                    </Show>
+                </div>
+            </div>
+            
             
             <div class="card output">
-                <div id ="timer-config">
-                    <button aria-label="toggle timer" id="toggle" onclick={event => setDisplayTimer(!displayTimer())}><img src="/src/assets/plus.svg" /><p>Toggle timer</p></button><Show when={displayTimer()}><input placeholder={defaultTimer.toString()} onchange={event => setNewTimer(parseInt(event.target.value))} /><p>seconds</p></Show>
-                </div>
+                
                 
                 <h2 id="chapter">{chapter().fullname}</h2>
                 <h3 id="output">{chapter().number + "." + task().task}</h3>
