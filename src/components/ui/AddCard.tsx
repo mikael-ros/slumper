@@ -5,10 +5,21 @@ import type {Book, Chapter, Task} from "../../scripts/Books.ts";
 import {library, dummyChapter, dummyTask, getBook} from "../../scripts/Books.ts";
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 
-import {ChapterInput} from "../ChapterInput.tsx";
-
 export function AddCard(){
+    const input : Map<string, number> = new Map<string, number>();
     const [chapters, setChapters] = createSignal(1);
+    const [completed, setCompleted] = createSignal(false);
+
+    function warn(valid: boolean, event){
+        event.target.style.color = valid ? "var(--text-color-negative)" : "red";
+    }
+
+    function handleInput(event){
+        setCompleted(false);
+        const number = event.target.value.length > 0 ? parseInt(event.target.value) : 1; 
+        const valid = !Number.isNaN(number) && number > 0;
+        warn(valid, event);
+    }
 
     return (
         <div class="card add">
@@ -16,16 +27,25 @@ export function AddCard(){
             <h1>Add book</h1>
 
             <div id="book-params">
-                <input placeholder="Book name" required></input>
+                <input placeholder="Book name" oninput={event => warn(event.target.value.length > 0, event)} required></input>
                 <input placeholder="Book image url"></input>
             </div>
             
 
             <div id="chapter-inputs">
                 <button aria-label="add" class="add" onclick={event => setChapters(chapters() + 1)}><img src="/src/assets/plus.svg" /><p>Add entry</p></button>
-                <For each={[...Array(chapters()).keys()]}>
-                    {chapter => <ChapterInput></ChapterInput>}
-                </For>
+                <ol>
+                    <For each={[...Array(chapters()).keys()]}>
+                        {chapter => 
+                        <li class="chapter-input">
+                            <p>{chapter + 1}</p>
+                            <input placeholder="Chapter title" oninput={event => warn(event.target.value.length > 0, event)} required />
+                            <input placeholder="# of tasks" onchange={event => handleInput(event)}
+                            oninput={event => handleInput(event)} required/>
+                        </li>
+                        }
+                    </For>
+                </ol>
             </div>
             
 

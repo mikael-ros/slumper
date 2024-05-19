@@ -352,7 +352,17 @@ article{
 
 .chapter-input{
     display: flex;
-    height: 3.5em;
+    align-items: center;
+
+    margin: 0.75em 0;
+
+    height: 2em;
+
+    * {
+        height: 100%;
+        line-height: 2em;
+        color: var(--text-color-negative-dull);
+    }
 
     input{
         width: 100%;
@@ -375,6 +385,7 @@ article{
     min-height: 200px;
     max-height: 80%;
     margin: 1em 0;
+    padding-bottom: 5em;
     overflow-y: scroll;
 
     /* Inspired by
@@ -393,6 +404,11 @@ article{
 
     mask-position: 0 0, 100% 0;
     mask-repeat: no-repeat, no-repeat;
+
+    ol {
+        padding-left: .5em;
+    }
+
 
     button {
         height: 2em;

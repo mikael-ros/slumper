@@ -1,6 +1,7 @@
 import { createSignal, For, onMount, Show } from "solid-js";
 import { Randomizer} from "../../scripts/Randomizer";
 import { Timer } from "./Timer.tsx";
+import complete from "../../assets/complete.wav";
 
 import type {Book, Chapter, Task} from "../../scripts/Books.ts";
 import {library, dummyChapter, dummyTask, getBook} from "../../scripts/Books.ts";
@@ -8,6 +9,8 @@ import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 
 export function OutputCard(){
     var defaultTimer : number = 180;
+    const completionSound = new Audio(complete);
+    completionSound.volume = 0.1; // replace with volume output
 
     const [displayTimer, setDisplayTimer] = createSignal(false);
     const [timer, setTimer] = createSignal(defaultTimer, { equals: false });
@@ -41,6 +44,8 @@ export function OutputCard(){
         setTask(randomizer.getTask());
         updateChecks();
         setTimer(defaultTimer);
+        if (memorize)
+            completionSound.play();
     }
 
     function setNewTimer(timer : number){
