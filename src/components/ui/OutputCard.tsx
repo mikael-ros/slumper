@@ -71,10 +71,31 @@ export function OutputCard(){
         return !unchecked().has(chapter.number) && !randomizer.disclude.has(chapter.number);
     }
 
+    function warn(valid: boolean, event){
+        event.target.style.color = valid ? "var(--text-color-negative)" : "red";
+    }
+
+    function handleInput(event){
+        const number = event.target.value.length != 0 ? parseInt(event.target.value) : defaultTimer; 
+        const valid = !Number.isNaN(number) && number > 0 && number <= 3600;
+        warn(valid, event);
+    }
+
+    function handleChange(event){
+        const number = event.target.value.length != 0 ? parseInt(event.target.value) : defaultTimer; // Makes sure empty input is handled correctly
+        const valid = !Number.isNaN(number) && number > 0 && number <= 3600;
+        
+        if (valid && number != defaultTimer) // Only set a number if it is non negative and actually a number, and if it is actually changed
+            setNewTimer(number)
+        warn(valid, event);
+    }
+
     return (
         <div class="card-group">
             <div class ="card small timer">
-                <div style={displayTimer() ? "height: 3em; transition-property: height; transition-duration: var(--transition-duration-medium);" : "height: 0; transition-property: height; transition-duration: var(--transition-duration-medium);"}>
+                <div style={  "height: " + (displayTimer() ? "3em" : "0em") + ";"
+                            + " transition-property: height;"
+                            + " transition-duration: var(--transition-duration-medium);"}>
                     <Show when={displayTimer()}>
                         <Timer time={timer()}/>
                     </Show>
@@ -83,36 +104,32 @@ export function OutputCard(){
                     <button style={displayTimer() ? "width: 70%;" : "width: 100%"} aria-label="toggle timer" id="toggle" onclick={event => setDisplayTimer(!displayTimer())}><img src="/src/assets/timer.svg" /><p>Toggle timer</p></button>
                     <Show when={displayTimer()}>
                         <input placeholder={timer().toString()} 
-                        onchange={event => {
-                            const number = event.target.value.length != 0 ? parseInt(event.target.value) : defaultTimer; // Makes sure empty input is handled correctly
-                            const valid = !Number.isNaN(number) && number > 0 && number <= 3600;
-                            
-                            if (valid && number != defaultTimer) // Only set a number if it is non negative and actually a number, and if it is actually changed
-                                setNewTimer(number)
-                        }} 
-                        oninput={event => { // Change color based on input validity
-                            const number = event.target.value.length != 0 ? parseInt(event.target.value) : defaultTimer; 
-                            const valid = !Number.isNaN(number) && number > 0 && number <= 3600;
-                            event.target.style.color = valid ? "var(--text-color-negative)" : "red";
-                        }}
+                        onchange={event => handleChange(event)} 
+                        oninput={event => handleInput(event)}
                             /><p>seconds</p>
                     </Show>
                 </div>
             </div>
             
-            
             <div class="card output">
-                
-                
                 <h2 id="chapter">{chapter().fullname}</h2>
                 <h3 id="output">{(book().chapters.length > 1 ? chapter().number + "." : "") + task().task}</h3>
                 <div id="buttons">
-                    <button class="icon-only" aria-label="randomize" id="random" onclick={event => random(false)} disabled={abort()}><img src="/src/assets/refresh.svg" /></button>
-                    <button class="icon-only" aria-label="completed" id="done" onclick={event => random(true)} disabled={abort()}>
+                    <button class="icon-only" aria-label="randomize" id="random" 
+                    onclick={event => random(false)} 
+                    disabled={abort()}>
+                        <img src="/src/assets/refresh.svg" />
+                    </button>
+                    <button class="icon-only" aria-label="completed" id="done" 
+                    onclick={event => random(true)} 
+                    disabled={abort()}>
                         <img src="/src/assets/tick.svg" />
                         <img src="/src/assets/refresh.svg" />
                     </button>
-                    <button class="icon-only" aria-label="reset book" id="reset" onclick={(event) => {randomizer.resetSpentTasks(); random(false)}}><img src="/src/assets/trash.svg" /></button>
+                    <button class="icon-only" aria-label="reset book" id="reset" 
+                    onclick={(event) => {randomizer.resetSpentTasks(); random(false)}}>
+                        <img src="/src/assets/trash.svg" />
+                    </button>
                 </div>
 
                 <Show when={book().chapters.length > 1}>
@@ -120,13 +137,19 @@ export function OutputCard(){
                         <h4>Filter chapters:</h4>
                         <div id="checkboxes">
                             <For each={book().chapters}>
-                                {(chapter) => <input type="checkbox" disabled={unchecked().has(chapter.number)} checked={filtered(chapter)} onchange={(event) => {
-                                    if (filtered(chapter)){
-                                        randomizer.addToFilter(chapter);
-                                    } else {
-                                        randomizer.removeFromFilter(chapter);
-                                    }
-                                    updateChecks();}} />}
+                                {(chapter) => 
+                                    <input type="checkbox" 
+                                    disabled={unchecked().has(chapter.number)} 
+                                    checked={filtered(chapter)} 
+                                    onchange={(event) => {
+                                        if (filtered(chapter)){
+                                            randomizer.addToFilter(chapter);
+                                        } else {
+                                            randomizer.removeFromFilter(chapter);
+                                        }
+                                        updateChecks();
+                                    }} />
+                                }
                             </For>
                         </div>
                     </div>
