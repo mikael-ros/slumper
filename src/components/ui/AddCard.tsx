@@ -27,8 +27,8 @@ export function AddCard(){
             <h1>Add book</h1>
 
             <div id="book-params">
-                <input placeholder="Book name" oninput={event => warn(event.target.value.length > 0, event)} required></input>
-                <input placeholder="Book image url"></input>
+                <input placeholder="Book name*" oninput={event => warn(event.target.value.length > 0, event)} required></input>
+                <input placeholder="Book image URL (optional)"></input>
             </div>
             
 
@@ -39,8 +39,8 @@ export function AddCard(){
                         {chapter => 
                         <li class="chapter-input">
                             <p>{chapter + 1}</p>
-                            <input placeholder="Chapter title" oninput={event => warn(event.target.value.length > 0, event)} required />
-                            <input placeholder="# of tasks" onchange={event => handleInput(event)}
+                            <input placeholder="Chapter title*" oninput={event => warn(event.target.value.length > 0, event)} required />
+                            <input placeholder="# of tasks*" onchange={event => handleInput(event)}
                             oninput={event => handleInput(event)} required/>
                         </li>
                         }
