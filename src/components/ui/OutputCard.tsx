@@ -105,7 +105,7 @@ export function OutputCard(){
                 
                 
                 <h2 id="chapter">{chapter().fullname}</h2>
-                <h3 id="output">{chapter().number + "." + task().task}</h3>
+                <h3 id="output">{(book().chapters.length > 1 ? chapter().number + "." : "") + task().task}</h3>
                 <div id="buttons">
                     <button class="icon-only" aria-label="randomize" id="random" onclick={event => random(false)} disabled={abort()}><img src="/src/assets/refresh.svg" /></button>
                     <button class="icon-only" aria-label="completed" id="done" onclick={event => random(true)} disabled={abort()}>
@@ -115,20 +115,22 @@ export function OutputCard(){
                     <button class="icon-only" aria-label="reset book" id="reset" onclick={(event) => {randomizer.resetSpentTasks(); random(false)}}><img src="/src/assets/trash.svg" /></button>
                 </div>
 
-                <div >
-                    <h4>Filter chapters:</h4>
-                    <div id="checkboxes">
-                        <For each={book().chapters}>
-                            {(chapter) => <input type="checkbox" disabled={unchecked().has(chapter.number)} checked={filtered(chapter)} onchange={(event) => {
-                                if (filtered(chapter)){
-                                    randomizer.addToFilter(chapter);
-                                } else {
-                                    randomizer.removeFromFilter(chapter);
-                                }
-                                updateChecks();}} />}
-                        </For>
+                <Show when={book().chapters.length > 1}>
+                    <div >
+                        <h4>Filter chapters:</h4>
+                        <div id="checkboxes">
+                            <For each={book().chapters}>
+                                {(chapter) => <input type="checkbox" disabled={unchecked().has(chapter.number)} checked={filtered(chapter)} onchange={(event) => {
+                                    if (filtered(chapter)){
+                                        randomizer.addToFilter(chapter);
+                                    } else {
+                                        randomizer.removeFromFilter(chapter);
+                                    }
+                                    updateChecks();}} />}
+                            </For>
+                        </div>
                     </div>
-                </div>
+                </Show>
 
                 <h4>Choose book:</h4>
                 <div id="course-select-wrapper">
