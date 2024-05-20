@@ -108,7 +108,7 @@ a:has(> button){
     max-width: 3em;
 }
 
-button, select, option, input:not([type=checkbox]){
+button, select, option, input:not([type=checkbox]), label{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -290,10 +290,21 @@ article{
 }
 
 .card-group{
-    margin: 0 calc(50vw - 300px);
+    margin: 1em calc(50vw - 300px);
 
     .card {
-        margin: 2em 0;
+        margin: 2em 1em;
+    }
+}
+
+.vertical {
+    display: flex;
+
+    width: 1000px;
+    margin: 1em calc(50vw - 500px);
+
+    .card:nth-of-type(2){
+        width: 40%;
     }
 }
 
@@ -325,13 +336,16 @@ article{
 
     color: var(--text-color-negative);
 
-    #buttons{
+    .button-group{
         display: flex;
-        min-width: 500px;
-        width: 50%;
+        width: 100%;
 
         button {
             width: 100%;
+        }
+
+        input {
+            display: none;
         }
     }
 
@@ -341,8 +355,6 @@ article{
     }
 
     button:hover{
-        
-
         img {
             transition: transform;
             transition-duration: var(--transition-duration-fast);
@@ -386,7 +398,7 @@ article{
     opacity: 0.6;
 }
 
-#chapter-inputs{
+#chapter-inputs, .book-list{
     min-height: 200px;
     max-height: 80%;
     margin: 1em 0;
@@ -443,8 +455,6 @@ article{
     display: flex;
     align-items: center;
 
-    
-
     height: 3em;
 
     button, input {
@@ -470,5 +480,50 @@ article{
 
     input {
         width: 30%;
+    }
+}
+
+
+.book-list{
+    padding: 0 1em 3.5em 0;
+}
+
+.book-entry{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 2.5em;
+    padding: .25em .5em;
+    border-radius: var(--mild-border-radius);
+
+    h5 {
+        width: 80%;
+        text-wrap: nowrap;
+        line-height: 2.5em;
+        margin: 0;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+
+        color: var(--text-color-negative-dull);
+    }
+
+    &:hover {
+        background-color: rgba(var(--backdrop-color),0.1);
+        
+        button {
+            display: flex;
+        }
+    }
+
+    button{
+        display: none;
+        max-width: 2em;
+
+        margin: 0 0 0 .25em;
+
+        img {
+            width: 2em;
+        }
     }
 }

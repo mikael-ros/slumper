@@ -114,7 +114,7 @@ export function OutputCard(){
             <div class="card output">
                 <h2 id="chapter">{chapter().fullname}</h2>
                 <h3 id="output">{(book().chapters.length > 1 ? chapter().number + "." : "") + task().task}</h3>
-                <div id="buttons">
+                <div class="button-group">
                     <button class="icon-only" aria-label="randomize" id="random" 
                     onclick={event => random(false)} 
                     disabled={abort()}>

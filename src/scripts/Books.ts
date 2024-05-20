@@ -23,9 +23,19 @@ export const dummyTask : Task = {
 }
 
 export const dummyChapter: Chapter = {
-    fullname: "No chapters left",
+    fullname: "",
     number: -1,
     tasks: [dummyTask]
+}
+
+export const dummyBook: Book = {
+    name: "",
+    previewImagePath: "",
+    chapters: [{
+        fullname: "",
+        number: -1,
+        tasks: new Array()
+    }]
 }
 
 
