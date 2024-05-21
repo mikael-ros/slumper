@@ -75,7 +75,7 @@ These books are included with the site.
 
 | Course | Book title | Author | Date added |
 |--------| ---------- | ------ | ---------- |
-| EDAF05 | Example questions 2023 | 2024-05 |
+| EDAF05 | Example questions 2023 | Jonas Skeppstedt | 2024-05 |
 
 ## 📚 Banned books 🚫
 What follows is a list of books that will never be added to the default list of books, and the reason why. You can, however, add these yourself locally; I simply cannot, due to copyright issues, include them in the default list.
