@@ -22,9 +22,13 @@ Start the timer, stop it when finished. If you've set a maximum, and you hit it,
 ### 📚 Adding books
 Click the ``+`` button next to the book selector. It will bring you to a different page where you can add the chapters of the book, or import a previously generated book.
 
-Add entries by writing the chapter title and number of tasks, then either press enter or click the + button. To remove or ignore a chapter, leave the amount of tasks at 0 (and the parser will simply skip it).
+Add entries by writing the chapter title and number of tasks, then click the + button. To remove or ignore a chapter, click the x next to it.
 
-When all entries have been added, simply press ``Save`` and the book will be added to your local browser storage. You can also choose to save the book to disk by pressing ``Export``.
+You can also edit a previously generated book, by importing it. You can import from disk by clicking the ``Import`` button, or import from browser storage by clicking a similar button in your personal library.
+
+When all entries have been added, simply press ``Save`` and the book will be added to your local browser storage, as reflected by the personal library tab. You can also choose to save the book to disk by pressing ``Export``.
+
+Browser stored books are stored under the "Personal library" and can be managed from there. To edit a book, simply import it and make your changes, then save (it will overwrite as long as you don't change the title). You can also export it here, or completely remove it by clicking the "trashcan" icon.
 
 #### ✉️ Submitting a book to the default list
 > [!NOTE]
