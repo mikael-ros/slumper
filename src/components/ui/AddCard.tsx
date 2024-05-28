@@ -1,7 +1,8 @@
 import { createSignal, For, onMount, Show } from "solid-js";
 
-import type {Book, Chapter, Task} from "../../scripts/Books.ts";
-import {dummyBook, generateBook, exportBook} from "../../scripts/Books.ts";
+import {dummyBook} from "../../scripts/Books.ts";
+import {generateBook, exportBook} from "../../scripts/BookGenerator.ts";
+import type {Book, Chapter, Task} from "../../scripts/BookGenerator.ts";
 
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 

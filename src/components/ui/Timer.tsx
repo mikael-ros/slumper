@@ -63,6 +63,7 @@ class Time {
 export function Timer(props){
     var timer = new Time(props.time);
     const [time, setTime] = createSignal(timer.toString());
+    const title = document.title;
 
     let interval = setInterval(() => update(), 1000);
 
@@ -73,8 +74,11 @@ export function Timer(props){
             setTime(timer.toString())
             clearInterval(interval)
             timer.kill(true);
+            document.title = title + " :: " + "DING!";
         }
     }
+
+    createEffect(() => document.title = title + " :: " + time()); // Updates the text in the title of the page to represent the remaining time
 
     createEffect(() => {
         timer.kill(false);
@@ -86,9 +90,11 @@ export function Timer(props){
 
     onCleanup(() => {
         clearInterval(interval); 
-        timer.kill(false)
+        timer.kill(false);
+        document.title = title;
     }); // Kill the code when its unmounted
 
+    
     return (
         <h1 style="text-align: center; margin: 0 0 0 0;">{time()}</h1>
     )
