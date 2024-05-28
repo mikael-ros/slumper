@@ -1,4 +1,4 @@
-import type {Book, Chapter, Task} from "./Books.ts";
+import type {Book, Chapter, Task} from "./BookGenerator.ts";
 import {addSpentTaskToBook, getSpentTasksFromBook, getSpentTasksFromChapter, resetSpentTasksFromBook, dummyChapter, dummyTask} from "./Books.ts";
 
 export class Randomizer{
