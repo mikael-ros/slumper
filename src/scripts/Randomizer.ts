@@ -13,7 +13,10 @@ export class Randomizer{
 
     constructor(book: Book){
         this.book = book;
+        this.currentTask = dummyTask;
+        this.currentChapter = dummyChapter;
         this.filteredChapters = book.chapters;
+        this.updateFilteredChapters();
         [this.currentChapter, this.currentTask] = this.getNew(false);
         this.spentTasks = this.getSpentTasks();
     }
@@ -59,7 +62,7 @@ export class Randomizer{
     getRandomChapter() : Chapter{
         return this.filteredChapters.length > 0 
         ? this.filteredChapters[Math.floor(Math.random() * this.filteredChapters.length)]
-        : dummyChapter; // Return an empty dummy chapter when there are no chapters left (usually due to exhaustion)
+        : this.currentChapter; // Return an empty dummy chapter when there are no chapters left (usually due to exhaustion)
     }
 
     getRandomTaskInChapter(chapter: Chapter) : Task{
@@ -75,7 +78,7 @@ export class Randomizer{
 
     chapterIsSpent(chapter: Chapter){
         const spentTasksFromChapter = getSpentTasksFromChapter(this.book, chapter);
-        return spentTasksFromChapter.length == chapter.tasks.length;
+        return spentTasksFromChapter.length >= chapter.tasks.length;
     }
 
     getSpentTasks() : Book {

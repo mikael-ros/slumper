@@ -338,8 +338,7 @@ article{
 
     .button-group{
         display: flex;
-        width: 100%;
-
+        
         button {
             width: 100%;
         }
@@ -466,8 +465,6 @@ article{
         transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
 
         &:hover{
-            
-
             border-radius: var(--default-border-radius);
             filter: brightness(0.95);
     
@@ -475,7 +472,11 @@ article{
             transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
         }    
 
-        
+        &:disabled:hover{
+            border-radius: var(--mild-border-radius);
+            filter: brightness(70%);
+            cursor: not-allowed;
+        }
     }
 
     input {

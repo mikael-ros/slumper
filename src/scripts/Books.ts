@@ -18,13 +18,13 @@ export interface Book {
 }
 
 export const dummyTask : Task = {
-    task: -1,
+    task: "No task",
     section: "No section"
 }
 
 export const dummyChapter: Chapter = {
     fullname: "",
-    number: -1,
+    number: "No chapter",
     tasks: [dummyTask]
 }
 
@@ -33,7 +33,7 @@ export const dummyBook: Book = {
     previewImagePath: "",
     chapters: [{
         fullname: "",
-        number: -1,
+        number: "No chapter",
         tasks: new Array()
     }]
 }
@@ -150,4 +150,36 @@ export function addSpentTaskToBook(book: Book, chapter: Chapter, task: Task){
     spentTasks.chapters.find((spentChapter) => spentChapter.number == chapter.number)!.tasks.push(task);
 
     setBook(spentTasks);
+}
+
+/**
+ * Generates a book
+ * @param input The book represented as a map of strings to chapter numbers
+ * @param bookName The name of the book
+ * @param bookPreviewImagePath The URL of the image used
+ * @returns The book object
+ */
+export function generateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string){
+    var parsedChapters: Chapter[] = [];
+    var currentIndex = 1;
+    input.forEach((length, chapter) => {
+        var taskList: number[] = Array.from({length: length}, (_, i) => i + 1);
+        var processedTasks: Task[] = [];
+
+        taskList.forEach((task) => processedTasks.push({task: task, section: "Undefined"}));
+        var chapterObj: Chapter = {
+            fullname: chapter,
+            number: currentIndex,
+            tasks: processedTasks
+        };
+        parsedChapters.push(chapterObj);
+        currentIndex += 1;
+    });
+
+    var book: Book =  {
+        name: bookName,
+        previewImagePath: bookPreviewImagePath,
+        chapters: parsedChapters
+    }
+    return book;
 }

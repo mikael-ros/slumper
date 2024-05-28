@@ -1,9 +1,8 @@
 import { createSignal, For, onMount, Show } from "solid-js";
 
 import type {Book, Chapter, Task} from "../../scripts/Books.ts";
-import {dummyBook} from "../../scripts/Books.ts";
+import {dummyBook, generateBook} from "../../scripts/Books.ts";
 
-import {generateJSON} from "../../content/tasks/generatebook.ts";
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 
 export function AddCard(){
@@ -57,7 +56,7 @@ export function AddCard(){
 
     function getBook() : Book {
         createInput();
-        return generateJSON(input, title(), link(), title());
+        return generateBook(input, title(), link(), title());
     }
 
     function exportBook(book: Book) {

@@ -31,8 +31,6 @@ export function OutputCard(){
         set("prior", book.name);
         randomizer = new Randomizer(book);
         document.body.style.backgroundImage = "url(" + book.previewImagePath + ")"; 
-        setChapter(dummyChapter);
-        setTask(dummyTask);
         setUnchecked(new Set<Number>);
         updateChecks();
         random(false);
@@ -93,16 +91,16 @@ export function OutputCard(){
     return (
         <div class="card-group">
             <div class ="card small timer">
-                <div style={  "height: " + (displayTimer() ? "3em" : "0em") + ";"
+                <div style={  "height: " + (displayTimer() && !abort() ? "3em" : "0em") + ";"
                             + " transition-property: height;"
                             + " transition-duration: var(--transition-duration-medium);"}>
-                    <Show when={displayTimer()}>
+                    <Show when={displayTimer() && !abort()}>
                         <Timer time={timer()}/>
                     </Show>
                 </div>
                 <div id="timer-config">
-                    <button style={displayTimer() ? "width: 70%;" : "width: 100%"} aria-label="toggle timer" id="toggle" onclick={event => setDisplayTimer(!displayTimer())}><img src="/src/assets/timer.svg" /><p>Toggle timer</p></button>
-                    <Show when={displayTimer()}>
+                    <button style={displayTimer() && !abort() ? "width: 70%;" : "width: 100%"} aria-label="toggle timer" id="toggle" onclick={event => setDisplayTimer(!displayTimer())} disabled={abort()}><img src="/src/assets/timer.svg" /><p>Toggle timer</p></button>
+                    <Show when={displayTimer() && !abort()}>
                         <input placeholder={timer().toString()} 
                         onchange={event => handleChange(event)} 
                         oninput={event => handleInput(event)}
