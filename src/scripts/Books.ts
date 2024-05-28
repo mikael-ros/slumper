@@ -183,3 +183,20 @@ export function generateBook(input: Map<string, number>, bookName: string, bookP
     }
     return book;
 }
+
+export function exportBook(book: Book) {
+    // https://www.30secondsofcode.org/js/s/json-to-file/
+    const blob = new Blob([JSON.stringify(book, null, 2)], {
+        type: 'application/json',
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${book.name}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+export function exportAndGenerateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, filename: string){
+    exportBook(generateBook(input,bookName,bookPreviewImagePath));
+}

@@ -1,7 +1,7 @@
 import { createSignal, For, onMount, Show } from "solid-js";
 
 import type {Book, Chapter, Task} from "../../scripts/Books.ts";
-import {dummyBook, generateBook} from "../../scripts/Books.ts";
+import {dummyBook, generateBook, exportBook} from "../../scripts/Books.ts";
 
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 
@@ -35,7 +35,7 @@ export function AddCard(){
 
     function saveBook() {
         const library = getLibrary();
-        const newbook = getBook();
+        const newbook = makeBook();
         const indexOfBook = library.findIndex(book => book.name == newbook.name);
         if (indexOfBook != -1)
             library[indexOfBook] = newbook;
@@ -54,22 +54,13 @@ export function AddCard(){
         setLibrary(library);
     }
 
-    function getBook() : Book {
+    function makeBook() : Book{
         createInput();
         return generateBook(input, title(), link(), title());
     }
 
-    function exportBook(book: Book) {
-        // https://www.30secondsofcode.org/js/s/json-to-file/
-        const blob = new Blob([JSON.stringify(book, null, 2)], {
-            type: 'application/json',
-        });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${book.name}.json`;
-        a.click();
-        URL.revokeObjectURL(url);
+    function getBook() {
+        exportBook(makeBook());
     }
 
     function createInput(){
@@ -189,7 +180,7 @@ export function AddCard(){
 
                 <div class="button-group">
                     <button aria-label="done" id="done" onclick={event => saveBook()}><img src="/src/assets/tick.svg" /><p>Save</p></button>
-                    <button aria-label="export" id="export" onclick={event => exportBook(getBook())}><img src="/src/assets/download.svg" /><p>Export</p></button>
+                    <button aria-label="export" id="export" onclick={event => getBook()}><img src="/src/assets/download.svg" /><p>Export</p></button>
                     <input type="file" aria-label="import file" id="file-import" onchange={event => handleFileSelect(event)}></input>
                     <label for="file-import"><img src="/src/assets/upload.svg" /><p>Import</p></label>
                     <button aria-label="clear" id="clear" onclick={event => importBook(dummyBook)}><img src="/src/assets/trash.svg" /><p>Clear</p></button>
@@ -211,7 +202,6 @@ export function AddCard(){
                                 <button aria-label="remove book" onclick={event => removeBook(book.name)}><img src="/src/assets/trash.svg" /></button>
                                 <button aria-label="export book" onclick={event => exportBook(book)}><img src="/src/assets/download.svg" /></button>
                                 <button aria-label="import book" onclick={event => importBook(book)}><img src="/src/assets/upload.svg" /></button>
-                                
                             </div>
                                 
                             </li>
