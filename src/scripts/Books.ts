@@ -3,7 +3,6 @@ import type {Task, Chapter, Book} from "./BookGenerator.ts";
 
 export const dummyTask : Task = {
     task: "No task",
-    section: "No section"
 }
 
 export const dummyChapter: Chapter = {
@@ -23,11 +22,11 @@ export const dummyBook: Book = {
 }
 
 
-import manssonlinalg from '../content/tasks/manssonlinalg.json';
-import fmab20instudering from '../content/tasks/fmab20instudering.json';
-import edaf052023 from '../content/tasks/edaf052023.json';
+import fmab20bok from '../content/tasks/linjralgebramnssonnordbeck.json';
+import fmab20instudering from '../content/tasks/fmabinstuderingsfrgorilinjralgebraht.json';
+import edaf05 from '../content/tasks/edafexamplequestions.json';
 
-export const library : Book[] = [manssonlinalg, fmab20instudering, edaf052023].concat(getSetOrElse("personalLibrary", new Array<Book>));
+export const library : Book[] = [fmab20bok, fmab20instudering, edaf05].concat(getSetOrElse("personalLibrary", new Array<Book>));
 
 /**
  * Retrieves a book from name

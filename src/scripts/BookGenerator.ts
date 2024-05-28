@@ -1,6 +1,5 @@
 export interface Task {
     task: number;
-    section: string;
 }
 
 export interface Chapter {
@@ -30,7 +29,7 @@ export function generateBook(input: Map<string, number>, bookName: string, bookP
         var taskList: number[] = Array.from({length: length}, (_, i) => i + 1);
         var processedTasks: Task[] = [];
 
-        taskList.forEach((task) => processedTasks.push({task: task, section: "Undefined"}));
+        taskList.forEach((task) => processedTasks.push({task: task}));
         var chapterObj: Chapter = {
             fullname: chapter,
             number: currentIndex,
@@ -56,7 +55,7 @@ export function exportBook(book: Book) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${book.name.replace(" ","").toLowerCase()}.json`;
+    a.download = `${book.name.replaceAll(/[^a-zA-Z]/g,"").toLowerCase()}.json`;
     a.click();
     URL.revokeObjectURL(url);
 }

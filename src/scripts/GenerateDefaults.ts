@@ -1,6 +1,5 @@
 // This file is to be run locally.
 import { writeFile } from 'fs/promises';
-
 /**
  * Generates a book
  * @param input The book represented as a map of strings to chapter numbers
@@ -15,7 +14,7 @@ export function generateBook(input: Map<string, number>, bookName: string, bookP
         var taskList: number[] = Array.from({length: length}, (_, i) => i + 1);
         var processedTasks: Task[] = [];
 
-        taskList.forEach((task) => processedTasks.push({task: task, section: "Undefined"}));
+        taskList.forEach((task) => processedTasks.push({task: task}));
         var chapterObj: Chapter = {
             fullname: chapter,
             number: currentIndex,
@@ -35,7 +34,6 @@ export function generateBook(input: Map<string, number>, bookName: string, bookP
 
 export interface Task {
     task: number;
-    section: string;
 }
 
 export interface Chapter {
@@ -52,7 +50,7 @@ export interface Book {
 
 async function writeBook(book: Book){
     try {
-        await writeFile("../content/tasks/" + book.name.replaceAll(" ","").toLowerCase()+".json", JSON.stringify(book));
+        await writeFile("../content/tasks/" + book.name.replaceAll(/[^a-zA-Z]/g,"").toLowerCase()+".json", JSON.stringify(book));
         console.log('JSON file saved successfully:', book.name);
     } catch (err) {
         console.error('Error writing JSON file:', err);
