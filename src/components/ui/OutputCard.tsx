@@ -3,7 +3,6 @@ import { Randomizer} from "../../scripts/Randomizer";
 import { Timer } from "./Timer.tsx";
 import complete from "../../assets/complete.wav";
 
-import type {Book, Chapter, Task} from "../../scripts/Books.ts";
 import {library, dummyChapter, dummyTask, getBook} from "../../scripts/Books.ts";
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 

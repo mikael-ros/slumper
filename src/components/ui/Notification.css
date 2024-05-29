@@ -1,0 +1,16 @@
+.notification{
+    display: block;
+    position: absolute;
+    top: -2em;
+
+    max-height: 2em;
+    padding: .25em 1em;
+    text-wrap: nowrap;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    border-radius: var(--default-border-radius);
+    
+    background-color: rgba(var(--backdrop-color),0.3);
+}

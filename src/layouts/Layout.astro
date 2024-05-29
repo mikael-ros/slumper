@@ -1,5 +1,6 @@
 ---
 import Head from '../components/layouts/Head.astro';
+import {Link} from '../components/Link.tsx';
 interface Props {
 	title: string;
 }
@@ -16,10 +17,10 @@ const { title } = Astro.props;
 		</header>
 		<slot />
 		<footer>
-			<a href="https://www.embracket.com"><p>Made by Embracket</p><img src="/src/assets/embracketlogo.svg"></a>
-			<a href="https://www.github.com/mikael-ros/slumper"><p>GitHub</p><img src="/src/assets/github-mark-white.svg"></a>
-			<a href="https://www.github.com/mikael-ros/slumper"><p>Donate</p><img src="/src/assets/altdonate.svg"></a>
-			<a href="https://www.github.com/mikael-ros/slumper"><p>Share</p><img src="/src/assets/share.svg"></a>
+			<Link href="https://www.embracket.com" src="/src/assets/embracketlogo.svg" text="Made by Embracket" />
+			<Link href="https://www.github.com/mikael-ros/slumper" src="/src/assets/github-mark-white.svg" text="GitHub" />
+			<Link href="https://www.github.com/mikael-ros/slumper" src="/src/assets/altdonate.svg" text="Donate" />
+			<Link href="https://www.github.com/mikael-ros/slumper" src="/src/assets/share.svg" text="Share" clipboard={true} client:only="solid-js"/>
 		</footer>
 	</body>
 </html>
