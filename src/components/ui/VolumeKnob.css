@@ -116,3 +116,14 @@
         user-select: none;
     }
 }
+
+/* Volume knob should not be displayed on mobile */
+@media (max-width:480px)  {
+    .volume-knob{
+        display: none;
+    }
+    
+    .volume-slider{
+        display: none;
+    }
+}

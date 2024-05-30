@@ -50,3 +50,9 @@
     }
 }
 
+@media (max-width:480px)  {
+    .link-container{
+        border-left: none;
+        border-top: .1em var(--text-color-negative-dull) solid;
+    }
+}

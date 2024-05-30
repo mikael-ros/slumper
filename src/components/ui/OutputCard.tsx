@@ -28,6 +28,7 @@ export function OutputCard(){
     var randomizer : Randomizer = new Randomizer(book());
 
     document.body.style.backgroundImage = "url(" + book().previewImagePath + ")"; 
+    document.body.style.backgroundRepeat = "no-repeat";
 
     function setNewBook(book : Book){
         setBook(book);

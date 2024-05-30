@@ -32,6 +32,7 @@
 #chapter-inputs, .book-list{
     min-height: 200px;
     max-height: 80%;
+    max-width: 100%;
     margin: 1em 0;
     padding-bottom: 5em;
     overflow-y: scroll;
@@ -60,6 +61,7 @@
 
     button {
         height: 2em;
+        width: 15em;
         
         img {
             width: 1.5em;
@@ -135,6 +137,28 @@
                 transform: scale(1);
             }
             
+        }
+    }
+}
+
+@media (max-width:480px)  {
+    .add .button-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-gap: .5em;
+
+        button, label {
+            margin: 0;
+        }
+    }
+    .book-entry{
+        button{
+            display: flex;
+        }
+
+        .button-group {
+            flex-wrap: nowrap;
         }
     }
 }

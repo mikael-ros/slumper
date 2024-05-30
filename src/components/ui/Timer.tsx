@@ -1,6 +1,8 @@
+
 import { createSignal, createEffect, For, onMount, Show, onCleanup } from "solid-js";
 import timerSound from "../../assets/timer-sound.wav";
 import {getSetOrElse} from "../../scripts/StorageHandler.ts";
+
 
 class Time {
     time: number;
@@ -63,6 +65,7 @@ class Time {
 }
 
 export function Timer(props){
+    
     var timer = new Time(props.time);
     const [time, setTime] = createSignal(timer.toString());
     const title = document.title;
