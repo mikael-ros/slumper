@@ -16,7 +16,6 @@
     background-color: rgba(var(--backdrop-color),0.3);
 
     .knob {
-        
         width: 2.5em;
         height: 2.5em;
 
@@ -73,7 +72,6 @@
 
     &.open{
         height: 10em;
-
     }
 
     &.closed{
@@ -101,7 +99,7 @@
         position: relative;
 
         height: 0%;
-        background-image: linear-gradient(rgba(var(--backdrop-color),0.5), rgba(var(--backdrop-color),0.05));
+        background-image: linear-gradient(rgba(var(--highlight-color),0.5), rgba(var(--highlight-color),0.05));
 
         border-radius: 0 0 var(--aggressive-border-radius) var(--aggressive-border-radius);
         z-index: 2;
