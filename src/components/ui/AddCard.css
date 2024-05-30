@@ -1,0 +1,140 @@
+.chapter-input{
+    display: flex;
+    align-items: center;
+
+    margin: 0.75em 0;
+
+    height: 2em;
+
+    * {
+        height: 100%;
+        line-height: 2em;
+        color: var(--text-color-negative-dull);
+    }
+
+    input{
+        width: 100%;
+    }
+
+    input:first-of-type{
+        min-width: 70%;
+    }
+}
+
+.chapter-input:nth-of-type(n + 2){
+    opacity: 0.8;
+}
+
+.chapter-input:nth-of-type(n + 3){
+    opacity: 0.6;
+}
+
+#chapter-inputs, .book-list{
+    min-height: 200px;
+    max-height: 80%;
+    margin: 1em 0;
+    padding-bottom: 5em;
+    overflow-y: scroll;
+
+    /* Inspired by
+    https://pqina.nl/blog/fade-out-overflow-using-css-mask-image/ */
+
+    --mask-height: 40%;
+
+    --mask-image-content: linear-gradient(
+        to bottom,
+        black calc(100% - var(--mask-height)),
+        transparent
+    );
+
+    mask-image: var(--mask-image-content);
+    mask-size: var(--mask-size-content);
+
+    mask-position: 0 0, 100% 0;
+    mask-repeat: no-repeat, no-repeat;
+
+    ol {
+        padding-left: .5em;
+    }
+
+
+    button {
+        height: 2em;
+        
+        img {
+            width: 1.5em;
+        }
+
+        &:hover {
+            img{
+                transition-duration: var(--transition-duration-medium);
+                transform: rotate(360deg);
+            }
+        }
+    }
+}
+
+#book-params{
+    display: flex;
+
+    input{
+        width: 100%;
+    }
+}
+
+.book-list{
+    padding: 0 1em 3.5em 0;
+
+    width: 100%;
+}
+
+.book-entry{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 2.5em;
+    width: 100%;
+    padding: .25em .5em;
+    border-radius: var(--mild-border-radius);
+
+    h5 {
+        width: 100%;
+        text-wrap: nowrap;
+        line-height: 2.5em;
+        margin: 0;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+
+        color: var(--text-color-negative-dull);
+    }
+
+    &:hover {
+        background-color: rgba(var(--backdrop-color),0.1);
+        
+        button {
+            display: flex;
+        }
+    }
+
+    button{
+        display: none;
+        max-width: 2em;
+
+        margin: 0 0 0 .25em;
+
+        img {
+            width: 2em;
+            transform: scale(1);
+        }
+
+        &:hover {
+            border-radius: 1em;
+
+            img {
+                transform: scale(1);
+            }
+            
+        }
+    }
+}

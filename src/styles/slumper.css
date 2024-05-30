@@ -92,10 +92,6 @@ footer {
     border-radius: var(--default-border-radius) var(--default-border-radius) 0 0;
 }
 
-astro-island{
-    position: relative;
-}
-
 /*******************************/
 /* Default text settings stuff */
 /*******************************/
@@ -165,7 +161,6 @@ button, select, option, input:not([type=checkbox]), label{
         }
     }
 
-
     img{
         width: 2em;
         height: 2em;
@@ -190,6 +185,18 @@ button, select, option, input:not([type=checkbox]), label{
     }
 }
 
+.button-group{
+    display: flex;
+    
+    button {
+        width: 100%;
+    }
+
+    input {
+        display: none;
+    }
+}
+
 input[type='checkbox']{
     margin: .75em;
 
@@ -211,331 +218,3 @@ article{
     background: rgba(var(--backdrop-color),0.4);
 }
 
-/***************/
-/* output-card */
-/***************/
-
-#course-select-wrapper{
-    display: flex;
-    height: 2em;
-
-    select {
-        width: 70%;
-        height: 2em;
-    }
-}
-
-.output{
-
-    #random{
-        img{
-            transform: scale(1.2) rotate(30deg);
-        }
-
-        &:disabled:hover img {
-            transform: scale(1.2) rotate(30deg);
-        }
-
-        &:hover img{
-            transform: scale(1.2) rotate(390deg);
-        }
-    }
-
-    #done{
-        img:first-of-type{
-            transform: translate(.1em, -0.2em) scale(0.9);
-        }
-
-        img:last-of-type{
-            margin-left: -2em;
-            transform: translate(-0.1em, .1em) scale(1.2) rotate(30deg);
-            opacity: 0.8;
-        }
-    }
-
-    #done:hover{
-        &:disabled {
-            img:first-of-type{
-                transform: translate(.1em, -0.2em) scale(0.9);
-            }
-    
-            img:last-of-type{
-                margin-left: -2em;
-                transform: translate(-0.1em, .1em) scale(1.2) rotate(30deg);
-                opacity: 0.8;
-            }
-        }
-
-        img:first-of-type{
-            transform: translate(.1em, -0.2em) scale(1.05);
-        }
-
-        img:last-of-type{
-            transform: translate(-0.1em, .1em) scale(1.2) rotate(390deg);
-        }
-    }
-
-    #reset:hover{
-        img{
-            transition-duration: var(--transition-duration-medium);
-            transform: rotate(110deg);
-        }
-    }
-
-    #add{
-        height: 2em;
-        max-width: 10em;
-
-        img{
-            width: 1.5em;
-            transform: rotate(-360deg);
-        }
-    }
-
-    #add:hover{
-        img{
-            transition-duration: var(--transition-duration-medium);
-            transform: rotate(360deg);
-        }
-    }
-}
-
-.card-group{
-    margin: 1em calc(50vw - 300px);
-
-    .card {
-        margin: 2em 1em;
-    }
-}
-
-.vertical {
-    display: flex;
-
-    width: 1000px;
-    margin: 1em calc(50vw - 500px);
-
-    .card:nth-of-type(2){
-        width: 40%;
-    }
-}
-
-.small {
-    margin: auto !important;
-    min-width: 400px !important;
-    width: 20% !important;
-    max-height: 30vh !important;
-    border-radius: var(--default-border-radius) !important;
-    padding: var(--default-border-radius) !important;
-}
-
-.card{
-    display: flex;
-    flex-direction: column;
-
-    width: 600px;
-    max-height: 70vh;
-
-    overflow-x: hidden;
-    overflow-y: scroll;
-
-    margin: 0 calc(50vw - 300px);
-    padding: var(--aggressive-border-radius);
-
-    background-color: rgba(var(--backdrop-color),0.1);
-    border-radius: var(--aggressive-border-radius);
-    backdrop-filter: blur(var(--aggressive-border-radius));
-
-    color: var(--text-color-negative);
-
-    .button-group{
-        display: flex;
-        
-        button {
-            width: 100%;
-        }
-
-        input {
-            display: none;
-        }
-    }
-
-    img{
-        transition: transform;
-        transition-duration: var(--transition-duration-fast);
-    }
-
-    button:hover{
-        img {
-            transition: transform;
-            transition-duration: var(--transition-duration-fast);
-        }
-    }
-
-    select {
-        width: 15rem;
-    }
-}
-
-
-.chapter-input{
-    display: flex;
-    align-items: center;
-
-    margin: 0.75em 0;
-
-    height: 2em;
-
-    * {
-        height: 100%;
-        line-height: 2em;
-        color: var(--text-color-negative-dull);
-    }
-
-    input{
-        width: 100%;
-    }
-
-    input:first-of-type{
-        min-width: 70%;
-    }
-}
-
-.chapter-input:nth-of-type(n + 2){
-    opacity: 0.8;
-}
-
-.chapter-input:nth-of-type(n + 3){
-    opacity: 0.6;
-}
-
-#chapter-inputs, .book-list{
-    min-height: 200px;
-    max-height: 80%;
-    margin: 1em 0;
-    padding-bottom: 5em;
-    overflow-y: scroll;
-
-    /* Inspired by
-    https://pqina.nl/blog/fade-out-overflow-using-css-mask-image/ */
-
-    --mask-height: 40%;
-
-    --mask-image-content: linear-gradient(
-        to bottom,
-        black calc(100% - var(--mask-height)),
-        transparent
-    );
-
-    mask-image: var(--mask-image-content);
-    mask-size: var(--mask-size-content);
-
-    mask-position: 0 0, 100% 0;
-    mask-repeat: no-repeat, no-repeat;
-
-    ol {
-        padding-left: .5em;
-    }
-
-
-    button {
-        height: 2em;
-        
-        img {
-            width: 1.5em;
-        }
-
-        &:hover {
-            img{
-                transition-duration: var(--transition-duration-medium);
-                transform: rotate(360deg);
-            }
-        }
-    }
-}
-
-#book-params{
-    display: flex;
-
-    input{
-        width: 100%;
-    }
-}
-
-#timer-config{
-    display: flex;
-    align-items: center;
-
-    height: 3em;
-
-    button, input {
-        height: 100%;
-    }
-    
-    button {
-        transition-property: width, border-radius, filter;
-        transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
-
-        &:hover{
-            border-radius: var(--default-border-radius);
-            filter: brightness(0.95);
-    
-            transition-property: width, border-radius, filter;
-            transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
-        }    
-
-        &:disabled:hover{
-            border-radius: var(--mild-border-radius);
-            filter: brightness(70%);
-            cursor: not-allowed;
-        }
-    }
-
-    input {
-        width: 30%;
-    }
-}
-
-
-.book-list{
-    padding: 0 1em 3.5em 0;
-}
-
-.book-entry{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    height: 2.5em;
-    padding: .25em .5em;
-    border-radius: var(--mild-border-radius);
-
-    h5 {
-        width: 80%;
-        text-wrap: nowrap;
-        line-height: 2.5em;
-        margin: 0;
-        overflow-x: hidden;
-        text-overflow: ellipsis;
-
-        color: var(--text-color-negative-dull);
-    }
-
-    &:hover {
-        background-color: rgba(var(--backdrop-color),0.1);
-        
-        button {
-            display: flex;
-        }
-    }
-
-    button{
-        display: none;
-        max-width: 2em;
-
-        margin: 0 0 0 .25em;
-
-        img {
-            width: 2em;
-        }
-    }
-}

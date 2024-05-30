@@ -1,0 +1,103 @@
+.card-group{
+    margin: 1em calc(50vw - 300px);
+
+    .card {
+        margin: 2em 0;
+    }
+}
+
+.vertical {
+    display: flex;
+
+    width: 1000px;
+    margin: 1em calc(50vw - 500px);
+
+    .card {
+        margin: 2em 1em;
+    }
+
+    .card:nth-of-type(2){
+        width: 40%;
+    }
+}
+
+.small {
+    margin: auto !important;
+    min-width: 400px !important;
+    width: 20% !important;
+    max-height: 30vh !important;
+    border-radius: var(--default-border-radius) !important;
+    padding: var(--default-border-radius) !important;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+
+    width: 600px;
+    max-height: 70vh;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    margin: 0 calc(50vw - 300px);
+    padding: var(--aggressive-border-radius);
+
+    background-color: rgba(var(--backdrop-color),0.1);
+    border-radius: var(--aggressive-border-radius);
+    backdrop-filter: blur(var(--aggressive-border-radius));
+
+    color: var(--text-color-negative);
+
+    img{
+        transition: transform;
+        transition-duration: var(--transition-duration-fast);
+    }
+
+    button:hover{
+        img {
+            transition: transform;
+            transition-duration: var(--transition-duration-fast);
+        }
+    }
+
+    select {
+        width: 15rem;
+    }
+}
+
+#timer-config{
+    display: flex;
+    align-items: center;
+
+    height: 3em;
+
+    button, input {
+        height: 100%;
+    }
+    
+    button {
+        transition-property: width, border-radius, filter;
+        transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
+
+        &:hover{
+            border-radius: var(--default-border-radius);
+            filter: brightness(0.95);
+    
+            transition-property: width, border-radius, filter;
+            transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
+        }    
+
+        &:disabled:hover{
+            border-radius: var(--mild-border-radius);
+            filter: brightness(70%);
+            cursor: not-allowed;
+        }
+    }
+
+    input {
+        width: 30%;
+    }
+}
+
+

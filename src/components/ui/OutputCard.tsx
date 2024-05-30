@@ -1,3 +1,6 @@
+import "./Card.css";
+import "./OutputCard.css";
+
 import { createSignal, For, onMount, Show } from "solid-js";
 import { Randomizer} from "../../scripts/Randomizer";
 import { Timer } from "./Timer.tsx";

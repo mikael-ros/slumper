@@ -1,3 +1,6 @@
+import "./Card.css";
+import "./AddCard.css";
+
 import { createSignal, For, onMount, Show } from "solid-js";
 
 import {dummyBook} from "../../scripts/Books.ts";
@@ -180,11 +183,11 @@ export function AddCard(){
                 
 
                 <div class="button-group">
-                    <button aria-label="done" id="done" onclick={event => saveBook()}><img src="/src/assets/tick.svg" /><p>Save</p></button>
-                    <button aria-label="export" id="export" onclick={event => getBook()}><img src="/src/assets/download.svg" /><p>Export</p></button>
+                    <button aria-label="done" id="done" onclick={() => saveBook()}><img src="/src/assets/tick.svg" /><p>Save</p></button>
+                    <button aria-label="export" id="export" onclick={() => getBook()}><img src="/src/assets/download.svg" /><p>Export</p></button>
                     <input type="file" aria-label="import file" id="file-import" onchange={event => handleFileSelect(event)}></input>
                     <label for="file-import"><img src="/src/assets/upload.svg" /><p>Import</p></label>
-                    <button aria-label="clear" id="clear" onclick={event => importBook(dummyBook)}><img src="/src/assets/trash.svg" /><p>Clear</p></button>
+                    <button aria-label="clear" id="clear" onclick={() => importBook(dummyBook)}><img src="/src/assets/trash.svg" /><p>Clear</p></button>
                 </div>
 
                 
@@ -199,12 +202,11 @@ export function AddCard(){
                     <For each={library()}>
                         {book =>
                             <li class="book-entry"><h5>{book.name}</h5> 
-                            <div class="button-group">
-                                <button aria-label="remove book" onclick={event => removeBook(book.name)}><img src="/src/assets/trash.svg" /></button>
-                                <button aria-label="export book" onclick={event => exportBook(book)}><img src="/src/assets/download.svg" /></button>
-                                <button aria-label="import book" onclick={event => importBook(book)}><img src="/src/assets/upload.svg" /></button>
-                            </div>
-                                
+                                <div class="button-group">
+                                    <button aria-label="remove book" onclick={() => removeBook(book.name)}><img src="/src/assets/trash.svg" /></button>
+                                    <button aria-label="export book" onclick={() => exportBook(book)}><img src="/src/assets/download.svg" /></button>
+                                    <button aria-label="import book" onclick={() => importBook(book)}><img src="/src/assets/upload.svg" /></button>
+                                </div>
                             </li>
                         }
                     </For>
