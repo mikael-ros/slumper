@@ -51,8 +51,22 @@
 }
 
 @media (max-width:480px)  {
+    .link  {
+        padding: .5em 0;
+        
+        p {
+            padding: 0;
+        }
+    
+        &:has(> img){
+            p {
+                padding: 0 0.5em;
+            }
+        }
+    }
+    
+
     .link-container{
-        border-left: none;
-        border-top: .1em var(--text-color-negative-dull) solid;
+        border: none;
     }
 }

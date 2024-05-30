@@ -121,6 +121,20 @@
 }
 
 @media (max-width:480px) {
+    #course-select-wrapper{
+        display: flex;
+        flex-direction: column;
+        height: 4em;
+    
+        select {
+            width: 100%;
+        }
+
+        a, button {
+            width: 100%;
+        }
+    }
+
     #timer-config{
         flex-direction: column;
         height: 3em;
