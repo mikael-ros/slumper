@@ -1,5 +1,6 @@
 import { createSignal, createEffect, For, onMount, Show, onCleanup } from "solid-js";
 import timerSound from "../../assets/timer-sound.wav";
+import {getSetOrElse} from "../../scripts/StorageHandler.ts";
 
 class Time {
     time: number;
@@ -9,7 +10,7 @@ class Time {
     constructor (time: number){
         this.time = time % 3600; // Makes sure time can never be above an hour. Might need to change this in the future
         this.sound = new Audio(timerSound);
-        this.sound.volume = 0.05;
+        this.sound.volume = getSetOrElse("volume", 1.0);
         this.tickLoop();
     }
 
@@ -54,6 +55,7 @@ class Time {
 
     kill(play: boolean){
         if (play){
+            this.sound.volume = getSetOrElse("volume", 1.0); // Updates the volume to current level. Would ideally be handled by a context provider, but I couldn't figure it out
             this.sound.play();
         }
         window.clearInterval(this.interval);

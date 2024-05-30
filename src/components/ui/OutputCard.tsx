@@ -4,12 +4,13 @@ import { Timer } from "./Timer.tsx";
 import complete from "../../assets/complete.wav";
 
 import {library, dummyChapter, dummyTask, getBook} from "../../scripts/Books.ts";
+import type {Task,Chapter,Book} from "../../scripts/BookGenerator.ts";
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 
 export function OutputCard(){
     var defaultTimer : number = 180;
     const completionSound = new Audio(complete);
-    completionSound.volume = 0.1; // replace with volume output
+    completionSound.volume = getSetOrElse("volume", 1.0);
 
     const [displayTimer, setDisplayTimer] = createSignal(false);
     const [timer, setTimer] = createSignal(defaultTimer, { equals: false });
@@ -41,8 +42,10 @@ export function OutputCard(){
         setTask(randomizer.getTask());
         updateChecks();
         setTimer(defaultTimer);
-        if (memorize)
+        if (memorize){
+            completionSound.volume = getSetOrElse("volume", 1.0); // Updates the volume to current level. Would ideally be handled by a context provider, but I couldn't figure it out
             completionSound.play();
+        }
     }
 
     function setNewTimer(timer : number){

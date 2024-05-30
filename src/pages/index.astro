@@ -1,10 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import { OutputCard } from '../components/ui/OutputCard'
+import { VolumeKnob } from '../components/ui/VolumeKnob'
+
 ---
 
-<Layout title="Slumper">
+<Layout title="Slumper">	
 	<article>
 		<OutputCard client:only="solid-js"/>
 	</article>
+	<VolumeKnob client:only="solid-js"/>
 </Layout>
