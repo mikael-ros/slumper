@@ -89,14 +89,10 @@
 #timer-config{
     display: flex;
     align-items: center;
-
     height: 3em;
-
-    button {
-        height: 100%;
-    }
     
     button {
+        height: 3em;
         transition-property: width, border-radius, filter;
         transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
 
@@ -116,7 +112,8 @@
     }
 
     input {
-        width: 70%;
+        width: 30%;
+        height: 3em;
     }
 }
 
@@ -124,7 +121,7 @@
     #course-select-wrapper{
         display: flex;
         flex-direction: column;
-        height: 4em;
+        height: unset;
     
         select {
             width: 100%;
@@ -136,7 +133,28 @@
     }
 
     #timer-config{
-        flex-direction: column;
-        height: 3em;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+            "button button"
+            "input    text";
+        height: unset;
+        width: 100%;
+
+        button{
+            grid-area: button;
+            width: 100%;
+        }
+
+        input{
+            grid-area: input;
+            width: 100%;
+        }
+
+        p{
+            grid-area: text;
+            width: 100%;
+        }
     }
 }

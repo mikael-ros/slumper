@@ -23,6 +23,7 @@ export function OutputCard(){
     const [task, setTask] = createSignal(dummyTask);
     const [unchecked, setUnchecked] = createSignal<Set<Number>>(new Set<Number>);
     const [abort, setAbort] = createSignal(false);
+    const [mobile, setMobile] = createSignal(false);
 
 
     var randomizer : Randomizer = new Randomizer(book());
@@ -94,6 +95,8 @@ export function OutputCard(){
         warn(valid, event);
     }
 
+    window.onresize = () => setMobile(window.innerWidth <= 480);
+
     return (
         <div class="card-group">
             <div class ="card small timer">
@@ -105,7 +108,7 @@ export function OutputCard(){
                     </Show>
                 </div>
                 <div id="timer-config">
-                    <button style={displayTimer() && !abort() ? "width: 70%;" : "width: 100%"} aria-label="toggle timer" id="toggle" onclick={event => setDisplayTimer(!displayTimer())} disabled={abort()}><img src="/src/assets/timer.svg" /><p>Toggle timer</p></button>
+                    <button style={mobile() ? "width: 100%" : displayTimer() && !abort() ? "width: 70%;" : "width: 100%"} aria-label="toggle timer" id="toggle" onclick={event => setDisplayTimer(!displayTimer())} disabled={abort()}><img src="/src/assets/timer.svg" /><p>Toggle timer</p></button>
                     <Show when={displayTimer() && !abort()}>
                         <input placeholder={timer().toString()} 
                         onchange={event => handleChange(event)} 
