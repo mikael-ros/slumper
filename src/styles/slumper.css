@@ -34,25 +34,14 @@
     padding: 0;
 
     box-sizing: border-box;
+    z-index: 1;
 }
 
 html{
     background-color: var(--background-color);
 }
 
-header{
-    top: 2em;
-    left: 37.5%;
-    width: 25%;
-    min-height: 4em;
- 
-    border-radius: var(--aggressive-border-radius);
 
-    h1{
-        padding: 0;
-        margin: 0;
-    }
-}
 
 body{
     min-height: 100vh;
@@ -60,11 +49,10 @@ body{
 
     margin: 0 auto;
     
-    position: relative;
-
     background: linear-gradient(200deg, var(--background-color), var(--secondary));
     background-size: cover;
- 
+    
+    z-index: 0;
 }
 
 footer, header {
@@ -79,7 +67,22 @@ footer, header {
     color: var(--text-color-negative);
 
     text-align: center;
-    z-index:999;
+    z-index:2;
+}
+
+header{
+    top: 2em;
+    left: 37.5%;
+    width: 25%;
+    min-height: 4em;
+ 
+    border-radius: var(--aggressive-border-radius);
+
+    h1{
+        padding: 0;
+        margin: 0;
+    }
+    z-index: 999;
 }
 
 footer {
@@ -91,8 +94,6 @@ footer {
     height: 3em;
     padding: .75em;
     width: 100%;
-
-    overflow: hidden;
 
     border-radius: var(--default-border-radius) var(--default-border-radius) 0 0;
 }
@@ -128,7 +129,6 @@ button, select, option, input:not([type=checkbox]), label{
 
     margin: var(--mild-border-radius);
     padding: var(--mild-border-radius);
-    width: 100%;
 
     border: none;
     border-radius: var(--mild-border-radius);
@@ -213,7 +213,23 @@ input[type='checkbox']{
 /* Articles */
 /************/
 
+article::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* Apply the backdrop-filter and background to the pseudo-element */
+    backdrop-filter: blur(var(--default-border-radius));
+    background: rgba(var(--backdrop-color), 0.4);
+    
+    z-index: 0; /* Ensure it is behind the article content */
+}
+
 article{
+    position: relative; /* Ensure positioning context for pseudo-element */
     display: flex;
     align-items: center;
 
@@ -221,12 +237,10 @@ article{
     height: 100%;
 
     min-height: 100vh;
-
-    backdrop-filter: blur(var(--default-border-radius));
-    background: rgba(var(--backdrop-color),0.4);
+    z-index: 3;
 }
 
-@media (max-width:480px)  {
+@media (max-width:600px)  {
     :root{
         --mild-border-radius: .35rem;
         --default-border-radius: 0.8rem;
@@ -242,9 +256,11 @@ article{
         left: 0;
 
         width: 100vw;
-        height: 4em;
+        height: 5em;
+
+        padding-top: .5em;
      
-        border-radius: 0;
+        border-radius: 0 0 var(--default-border-radius) var(--default-border-radius);
     
         h1{
             padding: 0;
@@ -270,6 +286,7 @@ article{
 
         height: unset;
         padding: .5em;
+        padding-bottom: 9em;
         width: 100vw;
     }
     

@@ -141,7 +141,7 @@
     }
 }
 
-@media (max-width:480px)  {
+@media (max-width:600px)  {
     .add .button-group {
         display: grid;
         grid-template-columns: 1fr 1fr;

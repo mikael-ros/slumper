@@ -23,7 +23,7 @@ export function OutputCard(){
     const [task, setTask] = createSignal(dummyTask);
     const [unchecked, setUnchecked] = createSignal<Set<Number>>(new Set<Number>);
     const [abort, setAbort] = createSignal(false);
-    const [mobile, setMobile] = createSignal(false);
+    const [mobile, setMobile] = createSignal(window.innerWidth <= 600);
 
 
     var randomizer : Randomizer = new Randomizer(book());
@@ -95,12 +95,12 @@ export function OutputCard(){
         warn(valid, event);
     }
 
-    window.onresize = () => setMobile(window.innerWidth <= 480);
+    window.onresize = () => setMobile(window.innerWidth <= 600);
 
     return (
         <div class="card-group">
-            <div class ="card small timer">
-                <div style={  "height: " + (displayTimer() && !abort() ? "3em" : "0em") + ";"
+            <div class ="card small" id="timer">
+                <div style={mobile() ? "" : "height: " + (displayTimer() && !abort() ? "3em" : "0em") + ";"
                             + " transition-property: height;"
                             + " transition-duration: var(--transition-duration-medium);"}>
                     <Show when={displayTimer() && !abort()}>
@@ -108,7 +108,7 @@ export function OutputCard(){
                     </Show>
                 </div>
                 <div id="timer-config">
-                    <button style={mobile() ? "width: 100%" : displayTimer() && !abort() ? "width: 70%;" : "width: 100%"} aria-label="toggle timer" id="toggle" onclick={event => setDisplayTimer(!displayTimer())} disabled={abort()}><img src="/src/assets/timer.svg" /><p>Toggle timer</p></button>
+                    <button style={displayTimer() && !abort() ? "width: 70%;" : "width: 100%"} aria-label="toggle timer" id="toggle" onclick={event => setDisplayTimer(!displayTimer())} disabled={abort()}><img src="/src/assets/timer.svg" /><p>Timer</p></button>
                     <Show when={displayTimer() && !abort()}>
                         <input placeholder={timer().toString()} 
                         onchange={event => handleChange(event)} 
@@ -119,8 +119,11 @@ export function OutputCard(){
             </div>
             
             <div class="card output">
-                <h2 id="chapter">{chapter().fullname}</h2>
-                <h3 id="output">{(book().chapters.length > 1 ? chapter().number + "." : "") + task().task}</h3>
+                <div id="output-wrapper">
+                    <h2 id="chapter">{chapter().fullname}</h2>
+                    <h3 id="output">{(book().chapters.length > 1 ? chapter().number + "." : "") + task().task}</h3>
+                </div>
+                
                 <div class="button-group">
                     <button class="icon-only" aria-label="randomize" id="random" 
                     onclick={event => random(false)} 
@@ -140,8 +143,8 @@ export function OutputCard(){
                 </div>
 
                 <Show when={book().chapters.length > 1}>
-                    <div >
-                        <h4>Filter chapters:</h4>
+                    <div id="checkbox-wrapper">
+                        <h4>Filter chapters</h4>
                         <div id="checkboxes">
                             <For each={book().chapters}>
                                 {(chapter) => 
@@ -162,8 +165,9 @@ export function OutputCard(){
                     </div>
                 </Show>
 
-                <h4>Choose book:</h4>
+                
                 <div id="course-select-wrapper">
+                <h4>Choose book</h4>
                     <select id="course-select" name="course" onchange={(event) => {setNewBook(JSON.parse(event.target.value))}}>
                         <option value={JSON.stringify(book())}>{book().name}</option>
                         <For each={library.filter((_book) => _book.name != book().name)}>

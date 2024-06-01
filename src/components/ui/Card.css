@@ -1,5 +1,4 @@
-.card-group{
-    margin: 1em calc(50vw - 300px);
+.card-group{    margin: 1em calc(50vw - 300px);
 
     .card {
         margin: 2em 0;
@@ -69,7 +68,7 @@
 
 
 
-@media (max-width:480px)  {
+@media (max-width:600px)  {
     .card-group{
         display: flex;
         flex-direction: column-reverse;
@@ -103,11 +102,9 @@
     }
     
     .card{
-        display: flex;
-        flex-direction: column;
     
         width: 100%;
-        height: unset;
+        max-height: unset;
     
         overflow-x: hidden;
         overflow-y: scroll;

@@ -101,6 +101,6 @@ export function Timer(props){
 
     
     return (
-        <h1 style="text-align: center; margin: 0 0 0 0;">{time()}</h1>
+        <h1 class="timer" style="text-align: center; margin: 0 0 0 0;">{time()}</h1>
     )
 }
