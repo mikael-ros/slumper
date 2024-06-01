@@ -156,7 +156,7 @@ export function AddCard(){
         <div class="card-group vertical">
             
             <div class="card add">
-                <a href="/"><button aria-label="back" id="import"><img src="/src/assets/home.svg" /><p>Back</p></button></a>
+                <a id="back" href="/"><button aria-label="back" ><img src="/src/assets/home.svg" /><p>Back</p></button></a>
                 <h1>Add book</h1>
 
                 <div id="book-params">
@@ -164,23 +164,21 @@ export function AddCard(){
                     <input value={link()} placeholder="Book image URL (optional)" oninput={event => setLink(event.target.value)} onchange={event => setLink(event.target.value)}></input>
                 </div>
                 
-
                 <div id="chapter-inputs">
-                    <button aria-label="add" class="add" onclick={event => setChapters(chapters() + 1)}><img src="/src/assets/plus.svg" /><p>Add entry</p></button>
+                    <button aria-label="add" id="add" onclick={event => setChapters(chapters() + 1)}><img src="/src/assets/plus.svg" /><p>Add entry</p></button>
                     <ol>
                         <For each={[...Array(chapters()).keys()]}>
                             {chapter => 
                             <li class="chapter-input">
                                 <p>{chapter + 1}</p>
                                 <input value={titles()[chapter] == undefined ? "" : titles()[chapter]} placeholder="Chapter title*" oninput={event => handleTitlesChange(chapter, event)} onchange={event => handleTitlesChange(chapter, event)} required />
-                                <input value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# of tasks*" onchange={event => handleAmountChange(chapter, event)}
+                                <input value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
                                 oninput={event => handleAmountChange(chapter, event)} required/>
                             </li>
                             }
                         </For>
                     </ol>
                 </div>
-                
 
                 <div class="button-group">
                     <button aria-label="done" id="done" onclick={() => saveBook()}><img src="/src/assets/tick.svg" /><p>Save</p></button>
@@ -190,9 +188,8 @@ export function AddCard(){
                     <button aria-label="clear" id="clear" onclick={() => importBook(dummyBook)}><img src="/src/assets/trash.svg" /><p>Clear</p></button>
                 </div>
 
-                
             </div>
-            <div class="card">
+            <div class="card library">
                 <h1>Personal library</h1>
                 <ol class="book-list">
                     <Show when={library().length == 0}>
