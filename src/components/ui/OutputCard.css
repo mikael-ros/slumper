@@ -133,7 +133,7 @@
     }
 }
 
-@media (max-width:600px) {
+@media (max-width:900px) {
     .output{
         .button-group {
             flex-direction: row-reverse;
@@ -175,8 +175,8 @@
     #output-wrapper {
         display: flex;
         flex-direction: column;
-        max-height: 12em;
-        min-height: 12em;
+        max-height: 13em;
+        min-height: 13em;
         overflow: hidden;
         *{
             text-overflow: ellipsis;
@@ -184,10 +184,14 @@
             font-size: 1.35em;
         }
     
-        h2 {
-            height: 8em;
+        #chapter {
+            height: 9em;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        #output{
+            font-size: 2.5em;
         }
     }
 
@@ -268,10 +272,7 @@
             font-size: 0.95em;
         }
 
-        #timer-display{
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        h1{
             width: 15%;
             max-height: 2em;
             margin: 0 .25em !important;

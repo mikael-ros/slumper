@@ -23,7 +23,7 @@ export function OutputCard(){
     const [task, setTask] = createSignal(dummyTask);
     const [unchecked, setUnchecked] = createSignal<Set<Number>>(new Set<Number>);
     const [abort, setAbort] = createSignal(false);
-    const [mobile, setMobile] = createSignal(window.innerWidth <= 800);
+    const [mobile, setMobile] = createSignal(window.innerWidth <= 900);
 
 
     var randomizer : Randomizer = new Randomizer(book());
@@ -95,7 +95,7 @@ export function OutputCard(){
         warn(valid, event);
     }
 
-    window.onresize = () => setMobile(window.innerWidth <= 800);
+    window.onresize = () => setMobile(window.innerWidth <= 900);
 
     return (
         <div class="card-group">
