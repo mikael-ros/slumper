@@ -27,6 +27,7 @@
     }
 }
 
+
 .output{
     #random{
         img{
@@ -267,9 +268,12 @@
             font-size: 0.95em;
         }
 
-        h1{
-            flex-grow: 1;
+        #timer-display{
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 15%;
+            max-height: 2em;
             margin: 0 .25em !important;
             font-size: 2em;
         }

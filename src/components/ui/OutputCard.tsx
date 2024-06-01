@@ -23,7 +23,7 @@ export function OutputCard(){
     const [task, setTask] = createSignal(dummyTask);
     const [unchecked, setUnchecked] = createSignal<Set<Number>>(new Set<Number>);
     const [abort, setAbort] = createSignal(false);
-    const [mobile, setMobile] = createSignal(window.innerWidth <= 600);
+    const [mobile, setMobile] = createSignal(window.innerWidth <= 800);
 
 
     var randomizer : Randomizer = new Randomizer(book());
@@ -95,12 +95,12 @@ export function OutputCard(){
         warn(valid, event);
     }
 
-    window.onresize = () => setMobile(window.innerWidth <= 600);
+    window.onresize = () => setMobile(window.innerWidth <= 800);
 
     return (
         <div class="card-group">
             <div class ="card small" id="timer">
-                <div style={mobile() ? "" : "height: " + (displayTimer() && !abort() ? "3em" : "0em") + ";"
+                <div id="timer-display" style={mobile() ? "" : "height: " + (displayTimer() && !abort() ? "3em" : "0em") + ";"
                             + " transition-property: height;"
                             + " transition-duration: var(--transition-duration-medium);"}>
                     <Show when={displayTimer() && !abort()}>

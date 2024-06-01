@@ -231,6 +231,7 @@ article::before {
 article{
     position: relative; /* Ensure positioning context for pseudo-element */
     display: flex;
+    justify-content: center;
     align-items: center;
 
     width: 100%;
@@ -240,7 +241,7 @@ article{
     z-index: 3;
 }
 
-@media (max-width:600px)  {
+@media (max-width:900px)  {
     :root{
         --mild-border-radius: .35rem;
         --default-border-radius: 0.8rem;

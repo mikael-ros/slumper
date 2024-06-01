@@ -118,7 +118,7 @@
 }
 
 /* Volume knob should not be displayed on mobile */
-@media (max-width:600px)  {
+@media (max-width:900px)  {
     .volume-knob{
         display: none;
     }
