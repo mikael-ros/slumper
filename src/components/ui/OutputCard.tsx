@@ -167,7 +167,6 @@ export function OutputCard(){
 
                 
                 <div id="course-select-wrapper">
-                <h4>Choose book</h4>
                     <select id="course-select" name="course" onchange={(event) => {setNewBook(JSON.parse(event.target.value))}}>
                         <option value={JSON.stringify(book())}>{book().name}</option>
                         <For each={library.filter((_book) => _book.name != book().name)}>

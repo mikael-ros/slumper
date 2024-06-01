@@ -3,15 +3,29 @@
 /***************/
 
 #course-select-wrapper{
-    display: flex;
+    display: grid;
+    grid-template-areas: 
+        "select button";
+    grid-template-columns: 6fr 1fr;
+    grid-template-rows: 1fr;
+
     height: 2em;
+    width: 100%;
+
+    margin: 1em auto;
 
     select {
-        width: 70%;
-        height: 2em;
+        width: 100%;
+        grid-area: select;
+        margin-left: 0;
+    }
+
+    a, button {
+        width: 5em;
+
+        grid-area: button;
     }
 }
-
 
 .output{
     #random{
@@ -177,34 +191,12 @@
     }
 
     #course-select-wrapper{
-        display: grid;
-        grid-template-areas: 
-            "select button";
-        grid-template-columns: 6fr 1fr;
-        grid-template-rows: 1fr 1fr;
-
-        margin: 1em 0;
-     
-        height: unset;
-    
-        h4 {
+        p {
             display: none;
         }
-
-        select {
-            width: 100%;
-            grid-area: select;
-            margin-left: 0;
-        }
-
-        a, button {
+        
+        button {
             width: 2em;
-
-            grid-area: button;
-
-            p {
-                display: none;
-            }
         }
     }
     
