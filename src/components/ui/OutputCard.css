@@ -8,22 +8,36 @@
         "select button";
     grid-template-columns: 6fr 1fr;
     grid-template-rows: 1fr;
+    grid-gap: .5em;
+    justify-items: center;
 
     height: 2em;
     width: 100%;
 
     margin: 1em auto;
 
-    select {
+    * {
+        margin: 0;
+        height: 100%;
         width: 100%;
+    }
+
+    select {
         grid-area: select;
-        margin-left: 0;
     }
 
     a, button {
-        width: 5em;
-
         grid-area: button;
+    }
+}
+
+#checkbox-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    #checkboxes {
+        display: flex;
+        flex-wrap: wrap;
     }
 }
 
@@ -134,7 +148,15 @@
 }
 
 @media (max-width:900px) {
+    
     .output{
+        display: grid;
+        grid-template-areas:
+            "output"
+            "chapter"
+            "checkboxes"
+            "select";
+
         .button-group {
             flex-direction: row-reverse;
             position: fixed;
@@ -177,35 +199,26 @@
         flex-direction: column-reverse;
 
         #chapter {
-             min-height: 4em; /* Keeps it from bouncing */   
+            
+            line-height: 1.75em;
         }
 
         #output{
+            position: absolute;
+            top: 3em;
+            left: 0;
             font-size: 2.5em;
+            height: 2em;
+            width: 100%;
+            margin: 0;
         }
     }
 
     #course-select-wrapper{
+        grid-template-columns: 1fr 2em;
+
         p {
             display: none;
-        }
-        
-        button {
-            width: 2em;
-        }
-    }
-    
-    #checkbox-wrapper {
-        display: flex;
-        flex-direction: column;
-
-        justify-content: center;
-        align-items: center;
-        
-        #checkboxes {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
         }
     }
 
@@ -235,6 +248,16 @@
 
         & > p{
             display: none;
+        }
+    }
+
+    #checkbox-wrapper {
+        justify-content: center;
+        align-items: center;
+
+        #checkboxes {
+            align-items: center;
+            justify-content: center;
         }
     }
 

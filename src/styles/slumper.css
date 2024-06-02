@@ -203,10 +203,39 @@ button, select, option, input:not([type=checkbox]), label{
     }
 }
 
-input[type='checkbox']{
-    margin: .75em;
 
-    transform: scale(2); /* Visual size */
+
+.checkbox {
+    input[type='checkbox']{ /* The checkbox itself */
+        margin: .75em;
+    
+        transform: scale(2); /* Visual size */
+    }
+
+    label {
+        align-items: end;
+        justify-content: end;
+        position: relative;
+        
+
+        width: 80%;
+        height: 0;
+        margin: 0;
+        padding: 0;
+
+        font-size: .8em;
+        line-height: 200%;
+        color: var(--text-color-negative-dull);
+
+        mix-blend-mode: hard-light;
+
+        background: none;
+
+        /* Make it not interfere with the checkbox */
+        user-select: none;
+        pointer-events: none;
+        touch-action: none;
+    }
 }
 
 /************/
@@ -299,10 +328,12 @@ article{
     /* Default text settings stuff */
     /*******************************/
     
-    input[type='checkbox']{
-        margin: 1.5em;
-    
-        transform: scale(3); /* Visual size */
+    .checkbox {
+        input[type='checkbox']{
+            margin: 1.5em;
+        
+            transform: scale(3); /* Visual size */
+        }
     }
 
     .button-group{

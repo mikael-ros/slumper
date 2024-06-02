@@ -62,10 +62,6 @@
             transition-duration: var(--transition-duration-fast);
         }
     }
-
-    select {
-        width: 15rem;
-    }
 }
 
 

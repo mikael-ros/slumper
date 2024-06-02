@@ -148,17 +148,20 @@ export function OutputCard(){
                         <div id="checkboxes">
                             <For each={book().chapters}>
                                 {(chapter) => 
-                                    <input type="checkbox" 
-                                    disabled={unchecked().has(chapter.number)} 
-                                    checked={filtered(chapter)} 
-                                    onchange={(event) => {
-                                        if (filtered(chapter)){
-                                            randomizer.addToFilter(chapter);
-                                        } else {
-                                            randomizer.removeFromFilter(chapter);
-                                        }
-                                        updateChecks();
-                                    }} />
+                                    <div class="checkbox">
+                                        <input name={chapter.fullname} type="checkbox" 
+                                        disabled={unchecked().has(chapter.number)} 
+                                        checked={filtered(chapter)} 
+                                        onchange={(event) => {
+                                            if (filtered(chapter)){
+                                                randomizer.addToFilter(chapter);
+                                            } else {
+                                                randomizer.removeFromFilter(chapter);
+                                            }
+                                            updateChecks();
+                                        }} />
+                                        <label for={chapter.fullname}>{chapter.number}</label>
+                                    </div>
                                 }
                             </For>
                         </div>
