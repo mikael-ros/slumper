@@ -174,20 +174,10 @@
 
     #output-wrapper {
         display: flex;
-        flex-direction: column;
-        max-height: 13em;
-        min-height: 13em;
-        overflow: hidden;
-        *{
-            text-overflow: ellipsis;
-            line-height: 1.25em;
-            font-size: 1.35em;
-        }
-    
+        flex-direction: column-reverse;
+
         #chapter {
-            height: 9em;
-            overflow: hidden;
-            text-overflow: ellipsis;
+             min-height: 4em; /* Keeps it from bouncing */   
         }
 
         #output{
