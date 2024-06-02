@@ -58,40 +58,16 @@ async function writeBook(book: Book){
 }
 
 export default async function generateDefaultLibrary(){
-    const manssonlinalgBook = new Map<string,number>([
-        ["Vektorer", 40],
-        ["Vektorer som geometriska objekt", 39],
-        ["Linjära ekvationssystem", 31],
-        ["Matriser", 30],
-        ["Några centrala begrepp inom linjär algebra", 35],
-        ["Determinanter", 33],
-        ["Linjära avbildningar", 18],
-        ["Egenskaper hos linjära avbildningar", 28],
-        ["Bas- och koordinatbyte", 10],
-        ["Egenvektorer och egenvärden", 22],
-        ["Diagonalisering", 16],
-        ["Kapitel B", 32]
+    const exampleBook = new Map<string,number>([
+        ["A very interesting chapter", 20],
+        ["Must read", 15],
+        ["Insane ramblings and other essentials", 30],
+        ["Pit of despair", 30],
+        ["The least interesting chapter", 35],
     ])
-
-    const fmab20instuderingBook = new Map<string,number>([
-        ["Linjära ekvationssystem", 2],
-        ["Geometriska vektorer", 9],
-        ["Linjer och plan", 11],
-        ["Skalärprodukt", 12],
-        ["Vektorprodukt", 6],
-        ["Rummet R^n", 4],
-        ["Matriser", 22],
-        ["Linjära avbildningar", 10],
-        ["Determinanter", 14],
-        ["Egenvärden och egenvektorer", 4]
-    ])
-
-    const edaf052023Book = new Map<string,number>([["EDAF05 example questions 2023",40]]);
 
     const toGen = new Map([
-        [edaf052023Book, ["EDAF05 example questions 2023", "/src/assets/previews/edaf052023.png"]],
-        [fmab20instuderingBook, ["FMAB20: Instuderingsfrågor i Linjär algebra; ht 2011", "/src/assets/previews/fmab20instudering.png"]],
-        [manssonlinalgBook, ["Linjär algebra (Månsson; Nordbeck)", "https://s1.adlibris.com/images/50965756/linjar-algebra.jpg"]]
+        [exampleBook, ["Example book", "/src/assets/previews/example-book-preview"]],
     ])
     
     toGen.forEach((values, book) => writeBook(generateBook(book,values[0],values[1])))

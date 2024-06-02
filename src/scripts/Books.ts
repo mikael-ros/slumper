@@ -22,11 +22,9 @@ export const dummyBook: Book = {
 }
 
 
-import fmab20bok from '../content/tasks/linjralgebramnssonnordbeck.json';
-import fmab20instudering from '../content/tasks/fmabinstuderingsfrgorilinjralgebraht.json';
-import edaf05 from '../content/tasks/edafexamplequestions.json';
+import examplebook from '../content/tasks/examplebook.json';
 
-export const library : Book[] = [fmab20bok, fmab20instudering, edaf05].concat(getSetOrElse("personalLibrary", new Array<Book>));
+export const library : Book[] = [examplebook].concat(getSetOrElse("personalLibrary", new Array<Book>));
 
 /**
  * Retrieves a book from name
