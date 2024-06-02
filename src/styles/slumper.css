@@ -238,7 +238,7 @@ article{
     height: 100%;
 
     min-height: 100vh;
-    z-index: 3;
+    
 }
 
 @media (max-width:900px)  {
@@ -287,8 +287,12 @@ article{
 
         height: unset;
         padding: .5em;
-        padding-bottom: 9em;
+        
         width: 100vw;
+    }
+
+    body:has(.output) footer{
+        padding-bottom: 9em;
     }
     
     /*******************************/
@@ -313,5 +317,6 @@ article{
         padding: 4em 0;
 
         height: 100%;
+        z-index: 3;
     }
 }

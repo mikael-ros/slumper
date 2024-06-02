@@ -17,10 +17,11 @@ const { title } = Astro.props;
 		</header>
 		<slot />
 		<footer>
-			<Link href="https://www.embracket.com" src="/src/assets/embracketlogo.svg" text="Made by Embracket" />
-			<Link href="https://www.github.com/mikael-ros/slumper" src="/src/assets/github-mark-white.svg" text="GitHub" />
-			<Link href="https://www.github.com/mikael-ros/slumper" src="/src/assets/altdonate.svg" text="Donate" />
+			<Link href="https://www.embracket.com" src="/src/assets/embracketlogo.svg" text="Made by Embracket" newtab={true}/>
+			<Link href="https://www.github.com/mikael-ros/slumper" src="/src/assets/altdonate.svg" text="Donate" newtab={true}/>
 			<Link href="https://www.github.com/mikael-ros/slumper" src="/src/assets/share.svg" text="Share" clipboard={true} client:only="solid-js"/>
+			<Link href="https://www.github.com/mikael-ros/slumper" src="/src/assets/github-mark-white.svg" text="GitHub" />
+			<Link href="https://github.com/mikael-ros/slumper/issues/new" src="/src/assets/bug.svg" text="Report bug" newtab={true}/>
 		</footer>
 	</body>
 </html>
