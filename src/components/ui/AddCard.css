@@ -144,7 +144,9 @@
 @media (max-width:900px)  {
     #back button{
         width: 100%;
+        margin: 0;
     }
+
     .add {
         .button-group {
             display: grid;
@@ -157,28 +159,36 @@
             }
         }
 
+        input:first-of-type {
+            margin-left: 0;
+        }
+        
+        input:last-of-type {
+            margin-right: 0;
+        }
+
         #add {
-            width: 98%;
-            height: 1.5em;
+            width: 100%;
         }
 
         #chapter-inputs{
             display: flex;
             flex-direction: column;
             width: 100%;
+            max-height: 500px;
             padding: .5em 0;
+
+            button {
+                margin: 0;
+            }
+
+            ol {
+                padding: 0;
+            }
         
             .chapter-input {
                 p {
                     display: none;
-                }
-
-                input:first-of-type {
-                    margin-left: 0;
-                }
-                
-                input:last-of-type {
-                    margin-right: 0;
                 }
             }
         }
