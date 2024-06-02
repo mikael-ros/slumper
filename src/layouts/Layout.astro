@@ -3,14 +3,15 @@ import Head from '../components/layouts/Head.astro';
 import {Link} from '../components/Link.tsx';
 interface Props {
 	title: string;
+	description?: string;
 }
 
-const { title } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-	<Head title={title} favicon="/src/assets/refresh-negative.svg"/>
+	<Head title={title} description={description} favicon="/src/assets/refresh-negative.svg"/>
 	<body>
 		<header>
 			<h1>{title}</h1>
