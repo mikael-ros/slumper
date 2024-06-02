@@ -203,8 +203,6 @@ button, select, option, input:not([type=checkbox]), label{
     }
 }
 
-
-
 .checkbox {
     input[type='checkbox']{ /* The checkbox itself */
         margin: .75em;
@@ -216,18 +214,18 @@ button, select, option, input:not([type=checkbox]), label{
         align-items: end;
         justify-content: end;
         position: relative;
-        
-
-        width: 80%;
+        top:-2%;
+        width: 81%;
         height: 0;
         margin: 0;
         padding: 0;
 
         font-size: .8em;
         line-height: 200%;
-        color: var(--text-color-negative-dull);
+        color: var(--text-color);
 
-        mix-blend-mode: hard-light;
+        mix-blend-mode:multiply;
+        text-shadow: none;
 
         background: none;
 
@@ -235,6 +233,10 @@ button, select, option, input:not([type=checkbox]), label{
         user-select: none;
         pointer-events: none;
         touch-action: none;
+    }
+    input[type='checkbox']:checked + label {
+        color: var(--text-color-negative); 
+        mix-blend-mode:soft-light;
     }
 }
 
