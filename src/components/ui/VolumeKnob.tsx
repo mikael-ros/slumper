@@ -1,5 +1,8 @@
 import "./VolumeKnob.css";
 
+import knobIcon from "/src/assets/volume-knob-nodot.svg";
+import knobDot from "/src/assets/volume-knob-onlydot.svg";
+
 import { createSignal } from "solid-js";
 
 import {getSetOrElse,set} from "../../scripts/StorageHandler.ts";
@@ -52,8 +55,8 @@ export function VolumeKnob(){
                     <p>{(volume()*100).toString().split(".")[0]}</p>
                 </figure>
             <button class="knob" onclick={handleKnob}>
-                <img id="only-dot" src="/src/assets/volume-knob-onlydot.svg"/>
-                <img id="no-dot" src="/src/assets/volume-knob-nodot.svg"/>
+                <img id="only-dot" src={knobDot.src}/>
+                <img id="no-dot" src={knobIcon.src}/>
             </button>
         </div>
     )

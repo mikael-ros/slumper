@@ -1,6 +1,13 @@
 import "./Card.css";
 import "./AddCard.css";
 
+import homeIcon from "/src/assets/home.svg";
+import tickIcon from "/src/assets/tick.svg";
+import trashIcon from "/src/assets/trash.svg";
+import uploadIcon from "/src/assets/upload.svg";
+import downloadIcon from "/src/assets/download.svg";
+import plusIcon from "/src/assets/plus.svg";
+
 import { createSignal, For, Show } from "solid-js";
 
 import {dummyBook} from "../../scripts/Books.ts";
@@ -149,7 +156,7 @@ export function AddCard(){
         <div class="card-group vertical">
             
             <div class="card add">
-                <a id="back" href="/"><button aria-label="back" ><img src="/src/assets/home.svg" /><p>Back</p></button></a>
+                <a id="back" href="/"><button aria-label="back" ><img src={homeIcon.src} /><p>Back</p></button></a>
                 <h1>Add book</h1>
 
                 <div id="book-params">
@@ -158,7 +165,7 @@ export function AddCard(){
                 </div>
                 
                 <div id="chapter-inputs">
-                    <button aria-label="add" id="add" onclick={() => setChapters(chapters() + 1)}><img src="/src/assets/plus.svg" /><p>Add entry</p></button>
+                    <button aria-label="add" id="add" onclick={() => setChapters(chapters() + 1)}><img src={plusIcon.src} /><p>Add entry</p></button>
                     <ol>
                         <For each={[...Array(chapters()).keys()]}>
                             {chapter => 
@@ -174,11 +181,11 @@ export function AddCard(){
                 </div>
 
                 <div class="button-group">
-                    <button aria-label="done" id="done" onclick={saveBook}><img src="/src/assets/tick.svg" /><p>Save</p></button>
-                    <button aria-label="export" id="export" onclick={getBook}><img src="/src/assets/download.svg" /><p>Export</p></button>
+                    <button aria-label="done" id="done" onclick={saveBook}><img src={tickIcon.src} /><p>Save</p></button>
+                    <button aria-label="export" id="export" onclick={getBook}><img src={downloadIcon.src} /><p>Export</p></button>
                     <input type="file" aria-label="import file" id="file-import" onchange={handleFileSelect}></input>
-                    <label for="file-import"><img src="/src/assets/upload.svg" /><p>Import</p></label>
-                    <button aria-label="clear" id="clear" onclick={() => importBook(dummyBook)}><img src="/src/assets/trash.svg" /><p>Clear</p></button>
+                    <label for="file-import"><img src={uploadIcon.src} /><p>Import</p></label>
+                    <button aria-label="clear" id="clear" onclick={() => importBook(dummyBook)}><img src={trashIcon.src} /><p>Clear</p></button>
                 </div>
 
             </div>
@@ -193,9 +200,9 @@ export function AddCard(){
                         {book =>
                             <li class="book-entry"><h5>{book.name}</h5> 
                                 <div class="button-group">
-                                    <button aria-label="remove book" onclick={() => removeBook(book.name)}><img src="/src/assets/trash.svg" /></button>
-                                    <button aria-label="export book" onclick={() => exportBook(book)}><img src="/src/assets/download.svg" /></button>
-                                    <button aria-label="import book" onclick={() => importBook(book)}><img src="/src/assets/upload.svg" /></button>
+                                    <button aria-label="remove book" onclick={() => removeBook(book.name)}><img src={trashIcon.src} /></button>
+                                    <button aria-label="export book" onclick={() => exportBook(book)}><img src={downloadIcon.src} /></button>
+                                    <button aria-label="import book" onclick={() => importBook(book)}><img src={uploadIcon.src} /></button>
                                 </div>
                             </li>
                         }

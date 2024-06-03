@@ -1,4 +1,11 @@
 ---
+import logo from "/src/assets/embracketlogo.svg";
+import donateIcon from "/src/assets/altdonate.svg";
+import shareIcon from "/src/assets/share.svg";
+import githubIcon from "/src/assets/github-mark-white.svg";
+import bugIcon from "/src/assets/bug.svg";
+import favicon from "/src/assets/refresh-negative.svg";
+
 import Head from '../components/layouts/Head.astro';
 import {Link} from '../components/Link.tsx';
 interface Props {
@@ -11,18 +18,18 @@ const { title, description } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<Head title={title} description={description} favicon="/src/assets/refresh-negative.svg"/>
+	<Head title={title} description={description} favicon={favicon.src}/>
 	<body>
 		<header>
 			<h1>{title}</h1>
 		</header>
 		<slot />
 		<footer>
-			<Link href="https://www.embracket.com" src="/src/assets/embracketlogo.svg" text="Made by Embracket" newtab={true}/>
-			<Link href="https://www.github.com/mikael-ros/slumper" src="/src/assets/altdonate.svg" text="Donate" newtab={true}/>
-			<Link href="https://www.github.com/mikael-ros/slumper" src="/src/assets/share.svg" text="Share" clipboard={true} client:only="solid-js"/>
-			<Link href="https://www.github.com/mikael-ros/slumper" src="/src/assets/github-mark-white.svg" text="GitHub" />
-			<Link href="https://github.com/mikael-ros/slumper/issues/new" src="/src/assets/bug.svg" text="Report bug" newtab={true}/>
+			<Link href="https://www.embracket.com" src={logo.src} text="Made by Embracket" newtab={true}/>
+			<Link href="https://www.github.com/mikael-ros/slumper" src={donateIcon.src} text="Donate" newtab={true}/>
+			<Link href="https://www.github.com/mikael-ros/slumper" src={shareIcon.src} text="Share" clipboard={true} client:only="solid-js"/>
+			<Link href="https://www.github.com/mikael-ros/slumper" src={githubIcon.src} text="GitHub" />
+			<Link href="https://github.com/mikael-ros/slumper/issues/new" src={bugIcon.src} text="Report bug" newtab={true}/>
 		</footer>
 	</body>
 </html>

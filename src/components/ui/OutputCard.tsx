@@ -1,6 +1,13 @@
 import "./Card.css";
 import "./OutputCard.css";
 
+import tickIcon from "/src/assets/tick.svg";
+import refreshIcon from "/src/assets/refresh.svg";
+import trashIcon from "/src/assets/trash.svg";
+import timerIcon from "/src/assets/timer.svg";
+import linkIcon from "/src/assets/link.svg";
+import plusIcon from "/src/assets/plus.svg";
+
 import { createSignal, For, onMount, Show } from "solid-js";
 import { Randomizer} from "../../scripts/Randomizer";
 import { Timer } from "./Timer.tsx";
@@ -108,7 +115,7 @@ export function OutputCard(){
                     </Show>
                 </div>
                 <div id="timer-config">
-                    <button style={displayTimer() && !abort() ? "width: 70%;" : "width: 100%"} aria-label="toggle timer" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={abort()}><img src="/src/assets/timer.svg" /><p>Timer</p></button>
+                    <button style={displayTimer() && !abort() ? "width: 70%;" : "width: 100%"} aria-label="toggle timer" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={abort()}><img src={timerIcon.src} /><p>Timer</p></button>
                     <Show when={displayTimer() && !abort()}>
                         <input placeholder={timer().toString()} 
                         onchange={event => handleChange(event)} 
@@ -128,17 +135,17 @@ export function OutputCard(){
                     <button class="icon-only" aria-label="randomize" id="random" 
                     onclick={() => random(false)} 
                     disabled={abort()}>
-                        <img src="/src/assets/refresh.svg" />
+                        <img src={refreshIcon.src} />
                     </button>
                     <button class="icon-only" aria-label="completed" id="done" 
                     onclick={() => random(true)} 
                     disabled={abort()}>
-                        <img src="/src/assets/tick.svg" />
-                        <img src="/src/assets/refresh.svg" />
+                        <img src={tickIcon.src} />
+                        <img src={refreshIcon.src} />
                     </button>
                     <button class="icon-only" aria-label="reset book" id="reset" 
                     onclick={() => {randomizer.resetSpentTasks(); random(false)}}>
-                        <img src="/src/assets/trash.svg" />
+                        <img src={trashIcon.src} />
                     </button>
                 </div>
 
@@ -178,8 +185,8 @@ export function OutputCard(){
                             }
                         </For>
                     </select>
-                    <a href={book().source} id="get"><button aria-label="book source" ><img src="/src/assets/link.svg" /><p>Get</p></button></a>
-                    <a href="add" id="add"><button aria-label="add book" ><img src="/src/assets/plus.svg" /><p>Add</p></button></a>
+                    <a href={book().source} id="get"><button aria-label="book source" ><img src={linkIcon.src} /><p>Get</p></button></a>
+                    <a href="add" id="add"><button aria-label="add book" ><img src={plusIcon.src} /><p>Add</p></button></a>
                 </div>
                 
             </div>
