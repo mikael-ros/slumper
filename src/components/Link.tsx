@@ -1,11 +1,11 @@
 import "./Link.css";
 
-import { createSignal, createEffect, For, onMount, Show, onCleanup } from "solid-js";
+import { createSignal } from "solid-js";
 
 import { Notification } from "./ui/Notification.tsx";
 
 
-export function Link(props){
+export function Link(props: any){
     const {href, text, src, clipboard, newtab} = props;
     const [copied, setCopied] = createSignal(false);
 
@@ -30,7 +30,7 @@ export function Link(props){
                 <p>{text}</p>
                 <img src={src} />
             </a>
-            <Notification owner={this} condition={copied} setCondition={setCopied} message="Link copied to clipboard" relative={false}/>
+            <Notification condition={copied} setCondition={setCopied} message="Link copied to clipboard" relative={false}/>
         </div>
     )
 }

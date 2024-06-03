@@ -1,11 +1,11 @@
 import "./Card.css";
 import "./AddCard.css";
 
-import { createSignal, For, onMount, Show } from "solid-js";
+import { createSignal, For, Show } from "solid-js";
 
 import {dummyBook} from "../../scripts/Books.ts";
 import {generateBook, exportBook} from "../../scripts/BookGenerator.ts";
-import type {Book, Chapter, Task} from "../../scripts/BookGenerator.ts";
+import type {Book } from "../../scripts/BookGenerator.ts";
 
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 
@@ -75,9 +75,9 @@ export function AddCard(){
         }
     }
 
-    function updateTitles(index: number, event){
+    function updateTitles(index: number, event : Event & {currentTarget : HTMLInputElement}){
         const current = titles();
-        current[index] = event.target.value;
+        current[index] = event.currentTarget.value;
         setTitles(current);
     }
 
@@ -92,19 +92,19 @@ export function AddCard(){
      * @param valid Wheter the input was valid
      * @param event The event that triggered this method
      */
-    function warn(valid: boolean, event){
-        event.target.style.color = valid ? "var(--text-color-negative)" : "red";
+    function warn(valid: boolean, event : Event & {currentTarget : HTMLInputElement}){
+        event.currentTarget.style.color = valid ? "var(--text-color-negative)" : "red";
     }
 
-    function handleTitleChange(event){
-        const valid = event.target.value.length > 0;
+    function handleTitleChange(event : Event & {currentTarget : HTMLInputElement}){
+        const valid = event.currentTarget.value.length > 0;
         warn(valid, event)
         if (valid)
-            setTitle(event.target.value);
+            setTitle(event.currentTarget.value);
     }
 
-    function handleTitlesChange(index: number, event){
-        const input : string = event.target.value;
+    function handleTitlesChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
+        const input : string = event.currentTarget.value;
         const copy = titles().indexOf(input);
         const valid = input.length > 0 && copy == index || copy == -1;
         warn(valid, event)
@@ -112,22 +112,18 @@ export function AddCard(){
             updateTitles(index, event);
     }
 
-    function handleAmountChange(index: number, event){
-        const number = event.target.value.length > 0 ? parseInt(event.target.value) : 1; 
+    function handleAmountChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
+        const number = event.currentTarget.value.length > 0 ? parseInt(event.currentTarget.value) : 1; 
         const valid = !Number.isNaN(number) && number > 0;
         warn(valid, event);
         if (valid)
             updateAmounts(index, number);
     }
 
-    function handleFileSelect(event) {
-        const file = event.target.files[0];
-        console.log(file);
-        if (!file) {
-            return;
-        }
-    
-        if (file.type !== "application/json") {
+    function handleFileSelect(event : Event & {currentTarget : HTMLInputElement}) {
+        const file = event.currentTarget.files?.[0];
+        
+        if (!file || file.type !== "application/json") {
             alert("Please select a JSON file.");
             return;
         }
@@ -136,17 +132,14 @@ export function AddCard(){
     
         reader.onload = function(event) {
             try {
-                const book : Book = JSON.parse(event.target.result);
-                console.log(book);
+                if (!event.target?.result) {
+                    throw new Error("File reading failed");
+                }
+                const book : Book = JSON.parse(event.target.result as string);
                 importBook(book);
             } catch (error) {
                 alert("Error parsing JSON file.");
             }
-        };
-
-        reader.onerror = function(event) {
-            console.error("File could not be read! Code " + event.target.error.code);
-            alert("Error reading file.");
         };
     
         reader.readAsText(file);
@@ -165,7 +158,7 @@ export function AddCard(){
                 </div>
                 
                 <div id="chapter-inputs">
-                    <button aria-label="add" id="add" onclick={event => setChapters(chapters() + 1)}><img src="/src/assets/plus.svg" /><p>Add entry</p></button>
+                    <button aria-label="add" id="add" onclick={() => setChapters(chapters() + 1)}><img src="/src/assets/plus.svg" /><p>Add entry</p></button>
                     <ol>
                         <For each={[...Array(chapters()).keys()]}>
                             {chapter => 
@@ -181,9 +174,9 @@ export function AddCard(){
                 </div>
 
                 <div class="button-group">
-                    <button aria-label="done" id="done" onclick={() => saveBook()}><img src="/src/assets/tick.svg" /><p>Save</p></button>
-                    <button aria-label="export" id="export" onclick={() => getBook()}><img src="/src/assets/download.svg" /><p>Export</p></button>
-                    <input type="file" aria-label="import file" id="file-import" onchange={event => handleFileSelect(event)}></input>
+                    <button aria-label="done" id="done" onclick={saveBook}><img src="/src/assets/tick.svg" /><p>Save</p></button>
+                    <button aria-label="export" id="export" onclick={getBook}><img src="/src/assets/download.svg" /><p>Export</p></button>
+                    <input type="file" aria-label="import file" id="file-import" onchange={handleFileSelect}></input>
                     <label for="file-import"><img src="/src/assets/upload.svg" /><p>Import</p></label>
                     <button aria-label="clear" id="clear" onclick={() => importBook(dummyBook)}><img src="/src/assets/trash.svg" /><p>Clear</p></button>
                 </div>

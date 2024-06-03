@@ -66,6 +66,6 @@ export function exportBook(book: Book) {
     URL.revokeObjectURL(url);
 }
 
-export function exportAndGenerateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, filename: string){
-    exportBook(generateBook(input,bookName,bookPreviewImagePath));
+export function exportAndGenerateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, source: string){
+    exportBook(generateBook(input,bookName,bookPreviewImagePath,source));
 }

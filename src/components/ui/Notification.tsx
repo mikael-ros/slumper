@@ -1,13 +1,12 @@
 
 import "./Notification.css";
 
-import { createSignal, createEffect, For, onMount, Show, onCleanup } from "solid-js";
+import {createSignal, createEffect, Show} from "solid-js";
 
 
-export function Notification(props){
-    const {owner, condition, setCondition, message, duration, relative} = props;
+export function Notification(props: any){
+    const {condition, setCondition, message, duration} = props;
     const _duration = duration == null ? 4000 : duration;
-    const _relative = relative == null ? false : relative;
 
     const [alive, setAlive] = createSignal(false);
 
