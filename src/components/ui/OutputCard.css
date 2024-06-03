@@ -155,6 +155,7 @@
             "chapter"
             "checkboxes"
             "select";
+        
 
         .button-group {
             flex-direction: row-reverse;
@@ -186,11 +187,7 @@
 
         #course-select-wrapper {
             grid-area: select;
-            height: 2em;
-
-            * {
-                height: 2em;
-            }
+            
         }
     }
 
@@ -203,7 +200,6 @@
         flex-direction: column-reverse;
 
         #chapter {
-            
             line-height: 1.75em;
         }
 
@@ -220,11 +216,15 @@
 
     #course-select-wrapper{
         grid-template-columns: 1fr 2em 2em;
+        height: 2em;
 
         p {
             display: none;
         }
 
+        * {
+            height: 2em;
+        }
 
     }
 

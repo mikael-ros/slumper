@@ -70,7 +70,7 @@
         display: flex;
         flex-direction: column-reverse;
         height: unset;
-        margin: 0;
+        min-width: 100vw;
     
         .card {
             margin: 0;
@@ -99,8 +99,8 @@
     }
     
     .card{
-        
         width: 100%;
+        min-width: 100%;
         max-height: unset;
     
         overflow-x: hidden;
