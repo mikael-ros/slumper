@@ -1,6 +1,7 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 import "/src/styles/slumper.css";
+import logo from "/public/favicon.svg";
 
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
     description?: string;
 }
 
-const { title, favicon = "/public/favicon.svg", description = "Slumper, the exercise randomizer" } = Astro.props;
+const { title, favicon = logo, description = "Slumper, the exercise randomizer" } = Astro.props;
 ---
 
 <head>
