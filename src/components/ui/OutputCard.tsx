@@ -178,7 +178,8 @@ export function OutputCard(){
                             }
                         </For>
                     </select>
-                    <a href="add"><button aria-label="add book" id="add"><img src="/src/assets/plus.svg" /><p>Add</p></button></a>
+                    <a href={book().source} id="get"><button aria-label="book source" ><img src="/src/assets/link.svg" /><p>Get</p></button></a>
+                    <a href="add" id="add"><button aria-label="add book" ><img src="/src/assets/plus.svg" /><p>Add</p></button></a>
                 </div>
                 
             </div>

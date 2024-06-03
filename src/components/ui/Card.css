@@ -5,7 +5,7 @@
     align-items: center;
 
     .card {
-        margin: 2em 0;
+        margin: 1em 0;
     }
 }
 
@@ -37,7 +37,7 @@
     flex-direction: column;
     justify-content: center;
 
-    width: 900px;
+    width: 800px;
     max-height: 70vh;
 
     overflow-x: hidden;

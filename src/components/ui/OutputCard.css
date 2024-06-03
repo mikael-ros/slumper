@@ -5,20 +5,19 @@
 #course-select-wrapper{
     display: grid;
     grid-template-areas: 
-        "select button";
-    grid-template-columns: 6fr 1fr;
+        "select get add";
+    grid-template-columns: 3.5fr 1fr 1fr;
     grid-template-rows: 1fr;
     grid-gap: .5em;
     justify-items: center;
 
-    height: 2em;
     width: 100%;
 
     margin: 1em auto;
 
-    * {
+    select, button, a {
         margin: 0;
-        height: 100%;
+        height: 2.5em;
         width: 100%;
     }
 
@@ -26,8 +25,12 @@
         grid-area: select;
     }
 
-    a, button {
-        grid-area: button;
+    #get {
+        grid-area: get;
+    }
+
+    #add {
+        grid-area: add;
     }
 }
 
@@ -99,19 +102,15 @@
     }
 
     #add{
-        height: 2em;
-        max-width: 10em;
-
         img{
-            width: 1.5em;
             transform: rotate(-360deg);
         }
-    }
-
-    #add:hover{
-        img{
-            transition-duration: var(--transition-duration-medium);
-            transform: rotate(360deg);
+        
+        &:hover{
+            img{
+                transition-duration: var(--transition-duration-medium);
+                transform: rotate(360deg);
+            }
         }
     }
 }
@@ -187,6 +186,11 @@
 
         #course-select-wrapper {
             grid-area: select;
+            height: 2em;
+
+            * {
+                height: 2em;
+            }
         }
     }
 
@@ -215,11 +219,13 @@
     }
 
     #course-select-wrapper{
-        grid-template-columns: 1fr 2em;
+        grid-template-columns: 1fr 2em 2em;
 
         p {
             display: none;
         }
+
+
     }
 
     #timer-config {
