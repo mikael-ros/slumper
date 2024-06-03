@@ -2,12 +2,12 @@ import {getSetOrElse, set} from "./StorageHandler.ts";
 import type {Task, Chapter, Book} from "./BookGenerator.ts";
 
 export const dummyTask : Task = {
-    task: "No task",
+    task: -1,
 }
 
 export const dummyChapter: Chapter = {
     fullname: "",
-    number: "No chapter",
+    number: -1,
     tasks: [dummyTask]
 }
 
@@ -17,7 +17,7 @@ export const dummyBook: Book = {
     source: "",
     chapters: [{
         fullname: "",
-        number: "No chapter",
+        number: -1,
         tasks: new Array()
     }],
     generatorVersion: "1.0.0"

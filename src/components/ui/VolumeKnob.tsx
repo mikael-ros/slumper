@@ -1,6 +1,6 @@
 import "./VolumeKnob.css";
 
-import { createSignal, createEffect, For, onMount, Show, onCleanup } from "solid-js";
+import { createSignal } from "solid-js";
 
 import {getSetOrElse,set} from "../../scripts/StorageHandler.ts";
 
@@ -17,12 +17,12 @@ export function VolumeKnob(){
 
     const handleKnob = () => setOpen(!open());
 
-    const handleMouseDown = (event) => {
+    const handleMouseDown = (event : MouseEvent & {currentTarget : HTMLElement; target: Element;}) => {
         setIsDragging(true);
         handleSliderClick(event); // Set volume immediately on mousedown
     };
 
-    const handleSliderClick = (event) => {
+    const handleSliderClick = (event : MouseEvent & {currentTarget : HTMLElement; target: Element;}) => {
         const slider = event.currentTarget;
         const rect = slider.getBoundingClientRect();
         var clickY = event.clientY - rect.top; // Position relative to slider top
@@ -30,7 +30,7 @@ export function VolumeKnob(){
         changeVolume(newVolume);
     };
 
-    const handleMouseMove = (event) => {
+    const handleMouseMove = (event : MouseEvent & {currentTarget : HTMLElement; target: Element;}) => {
         if (isDragging()) {
             handleSliderClick(event);
         }
