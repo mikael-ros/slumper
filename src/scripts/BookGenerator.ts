@@ -11,6 +11,7 @@ export interface Chapter {
 export interface Book {
     name: string;
     previewImagePath: string;
+    source: string;
     chapters: Chapter[];
 }
 

@@ -7,7 +7,7 @@ import { writeFile } from 'fs/promises';
  * @param bookPreviewImagePath The URL of the image used
  * @returns The book object
  */
-export function generateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string){
+export function generateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, source: string){
     var parsedChapters: Chapter[] = [];
     var currentIndex = 1;
     input.forEach((length, chapter) => {
@@ -27,6 +27,7 @@ export function generateBook(input: Map<string, number>, bookName: string, bookP
     var book: Book =  {
         name: bookName,
         previewImagePath: bookPreviewImagePath,
+        source: source,
         chapters: parsedChapters
     }
     return book;
@@ -45,6 +46,7 @@ export interface Chapter {
 export interface Book {
     name: string;
     previewImagePath: string;
+    source: string;
     chapters: Chapter[];
 }
 
@@ -61,16 +63,16 @@ export default async function generateDefaultLibrary(){
     const exampleBook = new Map<string,number>([
         ["A very interesting chapter", 20],
         ["Must read", 15],
-        ["Insane ramblings and other essentials", 30],
-        ["Pit of despair", 30],
+        ["Ramblings and other essentials", 30],
+        ["The most interesting chapter", 30],
         ["The least interesting chapter", 35],
     ])
 
     const toGen = new Map([
-        [exampleBook, ["Example book", "/src/assets/previews/example-book-preview"]],
+        [exampleBook, ["Example book", "/src/assets/previews/example-book-preview", "https://github.com/mikael-ros/slumper"]],
     ])
     
-    toGen.forEach((values, book) => writeBook(generateBook(book,values[0],values[1])))
+    toGen.forEach((values, book) => writeBook(generateBook(book,values[0],values[1], values[2])))
 
 }
 

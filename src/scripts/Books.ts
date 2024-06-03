@@ -14,6 +14,7 @@ export const dummyChapter: Chapter = {
 export const dummyBook: Book = {
     name: "",
     previewImagePath: "",
+    source: "",
     chapters: [{
         fullname: "",
         number: "No chapter",
