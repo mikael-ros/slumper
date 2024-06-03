@@ -13,6 +13,7 @@ export interface Book {
     previewImagePath: string;
     source: string;
     chapters: Chapter[];
+    generatorVersion: string;
 }
 
 
@@ -23,7 +24,9 @@ export interface Book {
  * @param bookPreviewImagePath The URL of the image used
  * @returns The book object
  */
-export function generateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string){
+export function generateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, source: string){
+    const generatorVersion = "1.0.0";
+    
     var parsedChapters: Chapter[] = [];
     var currentIndex = 1;
     input.forEach((length, chapter) => {
@@ -43,7 +46,9 @@ export function generateBook(input: Map<string, number>, bookName: string, bookP
     var book: Book =  {
         name: bookName,
         previewImagePath: bookPreviewImagePath,
-        chapters: parsedChapters
+        source: source,
+        chapters: parsedChapters,
+        generatorVersion: generatorVersion
     }
     return book;
 }

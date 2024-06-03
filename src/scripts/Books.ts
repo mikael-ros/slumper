@@ -19,7 +19,8 @@ export const dummyBook: Book = {
         fullname: "",
         number: "No chapter",
         tasks: new Array()
-    }]
+    }],
+    generatorVersion: "1.0.0"
 }
 
 
@@ -94,7 +95,9 @@ function initBook(book: Book){
     setBook({
         name: book.name,
         previewImagePath: book.previewImagePath,
-        chapters: emptiedChapters
+        source: book.source,
+        chapters: emptiedChapters,
+        generatorVersion: book.generatorVersion
     });
 }
 
