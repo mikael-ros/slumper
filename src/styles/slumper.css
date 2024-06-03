@@ -224,7 +224,7 @@ button, select, option, input:not([type=checkbox]), label{
         line-height: 200%;
         color: var(--text-color);
 
-        mix-blend-mode:multiply;
+        
         text-shadow: none;
 
         background: none;
@@ -236,7 +236,7 @@ button, select, option, input:not([type=checkbox]), label{
     }
     input[type='checkbox']:checked + label {
         color: var(--text-color-negative); 
-        mix-blend-mode:soft-light;
+        
     }
 }
 
