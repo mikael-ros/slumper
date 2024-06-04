@@ -167,10 +167,7 @@
 
             padding: 0 1em 1em 1em;
 
-            background-color: rgba(var(--backdrop-color),0.3);
-            backdrop-filter: blur(var(--mild-border-radius));
-
-            z-index: 999;
+            z-index: 4;
 
             button {
                 flex-grow: 1;
@@ -246,16 +243,16 @@
         }
 
         button{
-            height: 2em;
+            height: 2.5em;
   
             img {
-                height: 1.5em;
+                height: 100%;
             }
         }
 
         input{
             width: 100%;
-            height: 2em;
+            height: 2.5em;
         }
 
         & > p{
@@ -278,19 +275,20 @@
         align-items: center;
         justify-content: center;
         flex-direction: row;
-        width: 100%;
-        height: unset;
 
+        height: 8em;
+    
         position: fixed;
-        bottom: 4em;
+        bottom: 0;
         left: 0;
 
         border-radius: var(--default-border-radius) var(--default-border-radius) 0 0 !important;
         background-color: rgba(var(--backdrop-color),0.3);
         backdrop-filter: blur(var(--mild-border-radius));
-        padding: 0 2em;
+        padding: 0 1em !important;
+        padding-bottom: 4em !important; 
 
-        z-index: 3;
+        z-index: 1;
 
         * {
             z-index: 3;
