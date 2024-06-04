@@ -25,11 +25,11 @@ const { title, description } = Astro.props;
 		</header>
 		<slot />
 		<footer>
-			<Link href="https://www.embracket.com" src={logo.src} text="Made by Embracket" newtab={true}/>
-			<Link href="https://www.github.com/mikael-ros/slumper" src={donateIcon.src} text="Donate" newtab={true}/>
-			<Link href="https://www.github.com/mikael-ros/slumper" src={shareIcon.src} text="Share" clipboard={true} client:only="solid-js"/>
-			<Link href="https://www.github.com/mikael-ros/slumper" src={githubIcon.src} text="GitHub" />
-			<Link href="https://github.com/mikael-ros/slumper/issues/new" src={bugIcon.src} text="Report bug" newtab={true}/>
+			<Link href="https://www.embracket.com" src={logo.src} alt="Embracket logo" text="Made by Embracket" newtab={true}/>
+			<Link href="https://www.github.com/mikael-ros/slumper" src={donateIcon.src} alt="Donate icon" text="Donate" newtab={true}/>
+			<Link href="https://www.github.com/mikael-ros/slumper" src={shareIcon.src} alt="Share icon" text="Share" clipboard={true} client:only="solid-js"/>
+			<Link href="https://www.github.com/mikael-ros/slumper" src={githubIcon.src} alt="GitHub logo" text="GitHub" />
+			<Link href="https://github.com/mikael-ros/slumper/issues/new" src={bugIcon.src} alt="Bug report icon" text="Report bug" newtab={true}/>
 		</footer>
 	</body>
 </html>

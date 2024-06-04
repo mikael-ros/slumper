@@ -6,7 +6,7 @@ import { Notification } from "./ui/Notification.tsx";
 
 
 export function Link(props: any){
-    const {href, text, src, clipboard, newtab} = props;
+    const {href, text, src, alt, clipboard, newtab} = props;
     const [copied, setCopied] = createSignal(false);
 
     async function copyToClipboard() {
@@ -28,7 +28,7 @@ export function Link(props: any){
         <div class={clipboard ? "link-container clipboard" : "link-container"}>
             <a class="link" href={clipboard ? null : href} onclick={handleClick} target={(newtab && !clipboard) ? "_blank" : "_self"}>
                 <p>{text}</p>
-                <img src={src} />
+                <img src={src} alt={alt}/>
             </a>
             <Notification condition={copied} setCondition={setCopied} message="Link copied to clipboard" relative={false}/>
         </div>

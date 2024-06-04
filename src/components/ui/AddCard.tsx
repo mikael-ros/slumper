@@ -186,7 +186,7 @@ export function AddCard(){
         <div class="card-group vertical">
             
             <div class="card add">
-                <a id="back" href="/"><button aria-label="back" ><img src={homeIcon.src} /><p>Back</p></button></a>
+                <a id="back" href="/"><button aria-label="back" ><img src={homeIcon.src} alt="Return to home"/><p>Back</p></button></a>
                 <h1>Add book</h1>
 
                 <div id="book-params">
@@ -195,7 +195,7 @@ export function AddCard(){
                 </div>
                 
                 <div id="chapter-inputs">
-                    <button aria-label="add" id="add" onclick={() => setChapters(chapters() + 1)}><img src={plusIcon.src} /><p>Add entry</p></button>
+                    <button aria-label="add" id="add" onclick={() => setChapters(chapters() + 1)}><img src={plusIcon.src} alt="Add entry"/><p>Add entry</p></button>
                     <ol>
                         <For each={[...Array(chapters()).keys()]}>
                             {chapter => 
@@ -211,11 +211,11 @@ export function AddCard(){
                 </div>
 
                 <div class="button-group">
-                    <button aria-label="done" id="done" onclick={saveBook} disabled={!isValid()}><img src={tickIcon.src} /><p>Save</p></button>
-                    <button aria-label="export" id="export" onclick={getBook}><img src={downloadIcon.src} /><p>Export</p></button>
+                    <button aria-label="done" id="done" onclick={saveBook} disabled={!isValid()}><img src={tickIcon.src} alt="Save book"/><p>Save</p></button>
+                    <button aria-label="export" id="export" onclick={getBook}><img src={downloadIcon.src} alt="Export book"/><p>Export</p></button>
                     <input type="file" aria-label="import file" id="file-import" onchange={handleFileSelect}></input>
-                    <label for="file-import"><img src={uploadIcon.src} /><p>Import</p></label>
-                    <button aria-label="clear" id="clear" onclick={() => importBook(dummyBook)}><img src={trashIcon.src} /><p>Clear</p></button>
+                    <label for="file-import"><img src={uploadIcon.src} alt="Import book"/><p>Import</p></label>
+                    <button aria-label="clear" id="clear" onclick={() => importBook(dummyBook)}><img src={trashIcon.src} alt="Clear entries"/><p>Clear</p></button>
                 </div>
 
             </div>
@@ -230,9 +230,9 @@ export function AddCard(){
                         {book =>
                             <li class="book-entry"><h5>{book.name}</h5> 
                                 <div class="button-group">
-                                    <button aria-label="remove book" onclick={() => removeBook(book.name)}><img src={trashIcon.src} /></button>
-                                    <button aria-label="export book" onclick={() => exportBook(book)}><img src={downloadIcon.src} /></button>
-                                    <button aria-label="import book" onclick={() => importBook(book)}><img src={uploadIcon.src} /></button>
+                                    <button aria-label="remove book" onclick={() => removeBook(book.name)}><img src={trashIcon.src} alt="Remove book"/></button>
+                                    <button aria-label="export book" onclick={() => exportBook(book)}><img src={downloadIcon.src} alt="Export book"/></button>
+                                    <button aria-label="import book" onclick={() => importBook(book)}><img src={uploadIcon.src} alt="Import book to fields"/></button>
                                 </div>
                             </li>
                         }

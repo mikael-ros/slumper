@@ -55,8 +55,8 @@ export function VolumeKnob(){
                     <p>{(volume()*100).toString().split(".")[0]}</p>
                 </figure>
             <button class="knob" onclick={handleKnob}>
-                <img id="only-dot" src={knobDot.src}/>
-                <img id="no-dot" src={knobIcon.src}/>
+                <img id="only-dot" src={knobDot.src} alt="The dot of a volume knob"/>
+                <img id="no-dot" src={knobIcon.src} alt="The wheel of a volume knob"/>
             </button>
         </div>
     )

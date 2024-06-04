@@ -115,7 +115,7 @@ export function OutputCard(){
                     </Show>
                 </div>
                 <div id="timer-config">
-                    <button style={displayTimer() && !abort() ? "width: 70%;" : "width: 100%"} aria-label="toggle timer" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={abort()}><img src={timerIcon.src} /><p>Timer</p></button>
+                    <button style={displayTimer() && !abort() ? "width: 70%;" : "width: 100%"} aria-label="toggle timer" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={abort()}><img src={timerIcon.src} alt="Timer icon"/><p>Timer</p></button>
                     <Show when={displayTimer() && !abort()}>
                         <input placeholder={timer().toString()} 
                         onchange={event => handleChange(event)} 
@@ -135,17 +135,17 @@ export function OutputCard(){
                     <button class="icon-only" aria-label="randomize" id="random" 
                     onclick={() => random(false)} 
                     disabled={abort()}>
-                        <img src={refreshIcon.src} />
+                        <img src={refreshIcon.src} alt="Randomize"/>
                     </button>
                     <button class="icon-only" aria-label="completed" id="done" 
                     onclick={() => random(true)} 
                     disabled={abort()}>
-                        <img src={tickIcon.src} />
-                        <img src={refreshIcon.src} />
+                        <img src={tickIcon.src} alt="Complete (tick) icon"/>
+                        <img src={refreshIcon.src} alt="Randomize icon, below complete"/>
                     </button>
                     <button class="icon-only" aria-label="reset book" id="reset" 
                     onclick={() => {randomizer.resetSpentTasks(); random(false)}}>
-                        <img src={trashIcon.src} />
+                        <img src={trashIcon.src} alt="Reset memory"/>
                     </button>
                 </div>
 
@@ -185,8 +185,8 @@ export function OutputCard(){
                             }
                         </For>
                     </select>
-                    <a href={book().source} id="get"><button aria-label="book source" ><img src={linkIcon.src} /><p>Get</p></button></a>
-                    <a href="add" id="add"><button aria-label="add book" ><img src={plusIcon.src} /><p>Add</p></button></a>
+                    <a href={book().source} id="get"><button aria-label="book source" ><img src={linkIcon.src} alt="Book source"/><p>Get</p></button></a>
+                    <a href="add" id="add"><button aria-label="add book" ><img src={plusIcon.src} alt="Add book"/><p>Add</p></button></a>
                 </div>
                 
             </div>
