@@ -29,9 +29,12 @@ export function AddCard(){
     const [amounts, setAmounts] = createSignal(new Array<number>(chapters()));
     const [isValid, setIsValid] = createSignal(false);
 
-    var valids = Array(chapters()).fill([false,false]);
+    var valids = new Array;
 
-   createEffect(() => console.log(isValid()));
+    createEffect(() => { // Add another field every time we add a chapter
+        chapters();
+        valids.push([false,false]);
+        setIsValid(false);})
 
     function getLibrary() : Book[] {
         return getSetOrElse("personalLibrary", new Array<Book>);

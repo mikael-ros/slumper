@@ -74,7 +74,7 @@ export default async function generateDefaultLibrary(){
     ])
 
     const toGen = new Map([
-        [exampleBook, ["Example book", "/src/assets/previews/example-book-preview.png", "https://github.com/mikael-ros/slumper"]],
+        [exampleBook, ["Example book", "https://raw.githubusercontent.com/mikael-ros/slumper/main/src/assets/previews/example-book-preview.png", "https://github.com/mikael-ros/slumper"]],
     ])
     
     toGen.forEach((values, book) => writeBook(generateBook(book,values[0],values[1], values[2])))
