@@ -41,8 +41,6 @@
     width: 800px;
     max-height: 70vh;
 
-    overflow-x: hidden;
-    overflow-y: scroll;
 
     padding: var(--aggressive-border-radius);
 
