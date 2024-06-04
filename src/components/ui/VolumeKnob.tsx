@@ -8,6 +8,9 @@ import { createSignal } from "solid-js";
 import {getSetOrElse,set} from "../../scripts/StorageHandler.ts";
 
 export function VolumeKnob(){
+    const volumeStep = 0.05;
+    var preMuteVolume = 0.0;
+
     const [open, setOpen] = createSignal(false);
     const [volume, setVolume] = createSignal(getSetOrElse("volume", 1.0));
     const [isDragging, setIsDragging] = createSignal(false);
@@ -43,6 +46,29 @@ export function VolumeKnob(){
         setIsDragging(false);
     };
 
+    const handleKeyPress = (event : KeyboardEvent) => {
+        const key = event.key.toLowerCase();
+        switch (key) {
+            case "w" || "ArrowUp" || "+": // Increase volume
+                changeVolume(volume()+volumeStep);
+                break;
+            case "s" || "ArrowDown" || "-": // Decrease volume
+                changeVolume(volume()-volumeStep);
+                break;
+            case "m" || "0":
+                const newVolume = volume() == 0.0 ? preMuteVolume : 0.0; 
+                preMuteVolume = volume() != 0.0 ? volume() : preMuteVolume; // Only change if not already muted
+                changeVolume(newVolume); // Mute volume
+                break;
+            default:
+                const volumeCandidate = parseFloat(key); // Try to parse as a number (number keys)
+                if (!Number.isNaN(volumeCandidate)) { // If it is a number, try to use it
+                    changeVolume(volumeCandidate/10);
+                }
+                break;
+        }
+    }
+
  
     return (
         <div class="volume-knob" onmouseleave={() => setOpen(false)} >
@@ -54,7 +80,7 @@ export function VolumeKnob(){
                     <figure id="slider" style={"height: " + (volume()*100) + "%"}></figure>
                     <p>{(volume()*100).toString().split(".")[0]}</p>
                 </figure>
-            <button class="knob" onclick={handleKnob}>
+            <button class="knob" onclick={handleKnob} onkeypress={handleKeyPress}>
                 <img id="only-dot" src={knobDot.src} alt="The dot of a volume knob"/>
                 <img id="no-dot" src={knobIcon.src} alt="The wheel of a volume knob"/>
             </button>
