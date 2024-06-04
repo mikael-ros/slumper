@@ -185,7 +185,9 @@ export function OutputCard(){
                             }
                         </For>
                     </select>
-                    <a href={book().source} id="get"><button aria-label="book source" ><img src={linkIcon.src} alt="Book source"/><p>Get</p></button></a>
+                    <Show when={book().source != ""}>
+                        <a href={book().source} id="get"><button aria-label="book source" ><img src={linkIcon.src} alt="Book source"/><p>Get</p></button></a>
+                    </Show>
                     <a href="add" id="add"><button aria-label="add book" ><img src={plusIcon.src} alt="Add book"/><p>Add</p></button></a>
                 </div>
                 

@@ -87,7 +87,7 @@ export function AddCard(){
 
     function makeBook() : Book{
         createInput();
-        return generateBook(input, title(), link(), title(), true);
+        return generateBook(input, title(), link(), "", true);
     }
 
     function getBook() {

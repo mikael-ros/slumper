@@ -5,8 +5,8 @@
 #course-select-wrapper{
     display: grid;
     grid-template-areas: 
-        "select get add";
-    grid-template-columns: 3.5fr 1fr 1fr;
+        "select add";
+    grid-template-columns: 3.5fr 1fr;
     grid-template-rows: 1fr;
     grid-gap: .5em;
     justify-items: center;
@@ -31,12 +31,19 @@
         grid-area: select;
     }
 
-    #get {
-        grid-area: get;
-    }
+    
 
     #add {
         grid-area: add;
+    }
+}
+
+#course-select-wrapper:has(> #get){
+    grid-template-areas: 
+        "select get add";
+    grid-template-columns: 3.5fr 1fr 1fr;
+    #get {
+        grid-area: get;
     }
 }
 
@@ -207,7 +214,7 @@
     }
 
     #course-select-wrapper{
-        grid-template-columns: 1fr 2em 2em;
+        grid-template-columns: 1fr 2em;
         height: 2em;
         width: 100%;
         min-width: 100%;
@@ -230,6 +237,10 @@
             width: 100%;
         }
 
+    }
+
+    #course-select-wrapper:has(> #get){
+        grid-template-columns: 1fr 2em 2em;
     }
 
     #timer-config {
