@@ -22,10 +22,12 @@ export interface Book {
  * @param input The book represented as a map of strings to chapter numbers
  * @param bookName The name of the book
  * @param bookPreviewImagePath The URL of the image used
+ * @param source Where you can acquire the book
+ * @param custom Wheter the book is a result of user generation
  * @returns The book object
  */
-export function generateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, source: string){
-    const generatorVersion = "1.0.0";
+export function generateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, source: string, custom: boolean){
+    const generatorVersion = "1.0.1";
     
     var parsedChapters: Chapter[] = [];
     var currentIndex = 1;
@@ -44,7 +46,7 @@ export function generateBook(input: Map<string, number>, bookName: string, bookP
     });
 
     var book: Book =  {
-        name: bookName,
+        name: (custom ? "(+) " : "") + bookName,
         previewImagePath: bookPreviewImagePath,
         source: source,
         chapters: parsedChapters,
@@ -67,5 +69,5 @@ export function exportBook(book: Book) {
 }
 
 export function exportAndGenerateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, source: string){
-    exportBook(generateBook(input,bookName,bookPreviewImagePath,source));
+    exportBook(generateBook(input,bookName,bookPreviewImagePath,source,true));
 }

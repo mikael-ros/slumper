@@ -8,7 +8,7 @@ import uploadIcon from "/src/assets/upload.svg";
 import downloadIcon from "/src/assets/download.svg";
 import plusIcon from "/src/assets/plus.svg";
 
-import { createSignal, For, Show } from "solid-js";
+import { createEffect, createSignal, For, Show } from "solid-js";
 
 import {dummyBook} from "../../scripts/Books.ts";
 import {generateBook, exportBook} from "../../scripts/BookGenerator.ts";
@@ -18,6 +18,8 @@ import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 
 export function AddCard(){
     var input : Map<string, number> = new Map<string, number>();
+    
+
     const [chapters, setChapters] = createSignal(1);
     const [library, setLibrary] = createSignal(getLibrary());
 
@@ -25,14 +27,17 @@ export function AddCard(){
     const [link, setLink] = createSignal("");
     const [titles, setTitles] = createSignal(new Array(chapters()));
     const [amounts, setAmounts] = createSignal(new Array<number>(chapters()));
+    const [isValid, setIsValid] = createSignal(false);
+
+    var valids = Array(chapters()).fill([false,false]);
+
+   createEffect(() => console.log(isValid()));
 
     function getLibrary() : Book[] {
         return getSetOrElse("personalLibrary", new Array<Book>);
     }
 
     function importBook(book: Book){
-        console.log(book);
-
         setTitle(book.name);
         setLink(book.previewImagePath);
 
@@ -45,15 +50,17 @@ export function AddCard(){
     }
 
     function saveBook() {
-        const library = getLibrary();
-        const newbook = makeBook();
-        const indexOfBook = library.findIndex(book => book.name == newbook.name);
-        if (indexOfBook != -1)
-            library[indexOfBook] = newbook;
-        else
-            library.push(newbook);
-        set("personalLibrary", library);
-        setLibrary(library);
+        if (isValid()){
+            const library = getLibrary();
+            const newbook = makeBook();
+            const indexOfBook = library.findIndex(book => book.name == newbook.name);
+            if (indexOfBook != -1)
+                library[indexOfBook] = newbook;
+            else
+                library.push(newbook);
+            set("personalLibrary", library);
+            setLibrary(library);
+        }
     }
 
     function removeBook(name: string){
@@ -67,7 +74,7 @@ export function AddCard(){
 
     function makeBook() : Book{
         createInput();
-        return generateBook(input, title(), link(), title());
+        return generateBook(input, title(), link(), title(), true);
     }
 
     function getBook() {
@@ -94,6 +101,21 @@ export function AddCard(){
         setAmounts(current);
     }
 
+    function updateValidity(index: number, validity: boolean, amount: boolean){
+        console.log("update:" + validity);
+        valids[index] = amount ? [valids[index][0], validity] : [validity, valids[index][1]];
+    
+        setIsValid(title().length > 0 && allValid());
+    }
+
+    function allValid(){
+        var allValid = true;
+        valids.forEach(valid => {
+            allValid = allValid && valid[0] && valid[1];
+        })
+        return allValid;
+    }
+
     /**
      * Warns the user by changing the text color
      * @param valid Wheter the input was valid
@@ -106,23 +128,28 @@ export function AddCard(){
     function handleTitleChange(event : Event & {currentTarget : HTMLInputElement}){
         const valid = event.currentTarget.value.length > 0;
         warn(valid, event)
-        if (valid)
+        if (valid) {
             setTitle(event.currentTarget.value);
+            setIsValid(valid && allValid())
+        } else 
+            setIsValid(false);
     }
 
     function handleTitlesChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
         const input : string = event.currentTarget.value;
         const copy = titles().indexOf(input);
-        const valid = input.length > 0 && copy == index || copy == -1;
+        const valid = input.length != 0 && (copy == index || copy == -1);
         warn(valid, event)
+        updateValidity(index, valid, false);
         if (valid)
-            updateTitles(index, event);
+            updateTitles(index, event); 
     }
 
     function handleAmountChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
-        const number = event.currentTarget.value.length > 0 ? parseInt(event.currentTarget.value) : 1; 
+        const number = event.currentTarget.value.length > 0 ? parseInt(event.currentTarget.value) : -1; 
         const valid = !Number.isNaN(number) && number > 0;
         warn(valid, event);
+        updateValidity(index, valid, true);
         if (valid)
             updateAmounts(index, number);
     }
@@ -181,7 +208,7 @@ export function AddCard(){
                 </div>
 
                 <div class="button-group">
-                    <button aria-label="done" id="done" onclick={saveBook}><img src={tickIcon.src} /><p>Save</p></button>
+                    <button aria-label="done" id="done" onclick={saveBook} disabled={!isValid()}><img src={tickIcon.src} /><p>Save</p></button>
                     <button aria-label="export" id="export" onclick={getBook}><img src={downloadIcon.src} /><p>Export</p></button>
                     <input type="file" aria-label="import file" id="file-import" onchange={handleFileSelect}></input>
                     <label for="file-import"><img src={uploadIcon.src} /><p>Import</p></label>
