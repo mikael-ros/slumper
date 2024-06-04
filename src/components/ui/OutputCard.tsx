@@ -156,7 +156,7 @@ export function OutputCard(){
                             <For each={book().chapters}>
                                 {(chapter) => 
                                     <div class="checkbox">
-                                        <input name={chapter.fullname} type="checkbox" 
+                                        <input id={chapter.fullname.toLowerCase().replace(/\s/g, "")} type="checkbox" 
                                         disabled={unchecked().has(chapter.number)} 
                                         checked={filtered(chapter)} 
                                         onchange={() => {
@@ -167,7 +167,7 @@ export function OutputCard(){
                                             }
                                             updateChecks();
                                         }} />
-                                        <label for={chapter.fullname}>{chapter.number}</label>
+                                        <label class="checkbox-label" for={chapter.fullname.toLowerCase().replace(/\s/g, "")}>{chapter.number}</label>
                                     </div>
                                 }
                             </For>
