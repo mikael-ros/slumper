@@ -50,6 +50,11 @@ export function AddCard(){
         else 
             setAmounts(new Array<number>(chapters()));
         setChapters(book.chapters.length);
+        valids.forEach(validity => {
+            validity[0] = true;
+            validity[1] = true;
+        })
+        setIsValid(true);
     }
 
     function saveBook() {
@@ -94,7 +99,7 @@ export function AddCard(){
 
     function updateTitles(index: number, event : Event & {currentTarget : HTMLInputElement}){
         const current = titles();
-        current[index] = event.currentTarget.value;
+        current[index] = event.currentTarget.value.trim();
         setTitles(current);
     }
 
@@ -105,7 +110,6 @@ export function AddCard(){
     }
 
     function updateValidity(index: number, validity: boolean, amount: boolean){
-        console.log("update:" + validity);
         valids[index] = amount ? [valids[index][0], validity] : [validity, valids[index][1]];
     
         setIsValid(title().length > 0 && allValid());
@@ -129,17 +133,17 @@ export function AddCard(){
     }
 
     function handleTitleChange(event : Event & {currentTarget : HTMLInputElement}){
-        const valid = event.currentTarget.value.length > 0;
+        const valid = event.currentTarget.value.trim().length > 0;
         warn(valid, event)
         if (valid) {
-            setTitle(event.currentTarget.value);
+            setTitle(event.currentTarget.value.trim());
             setIsValid(valid && allValid())
         } else 
             setIsValid(false);
     }
 
     function handleTitlesChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
-        const input : string = event.currentTarget.value;
+        const input : string = event.currentTarget.value.trim();
         const copy = titles().indexOf(input);
         const valid = input.length != 0 && (copy == index || copy == -1);
         warn(valid, event)
@@ -214,7 +218,7 @@ export function AddCard(){
                     <button aria-label="done" id="done" onclick={saveBook} disabled={!isValid()}><img src={tickIcon.src} alt="Save book"/><p>Save</p></button>
                     <button aria-label="export" id="export" onclick={getBook} disabled={!isValid()}><img src={downloadIcon.src} alt="Export book"/><p>Export</p></button>
                     <input type="file" aria-label="import file" id="file-import" onchange={handleFileSelect}></input>
-                    <label for="file-import"><img src={uploadIcon.src} alt="Import book"/><p>Import</p></label>
+                    <label class="faux-button" for="file-import"><img src={uploadIcon.src} alt="Import book"/><p>Import</p></label>
                     <button aria-label="clear" id="clear" onclick={() => importBook(dummyBook)}><img src={trashIcon.src} alt="Clear entries"/><p>Clear</p></button>
                 </div>
 

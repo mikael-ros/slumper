@@ -37,7 +37,7 @@ You can change the volume of the sounds (on PC) by pressing the knob in the lowe
 |-----| ------ |
 | ``+``, ``w`` or ``Arrow Up`` | Volume up (+) |
 | ``-``, ``s`` or ``Arrow Down`` | Volume down (-) |
-| ``m`` or ``0`` | Mute |
+| ``m`` or ``0`` | Mute / unmute |
 | ``[1-9]`` | Change volume to ``n * 10 %`` |
 #### ✉️ Submitting a book to the default list
 > [!NOTE]

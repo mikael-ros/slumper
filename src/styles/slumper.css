@@ -121,7 +121,7 @@ a:has(> button){
     max-width: 3em;
 }
 
-button, select, option, input:not([type=checkbox]), .checkbox-label{
+button, select, option, input:not([type=checkbox]), .checkbox-label, .faux-button{
     display: flex;
     align-items: center;
     justify-content: center;
