@@ -80,6 +80,11 @@ export function AddCard(){
         setLibrary(library);
     }
 
+    function removeAllBooks(){
+        setLibrary(new Array);
+        set("personalLibrary", new Array);
+    }
+
     function makeBook() : Book{
         createInput();
         return generateBook(input, title(), link(), title(), true);
@@ -242,7 +247,7 @@ export function AddCard(){
                         }
                     </For>
                 </ol>
-                
+                <button aria-label="reset library" id="reset" onclick={() => removeAllBooks()} disabled={library().length == 0}><img src={trashIcon.src} alt="Clear all books"/><p>Reset library</p></button>
             </div>
         </div>
     )
