@@ -15,10 +15,16 @@
 
     margin: 1em auto;
 
-    select, button, a {
+    a {
         margin: 0;
         height: 2.5em;
         width: 100%;
+    }
+
+    button, select {
+        height: 100%;
+        width: 100%;
+        margin: 0;
     }
 
     select {
@@ -149,14 +155,6 @@
 @media (max-width:900px) {
     
     .output{
-        display: grid;
-        grid-template-areas:
-            "output"
-            "chapter"
-            "checkboxes"
-            "select";
-        
-
         .button-group {
             flex-direction: row-reverse;
             position: fixed;
@@ -185,10 +183,6 @@
             }
         }
 
-        #course-select-wrapper {
-            grid-area: select;
-            
-        }
     }
 
     #chapter, #output{
@@ -217,13 +211,25 @@
     #course-select-wrapper{
         grid-template-columns: 1fr 2em 2em;
         height: 2em;
+        width: 100%;
+        min-width: 100%;
 
         p {
             display: none;
         }
 
-        * {
+        a {
+            margin: 0;
             height: 2em;
+            width: 100%;
+        }
+    
+        button {
+            padding: .2em;
+        }
+
+        img {
+            width: 100%;
         }
 
     }
