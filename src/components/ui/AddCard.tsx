@@ -212,7 +212,7 @@ export function AddCard(){
 
                 <div class="button-group">
                     <button aria-label="done" id="done" onclick={saveBook} disabled={!isValid()}><img src={tickIcon.src} alt="Save book"/><p>Save</p></button>
-                    <button aria-label="export" id="export" onclick={getBook}><img src={downloadIcon.src} alt="Export book"/><p>Export</p></button>
+                    <button aria-label="export" id="export" onclick={getBook} disabled={!isValid()}><img src={downloadIcon.src} alt="Export book"/><p>Export</p></button>
                     <input type="file" aria-label="import file" id="file-import" onchange={handleFileSelect}></input>
                     <label for="file-import"><img src={uploadIcon.src} alt="Import book"/><p>Import</p></label>
                     <button aria-label="clear" id="clear" onclick={() => importBook(dummyBook)}><img src={trashIcon.src} alt="Clear entries"/><p>Clear</p></button>
