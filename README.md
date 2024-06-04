@@ -30,6 +30,15 @@ When all entries have been added, simply press ``Save`` and the book will be add
 
 Browser stored books are stored under the "Personal library" and can be managed from there. To edit a book, simply import it and make your changes, then save (it will overwrite as long as you don't change the title). You can also export it here, or completely remove it by clicking the "trashcan" icon.
 
+### 🔊 Changing the volume
+You can change the volume of the sounds (on PC) by pressing the knob in the lower right corner. Then slide your mouse up and down to adjust. You can also adjust the volume with your keyboard, by using the following keybinds:
+
+| Key | Action | 
+|-----| ------ |
+| ``+``, ``w`` or ``Arrow Up`` | Volume up (+) |
+| ``-``, ``s`` or ``Arrow Down`` | Volume down (-) |
+| ``m`` or ``0`` | Mute |
+| ``[1-9]`` | Change volume to ``n * 10 %`` |
 #### ✉️ Submitting a book to the default list
 > [!NOTE]
 > As per contact with the Swedish patent office [(PRV)](https://www.prv.se/sv/), it seems like I have to ask permission for every book added, hence why adding books wont be as simple as pull requests.
@@ -41,7 +50,7 @@ To submit a book to be considered as a default:
 I will, given time, then contact the copyright holder myself and seek permission, and will respond wheter or not it got approved or not. If approved, I will ask you to provide the generated book. If the copyright holders decline, it will go in the banned books list.
 
 #### ‼️ Troubleshooting
-- 📤 ``"I tried to import a previously generated book, but it gave me an error"``: It is possible that the program has changed inbetween, which will unfortunately mean you have to regenerate the book.
+- 📤 ``"I tried to import a previously generated book, but it gave me an error"``: It is possible that the program has changed inbetween, which will unfortunately mean you have to regenerate the book. That, or you tried to import an invalid format.
 
 ---
 
@@ -57,7 +66,6 @@ Add them to the [**list of issues**](https://www.github.com/mikael-ros/slumper/i
 
 #### 🧰 Prerequisites
 - Node.js and npm
-- Visual Studio Code or VSCodium
 
 ### 🖥 Running the site locally
 Simply run:
@@ -75,7 +83,7 @@ These books are included with the site.
 
 | Course | Book title | Author | Date added |
 |--------| ---------- | ------ | ---------- |
-| EDAF05 | Example questions 2023 | Jonas Skeppstedt | 2024-05 |
+| Example | Example book | Me | 2024-06 |
 
 ## 📚 Banned books 🚫
 What follows is a list of books that will never be added to the default list of books, and the reason why. You can, however, add these yourself locally; I simply cannot, due to copyright issues, include them in the default list.
