@@ -5,10 +5,11 @@ import { writeFile } from 'fs/promises';
  * @param input The book represented as a map of strings to chapter numbers
  * @param bookName The name of the book
  * @param bookPreviewImagePath The URL of the image used
+ * @param source Where you can acquire the book
  * @returns The book object
  */
 export function generateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, source: string){
-    const generatorVersion = "1.0.0";
+    const generatorVersion = "1.0.1";
     
     var parsedChapters: Chapter[] = [];
     var currentIndex = 1;
