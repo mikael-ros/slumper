@@ -1,0 +1,14 @@
+[data-elapsed = "true"]{
+    color: var(--secondary, red);
+
+    transition-property: color;
+    transition-duration: var(--transition-duration-medium);
+
+    animation: flash .5s 2;
+}
+
+@keyframes flash {
+    0% {color: var(--secondary, red);}
+    50% {color: unset;}
+    100% {color: var(--secondary, red);}
+}

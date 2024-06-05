@@ -1,4 +1,4 @@
-
+import "./Timer.css";
 import { createSignal, createEffect, onCleanup } from "solid-js";
 import timerSound from "../../assets/timer-sound.wav";
 import {getSetOrElse} from "../../scripts/StorageHandler.ts";
@@ -68,6 +68,7 @@ export function Timer(props: any){
     
     var timer = new Time(props.time);
     const [time, setTime] = createSignal(timer.toString());
+    const [elapsed, setElapsed] = createSignal(false);
     const title = document.title;
 
     let interval = setInterval(() => update(), 1000);
@@ -79,6 +80,7 @@ export function Timer(props: any){
             setTime(timer.toString())
             clearInterval(interval)
             timer.kill(true);
+            setElapsed(true);
             document.title = title + " :: " + "DING!";
         }
     }
@@ -89,6 +91,7 @@ export function Timer(props: any){
         timer.kill(false);
         clearInterval(interval);
         timer = new Time(props.time);
+        setElapsed(false);
         
         interval = setInterval(() => update(), 1000);
     });
@@ -99,8 +102,9 @@ export function Timer(props: any){
         document.title = title;
     }); // Kill the code when its unmounted
 
+
     
     return (
-        <h1 class="timer" style="text-align: center; margin: 0 0 0 0;">{time()}</h1>
+        <h1 class="timer" style="text-align: center; margin: 0 0 0 0;" data-elapsed={elapsed()}>{time()}</h1>
     )
 }

@@ -11,7 +11,8 @@
     --backdrop-color: 10,10,10;
     --highlight-color: 200,200,200;
 
-    --secondary: #6ba7d8;
+    --primary: #6ba7d8;
+    --secondary: #f1826e;
 
     --mild-border-radius: .5rem;
     --default-border-radius: 1rem;
@@ -49,7 +50,7 @@ body{
 
     margin: 0 auto;
     
-    background: linear-gradient(200deg, var(--background-color), var(--secondary));
+    background: linear-gradient(200deg, var(--secondary), var(--primary));
     background-size: cover;
     
     z-index: 0;
