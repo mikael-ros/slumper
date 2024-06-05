@@ -39,6 +39,7 @@ You can change the volume of the sounds (on PC) by pressing the knob in the lowe
 | ``-``, ``s`` or ``Arrow Down`` | Volume down (-) |
 | ``m`` or ``0`` | Mute / unmute |
 | ``[1-9]`` | Change volume to ``n * 10 %`` |
+| ``x`` or ``Escape`` | Exit the volume dialog |
 #### ✉️ Submitting a book to the default list
 > [!NOTE]
 > As per contact with the Swedish patent office [(PRV)](https://www.prv.se/sv/), it seems like I have to ask permission for every book added, hence why adding books wont be as simple as pull requests.

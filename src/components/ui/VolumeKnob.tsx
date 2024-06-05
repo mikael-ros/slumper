@@ -48,18 +48,22 @@ export function VolumeKnob(){
 
     const handleKeyPress = (event : KeyboardEvent & {currentTarget : HTMLElement; target: Element;}) => {
         if (event.target.tagName.toUpperCase() !== "INPUT") { // If we are not modifying an input, proceed.
+            setOpen(true);
             const key = event.key.toLowerCase();
             switch (key) {
-                case "w" || "ArrowUp" || "+": // Increase volume
+                case "w" || "arrowup" || "+": // Increase volume
                     changeVolume(volume()+volumeStep);
                     break;
-                case "s" || "ArrowDown" || "-": // Decrease volume
+                case "s" || "arrowdown" || "-": // Decrease volume
                     changeVolume(volume()-volumeStep);
                     break;
                 case "m" || "0":
                     const newVolume = volume() == 0.0 ? preMuteVolume : 0.0; 
                     preMuteVolume = volume() != 0.0 ? volume() : preMuteVolume; // Only change if not already muted
                     changeVolume(newVolume); // Mute volume
+                    break;
+                case "x" || "escape": // Exit the dialogue
+                    setOpen(false);
                     break;
                 default:
                     const volumeCandidate = parseFloat(key); // Try to parse as a number (number keys)
