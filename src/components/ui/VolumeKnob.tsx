@@ -75,7 +75,7 @@ export function VolumeKnob(){
         }
     }
 
-    window.onkeypress = handleKeyPress; // Also adds a window listener to let user use the keybinds anywhere on the site, when this component is loaded.
+    window.addEventListener("keydown", (event) => handleKeyPress);
 
  
     return (
