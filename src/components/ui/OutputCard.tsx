@@ -183,8 +183,8 @@ export function OutputCard(){
                                         }} 
                                         title={"Toggle chapter " + chapter.number}
                                         aria-label={"Toggle chapter " + chapter.number}
-                                        aria-labelledby={chapter.fullname.toLowerCase().replace(/\s/g, "")}/>
-                                        <label class="checkbox-label" id={chapter.fullname.toLowerCase().replace(/\s/g, "")} for={chapter.fullname.toLowerCase().replace(/\s/g, "")}>{chapter.number}</label>
+                                        aria-labelledby={"checkbox-" + chapter.fullname.toLowerCase().replace(/\s/g, "")}/>
+                                        <label class="checkbox-label" id={"checkbox-" + chapter.fullname.toLowerCase().replace(/\s/g, "")} for={chapter.fullname.toLowerCase().replace(/\s/g, "")}>{chapter.number}</label>
                                     </div>
                                 }
                             </For>
