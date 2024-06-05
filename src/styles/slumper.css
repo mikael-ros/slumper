@@ -318,7 +318,7 @@ article{
     }
     
     footer, header {
-        backdrop-filter: blur(var(--mild-border-radius));
+        backdrop-filter: blur(var(--default-border-radius));
     }
     
     footer {
