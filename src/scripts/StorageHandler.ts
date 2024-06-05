@@ -37,6 +37,9 @@ export function empty(key: string) : Boolean{ return get(key) == null; }
  */
 export function set<T>(key: string, value: T){
     localStorage.setItem(key, JSON.stringify(value));
+    const keyInitialized = key.charAt(0).toUpperCase() + key.slice(1);
+    document.dispatchEvent(new Event("storageChange" + keyInitialized)); // Fires an event with the name storageChangeKey
+    localStorage.setItem("refresh" + keyInitialized, "true"); // Also set a localStorage entry
 }
 
 

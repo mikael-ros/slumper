@@ -26,8 +26,16 @@ export const dummyBook: Book = {
 
 import examplebook from '../content/tasks/examplebook.json';
 
-export const library : Book[] = [examplebook].concat(getSetOrElse("personalLibrary", new Array<Book>));
+var library : Book[] = [examplebook].concat(getSetOrElse("personalLibrary", new Array<Book>));
 
+export function refreshLibrary() {
+    library = [examplebook].concat(getSetOrElse("personalLibrary", new Array<Book>));
+}
+
+export function getLibrary() {
+    refreshLibrary();
+    return library;
+}
 /**
  * Retrieves a book from name
  * @param name The name of the book

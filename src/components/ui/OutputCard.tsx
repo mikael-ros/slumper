@@ -8,12 +8,12 @@ import timerIcon from "/src/assets/timer.svg";
 import linkIcon from "/src/assets/link.svg";
 import plusIcon from "/src/assets/plus.svg";
 
-import { createSignal, For, onMount, Show } from "solid-js";
+import { createSignal, For, onCleanup, onMount, Show } from "solid-js";
 import { Randomizer} from "../../scripts/Randomizer";
 import { Timer } from "./Timer.tsx";
 import complete from "../../assets/complete.wav";
 
-import {library, dummyChapter, dummyTask, getBook} from "../../scripts/Books.ts";
+import {dummyChapter, dummyTask, getBook, getLibrary} from "../../scripts/Books.ts";
 import type {Chapter,Book} from "../../scripts/BookGenerator.ts";
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 
@@ -21,17 +21,21 @@ export function OutputCard(){
     var defaultTimer : number = 180;
     const completionSound = new Audio(complete);
     completionSound.volume = getSetOrElse("volume", 1.0);
+    var loaded = false;
 
     const [displayTimer, setDisplayTimer] = createSignal(false);
     const [timer, setTimer] = createSignal(defaultTimer, { equals: false });
 
-    const [book, setBook] = createSignal<Book>(getBook(getSetOrElse("prior", library[0].name)));
+    const [library, setLibrary] = createSignal(getLibrary());
+
+    const [book, setBook] = createSignal<Book>(getBook(getSetOrElse("prior", library()[0].name)));
     const [chapter, setChapter] = createSignal(dummyChapter);
     const [task, setTask] = createSignal(dummyTask);
     const [unchecked, setUnchecked] = createSignal<Set<Number>>(new Set<Number>);
     const [abort, setAbort] = createSignal(false);
     const [mobile, setMobile] = createSignal(window.innerWidth <= 900);
 
+  
 
     var randomizer : Randomizer = new Randomizer(book());
 
@@ -103,6 +107,13 @@ export function OutputCard(){
     }
 
     window.onresize = () => setMobile(window.innerWidth <= 900);
+
+    onMount(() => {
+        if (getSetOrElse("refreshPersonalLibrary", false)) { // Refresh the library if necessary
+            setLibrary(getLibrary());
+            set("refreshPersonalLibrary", false);
+        }
+    })
 
     return (
         <div class="card-group">
@@ -179,7 +190,7 @@ export function OutputCard(){
                 <div id="course-select-wrapper">
                     <select id="course-select" name="course" onchange={(event) => {setNewBook(JSON.parse(event.target.value))}}>
                         <option value={JSON.stringify(book())}>{book().name}</option>
-                        <For each={library.filter((_book) => _book.name != book().name)}>
+                        <For each={library().filter((_book) => _book.name != book().name)}>
                             {(book) =>
                                 <option value={JSON.stringify(book)}>{book.name}</option>
                             }
