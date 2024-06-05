@@ -195,12 +195,12 @@ export function AddCard(){
         <div class="card-group vertical">
             
             <div class="card add">
-                <a id="back" href="/"><button aria-label="back" title="Go back to the index page"><img src={homeIcon.src} alt="Return to home"/><p>Back</p></button></a>
+                <a id="back" href="/"><button aria-label="Go home" title="Go back to the index page"><img src={homeIcon.src} alt="Return to home"/><p>Back</p></button></a>
                 <h1>Add book</h1>
 
                 <div id="book-params">
-                    <input value={title()} placeholder="Book name*" oninput={event => handleTitleChange(event)} onchange={event => handleTitleChange(event)} required></input>
-                    <input value={link()} placeholder="Book image URL (optional)" oninput={event => setLink(event.target.value)} onchange={event => setLink(event.target.value)}></input>
+                    <input value={title()} placeholder="Book name*" oninput={event => handleTitleChange(event)} onchange={event => handleTitleChange(event)} required aria-required="true"></input>
+                    <input type="url" value={link()} placeholder="Book image URL (optional)" oninput={event => setLink(event.target.value)} onchange={event => setLink(event.target.value)} aria-required="false"></input>
                 </div>
                 
                 <div id="chapter-inputs">
@@ -210,9 +210,9 @@ export function AddCard(){
                             {chapter => 
                             <li class="chapter-input">
                                 <p>{chapter + 1}</p>
-                                <input value={titles()[chapter] == undefined ? "" : titles()[chapter]} placeholder="Chapter title*" oninput={event => handleTitlesChange(chapter, event)} onchange={event => handleTitlesChange(chapter, event)} required />
-                                <input value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
-                                oninput={event => handleAmountChange(chapter, event)} required/>
+                                <input type="text" value={titles()[chapter] == undefined ? "" : titles()[chapter]} placeholder="Chapter title*" oninput={event => handleTitlesChange(chapter, event)} onchange={event => handleTitlesChange(chapter, event)} required aria-required="true"/>
+                                <input type="number" min="0" max="9999" value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
+                                oninput={event => handleAmountChange(chapter, event)} required aria-required="true"/>
                             </li>
                             }
                         </For>
@@ -220,11 +220,11 @@ export function AddCard(){
                 </div>
 
                 <div class="button-group">
-                    <button aria-label="done" id="done" onclick={saveBook} disabled={!isValid()} title="Save book to browser memory"><img src={tickIcon.src} alt="Save book"/><p>Save</p></button>
-                    <button aria-label="export" id="export" onclick={getBook} disabled={!isValid()} title="Save book to disk"><img src={downloadIcon.src} alt="Export book"/><p>Export</p></button>
-                    <input type="file" aria-label="import file" id="file-import" onchange={handleFileSelect} title="Import file from disk"></input>
-                    <label class="faux-button" for="file-import"><img src={uploadIcon.src} alt="Import book" title="Import file from disk"/><p>Import</p></label>
-                    <button aria-label="clear" id="clear" onclick={() => importBook(dummyBook)} title="Remove the entered values"><img src={trashIcon.src} alt="Clear entries"/><p>Clear</p></button>
+                    <button aria-label="Save book" id="done" onclick={saveBook} disabled={!isValid()} title="Save book to browser memory"><img src={tickIcon.src} alt="Save book"/><p>Save</p></button>
+                    <button aria-label="Export book" id="export" onclick={getBook} disabled={!isValid()} title="Save book to disk"><img src={downloadIcon.src} alt="Export book"/><p>Export</p></button>
+                    <input type="file" aria-label="Import file" aria-hidden="true" aria-labelledby="file-import-label" id="file-import" onchange={handleFileSelect} title="Import file from disk"></input>
+                    <label class="faux-button" id="file-import-label" aria-label="Import file" for="file-import"><img src={uploadIcon.src} alt="Import book" title="Import file from disk"/><p>Import</p></label>
+                    <button aria-label="Clear entries" id="clear" onclick={() => importBook(dummyBook)} title="Remove the entered values"><img src={trashIcon.src} alt="Clear entries"/><p>Clear</p></button>
                 </div>
 
             </div>
@@ -239,15 +239,15 @@ export function AddCard(){
                         {book =>
                             <li class="book-entry"><h5>{book.name}</h5> 
                                 <div class="button-group">
-                                    <button aria-label="remove book" onclick={() => removeBook(book.name)} title="Remove the hovered book"><img src={trashIcon.src} alt="Remove book"/></button>
-                                    <button aria-label="export book" onclick={() => exportBook(book)} title="Export the hovered book"><img src={downloadIcon.src} alt="Export book"/></button>
-                                    <button aria-label="import book" onclick={() => importBook(book)} title="Import the hovered book into fields"><img src={uploadIcon.src} alt="Import book to fields"/></button>
+                                    <button aria-label={"Remove \"" + book.name + "\""} onclick={() => removeBook(book.name)} title={"Remove \"" + book.name + "\""}><img src={trashIcon.src} alt="Remove book"/></button>
+                                    <button aria-label={"Export \"" + book.name + "\""} onclick={() => exportBook(book)} title={"Export \"" + book.name + "\""}><img src={downloadIcon.src} alt="Export book"/></button>
+                                    <button aria-label={"Import \"" + book.name + "\""} onclick={() => importBook(book)} title={"Import \"" + book.name + "\""}><img src={uploadIcon.src} alt="Import book to fields"/></button>
                                 </div>
                             </li>
                         }
                     </For>
                 </ol>
-                <button aria-label="reset library" id="reset" onclick={() => removeAllBooks()} disabled={library().length == 0} title="Remove all books from personal library"><img src={trashIcon.src} alt="Clear all books"/><p>Reset library</p></button>
+                <button aria-label="Reset library" id="reset" onclick={() => removeAllBooks()} disabled={library().length == 0} title="Remove all books from personal library"><img src={trashIcon.src} alt="Clear all books"/><p>Reset library</p></button>
             </div>
         </div>
     )

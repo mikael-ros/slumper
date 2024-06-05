@@ -10,7 +10,7 @@ class Time {
     sound: any;
 
     constructor (time: number){
-        this.time = time % 3600; // Makes sure time can never be above an hour. Might need to change this in the future
+        this.time = time % 3601; // Makes sure time can never be above an hour. Might need to change this in the future
         this.sound = new Audio(timerSound);
         this.sound.volume = getSetOrElse("volume", 1.0);
         this.tickLoop();
@@ -105,6 +105,6 @@ export function Timer(props: any){
 
     
     return (
-        <h1 class="timer" style="text-align: center; margin: 0 0 0 0;" data-elapsed={elapsed()}>{time()}</h1>
+        <h1 class="timer" data-elapsed={elapsed()} aria-live={elapsed() ? "assertive" : "off"} aria-atomic="true">{time()}</h1>
     )
 }

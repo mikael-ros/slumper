@@ -83,19 +83,19 @@ export function VolumeKnob(){
     }
 
     document.addEventListener("keydown", handleKeyPress);
-
  
     return (
         <div class="volume-knob" onmouseleave={() => setOpen(false)} >
-            <figure class={`volume-slider ${open() ? 'open' : 'closed'}`} 
+            <figure id="volume-slider" class={`volume-slider ${open() ? 'open' : 'closed'}`} 
                 onclick={handleSliderClick} 
                 onmousemove={handleMouseMove} 
                 onmousedown={handleMouseDown} 
-                onmouseup={handleMouseUp}>
+                onmouseup={handleMouseUp}
+                aria-label="Volume slider">
                     <figure id="slider" style={"height: " + (volume()*100) + "%"}></figure>
                     <p>{(volume()*100).toString().split(".")[0]}</p>
                 </figure>
-            <button class="knob" onclick={handleKnob} onkeypress={handleKeyPress} title="Open/close volume slider">
+            <button class="knob" onclick={handleKnob} onkeypress={handleKeyPress} aria-label="Toggle volume slider" aria-controls="volume-slider" title="Open/close volume slider">
                 <img id="only-dot" src={knobDot.src} alt="The dot of a volume knob"/>
                 <img id="no-dot" src={knobIcon.src} alt="The wheel of a volume knob"/>
             </button>

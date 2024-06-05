@@ -28,7 +28,7 @@ export function Notification(props: any){
     
     return (
         <Show when={alive()}>
-            <figure class="notification">
+            <figure class="notification" aria-label="Notification">
                 <p>{message}</p>
             </figure>
         </Show>

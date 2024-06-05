@@ -126,12 +126,12 @@ export function OutputCard(){
                     </Show>
                 </div>
                 <div id="timer-config">
-                    <button style={displayTimer() && !abort() ? "width: 70%;" : "width: 100%"} title="Toggle timer" aria-label="toggle timer" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={abort()}><img src={timerIcon.src} alt="Timer icon"/><p>Timer</p></button>
+                    <button style={displayTimer() && !abort() ? "width: 70%;" : "width: 100%"} title="Toggle timer" aria-label="Toggle timer" aria-controls="timer-display" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={abort()}><img src={timerIcon.src} alt="Timer icon"/><p>Timer</p></button>
                     <Show when={displayTimer() && !abort()}>
-                        <input placeholder={timer().toString()} 
+                        <input type="number" min="1" max="3600" placeholder={timer().toString()} 
                         onchange={event => handleChange(event)} 
                         oninput={event => handleInput(event)}
-                            /><p>seconds</p>
+                        aria-required="false"/><p>seconds</p>
                     </Show>
                 </div>
             </div>
@@ -143,22 +143,22 @@ export function OutputCard(){
                 </div>
                 
                 <div class="button-group">
-                    <button class="icon-only" aria-label="randomize" id="random" 
+                    <button class="icon-only" aria-label="Randomize" id="random" 
                     onclick={() => random(false)} 
                     disabled={abort()}
                     title="Randomize new task">
                         <img src={refreshIcon.src} alt="Randomize"/>
                     </button>
-                    <button class="icon-only" aria-label="completed" id="done" 
+                    <button class="icon-only" aria-label="Complete task" id="done" 
                     onclick={() => random(true)} 
                     disabled={abort()}
                     title="Randomize new task, and mark prior as complete">
                         <img src={tickIcon.src} alt="Complete (tick) icon"/>
                         <img src={refreshIcon.src} alt="Randomize icon, below complete"/>
                     </button>
-                    <button class="icon-only" aria-label="reset book" id="reset" 
+                    <button class="icon-only" aria-label="Reset memory" id="reset" 
                     onclick={() => {randomizer.resetSpentTasks(); random(false)}}
-                    title="Reset the task memory">
+                    title="Reset the task memory" >
                         <img src={trashIcon.src} alt="Reset memory"/>
                     </button>
                 </div>
@@ -181,8 +181,10 @@ export function OutputCard(){
                                             }
                                             updateChecks();
                                         }} 
-                                        title={"Toggle chapter " + chapter.number}/>
-                                        <label class="checkbox-label" for={chapter.fullname.toLowerCase().replace(/\s/g, "")}>{chapter.number}</label>
+                                        title={"Toggle chapter " + chapter.number}
+                                        aria-label={"Toggle chapter " + chapter.number}
+                                        aria-labelledby={chapter.fullname.toLowerCase().replace(/\s/g, "")}/>
+                                        <label class="checkbox-label" id={chapter.fullname.toLowerCase().replace(/\s/g, "")} for={chapter.fullname.toLowerCase().replace(/\s/g, "")}>{chapter.number}</label>
                                     </div>
                                 }
                             </For>
@@ -192,7 +194,7 @@ export function OutputCard(){
 
                 
                 <div id="course-select-wrapper">
-                    <select id="course-select" name="course" onchange={(event) => {setNewBook(JSON.parse(event.target.value))}} title="Select a book">
+                    <select id="course-select" name="course" onchange={(event) => {setNewBook(JSON.parse(event.target.value))}} title="Select a book" aria-label="Select a book" aria-required="false">
                         <option value={JSON.stringify(book())}>{book().name}</option>
                         <For each={library().filter((_book) => _book.name != book().name)}>
                             {(book) =>
@@ -201,9 +203,9 @@ export function OutputCard(){
                         </For>
                     </select>
                     <Show when={book().source != ""}>
-                        <a href={book().source} id="get"><button aria-label="book source" title="Go to the source of the book"><img src={linkIcon.src} alt="Book source"/><p>Get</p></button></a>
+                        <a href={book().source} id="get"><button aria-label="Go to the source" title="Go to the source of the book"><img src={linkIcon.src} alt="Book source"/><p>Get</p></button></a>
                     </Show>
-                    <a href="add" id="add"><button aria-label="add book" title="Add a custom book (leaves page)"><img src={plusIcon.src} alt="Add book"/><p>Add</p></button></a>
+                    <a href="add" id="add"><button aria-label="Add a custom book" title="Add a custom book (leaves page)"><img src={plusIcon.src} alt="Add book"/><p>Add</p></button></a>
                 </div>
                 
             </div>
