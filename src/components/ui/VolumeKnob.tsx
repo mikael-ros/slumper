@@ -8,8 +8,8 @@ import { createSignal } from "solid-js";
 import {getSetOrElse,set} from "../../scripts/StorageHandler.ts";
 
 export function VolumeKnob(){
-    const volumeStep = 0.05;
-    var preMuteVolume = 0.0;
+    const volumeStep = 0.01; // 1%
+    var preMuteVolume = getSetOrElse("volume", 1.0); // The volume prior to muting
 
     const [open, setOpen] = createSignal(false);
     const [volume, setVolume] = createSignal(getSetOrElse("volume", 1.0));
@@ -46,28 +46,32 @@ export function VolumeKnob(){
         setIsDragging(false);
     };
 
-    const handleKeyPress = (event : KeyboardEvent) => {
-        const key = event.key.toLowerCase();
-        switch (key) {
-            case "w" || "ArrowUp" || "+": // Increase volume
-                changeVolume(volume()+volumeStep);
-                break;
-            case "s" || "ArrowDown" || "-": // Decrease volume
-                changeVolume(volume()-volumeStep);
-                break;
-            case "m" || "0":
-                const newVolume = volume() == 0.0 ? preMuteVolume : 0.0; 
-                preMuteVolume = volume() != 0.0 ? volume() : preMuteVolume; // Only change if not already muted
-                changeVolume(newVolume); // Mute volume
-                break;
-            default:
-                const volumeCandidate = parseFloat(key); // Try to parse as a number (number keys)
-                if (!Number.isNaN(volumeCandidate)) { // If it is a number, try to use it
-                    changeVolume(volumeCandidate/10);
-                }
-                break;
+    const handleKeyPress = (event : KeyboardEvent & {currentTarget : HTMLElement; target: Element;}) => {
+        if (event.target.tagName.toUpperCase() !== "INPUT") { // If we are not modifying an input, proceed.
+            const key = event.key.toLowerCase();
+            switch (key) {
+                case "w" || "ArrowUp" || "+": // Increase volume
+                    changeVolume(volume()+volumeStep);
+                    break;
+                case "s" || "ArrowDown" || "-": // Decrease volume
+                    changeVolume(volume()-volumeStep);
+                    break;
+                case "m" || "0":
+                    const newVolume = volume() == 0.0 ? preMuteVolume : 0.0; 
+                    preMuteVolume = volume() != 0.0 ? volume() : preMuteVolume; // Only change if not already muted
+                    changeVolume(newVolume); // Mute volume
+                    break;
+                default:
+                    const volumeCandidate = parseFloat(key); // Try to parse as a number (number keys)
+                    if (!Number.isNaN(volumeCandidate)) { // If it is a number, try to use it
+                        changeVolume(volumeCandidate/10);
+                    }
+                    break;
+            }
         }
     }
+
+    window.onkeypress = handleKeyPress; // Also adds a window listener to let user use the keybinds anywhere on the site, when this component is loaded.
 
  
     return (
