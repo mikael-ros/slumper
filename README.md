@@ -58,7 +58,7 @@ You can change the volume of the sounds (on PC) by pressing the knob in the lowe
 ---
 
 ## 🔮 How does it work?
-This website uses books stored as JSON files. A book is just an object with ``title``, ``preview image``, ``purchase link``, ``chapters`` and ``generator version`` (not actualy variable names). The ``chapters`` field contains an array of chapter objects, which themselves consist of ``number``, ``full name`` and ``tasks``. Tasks is similarly just an array of task objects, which currently only hold the field ``task``, but could be expanded in the future to enable more content.
+This website uses books stored as JSON files. A book is just an object with ``title``, ``preview image``, ``purchase link``, ``chapters`` and ``generator version`` (not actual variable names). The ``chapters`` field contains an array of chapter objects, which themselves consist of ``number``, ``full name`` and ``tasks``. Tasks is similarly just an array of task objects, which currently only hold the field ``task``, but could be expanded in the future to enable more content.
 
 The books provided are stored on server, but the memory of tasks is saved in ``localStorage`` as copies of the book. This is not particularly efficient, but prevents me from needing to have user accounts or similar as well as using other possibly more complicated storage solutions. It is not currently planned to replace this behavior as I doubt it will ever be an issue.
 

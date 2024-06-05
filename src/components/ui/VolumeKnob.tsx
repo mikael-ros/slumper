@@ -95,7 +95,7 @@ export function VolumeKnob(){
                     <figure id="slider" style={"height: " + (volume()*100) + "%"}></figure>
                     <p>{(volume()*100).toString().split(".")[0]}</p>
                 </figure>
-            <button class="knob" onclick={handleKnob} onkeypress={handleKeyPress}>
+            <button class="knob" onclick={handleKnob} onkeypress={handleKeyPress} title="Open/close volume slider">
                 <img id="only-dot" src={knobDot.src} alt="The dot of a volume knob"/>
                 <img id="no-dot" src={knobIcon.src} alt="The wheel of a volume knob"/>
             </button>
