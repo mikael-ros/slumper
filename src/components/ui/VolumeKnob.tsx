@@ -12,11 +12,11 @@ export function VolumeKnob(){
     var preMuteVolume = getSetOrElse("volume", 1.0); // The volume prior to muting
 
     const [open, setOpen] = createSignal(false);
-    const [volume, setVolume] = createSignal(getSetOrElse("volume", 1.0));
+    const [volume, setVolume] = createSignal(parseFloat(getSetOrElse("volume", 1.0).toFixed(2)));
     const [isDragging, setIsDragging] = createSignal(false);
 
     function changeVolume(newVolume : number){
-        const _newVolume = Math.max(Math.min(1.0,newVolume), 0); // Prevents the volume going above 1 or below 0
+        const _newVolume = parseFloat(Math.max(Math.min(1.0,newVolume), 0).toFixed(2)); // Prevents the volume going above 1 or below 0. toFixed rounds the volume to 2 decimal places, and returns a string hence parseFloat
         set("volume", _newVolume);
         setVolume(_newVolume);
     }
@@ -46,23 +46,30 @@ export function VolumeKnob(){
         setIsDragging(false);
     };
 
-    const handleKeyPress = (event : KeyboardEvent & {currentTarget : HTMLElement; target: Element;}) => {
-        if (event.target.tagName.toUpperCase() !== "INPUT") { // If we are not modifying an input, proceed.
+    const handleKeyPress = (event : KeyboardEvent) => {
+        const target = event.target as HTMLElement; // Assert the target as a HTML element
+        if (target.tagName.toUpperCase() !== "INPUT") { // If we are not modifying an input, proceed.
             setOpen(true);
             const key = event.key.toLowerCase();
             switch (key) {
-                case "w" || "arrowup" || "+": // Increase volume
+                case "w":
+                case "arrowup": 
+                case "+": // Increase volume
                     changeVolume(volume()+volumeStep);
                     break;
-                case "s" || "arrowdown" || "-": // Decrease volume
+                case "s":
+                case "arrowdown":
+                case "-": // Decrease volume
                     changeVolume(volume()-volumeStep);
                     break;
-                case "m" || "0":
+                case "m":
+                case "0":
                     const newVolume = volume() == 0.0 ? preMuteVolume : 0.0; 
                     preMuteVolume = volume() != 0.0 ? volume() : preMuteVolume; // Only change if not already muted
                     changeVolume(newVolume); // Mute volume
                     break;
-                case "x" || "escape": // Exit the dialogue
+                case "x":
+                case "escape": // Exit the dialogue
                     setOpen(false);
                     break;
                 default:
@@ -75,7 +82,7 @@ export function VolumeKnob(){
         }
     }
 
-    window.addEventListener("keydown", (event) => handleKeyPress);
+    document.addEventListener("keydown", handleKeyPress);
 
  
     return (
