@@ -189,7 +189,6 @@
                 height: 100%;
 
                 max-width: unset;
-                z-index: 4;
             }
         }
 
@@ -287,13 +286,13 @@
         justify-content: center;
         flex-direction: row;
 
-        height: 8em;
+        height: 4em;
     
         position: fixed;
-        bottom: 0;
+        bottom: 4em;
         left: 0;
         padding: 0 1.5em !important;
-        padding-bottom: 4em !important;
+
 
         z-index: 3;
 
