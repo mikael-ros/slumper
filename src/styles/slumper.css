@@ -327,7 +327,7 @@ article{
 
         border-radius: 0;
 
-        background-color: rgba(var(--backdrop-color),0.5);
+        background-color: rgba(var(--backdrop-color),0.6);
 
         height: unset;
         padding: .5em;
