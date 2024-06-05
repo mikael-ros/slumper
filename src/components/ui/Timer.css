@@ -1,10 +1,25 @@
+#timer:has([data-elapsed = "true"]){
+    --default-color: rgba(var(--secondaryRGB),0.3);
+    --mid-flash-color: rgba(var(--highlight-color),0.2);
+    --current-color: var(--default-color);
+    background-color: var(--current-color, red);
+
+    transition-property: background-color;
+    transition-duration: var(--transition-duration-medium);
+
+    animation: flash 1s 1;
+}
+
 .timer {
     text-align: center; 
     margin: 0;
 }
 
 [data-elapsed = "true"]{
-    color: var(--secondary, red);
+    --default-color: var(--secondary);
+    --mid-flash-color: var(--text-color-negative);
+    --current-color: var(--default-color);
+    color: var(--current-color, red);
 
     transition-property: color;
     transition-duration: var(--transition-duration-medium);
@@ -13,7 +28,7 @@
 }
 
 @keyframes flash {
-    0% {color: var(--secondary, red);}
-    50% {color: unset;}
-    100% {color: var(--secondary, red);}
+    0% {--current-color: var(--default-color)}
+    50% {--current-color: var(--mid-flash-color)}
+    100% {--current-color: var(--default-color)}
 }

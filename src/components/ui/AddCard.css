@@ -1,6 +1,7 @@
 .chapter-input{
     display: flex;
     align-items: center;
+    gap: .5em;
 
     margin: 0.75em 0;
 
@@ -9,11 +10,13 @@
     * {
         height: 100%;
         line-height: 2em;
+        
         color: var(--text-color-negative-dull);
     }
 
     input{
         width: 100%;
+        margin: 0;
     }
 
     input:first-of-type{
@@ -34,6 +37,7 @@
     max-height: 80%;
     max-width: 100%;
     margin: 1em 0;
+    
     padding-bottom: 5em;
     overflow-y: auto;
 
@@ -53,11 +57,6 @@
 
     mask-position: 0 0, 100% 0;
     mask-repeat: no-repeat, no-repeat;
-
-    ol {
-        padding-left: .5em;
-    }
-
 
     button {
         height: 2em;
@@ -174,7 +173,8 @@
         #chapter-inputs{
             display: flex;
             flex-direction: column;
-            width: 100%;
+            gap: .5em;
+
             max-height: 500px;
             padding: .5em 0;
 

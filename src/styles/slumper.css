@@ -13,6 +13,7 @@
 
     --primary: #6ba7d8;
     --secondary: #f1826e;
+    --secondaryRGB: 241,130,110;
 
     --mild-border-radius: .5rem;
     --default-border-radius: 1rem;
@@ -136,7 +137,6 @@ button, select, option, input:not([type=checkbox]), .checkbox-label, .faux-butto
     background-color: rgba(var(--backdrop-color),0.3);
     color: var(--text-color-negative);
 
-    font-weight: 600;
     font-size: 1.1em;
     text-align: center;
     text-shadow: .1em .1em 0px var(--text-color-shadowed);
@@ -144,19 +144,32 @@ button, select, option, input:not([type=checkbox]), .checkbox-label, .faux-butto
 
     cursor: pointer;
 
-    transition: all;
+    transition: filter, border-radius;
     transition-duration: var(--transition-duration-fast);
 
-    &:hover{
+    &:not(input) {
+        font-weight: 600;
+    }
+
+    &:hover, &:focus{
         border-radius: var(--default-border-radius);
         filter: brightness(0.95);
 
-        transition: all;
+        transition: filter, border-radius;
         transition-duration: var(--transition-duration-fast);
 
         img {
             transform: scale(1.05) rotate(10deg);
         }
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:not(button, select):focus {
+        outline: solid .1em var(--primary);
+        outline-offset: -.1em;
     }
 
     &:disabled{
