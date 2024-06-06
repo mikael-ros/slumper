@@ -32,7 +32,7 @@ When all entries have been added, simply press ``Save`` and the book will be add
 Browser stored books are stored under the "Personal library" and can be managed from there. To edit a book, simply import it and make your changes, then save (it will overwrite as long as you don't change the title). You can also export it here, or completely remove it by clicking the "trashcan" icon.
 
 > [!WARNING]
-> As memory is stored solely in browser storage (``localStorage``) clearing your browser storage will reset any progress and remove any custom books. It is therefore a good idea to export your books!
+> As memory is stored solely in browser storage (``localStorage``) clearing your browser storage will reset any progress and remove any custom books. **It is therefore a good idea to export your books!**
 
 #### ✉️ Submitting a book to the default list
 > [!NOTE]
@@ -63,6 +63,8 @@ You can change the volume of the sounds (on PC) by pressing the knob in the lowe
 
 ## 🔮 How does it work?
 This website uses books stored as JSON files. A book is just an object with ``title``, ``preview image``, ``purchase link``, ``chapters`` and ``generator version`` (not actual variable names). The ``chapters`` field contains an array of chapter objects, which themselves consist of ``number``, ``full name`` and ``tasks``. Tasks is similarly just an array of task objects, which currently only hold the field ``task``, but could be expanded in the future to enable more content.
+
+When a task is randomized, the script looks through any non-filtered chapters and checks whether their tasks are exhausted. It then picks a random chapter, and then a random task in that chapter.
 
 The books provided are stored on server, but the memory of tasks is saved in ``localStorage`` as copies of the book. This is not particularly efficient, but prevents me from needing to have user accounts or similar as well as using other possibly more complicated storage solutions. It is not currently planned to replace this behavior as I doubt it will ever be an issue, and I lack the knowledge as of right now.
 
