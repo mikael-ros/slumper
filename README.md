@@ -8,27 +8,31 @@
 
 ⏱️ **Timer** :: Allows you to time your performance, and set max time goals
 
+🪄 **Custom books** :: You can add any book you like!
+
 ## 🔨 Usage
 
-Simply visit [slumper.me](https://www.slumper.me) and pick any of the pregenerated books, or add your own.
+Simply visit [slumper.me](https://www.slumper.me) and pick any of the included books, or add your own.
 
 ### 🎰 Randomization
-To randomize, simply hit the random button! To mark a task as completed, and randomize, press the "tick" button. 
-
+To randomize, simply hit the random button! To mark a task as completed, and randomize, press the "tick" button. To clear memory for the selected book, click the "trash" icon.
 ### ⚙️ Filters
-Select the chapters by checking the corresponding boxes.
+Select the chapters by toggling the corresponding boxes. When a chapter is exhausted, it will automatically be unchecked.
 ### ⏱️ Timer
-Start the timer, stop it when finished. If you've set a maximum, and you hit it, a bell will ring.
-### 📚 Adding books
+If enabled, this will start every time you start a new task. The default time is 180 seconds (3 minutes), but you can provide your own, between 1 and 3600 seconds (1 hour), which will be upheld until the page is refreshed. It will flash and play a sound when elapsed.
+### 🪄 Adding books
 Click the ``+`` button next to the book selector. It will bring you to a different page where you can add the chapters of the book, or import a previously generated book.
 
-Add entries by writing the chapter title and number of tasks, then click the + button. To remove or ignore a chapter, click the x next to it.
+Add entries by writing the chapter title and number of tasks, then click the + button. To remove or ignore a chapter, set the number of tasks to 0 and the generator will skip it.
 
 You can also edit a previously generated book, by importing it. You can import from disk by clicking the ``Import`` button, or import from browser storage by clicking a similar button in your personal library.
 
-When all entries have been added, simply press ``Save`` and the book will be added to your local browser storage, as reflected by the personal library tab. You can also choose to save the book to disk by pressing ``Export``.
+When all entries have been added, simply press ``Save`` and the book will be added to your local browser storage, as reflected by the personal library tab. You can also choose to save the book to disk by pressing ``Export`` (you can also export from your personal library).
 
 Browser stored books are stored under the "Personal library" and can be managed from there. To edit a book, simply import it and make your changes, then save (it will overwrite as long as you don't change the title). You can also export it here, or completely remove it by clicking the "trashcan" icon.
+
+> [!WARNING]
+> As memory is stored solely in browser storage (``localStorage``) clearing your browser storage will reset any progress and remove any custom books. It is therefore a good idea to export your books!
 
 #### ✉️ Submitting a book to the default list
 > [!NOTE]
@@ -36,9 +40,9 @@ Browser stored books are stored under the "Personal library" and can be managed 
 
 To submit a book to be considered as a default:
 1. Check the banned books list, to see if it's banned
-2. If not banned, submit an issue with the tag ``book`` and title as the book title. The description should atleast contain the ISBN. Do NOT include an exported book.
+2. If not, submit an issue with the tag ``book suggestion`` and title as the book title. The description should atleast contain the ISBN. Do NOT include an exported book that you have made, as it might infringe copyright.
 
-I will, given time, then contact the copyright holder myself and seek permission, and will respond wheter or not it got approved or not. If approved, I will ask you to provide the generated book. If the copyright holders decline, it will go in the banned books list.
+I will, given time, then contact the copyright holder myself and seek permission, and will respond wheter or not it got approved or not. If approved, I will then ask you to provide the generated book. If the copyright holders decline, it will go in the banned books list.
 
 ### 🔊 Changing the volume
 You can change the volume of the sounds (on PC) by pressing the knob in the lower right corner. Then slide your mouse up and down to adjust. You can also adjust the volume with your keyboard, by using the following keybinds:
@@ -60,12 +64,12 @@ You can change the volume of the sounds (on PC) by pressing the knob in the lowe
 ## 🔮 How does it work?
 This website uses books stored as JSON files. A book is just an object with ``title``, ``preview image``, ``purchase link``, ``chapters`` and ``generator version`` (not actual variable names). The ``chapters`` field contains an array of chapter objects, which themselves consist of ``number``, ``full name`` and ``tasks``. Tasks is similarly just an array of task objects, which currently only hold the field ``task``, but could be expanded in the future to enable more content.
 
-The books provided are stored on server, but the memory of tasks is saved in ``localStorage`` as copies of the book. This is not particularly efficient, but prevents me from needing to have user accounts or similar as well as using other possibly more complicated storage solutions. It is not currently planned to replace this behavior as I doubt it will ever be an issue.
+The books provided are stored on server, but the memory of tasks is saved in ``localStorage`` as copies of the book. This is not particularly efficient, but prevents me from needing to have user accounts or similar as well as using other possibly more complicated storage solutions. It is not currently planned to replace this behavior as I doubt it will ever be an issue, and I lack the knowledge as of right now.
 
 ---
 <details closed><summary><h2>🪚 Contributing</h2></summary>
 
-> This website is made with the framework Astro.js and in the TypeScript language. In addition, only pure CSS is used, no Tailwind. You may or may not need to know these to work on this project. Documentation is not yet provided.
+> This website is made with the frameworks [Astro.js](https://astro.build/) and [Solid.js](https://www.solidjs.com/) and written mostly in TypeScript and HTML. In addition, only pure CSS is used, no Tailwind. The website is automatically built and deployed to [Netlify](https://www.netlify.com/). You may or may not need to be comfortable with these to work on this project. In depth documentation is not yet provided.
 
 #### 🗒 If you cant work on the project, but have ideas
 Add them to the [**list of issues**](https://www.github.com/mikael-ros/slumper/issues) :)
@@ -74,7 +78,7 @@ Add them to the [**list of issues**](https://www.github.com/mikael-ros/slumper/i
 [**Check out the issues**](https://www.github.com/mikael-ros/slumper/issues) and pick any issue currently unassigned. Issued marked as ``good first issue`` are, like it says on the tin, good to start with.
 
 #### 🧰 Prerequisites
-- Node.js and npm
+- Node.js
 
 ### 🖥 Running the site locally
 Simply run:
