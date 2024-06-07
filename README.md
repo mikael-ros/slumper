@@ -60,7 +60,7 @@ You can change the volume of the sounds (on PC) by pressing the knob in the lowe
 - 📤 ``"I tried to import a previously generated book, but it gave me an error"``: It is possible that the program has changed inbetween, which will unfortunately mean you have to regenerate the book. That, or you tried to import an invalid format.
 
 #### ♿️ Accessibility
-The site has been designed with those impaired in mind. This includes having made the site keyboard-navigable, and improving the experience for screen-readers. Likewise, colors and contrasts have been chosen to create a grey-scale and legible design, easy for those with color-blindness to use.
+The site has been designed with those impaired in mind. This includes having made the site keyboard-navigable, and improving the experience for screen-readers. Likewise, colors and contrasts have been chosen to create a grey-scale and legible design, easy for those with color-blindness of any type to use.
 
 **Please feel free to [add an issue](https://www.github.com/mikael-ros/slumper/issues/new) with the "Accessibility" tag, if you feel your needs aren't accounted for. The goal is to create a site usable for everyone.**
 
