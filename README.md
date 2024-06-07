@@ -59,6 +59,11 @@ You can change the volume of the sounds (on PC) by pressing the knob in the lowe
 #### 💢 Troubleshooting
 - 📤 ``"I tried to import a previously generated book, but it gave me an error"``: It is possible that the program has changed inbetween, which will unfortunately mean you have to regenerate the book. That, or you tried to import an invalid format.
 
+#### ♿️ Accessibility
+The site has been designed with those impaired in mind. This includes having made the site keyboard-navigable, and improving the experience for screen-readers. Likewise, colors and contrasts have been chosen to create a grey-scale and legible design, easy for those with color-blindness to use.
+
+**Please feel free to [add an issue](https://www.github.com/mikael-ros/slumper/issues/new) with the "Accessibility" tag, if you feel your needs aren't accounted for. The goal is to create a site usable for everyone.**
+
 ---
 
 ## 🔮 How does it work?
@@ -81,6 +86,17 @@ Add them to the [**list of issues**](https://www.github.com/mikael-ros/slumper/i
 
 #### 🧰 Prerequisites
 - Node.js
+
+#### ✅️ Recommended
+*If you run into issues, I am easierly able to help you if you are using the following:*
+- Linux
+- Visual Studio Code
+- Firefox or Chrome/Chromium
+
+#### ✔️ Good-to-haves
+- Lighthouse browser addon
+- Some kind of screen reader
+- Some kind of addon that allows you to simulate colorblindness
 
 ### 🖥 Running the site locally
 Simply run:
