@@ -2,11 +2,11 @@
 
 ***A web tool for randomizing and gameifying course exercises.***
 
-🎰 **Randomizer** :: A smart randomizer that can save completed tasks and avoid them
+🎰 **Randomizer** :: A smart randomizer that can save completed tasks and avoid them.
 
-⚙️ **Filters** :: Lets you filter chapters you want included
+⚙️ **Filters** :: Lets you filter chapters you want included.
 
-⏱️ **Timer** :: Allows you to time your performance, and set max time goals
+⏱️ **Timer** :: Allows you to time your performance, and set max time goals.
 
 🪄 **Custom books** :: You can add any book you like!
 
