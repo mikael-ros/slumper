@@ -139,7 +139,7 @@ export function OutputCard(){
             <div class="card output">
                 <div id="output-wrapper">
                     <h2 id="chapter">{chapter().fullname}</h2>
-                    <h3 id="output">{(book().chapters.length > 1 ? chapter().number + "." : "") + task().task}</h3>
+                    <h3 id="output">{task().task != -1 ? (book().chapters.length > 1 ? chapter().number + "." : "") + task().task : "No task left in chapter"}</h3>
                 </div>
                 
                 <div class="button-group">
