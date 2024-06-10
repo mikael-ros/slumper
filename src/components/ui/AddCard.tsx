@@ -40,6 +40,15 @@ export function AddCard(){
         return getSetOrElse("personalLibrary", new Array<Book>);
     }
 
+    function clear(){
+        importBook(dummyBook);
+        valids.forEach(validity => {
+            validity[0] = false;
+            validity[1] = false;
+        })
+        setIsValid(false);
+    }
+
     function importBook(book: Book){
         setTitle(book.name);
         setLink(book.previewImagePath);
@@ -224,7 +233,7 @@ export function AddCard(){
                     <button aria-label="Export book" id="export" onclick={getBook} disabled={!isValid()} title="Save book to disk"><img src={downloadIcon.src} alt="Export book"/><p>Export</p></button>
                     <input type="file" aria-label="Import file" aria-hidden="true" aria-labelledby="file-import-label" id="file-import" onchange={handleFileSelect} title="Import file from disk"></input>
                     <label class="faux-button" id="file-import-label" aria-label="Import file" for="file-import"><img src={uploadIcon.src} alt="Import book" title="Import file from disk"/><p>Import</p></label>
-                    <button aria-label="Clear entries" id="clear" onclick={() => importBook(dummyBook)} title="Remove the entered values"><img src={trashIcon.src} alt="Clear entries"/><p>Clear</p></button>
+                    <button aria-label="Clear entries" id="clear" onclick={() => clear()} title="Remove the entered values"><img src={trashIcon.src} alt="Clear entries"/><p>Clear</p></button>
                 </div>
 
             </div>
