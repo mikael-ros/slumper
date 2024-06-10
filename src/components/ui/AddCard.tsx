@@ -7,6 +7,7 @@ import trashIcon from "/src/assets/trash.svg";
 import uploadIcon from "/src/assets/upload.svg";
 import downloadIcon from "/src/assets/download.svg";
 import plusIcon from "/src/assets/plus.svg";
+import shareIcon from "/src/assets/share.svg";
 
 import { createEffect, createSignal, For, Show } from "solid-js";
 
@@ -251,12 +252,15 @@ export function AddCard(){
                                     <button aria-label={"Remove \"" + book.name + "\""} onclick={() => removeBook(book.name)} title={"Remove \"" + book.name + "\""}><img src={trashIcon.src} alt="Remove book"/></button>
                                     <button aria-label={"Export \"" + book.name + "\""} onclick={() => exportBook(book)} title={"Export \"" + book.name + "\""}><img src={downloadIcon.src} alt="Export book"/></button>
                                     <button aria-label={"Import \"" + book.name + "\""} onclick={() => importBook(book)} title={"Import \"" + book.name + "\""}><img src={uploadIcon.src} alt="Import book to fields"/></button>
+                                    <a href={"https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=book+suggestion&projects=&template=book-suggestion.md&title=%5BBook+suggestion%5D+" + book.name} target="_blank"><button aria-label="Suggest a book" id="suggest" title="Suggest a book" disabled={library().length == 0}><img src={shareIcon.src} alt="Suggest a book"/></button></a>
                                 </div>
                             </li>
                         }
                     </For>
                 </ol>
-                <button aria-label="Reset library" id="reset" onclick={() => removeAllBooks()} disabled={library().length == 0} title="Remove all books from personal library"><img src={trashIcon.src} alt="Clear all books"/><p>Reset library</p></button>
+                
+                <button aria-label="Reset library" id="reset" onclick={() => removeAllBooks()} disabled={library().length == 0} title="Remove all books from personal library"><img src={trashIcon.src} alt="Clear all books"/><p>Reset</p></button>
+                
             </div>
         </div>
     )
