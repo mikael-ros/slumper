@@ -31,7 +31,7 @@ export function VolumeKnob(){
     const handleSliderClick = (event : MouseEvent & {currentTarget : HTMLElement; target: Element;}) => {
         const slider = event.currentTarget;
         const rect = slider.getBoundingClientRect();
-        var clickY = event.clientY - rect.top; // Position relative to slider top
+        const clickY = event.clientY - rect.top; // Position relative to slider top
         const newVolume = 1 - (clickY / rect.height); // Calculate new volume
         changeVolume(newVolume);
     };

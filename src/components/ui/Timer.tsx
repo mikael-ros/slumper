@@ -3,7 +3,6 @@ import { createSignal, createEffect, onCleanup } from "solid-js";
 import timerSound from "../../assets/timer-sound.wav";
 import {getSetOrElse} from "../../scripts/StorageHandler.ts";
 
-
 class Time {
     time: number;
     interval: any;
@@ -102,8 +101,6 @@ export function Timer(props: any){
         document.title = title;
     }); // Kill the code when its unmounted
 
-
-    
     return (
         <h1 class="timer" data-elapsed={elapsed()} aria-live={elapsed() ? "assertive" : "off"} aria-atomic="true">{time()}</h1>
     )

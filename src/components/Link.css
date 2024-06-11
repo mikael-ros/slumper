@@ -44,7 +44,7 @@
     position: relative;
     border-left: .1em var(--text-color-negative-dull) solid;
 
-    &:not(.clipboard):nth-of-type(1){
+    &[data-clipboard = "false"]:nth-of-type(1){
         border: 0;
     }
 }

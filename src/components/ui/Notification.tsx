@@ -24,7 +24,6 @@ export function Notification(props: any){
         }, _duration);
         return () => clearTimeout(delay);
     });
-
     
     return (
         <Show when={alive()}>
