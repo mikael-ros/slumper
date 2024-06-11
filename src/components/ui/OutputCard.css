@@ -128,6 +128,17 @@
     }
 }
 
+#timer-display{
+    height: 0em;
+
+    transition-property: height;
+    transition-duration: var(--transition-duration-medium);
+
+    &[data-open = "true"]{
+        height: 3em;
+    }
+}
+
 #timer-config{
     display: flex;
     align-items: center;
@@ -135,6 +146,8 @@
     
     button {
         height: 3em;
+        width: 100%;
+
         margin: 0;
         transition-property: width, border-radius, filter;
         transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
@@ -151,6 +164,10 @@
             border-radius: var(--mild-border-radius);
             filter: brightness(70%);
             cursor: not-allowed;
+        }
+
+        &[data-open = "true"]{
+            width: 70%;
         }
     }
 
@@ -267,6 +284,14 @@
 
         & > p{
             display: none;
+        }
+    }
+
+    #timer-display{
+        height: unset;
+    
+        &[data-open = "true"]{
+            height: unset;
         }
     }
 

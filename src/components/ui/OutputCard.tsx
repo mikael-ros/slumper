@@ -33,9 +33,6 @@ export function OutputCard(){
     const [task, setTask] = createSignal(dummyTask);
     const [unchecked, setUnchecked] = createSignal<Set<Number>>(new Set<Number>);
     const [abort, setAbort] = createSignal(false);
-    const [mobile, setMobile] = createSignal(window.innerWidth <= 900);
-
-  
 
     var randomizer : Randomizer = new Randomizer(book());
 
@@ -106,8 +103,6 @@ export function OutputCard(){
         warn(valid, event);
     }
 
-    window.onresize = () => setMobile(window.innerWidth <= 900);
-
     onMount(() => {
         if (getSetOrElse("refreshPersonalLibrary", false)) { // Refresh the library if necessary
             setLibrary(getLibrary());
@@ -118,15 +113,13 @@ export function OutputCard(){
     return (
         <div class="card-group">
             <div class ="card small" id="timer">
-                <div id="timer-display" style={mobile() ? "" : "height: " + (displayTimer() && !abort() ? "3em" : "0em") + ";"
-                            + " transition-property: height;"
-                            + " transition-duration: var(--transition-duration-medium);"}>
+                <div id="timer-display" data-open={displayTimer() && !abort()}>
                     <Show when={displayTimer() && !abort()}>
                         <Timer time={timer()}/>
                     </Show>
                 </div>
                 <div id="timer-config">
-                    <button style={displayTimer() && !abort() ? "width: 70%;" : "width: 100%"} title="Toggle timer" aria-label="Toggle timer" aria-controls="timer-display" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={abort()}><img src={timerIcon.src} alt="Timer icon"/><p>Timer</p></button>
+                    <button data-open={displayTimer() && !abort()} aria-label="Toggle timer" aria-controls="timer-display" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={abort()}><img src={timerIcon.src} alt="Timer icon"/><p>Timer</p></button>
                     <Show when={displayTimer() && !abort()}>
                         <input type="number" min="1" max="3600" placeholder={timer().toString()} 
                         onchange={event => handleChange(event)} 
