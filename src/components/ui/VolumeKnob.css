@@ -71,11 +71,11 @@
     transition-property: height,margin,opacity;
     transition-duration: var(--transition-duration-fast);
 
-    &.open{
+    &[data-open = "true"]{
         height: 10em;
     }
 
-    &.closed{
+    &[data-open = "false"]{
         height: 0;
         margin: 0;
         opacity: 0;
