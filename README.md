@@ -1,3 +1,6 @@
+> [!NOTE]
+> This project is currently in a "pre-release" state. It is functionally largely finished, but I won't officially release it until school starts back up again. You can expect few changes until then though, so feel free to use it as is!
+
 # 🎲 Slumper
 
 ***A web tool for randomizing and gameifying course exercises.***
