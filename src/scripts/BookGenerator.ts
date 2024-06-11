@@ -14,6 +14,7 @@ export interface Book {
     source: string;
     chapters: Chapter[];
     generatorVersion: string;
+    custom: boolean;
 }
 
 
@@ -27,7 +28,7 @@ export interface Book {
  * @returns The book object
  */
 export function generateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, source: string, custom: boolean){
-    const generatorVersion = "1.0.1";
+    const generatorVersion = "1.0.2";
     
     var parsedChapters: Chapter[] = [];
     var currentIndex = 1;
@@ -46,11 +47,12 @@ export function generateBook(input: Map<string, number>, bookName: string, bookP
     });
 
     var book: Book =  {
-        name: (custom ? "(+) " : "") + bookName,
+        name: bookName,
         previewImagePath: bookPreviewImagePath,
         source: source,
         chapters: parsedChapters,
-        generatorVersion: generatorVersion
+        generatorVersion: generatorVersion,
+        custom: custom
     }
     return book;
 }

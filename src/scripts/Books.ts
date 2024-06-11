@@ -20,7 +20,8 @@ export const dummyBook: Book = {
         number: -1,
         tasks: new Array()
     }],
-    generatorVersion: "1.0.0"
+    generatorVersion: "1.0.2",
+    custom: false
 }
 
 
@@ -105,7 +106,8 @@ function initBook(book: Book){
         previewImagePath: book.previewImagePath,
         source: book.source,
         chapters: emptiedChapters,
-        generatorVersion: book.generatorVersion
+        generatorVersion: book.generatorVersion,
+        custom: book.custom
     });
 }
 

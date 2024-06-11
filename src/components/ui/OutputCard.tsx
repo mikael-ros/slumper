@@ -195,10 +195,9 @@ export function OutputCard(){
                 
                 <div id="course-select-wrapper">
                     <select id="course-select" name="course" onchange={(event) => {setNewBook(JSON.parse(event.target.value))}} title="Select a book" aria-label="Select a book" aria-required="false">
-                        <option value={JSON.stringify(book())}>{book().name}</option>
-                        <For each={library().filter((_book) => _book.name != book().name)}>
+                        <For each={library()}>
                             {(book) =>
-                                <option value={JSON.stringify(book)}>{book.name}</option>
+                                <option value={JSON.stringify(book)}>{(book.custom ? "[P] " : "") + book.name}</option>
                             }
                         </For>
                     </select>
