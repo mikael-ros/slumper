@@ -15,6 +15,7 @@ export interface Book {
     chapters: Chapter[];
     generatorVersion: string;
     custom: boolean;
+    id: string;
 }
 
 
@@ -52,7 +53,8 @@ export function generateBook(input: Map<string, number>, bookName: string, bookP
         source: source,
         chapters: parsedChapters,
         generatorVersion: generatorVersion,
-        custom: custom
+        custom: custom,
+        id: bookName + ":" + custom
     }
     return book;
 }

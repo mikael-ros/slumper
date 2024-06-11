@@ -33,7 +33,8 @@ export function generateBook(input: Map<string, number>, bookName: string, bookP
         source: source,
         chapters: parsedChapters,
         generatorVersion: generatorVersion,
-        custom: false
+        custom: false,
+        id: bookName + ":" + false
     }
     return book;
 }
@@ -55,6 +56,7 @@ export interface Book {
     chapters: Chapter[];
     generatorVersion: string;
     custom: boolean;
+    id: string;
 }
 
 async function writeBook(book: Book){

@@ -21,7 +21,8 @@ export const dummyBook: Book = {
         tasks: new Array()
     }],
     generatorVersion: "1.0.2",
-    custom: false
+    custom: false,
+    id: "dummybook"
 }
 
 
@@ -38,12 +39,12 @@ export function getLibrary() {
     return library;
 }
 /**
- * Retrieves a book from name
- * @param name The name of the book
+ * Retrieves a book from id
+ * @param id The id of the book
  * @returns The book, if it is found, or just the first book
  */
-export function getBook(name: string): Book {
-    const indexOfBook = library.findIndex((book) => book.name == name);
+export function getBook(id: string): Book {
+    const indexOfBook = library.findIndex((book) => book.id == id);
     return indexOfBook == -1 ? library[0] : library[indexOfBook];
 }
 
@@ -59,7 +60,7 @@ function getSpentTasks() : Book[]{
  * @returns Wheter or not book is currently registered in the memory
  */
 function spentIsEmptyFromBook(book: Book) : Boolean{
-    return getSpentTasks().find((spentBook) => spentBook.name == book.name) == undefined;
+    return getSpentTasks().find((spentBook) => spentBook.id == book.id) == undefined;
 }
 
 /**
@@ -68,7 +69,7 @@ function spentIsEmptyFromBook(book: Book) : Boolean{
  */
 export function getSpentTasksFromBook(book: Book) : Book{
     ensureBook(book);
-    return getSpentTasks().find((spentBook) => spentBook.name == book.name)!;
+    return getSpentTasks().find((spentBook) => spentBook.id == book.id)!;
 }
 
 /**
@@ -107,7 +108,8 @@ function initBook(book: Book){
         source: book.source,
         chapters: emptiedChapters,
         generatorVersion: book.generatorVersion,
-        custom: book.custom
+        custom: book.custom,
+        id: book.id
     });
 }
 
@@ -124,7 +126,7 @@ export function resetSpentTasksFromBook(book: Book){ initBook(book);}
  */
 function setBook(book: Book){
     var spentTasks: Book[] = getSpentTasks();
-    const bookIndex = spentTasks.findIndex((spentBook) => spentBook.name == book.name);
+    const bookIndex = spentTasks.findIndex((spentBook) => spentBook.id == book.id);
     if (bookIndex == -1){
         spentTasks.push(book);
     } else {

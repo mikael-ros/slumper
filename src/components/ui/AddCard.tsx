@@ -11,7 +11,7 @@ import shareIcon from "/src/assets/share.svg";
 
 import { createEffect, createSignal, For, Show } from "solid-js";
 
-import {dummyBook} from "../../scripts/Books.ts";
+import {dummyBook, resetSpentTasksFromBook} from "../../scripts/Books.ts";
 import {generateBook, exportBook} from "../../scripts/BookGenerator.ts";
 import type {Book } from "../../scripts/BookGenerator.ts";
 
@@ -78,6 +78,7 @@ export function AddCard(){
                 library.push(newbook);
             set("personalLibrary", library);
             setLibrary(library);
+            resetSpentTasksFromBook(newbook); // Reset tasks, if there are any
         }
     }
 

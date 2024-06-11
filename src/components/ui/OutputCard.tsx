@@ -28,7 +28,7 @@ export function OutputCard(){
 
     const [library, setLibrary] = createSignal(getLibrary());
 
-    const [book, setBook] = createSignal<Book>(getBook(getSetOrElse("prior", library()[0].name)));
+    const [book, setBook] = createSignal<Book>(getBook(getSetOrElse("prior", library()[0].id)));
     const [chapter, setChapter] = createSignal(dummyChapter);
     const [task, setTask] = createSignal(dummyTask);
     const [unchecked, setUnchecked] = createSignal<Set<Number>>(new Set<Number>);
@@ -44,7 +44,7 @@ export function OutputCard(){
 
     function setNewBook(book : Book){
         setBook(book);
-        set("prior", book.name);
+        set("prior", book.id);
         randomizer = new Randomizer(book);
         document.body.style.backgroundImage = "url(" + book.previewImagePath + ")"; 
         setUnchecked(new Set<Number>);
