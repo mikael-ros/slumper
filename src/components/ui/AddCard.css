@@ -197,6 +197,12 @@
     .book-entry{
         button{
             display: flex;
+            max-width: 1.5em;
+            max-height: 1.5em;
+
+            img {
+                width: 1.25em !important;
+            }
         }
 
         .button-group {
