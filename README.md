@@ -67,7 +67,7 @@ The site has been designed with those impaired in mind. This includes having mad
 ---
 
 ## 🔮 How does it work?
-This website uses books stored as JSON files. A book is just an object with ``title``, ``preview image``, ``purchase link``, ``chapters`` and ``generator version`` (not actual variable names). The ``chapters`` field contains an array of chapter objects, which themselves consist of ``number``, ``full name`` and ``tasks``. Tasks is similarly just an array of task objects, which currently only hold the field ``task``, but could be expanded in the future to enable more content.
+This website uses books stored as JSON files. A book is just an object with ``title``, ``preview image``, ``source link``, ``chapters``, ``custom``, ``id``, and ``generator version`` (not actual variable names). The ``chapters`` field contains an array of chapter objects, which themselves consist of ``number``, ``full name`` and ``tasks``. Tasks is similarly just an array of task objects, which currently only hold the field ``task``, but could be expanded in the future to enable more content. ``id`` is just a string id, mostly used for memory management and is just the concatenation of the name and custom tag. The ``custom`` tag is just a boolean that indicated whether a book is a personal library item or not, and is used to identify custom books as well as handle conflicts. 
 
 When a task is randomized, the script looks through any non-filtered chapters and checks whether their tasks are exhausted. It then picks a random chapter, and then a random task in that chapter.
 
