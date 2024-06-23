@@ -119,7 +119,6 @@ h6{
     text-shadow: .1em .1em 0px var(--text-color-shadowed);
 }
 
-
 a:has(> button){
     text-decoration: none;
 }
@@ -210,12 +209,13 @@ button, select, option, input:not([type=checkbox]), .checkbox-label, .faux-butto
     }
 }
 
-
 .button-group{
     display: flex;
+    gap: .5em;
     
-    button {
+    button, input, label {
         width: 100%;
+        margin: 0;
     }
 
     input {
