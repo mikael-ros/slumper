@@ -6,7 +6,7 @@ import netlify from "@astrojs/netlify";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.slumper.me',
+  site: 'https://slumper.me',
   integrations: [solidJs(), sitemap()],
   output: "server",
   adapter: netlify()
