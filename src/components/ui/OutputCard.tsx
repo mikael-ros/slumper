@@ -8,7 +8,7 @@ import timerIcon from "/src/assets/timer.svg";
 import linkIcon from "/src/assets/link.svg";
 import plusIcon from "/src/assets/plus.svg";
 
-import { createSignal, For, onCleanup, onMount, Show } from "solid-js";
+import { createSignal, For, onMount, Show } from "solid-js";
 import { Randomizer} from "../../scripts/Randomizer";
 import { Timer } from "./Timer.tsx";
 import complete from "../../assets/complete.wav";
@@ -48,6 +48,10 @@ export function OutputCard(){
         random(false);
     }
 
+    /**
+     * Retrieves a random task from the randomizer object, and does the relevant logic
+     * @param memorize Wheter to put the task into memory or not
+     */
     function random(memorize: Boolean){
         randomizer.setNew(memorize);
         setChapter(randomizer.getChapter());
@@ -65,7 +69,7 @@ export function OutputCard(){
         setTimer(timer);
     }
 
-    onMount(() => {
+    onMount(() => { // Randomize on load
         random(false);
     })
 
@@ -121,8 +125,8 @@ export function OutputCard(){
                     <button data-open={displayTimer() && !abort()} aria-label="Toggle timer" aria-controls="timer-display" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={abort()}><img src={timerIcon.src} alt="Timer icon"/><p>Timer</p></button>
                     <Show when={displayTimer() && !abort()}>
                         <input type="text" inputmode="numeric" pattern="[0-9]*" placeholder={timer().toString()} 
-                        onchange={event => handleChange(event)} 
-                        oninput={event => handleInput(event)}
+                        onchange={handleChange} 
+                        oninput={handleInput}
                         aria-required="false"/><p>seconds</p>
                     </Show>
                 </div>
@@ -184,7 +188,6 @@ export function OutputCard(){
                     </div>
                 </Show>
 
-                
                 <div id="course-select-wrapper">
                     <select id="course-select" name="course" onchange={(event) => {setNewBook(JSON.parse(event.target.value))}} title="Select a book" aria-label="Select a book" aria-required="false">
                         <For each={library()}>

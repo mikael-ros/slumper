@@ -3,6 +3,9 @@ import { createSignal, createEffect, onCleanup } from "solid-js";
 import timerSound from "../../assets/timer-sound.wav";
 import {getSetOrElse} from "../../scripts/StorageHandler.ts";
 
+/**
+ * A class for handling time. Created to minimize unnecessary imports. All we want is a simply max 1 hr timer, so this suffices.
+ */
 class Time {
     time: number;
     interval: any;
@@ -46,6 +49,11 @@ class Time {
         return this.time % 60;
     }
 
+    /**
+     * Formats the time
+     * @param time The time being formated
+     * @returns A string representation of the time
+     */
     formatTime(time: number) : string {
         return time < 10 ? "0" + time : time.toString();
     }
@@ -64,7 +72,6 @@ class Time {
 }
 
 export function Timer(props: any){
-    
     var timer = new Time(props.time);
     const [time, setTime] = createSignal(timer.toString());
     const [elapsed, setElapsed] = createSignal(false);

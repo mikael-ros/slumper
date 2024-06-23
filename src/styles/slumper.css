@@ -43,8 +43,6 @@ html{
     background-color: var(--background-color);
 }
 
-
-
 body{
     min-height: 100vh;
     min-width: 100vw;
@@ -243,8 +241,7 @@ button, select, option, input:not([type=checkbox]), .checkbox-label, .faux-butto
         font-size: .7em;
         line-height: 200%;
         color: var(--text-color);
-
-        
+ 
         text-shadow: none;
 
         background: none;

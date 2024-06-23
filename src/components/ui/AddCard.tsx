@@ -210,7 +210,7 @@ export function AddCard(){
                 <h1>Add book</h1>
 
                 <div id="book-params">
-                    <input value={title()} placeholder="Book name*" oninput={event => handleTitleChange(event)} onchange={event => handleTitleChange(event)} required aria-required="true"></input>
+                    <input value={title()} placeholder="Book name*" oninput={handleTitleChange} onchange={handleTitleChange} required aria-required="true"></input>
                     <input type="url" value={link()} placeholder="Book image URL (optional)" oninput={event => setLink(event.target.value)} onchange={event => setLink(event.target.value)} aria-required="false"></input>
                 </div>
                 
