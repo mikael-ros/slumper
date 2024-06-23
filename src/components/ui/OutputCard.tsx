@@ -121,7 +121,7 @@ export function OutputCard(){
                 <div id="timer-config">
                     <button data-open={displayTimer() && !abort()} aria-label="Toggle timer" aria-controls="timer-display" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={abort()}><img src={timerIcon.src} alt="Timer icon"/><p>Timer</p></button>
                     <Show when={displayTimer() && !abort()}>
-                        <input type="number" min="1" max="3600" placeholder={timer().toString()} 
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" placeholder={timer().toString()} 
                         onchange={event => handleChange(event)} 
                         oninput={event => handleInput(event)}
                         aria-required="false"/><p>seconds</p>

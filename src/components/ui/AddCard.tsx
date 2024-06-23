@@ -222,7 +222,7 @@ export function AddCard(){
                             <li class="chapter-input">
                                 <p>{chapter + 1}</p>
                                 <input type="text" value={titles()[chapter] == undefined ? "" : titles()[chapter]} placeholder="Chapter title*" oninput={event => handleTitlesChange(chapter, event)} onchange={event => handleTitlesChange(chapter, event)} required aria-required="true"/>
-                                <input type="number" min="0" max="9999" value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
+                                <input type="text" inputmode="numeric" pattern="[0-9]*" value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
                                 oninput={event => handleAmountChange(chapter, event)} required aria-required="true"/>
                             </li>
                             }
