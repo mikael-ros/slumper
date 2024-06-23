@@ -7,8 +7,6 @@ assignees: ''
 
 ---
 
-### [Title of book]
-
 ISBN:
 
 Related course:
