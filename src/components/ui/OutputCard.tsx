@@ -21,7 +21,6 @@ export function OutputCard(){
     var defaultTimer : number = 180;
     const completionSound = new Audio(complete);
     completionSound.volume = getSetOrElse("volume", 1.0);
-    var loaded = false;
 
     const [displayTimer, setDisplayTimer] = createSignal(false);
     const [timer, setTimer] = createSignal(defaultTimer, { equals: false });

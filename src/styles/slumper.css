@@ -63,26 +63,31 @@ footer, header {
     justify-content: center;
 
     position: absolute;
-
-    background-color: rgba(var(--backdrop-color),0.1);
-    backdrop-filter: blur(var(--mild-border-radius));
+    
     color: var(--text-color-negative);
 
     text-align: center;
     z-index:2;
 }
 
+footer, header h1 {
+    background-color: rgba(var(--backdrop-color),0.1);
+    backdrop-filter: blur(var(--mild-border-radius));
+}
+
 header{
     top: 2em;
-    left: 37.5%;
-    width: 25%;
-    min-height: 4em;
- 
-    border-radius: var(--aggressive-border-radius);
+    width: 100%;
 
     h1{
-        padding: 0;
+        max-width: 50%;
+        line-height: 2em;
+
+        padding: .25em 1em;
+
         margin: 0;
+
+        border-radius: var(--aggressive-border-radius);
     }
     z-index: 999;
 }
@@ -283,7 +288,7 @@ article{
     width: 100%;
     height: 100%;
 
-    min-height: 100vh;
+    min-height: 100vh
 }
 
 @media (max-width:900px)  {
@@ -296,30 +301,27 @@ article{
         font-size: 16pt;
         line-height: 1.5em;
     }
-
-    header{
-        top: 0;
-        left: 0;
-
-        width: 100vw;
-        height: 5em;
-
-        padding-top: .5em;
-     
-        border-radius: 0 0 var(--default-border-radius) var(--default-border-radius);
-    
-        h1{
-            padding: 0;
-            margin: 0;
-        }
-    }
     
     body{
         min-height: 100vh;
     }
     
-    footer, header {
-        backdrop-filter: blur(var(--default-border-radius));
+    footer, header h1 {
+        background-color: rgba(var(--backdrop-color),0.5);
+        backdrop-filter: blur(var(--mild-border-radius));
+    }
+    
+    header{
+        position: relative;
+        top: 0;
+    
+        h1{
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+    
+            border-radius: 0;
+        }
     }
     
     footer {
@@ -356,14 +358,9 @@ article{
         flex-wrap: wrap;
     }
     
-    /************/
-    /* Articles */
-    /************/
-    
-    article{
-        padding: 4em 0;
+    article {
+        min-height: 70vh;
 
-        height: 100%;
         z-index: 3;
     }
 }
