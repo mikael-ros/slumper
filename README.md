@@ -132,7 +132,7 @@ To modify the included books, change the ``GenerateDefaults.ts`` file. Note that
 ---
 
 ## 📚 Default library ✅️
-These books are included with the site.
+These books are included with the site. The permission to use them has been granted explicitly by the respective authors on the date referenced in the ``Accepted`` column.
 
 | Course | Book title | Author | Accepted |
 |--------| ---------- | ------ | ---------- |
