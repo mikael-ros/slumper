@@ -29,7 +29,7 @@ export interface Book {
  * @returns The book object
  */
 export function generateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, source: string, custom: boolean){
-    const generatorVersion = "1.0.2";
+    const generatorVersion = "1.0.3";
     
     var parsedChapters: Chapter[] = [];
     var currentIndex = 1;
@@ -67,7 +67,7 @@ export function exportBook(book: Book) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${book.name.replaceAll(/[^a-zA-Z]/g,"").toLowerCase()}.json`;
+    a.download = `${book.name.replaceAll(/[^a-zA-Z0-9]/g,"").toLowerCase()}.json`;
     a.click();
     URL.revokeObjectURL(url);
 }

@@ -20,18 +20,24 @@ export const dummyBook: Book = {
         number: -1,
         tasks: new Array()
     }],
-    generatorVersion: "1.0.2",
+    generatorVersion: "1.0.3",
     custom: false,
     id: "dummybook"
 }
 
 
 import examplebook from '../content/tasks/examplebook.json';
+import pgk1_2022 from '../content/tasks/introduktiontillprogrammeringmedscaladel1.json';
+import pgk2_2022 from '../content/tasks/introduktiontillprogrammeringmedscaladel2.json';
 
-var library : Book[] = [examplebook].concat(getSetOrElse("personalLibrary", new Array<Book>));
+var library : Book[] = assembleLibrary();
 
 export function refreshLibrary() {
-    library = [examplebook].concat(getSetOrElse("personalLibrary", new Array<Book>));
+    library = assembleLibrary();
+}
+
+function assembleLibrary() {
+    return [examplebook, pgk1_2022, pgk2_2022].concat(getSetOrElse("personalLibrary", new Array<Book>));
 }
 
 export function getLibrary() {

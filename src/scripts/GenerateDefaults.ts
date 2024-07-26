@@ -9,7 +9,7 @@ import { writeFile } from 'fs/promises';
  * @returns The book object
  */
 export function generateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, source: string){
-    const generatorVersion = "1.0.2";
+    const generatorVersion = "1.0.3";
     
     var parsedChapters: Chapter[] = [];
     var currentIndex = 1;
@@ -61,7 +61,7 @@ export interface Book {
 
 async function writeBook(book: Book){
     try {
-        await writeFile("../content/tasks/" + book.name.replaceAll(/[^a-zA-Z]/g,"").toLowerCase()+".json", JSON.stringify(book));
+        await writeFile("../content/tasks/" + book.name.replaceAll(/[^a-zA-Z0-9]/g,"").toLowerCase()+".json", JSON.stringify(book));
         console.log('JSON file saved successfully:', book.name);
     } catch (err) {
         console.error('Error writing JSON file:', err);
@@ -77,8 +77,39 @@ export default async function generateDefaultLibrary(){
         ["The least interesting chapter", 35],
     ])
 
+    const PGK1_2022 = new Map<string,number>([
+        ["Introduktion", 37],
+        ["Program och kontrollstrukturer", 18],
+        ["Funktioner och abstraktion", 19],
+        ["Objekt och inkapsling", 20],
+        ["Klasser och datamodellering", 17],
+        ["Mönster och felhantering", 22],
+        ["Sekvenser och enumerationer", 27],
+    ]) 
+
+    const PGK2_2022 = new Map<string,number>([
+        ["Nästlade och generiska strukturer", 10],
+        ["Mängder och tabeller", 14],
+        ["Arv och komposition", 12],
+        ["Kontextuella abstraktioner och varians", 9],
+    ]) 
+
     const toGen = new Map([
-        [exampleBook, ["Example book", "https://raw.githubusercontent.com/mikael-ros/slumper/main/src/assets/previews/example-book-preview.png", "https://github.com/mikael-ros/slumper"]],
+        [exampleBook, 
+            ["Example book", 
+            "https://raw.githubusercontent.com/mikael-ros/slumper/main/src/assets/previews/example-book-preview.png", 
+            "https://github.com/mikael-ros/slumper"]
+        ],
+        [PGK1_2022, 
+            ["Introduktion till programmering med Scala, del 1", 
+            "https://github.com/lunduniversity/introprog/blob/master/img/compendium-cover-part1-2022.png?raw=true", 
+            "https://cs.lth.se/pgk/compendium/"]
+        ],
+        [PGK2_2022, 
+            ["Introduktion till programmering med Scala, del 2", 
+            "https://github.com/lunduniversity/introprog/blob/master/img/compendium-cover-part2-2022.png?raw=true", 
+            "https://cs.lth.se/pgk/compendium/"]
+        ],
     ])
     
     toGen.forEach((values, book) => writeBook(generateBook(book,values[0],values[1], values[2])))
