@@ -134,9 +134,11 @@ To modify the included books, change the ``GenerateDefaults.ts`` file. Note that
 ## 📚 Default library ✅️
 These books are included with the site.
 
-| Course | Book title | Author | Date added |
+| Course | Book title | Author | Accepted |
 |--------| ---------- | ------ | ---------- |
 | Example | Example book | Me | 2024-06 |
+| EDAA45 | Programmering, grundkurs del 1 | Björn Regnell | 2024-07-26 |
+| EDAA45 | Programmering, grundkurs del 2 | Björn Regnell | 2024-07-26 |
 
 ## 📚 Banned books 🚫
 What follows is a list of books that will never be added to the default list of books, and the reason why. You can, however, add these yourself locally; I simply cannot, due to copyright issues, include them in the default list.
