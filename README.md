@@ -137,8 +137,8 @@ These books are included with the site. The permission to use them has been gran
 | Course | Book title | Author | Accepted |
 |--------| ---------- | ------ | ---------- |
 | Example | Example book | Me | 2024-06 |
-| EDAA45 | [Programmering, grundkurs del 1](https://cs.lth.se/pgk/compendium/) | Björn Regnell | 2024-07-26 |
-| EDAA45 | [Programmering, grundkurs del 2](https://cs.lth.se/pgk/compendium/) | Björn Regnell | 2024-07-26 |
+| EDAA45 | [Introduktion till programmering med Scala, del 1](https://cs.lth.se/pgk/compendium/) | Björn Regnell | 2024-07-26 |
+| EDAA45 | [Introduktion till programmering med Scala, del 2](https://cs.lth.se/pgk/compendium/) | Björn Regnell | 2024-07-26 |
 
 ## 📚 Banned books 🚫
 What follows is a list of books that will never be added to the default list of books, and the reason why. You can, however, add these yourself locally; I simply cannot, due to copyright issues, include them in the default list.
