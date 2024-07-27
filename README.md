@@ -136,7 +136,6 @@ These books are included with the site. The permission to use them has been gran
 
 | Relevant courses @ LTH | Book title   | Author | Accepted |
 |------------------------| ------------ | ------ | -------- |
-| Example                | Example book | Me | 2024-06 |
 | EDAA45                 | [Introduktion till programmering med Scala, del 1](https://cs.lth.se/pgk/compendium/) | Björn Regnell | 2024-07-26 |
 | EDAA45                 | [Introduktion till programmering med Scala, del 2](https://cs.lth.se/pgk/compendium/) | Björn Regnell | 2024-07-26 |
 | EDAN40, EDAF95         | [Programming in Haskell, second edition](https://www.amazon.co.uk/Programming-Haskell-Graham-Hutton/dp/1316626229) | Graham Hutton | 2024-07-27 |

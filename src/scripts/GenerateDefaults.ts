@@ -69,14 +69,6 @@ async function writeBook(book: Book){
 }
 
 export default async function generateDefaultLibrary(){
-    const exampleBook = new Map<string,number>([
-        ["A very interesting chapter", 20],
-        ["Must read", 15],
-        ["Ramblings and other essentials", 30],
-        ["The most interesting chapter", 30],
-        ["The least interesting chapter", 35],
-    ])
-
     const PGK1_2022 = new Map<string,number>([
         ["Introduktion", 37],
         ["Program och kontrollstrukturer", 18],
@@ -115,11 +107,6 @@ export default async function generateDefaultLibrary(){
     ]) 
 
     const toGen = new Map([
-        [exampleBook, 
-            ["Example book", 
-            "https://raw.githubusercontent.com/mikael-ros/slumper/main/src/assets/previews/example-book-preview.png", 
-            "https://github.com/mikael-ros/slumper"]
-        ],
         [PGK1_2022, 
             ["Introduktion till programmering med Scala, del 1", 
             "https://github.com/lunduniversity/introprog/blob/master/img/compendium-cover-part1-2022.png?raw=true", 
