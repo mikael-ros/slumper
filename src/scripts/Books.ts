@@ -25,7 +25,6 @@ export const dummyBook: Book = {
     id: "dummybook"
 }
 
-
 import pgk1_2022 from '../content/tasks/introduktiontillprogrammeringmedscaladel1.json';
 import pgk2_2022 from '../content/tasks/introduktiontillprogrammeringmedscaladel2.json';
 import programmingInHaskell from '../content/tasks/programminginhaskellsecondedition.json';

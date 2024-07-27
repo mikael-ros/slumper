@@ -29,7 +29,7 @@ const { title, description } = Astro.props;
 			<Link href="https://www.github.com/mikael-ros/slumper" src={donateIcon.src} alt="Donate icon" text="Donate" newtab={true}/>
 			<Link href="https://www.slumper.me" src={shareIcon.src} alt="Share icon" text="Share" clipboard={true} client:only="solid-js"/>
 			<Link href="https://www.github.com/mikael-ros/slumper" src={githubIcon.src} alt="GitHub logo" text="GitHub" />
-			<Link href="https://github.com/mikael-ros/slumper/issues/new" src={bugIcon.src} alt="Bug report icon" text="Report bug" newtab={true}/>
+			<Link href="https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=bug&projects=&template=bug-report.md&title=%5BBug+report%5D+Short+description" src={bugIcon.src} alt="Bug report icon" text="Report bug" newtab={true}/>
 		</footer>
 	</body>
 </html>
