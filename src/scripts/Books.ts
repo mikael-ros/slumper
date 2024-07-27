@@ -29,6 +29,7 @@ export const dummyBook: Book = {
 import examplebook from '../content/tasks/examplebook.json';
 import pgk1_2022 from '../content/tasks/introduktiontillprogrammeringmedscaladel1.json';
 import pgk2_2022 from '../content/tasks/introduktiontillprogrammeringmedscaladel2.json';
+import programmingInHaskell from '../content/tasks/programminginhaskellsecondedition.json';
 
 var library : Book[] = assembleLibrary();
 
@@ -37,7 +38,7 @@ export function refreshLibrary() {
 }
 
 function assembleLibrary() {
-    return [examplebook, pgk1_2022, pgk2_2022].concat(getSetOrElse("personalLibrary", new Array<Book>));
+    return [examplebook, pgk1_2022, pgk2_2022, programmingInHaskell].concat(getSetOrElse("personalLibrary", new Array<Book>));
 }
 
 export function getLibrary() {

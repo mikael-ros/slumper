@@ -94,6 +94,26 @@ export default async function generateDefaultLibrary(){
         ["Kontextuella abstraktioner och varians", 9],
     ]) 
 
+    const programmingInHaskell = new Map<string,number>([
+        ["Introduction", 5],
+        ["First steps", 5],
+        ["Types and classes", 5],
+        ["Defining functions", 8],
+        ["List comprehensions", 10],
+        ["Recursive functions", 9],
+        ["Higher-order functions", 10],
+        ["Declaring types and classes", 9],
+        ["The countdown problem", 6],
+        ["Interactive programming", 6],
+        ["Unbeatable tic-tac-toe", 4],
+        ["Monads and more", 8],
+        ["Monadic parsing", 9],
+        ["Foldables and friends", 5],
+        ["Lazy evaluation", 6],
+        ["Reasoning about programs", 9],
+        ["Calculating compilers", 1],
+    ]) 
+
     const toGen = new Map([
         [exampleBook, 
             ["Example book", 
@@ -109,6 +129,11 @@ export default async function generateDefaultLibrary(){
             ["Introduktion till programmering med Scala, del 2", 
             "https://github.com/lunduniversity/introprog/blob/master/img/compendium-cover-part2-2022.png?raw=true", 
             "https://cs.lth.se/pgk/compendium/"]
+        ],
+        [programmingInHaskell, 
+            ["Programming in Haskell, second edition", 
+            "https://www.cs.nott.ac.uk/~pszgmh/pih.jpg", 
+            "https://www.amazon.co.uk/Programming-Haskell-Graham-Hutton/dp/1316626229"]
         ],
     ])
     
