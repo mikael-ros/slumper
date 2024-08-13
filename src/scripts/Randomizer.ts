@@ -13,13 +13,11 @@ export class Randomizer{
 
     constructor(book: Book){
         this.book = book;
-        this.setInitialSpent();
-
         this.currentTask = dummyTask;
         this.currentChapter = dummyChapter;
         this.filteredChapters = book.chapters;
         this.updateFilteredChapters();
-        [this.currentChapter, this.currentTask] = this.getNew(false);
+        [this.currentChapter, this.currentTask] = this.bookIsSpent() ? [dummyChapter, dummyTask] : this.getNew(false);
         this.spentTasks = this.getSpentTasks();
     }
 
@@ -85,6 +83,10 @@ export class Randomizer{
     chapterIsSpent(chapter: Chapter){
         const spentTasksFromChapter = getSpentTasksFromChapter(this.book, chapter);
         return spentTasksFromChapter.length >= chapter.tasks.length;
+    }
+
+    bookIsSpent(){
+        return this.book.chapters.every(chapter => this.chapterIsSpent(chapter));
     }
 
     getSpentTasks() : Book {
