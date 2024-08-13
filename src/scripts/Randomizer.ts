@@ -13,6 +13,8 @@ export class Randomizer{
 
     constructor(book: Book){
         this.book = book;
+        this.setInitialSpent();
+
         this.currentTask = dummyTask;
         this.currentChapter = dummyChapter;
         this.filteredChapters = book.chapters;
@@ -41,6 +43,10 @@ export class Randomizer{
     removeFromFilter(chapter: Chapter){
         this.disclude.delete(chapter.number)
         this.updateFilteredChapters();
+    }
+
+    setInitialSpent(){
+        this.book.chapters.forEach(chapter => {if (this.chapterIsSpent(chapter)) {this.addToFilter(chapter)}});
     }
 
     /**
@@ -93,6 +99,7 @@ export class Randomizer{
         resetSpentTasksFromBook(this.book);
         this.resetFilter();
         this.updateSpentTasks();
+        this.setInitialSpent();
     }
 
     getTask() : Task {
