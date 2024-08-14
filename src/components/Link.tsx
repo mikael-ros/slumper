@@ -1,37 +1,42 @@
-import "./Link.css";
-
 import { createSignal } from "solid-js";
+import "./Link.css";
 
 import { Notification } from "./ui/Notification.tsx";
 
+interface LinkProps {
+    href: string;
+    text: string;
+    src: string;
+    alt: string;
+    clipboard?: boolean; // False by default
+    newtab: boolean;
+}
 
-export function Link(props: any){
-    const {href, text, src, alt, clipboard, newtab} = props;
-    const _clipboard = !clipboard ? false : true;
-    const [copied, setCopied] = createSignal(false);
-
+export function Link({href, text, src, alt, clipboard = false, newtab}: LinkProps){
+    const [copyTrigger, setCopyTrigger] = createSignal(false); // Acts as the trigger for the notification
+    
     async function copyToClipboard() {
         try {
             await navigator.clipboard.writeText(href);
+            
         } catch (err) {
             console.error('Failed to copy: ', err);
         }
     }
       
-    const handleClick = () => {
-        if (clipboard){
-            copyToClipboard();
-            setCopied(true);
-        }
+    const copy = () => {
+        // Only do something if clipboarding is enabled
+        copyToClipboard();
+        setCopyTrigger(!copyTrigger());
     }
     
     return (
-        <div class="link-container" data-clipboard={_clipboard}>
-            <a class="link" href={clipboard ? null : href} onclick={handleClick} target={(newtab && !clipboard) ? "_blank" : "_self"}>
+        <div class="link-container" data-clipboard={clipboard}>
+            <a class="link" href={clipboard ? undefined : href} onclick={clipboard ? copy : undefined} target={(newtab && !clipboard) ? "_blank" : "_self"}>
                 <p>{text}</p>
                 <img src={src} alt={alt}/>
             </a>
-            <Notification condition={copied} setCondition={setCopied} message="Link copied to clipboard" relative={false}/>
+            <Notification trigger={copyTrigger} message="Link copied to clipboard" relative={false}/>
         </div>
     )
 }
