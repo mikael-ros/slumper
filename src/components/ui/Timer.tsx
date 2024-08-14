@@ -26,6 +26,7 @@ class Time {
         return this.time == 0;
     }
 
+    /** Ticks the timer variable down every 1000 ms */
     tickLoop(){
         window.clearInterval(this.interval);
         this.interval = window.setInterval(() => {
@@ -38,7 +39,7 @@ class Time {
     }
 
     tick(){
-        this.time -= 1;
+        this.time -= 1; 
     }
 
     minutes() : number {
@@ -46,7 +47,7 @@ class Time {
     }
 
     seconds() : number {
-        return this.time % 60;
+        return this.time % 60; 
     }
 
     /**
@@ -71,7 +72,11 @@ class Time {
     }
 }
 
-export function Timer(props: any){
+interface TimerProps {
+    time: number;
+}
+
+export function Timer(props: TimerProps){
     var timer = new Time(props.time);
     const [time, setTime] = createSignal(timer.toString());
     const [elapsed, setElapsed] = createSignal(false);
