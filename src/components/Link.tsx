@@ -9,10 +9,10 @@ interface LinkProps {
     src: string;
     alt: string;
     clipboard?: boolean; // False by default
-    newtab: boolean;
+    newtab?: boolean; // Whether to set target blank (new tab), false by default
 }
 
-export function Link({href, text, src, alt, clipboard = false, newtab}: LinkProps){
+export function Link({href, text, src, alt, clipboard = false, newtab = false}: LinkProps){
     const [copyTrigger, setCopyTrigger] = createSignal(false); // Acts as the trigger for the notification
     
     async function copyToClipboard() {
