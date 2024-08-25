@@ -270,7 +270,7 @@ article::before {
     height: 100%;
     
     /* Apply the backdrop-filter and background to the pseudo-element */
-    backdrop-filter: blur(var(--default-border-radius));
+    backdrop-filter: blur(2vh);
     background: rgba(var(--backdrop-color), 0.4);
     
     z-index: 0; /* Ensure it is behind the article content */
