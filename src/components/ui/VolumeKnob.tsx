@@ -8,7 +8,7 @@ import { createEffect, createSignal } from "solid-js";
 import {getSetOrElse,set} from "../../scripts/StorageHandler.ts";
 
 export function VolumeKnob(){
-    const volumeStep = 0.01; // 1%
+    const volumeStep = 0.01; // 1%, the amount each step should equate to
     var preMuteVolume = getSetOrElse("volume", 1.0); // The volume prior to muting
 
     const [open, setOpen] = createSignal(false);
@@ -16,7 +16,7 @@ export function VolumeKnob(){
     
     const [isDragging, setIsDragging] = createSignal(false);
 
-    const [displayedVolume, setDisplayedVolume] = createSignal(volume()*100);
+    const [displayedVolume, setDisplayedVolume] = createSignal(volume()*100); // The "readable" version of the volume (the decimal to percentage conversion)
     createEffect(() => {setDisplayedVolume(volume()*100)}); // Update displayed volume on volume change
 
     function changeVolume(newVolume : number){
