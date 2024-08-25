@@ -25,6 +25,7 @@ export function OutputCard(){
     const [book, setBook] = createSignal<Book>(getBook(getSetOrElse("prior", library()[0].id)));
     const [chapter, setChapter] = createSignal(dummyChapter);
     const [task, setTask] = createSignal(dummyTask);
+    
     const [checked, setChecked] = createSignal<Set<Number>>(new Set<Number>);
     const [abort, setAbort] = createSignal(false);
 
@@ -76,6 +77,10 @@ export function OutputCard(){
         }
     })
 
+    const formatTask = () => {
+        return task() != dummyTask ? (book().chapters.length > 1 ? chapter().number + "." : "") + task().task : "No task left in chapter";
+    }
+
     return (
         <div class="card-group">
 
@@ -84,7 +89,7 @@ export function OutputCard(){
             <div class="card output">
                 <div id="output-wrapper">
                     <h2 id="chapter">{chapter().fullname}</h2>
-                    <h3 id="output">{task().task != -1 ? (book().chapters.length > 1 ? chapter().number + "." : "") + task().task : "No task left in chapter"}</h3>
+                    <h3 id="output">{formatTask()}</h3>
                 </div>
                 
                 <div class="button-group">
@@ -97,7 +102,7 @@ export function OutputCard(){
                             icons={[[tickIcon, "Complete (tick) icon"], [refreshIcon, "Randomize icon, below complete"]]}
                     />
                     <Button iconOnly={true} id="reset" label="Reset memory" title="Randomize new task"
-                            disabled={abort()} onclick={() => {randomizer.resetSpentTasks(); random(false)}} 
+                            onclick={() => {randomizer.resetSpentTasks(); random(false)}} 
                             icons={[[trashIcon, "Reset memory"]]}
                     />
                 </div>
