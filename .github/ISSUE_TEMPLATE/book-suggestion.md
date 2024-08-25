@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-ISBN:
+ISBN/Link:
 
 Related course:
 
