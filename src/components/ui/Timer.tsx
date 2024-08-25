@@ -3,6 +3,7 @@ import { createSignal, createEffect, onCleanup, Show, type Accessor, type Setter
 import timerSound from "../../assets/timer-sound.wav";
 import timerIcon from "/src/assets/timer.svg";
 import {getSetOrElse} from "../../scripts/StorageHandler.ts";
+import {handleInput, warn, isValid, parseInput} from "../../scripts/Utils.ts";
 
 /**
  * A class for handling time. Created to minimize unnecessary imports. All we want is a simply max 1 hr timer, so this suffices.
@@ -101,25 +102,13 @@ export function Timer(props: TimerProps){
     const [elapsed, setElapsed] = createSignal(false);
     const title = document.title;
 
-    function warn(valid: boolean, event : Event & {currentTarget : HTMLInputElement}){
-        event.currentTarget.style.color = valid ? "var(--text-color-negative)" : "red";
-    }
-
-    function handleInput(event : Event & {currentTarget : HTMLInputElement}){
-        const number = event.currentTarget.value.length != 0 ? parseInt(event.currentTarget.value) : startTimer; 
-        const valid = !Number.isNaN(number) && number > 0 && number <= 3600;
-        warn(valid, event);
-    }
+    const valid = (number: number) => !Number.isNaN(number) && number > 0 && number <= 3600
 
     function handleChange(event : Event & {currentTarget : HTMLInputElement}){
-        const number = event.currentTarget.value.length != 0 ? parseInt(event.currentTarget.value) : startTimer; // Makes sure empty input is handled correctly
-        const valid = !Number.isNaN(number) && number > 0 && number <= 3600;
+        const number = event.currentTarget.value.length != 0 ? parseInt(event.currentTarget.value) : startTimer; 
         
-        if (valid && number != startTimer){ // Only set a number if it is non negative and actually a number, and if it is actually changed
-            startTimer = number;
-            timer.setTime(startTimer);
-        }
-        warn(valid, event);
+        if (isValid(number, valid) && number != startTimer) // Only set a number if it is non negative and actually a number, and if it is actually changed
+            timer.setTime(startTimer = number);
     }
 
     function reset() {
@@ -170,7 +159,7 @@ export function Timer(props: TimerProps){
                 <Show when={displayTimer() && !props.closeOn()}>
                     <input type="text" inputmode="numeric" pattern="[0-9]*" placeholder={startTimer.toString()} 
                     onchange={handleChange} 
-                    oninput={handleInput}
+                    oninput={(event) => handleInput(event, valid)}
                     aria-required="false"/><p>seconds</p>
                 </Show>
             </div>
