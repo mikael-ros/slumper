@@ -10,6 +10,7 @@
  
     text-decoration: none;
     color: var(--text-color-negative);
+    cursor: pointer;
 
     &:hover{
         text-decoration:underline;

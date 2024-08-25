@@ -1,23 +1,25 @@
+/** A task is just a synonym for a number, really. The interface is just here for readability, and possibility for expansion */
 export interface Task {
     task: number;
 }
 
+/** A chapter is a name, a number id, and a list of tasks */
 export interface Chapter {
     fullname: string;
     number: number;
     tasks: Task[];
 }
 
+/** A book is mainly just it's name, the background image and a list of chapters. Amongst those are some more properties that are useful behind the scenes */
 export interface Book {
     name: string;
     previewImagePath: string;
     source: string;
     chapters: Chapter[];
-    generatorVersion: string;
-    custom: boolean;
-    id: string;
+    generatorVersion: string; // Tracks which version of the generator generated the book. Useful in case I end up making feature breaking changes later on
+    custom: boolean; // Whether the book was user created. Used to seperate books, so a user can't break the tool by naming their book the same as an included one
+    id: string; // An id for the book, based on the name and the custom value
 }
-
 
 /**
  * Generates a book
@@ -29,23 +31,21 @@ export interface Book {
  * @returns The book object
  */
 export function generateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, source: string, custom: boolean){
-    const generatorVersion = "1.0.3";
+    const generatorVersion = "1.0.4";
     
     var parsedChapters: Chapter[] = [];
-    var currentIndex = 1;
-    input.forEach((length, chapter) => {
-        var taskList: number[] = Array.from({length: length}, (_, i) => i + 1);
-        var processedTasks: Task[] = [];
 
-        taskList.forEach((task) => processedTasks.push({task: task}));
+    input.forEach((length, chapter) => { // For every chapter given
+        var taskList: Task[] = Array.from({length: length}, (_, i) => {return {task: i + 1}}); // Create an array of tasks
+
         var chapterObj: Chapter = {
             fullname: chapter,
-            number: currentIndex,
-            tasks: processedTasks
+            number: 0,
+            tasks: taskList
         };
         parsedChapters.push(chapterObj);
-        currentIndex += 1;
     });
+    parsedChapters.forEach(chapter => chapter.number = parsedChapters.indexOf(chapter) + 1); // Set the numbers based on index automatically 
 
     var book: Book =  {
         name: bookName,
@@ -59,6 +59,10 @@ export function generateBook(input: Map<string, number>, bookName: string, bookP
     return book;
 }
 
+/**
+ * Exports a book to a JSON file
+ * @param book The book to be exported
+ */
 export function exportBook(book: Book) {
     // https://www.30secondsofcode.org/js/s/json-to-file/
     const blob = new Blob([JSON.stringify(book, null, 2)], {
@@ -67,7 +71,7 @@ export function exportBook(book: Book) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${book.name.replaceAll(/[^a-zA-Z0-9]/g,"").toLowerCase()}.json`;
+    a.download = `${book.name.replaceAll(/[^a-zA-Z0-9]/g,"").toLowerCase()}.json`; // Creates a compliant file name automatically
     a.click();
     URL.revokeObjectURL(url);
 }

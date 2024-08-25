@@ -1,18 +1,21 @@
 .notification{
-    display: block;
+    display: flex;
+    align-items: center; /* Position the text in the middle of this element */
+    justify-content: center;
     position: absolute;
-    top: -2em;
-    left: -100%;
+    
+    top: -150%; /* Position above the owner */
+    width: 100%; /* Take up the width of the parent to set a anchor point */
+    
+    z-index: 999;
+}
 
-    max-height: 2em;
+.notification p {
+    width: fit-content;
     padding: .25em 1em;
     text-wrap: nowrap;
-
-    text-overflow: ellipsis;
-    overflow: hidden;
 
     border-radius: var(--default-border-radius);
     
     background-color: rgba(var(--backdrop-color),0.3);
-    z-index: 999;
 }

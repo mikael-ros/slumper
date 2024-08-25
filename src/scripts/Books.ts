@@ -1,6 +1,7 @@
 import {getSetOrElse, set} from "./StorageHandler.ts";
 import type {Task, Chapter, Book} from "./BookGenerator.ts";
 
+// Some placeholders for certain situations
 export const dummyTask : Task = {
     task: -1,
 }
@@ -25,6 +26,7 @@ export const dummyBook: Book = {
     id: "dummybook"
 }
 
+// Import the included books
 import pgk1_2022 from '../content/tasks/introduktiontillprogrammeringmedscaladel1.json';
 import pgk2_2022 from '../content/tasks/introduktiontillprogrammeringmedscaladel2.json';
 import programmingInHaskell from '../content/tasks/programminginhaskellsecondedition.json';
@@ -32,30 +34,41 @@ import datakommunikationOchNatverk from '../content/tasks/datakommunikationochnt
 
 var library : Book[] = assembleLibrary();
 
+/** Gathers the library again, useful for example when the personal library has changed */
 export function refreshLibrary() {
     library = assembleLibrary();
 }
 
+/** Concatenates the built in library with the personal */
 function assembleLibrary() {
     return [pgk1_2022, pgk2_2022, programmingInHaskell,datakommunikationOchNatverk].concat(getSetOrElse("personalLibrary", new Array<Book>));
 }
 
+/** Refreshes, then retrieves the library */
 export function getLibrary() {
     refreshLibrary();
     return library;
 }
+
+export function libraryHas(name: string): boolean {
+    refreshLibrary();
+    const indexOfBook = library.findIndex((book) => book.name == name);
+    return indexOfBook != -1;
+}
+
 /**
  * Retrieves a book from id
  * @param id The id of the book
  * @returns The book, if it is found, or just the first book
  */
 export function getBook(id: string): Book {
+    refreshLibrary();
     const indexOfBook = library.findIndex((book) => book.id == id);
     return indexOfBook == -1 ? library[0] : library[indexOfBook];
 }
 
 /**
- * @returns The whole memory
+ * @returns The whole memory of spent tasks
  */
 function getSpentTasks() : Book[]{
     return getSetOrElse("spent", new Array<Book>); 

@@ -3,17 +3,21 @@ import "./VolumeKnob.css";
 import knobIcon from "/src/assets/volume-knob-nodot.svg";
 import knobDot from "/src/assets/volume-knob-onlydot.svg";
 
-import { createSignal } from "solid-js";
+import { createEffect, createSignal } from "solid-js";
 
 import {getSetOrElse,set} from "../../scripts/StorageHandler.ts";
 
 export function VolumeKnob(){
-    const volumeStep = 0.01; // 1%
+    const volumeStep = 0.01; // 1%, the amount each step should equate to
     var preMuteVolume = getSetOrElse("volume", 1.0); // The volume prior to muting
 
     const [open, setOpen] = createSignal(false);
     const [volume, setVolume] = createSignal(parseFloat(getSetOrElse("volume", 1.0).toFixed(2)));
+    
     const [isDragging, setIsDragging] = createSignal(false);
+
+    const [displayedVolume, setDisplayedVolume] = createSignal(volume()*100); // The "readable" version of the volume (the decimal to percentage conversion)
+    createEffect(() => {setDisplayedVolume(volume()*100)}); // Update displayed volume on volume change
 
     function changeVolume(newVolume : number){
         const _newVolume = parseFloat(Math.max(Math.min(1.0,newVolume), 0).toFixed(2)); // Prevents the volume going above 1 or below 0. toFixed rounds the volume to 2 decimal places, and returns a string hence parseFloat
@@ -93,8 +97,8 @@ export function VolumeKnob(){
                 onmouseup={handleMouseUp}
                 aria-label="Volume slider"
                 data-open={open()}>
-                    <figure id="slider" style={"height: " + (volume()*100) + "%"}></figure>
-                    <p>{(volume()*100).toString().split(".")[0]}</p>
+                    <figure id="slider" style={"--height: " + displayedVolume()}></figure>
+                    <p>{(displayedVolume()).toString().split(".")[0]}</p>
                 </figure>
             <button class="knob" onclick={handleKnob} onkeypress={handleKeyPress} aria-label="Toggle volume slider" aria-controls="volume-slider" title="Open/close volume slider">
                 <img id="only-dot" src={knobDot.src} alt="The dot of a volume knob"/>

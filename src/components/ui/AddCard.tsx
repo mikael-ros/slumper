@@ -9,17 +9,18 @@ import downloadIcon from "/src/assets/download.svg";
 import plusIcon from "/src/assets/plus.svg";
 import shareIcon from "/src/assets/share.svg";
 
-import { createEffect, createSignal, For, Show } from "solid-js";
+import { createEffect, createSignal, For, Show, on } from "solid-js";
 
-import {dummyBook, resetSpentTasksFromBook} from "../../scripts/Books.ts";
+import {dummyBook, libraryHas, resetSpentTasksFromBook} from "../../scripts/Books.ts";
 import {generateBook, exportBook} from "../../scripts/BookGenerator.ts";
 import type {Book } from "../../scripts/BookGenerator.ts";
 
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
+import {isValid as _isValid} from "../../scripts/Utils.ts";
+import Button from "../interactive/Button.tsx";
 
 export function AddCard(){
     var input : Map<string, number> = new Map<string, number>();
-    
 
     const [chapters, setChapters] = createSignal(1);
     const [library, setLibrary] = createSignal(getLibrary());
@@ -32,10 +33,10 @@ export function AddCard(){
 
     var valids = new Array;
 
-    createEffect(() => { // Add another field every time we add a chapter
-        chapters();
+    createEffect(on(chapters, () => { // Add another field every time we add a chapter
         valids.push([false,false]);
-        setIsValid(false);})
+        setIsValid(false);
+    }))
 
     function getLibrary() : Book[] {
         return getSetOrElse("personalLibrary", new Array<Book>);
@@ -139,20 +140,11 @@ export function AddCard(){
         return allValid;
     }
 
-    /**
-     * Warns the user by changing the text color
-     * @param valid Wheter the input was valid
-     * @param event The event that triggered this method
-     */
-    function warn(valid: boolean, event : Event & {currentTarget : HTMLInputElement}){
-        event.currentTarget.style.color = valid ? "var(--text-color-negative)" : "red";
-    }
-
     function handleTitleChange(event : Event & {currentTarget : HTMLInputElement}){
-        const valid = event.currentTarget.value.trim().length > 0;
-        warn(valid, event)
+        const value = event.currentTarget.value.trim();
+        const valid = _isValid(value, (text: string) => text.length > 0)
         if (valid) {
-            setTitle(event.currentTarget.value.trim());
+            setTitle(value);
             setIsValid(valid && allValid())
         } else 
             setIsValid(false);
@@ -161,8 +153,7 @@ export function AddCard(){
     function handleTitlesChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
         const input : string = event.currentTarget.value.trim();
         const copy = titles().indexOf(input);
-        const valid = input.length != 0 && (copy == index || copy == -1);
-        warn(valid, event)
+        const valid = _isValid(input, (text: string) => text.length != 0 && (copy == index || copy == -1));
         updateValidity(index, valid, false);
         if (valid)
             updateTitles(index, event); 
@@ -170,8 +161,7 @@ export function AddCard(){
 
     function handleAmountChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
         const number = event.currentTarget.value.length > 0 ? parseInt(event.currentTarget.value) : -1; 
-        const valid = !Number.isNaN(number) && number > 0;
-        warn(valid, event);
+        const valid = _isValid(number, (num: number) => !Number.isNaN(num) && num > 0);
         updateValidity(index, valid, true);
         if (valid)
             updateAmounts(index, number);
@@ -204,9 +194,13 @@ export function AddCard(){
 
     return (
         <div class="card-group vertical">
-            
             <div class="card add">
-                <a id="back" href="/"><button aria-label="Go home" title="Go back to the index page"><img src={homeIcon.src} alt="Return to home"/><p>Back</p></button></a>
+                <a id="back" href="/">
+                    <Button label="Go home" title="Go back to the index page"
+                            text="Back"
+                            icons={[[homeIcon, "Return to home"]]}
+                    />
+                </a>
                 <h1>Add book</h1>
 
                 <div id="book-params">
@@ -222,7 +216,7 @@ export function AddCard(){
                             <li class="chapter-input">
                                 <p>{chapter + 1}</p>
                                 <input type="text" value={titles()[chapter] == undefined ? "" : titles()[chapter]} placeholder="Chapter title*" oninput={event => handleTitlesChange(chapter, event)} onchange={event => handleTitlesChange(chapter, event)} required aria-required="true"/>
-                                <input type="text" inputmode="numeric" pattern="[0-9]*" value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
+                                <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
                                 oninput={event => handleAmountChange(chapter, event)} required aria-required="true"/>
                             </li>
                             }
@@ -230,12 +224,26 @@ export function AddCard(){
                     </ol>
                 </div>
 
+                <Show when={libraryHas(title())}>
+                    <p id="save-warning">There already exists a book under this name. Saving will overwrite it!</p>
+                </Show>
+
                 <div class="button-group">
-                    <button aria-label="Save book" id="done" onclick={saveBook} disabled={!isValid()} title="Save book to browser memory"><img src={tickIcon.src} alt="Save book"/><p>Save</p></button>
-                    <button aria-label="Export book" id="export" onclick={getBook} disabled={!isValid()} title="Save book to disk"><img src={downloadIcon.src} alt="Export book"/><p>Export</p></button>
+                    <Button id="done" label="Save book" title="Save book to browser memory"
+                            disabled={!isValid()} onclick={saveBook} text="Save"
+                            icons={[[tickIcon, "Save book"]]}
+                    />
+                    <Button id="export" label="Export book" title="Save book to disk"
+                            disabled={!isValid()} onclick={getBook} text="Export"
+                            icons={[[downloadIcon, "Export book"]]}
+                    />
                     <input type="file" aria-label="Import file" aria-hidden="true" aria-labelledby="file-import-label" id="file-import" onchange={handleFileSelect} title="Import file from disk"></input>
                     <label class="faux-button" id="file-import-label" aria-label="Import file" for="file-import"><img src={uploadIcon.src} alt="Import book" title="Import file from disk"/><p>Import</p></label>
-                    <button aria-label="Clear entries" id="clear" onclick={() => clear()} title="Remove the entered values"><img src={trashIcon.src} alt="Clear entries"/><p>Clear</p></button>
+
+                    <Button id="clear" label="Clear entries" title="Remove the entered values"
+                            disabled={!isValid()} onclick={() => clear()} text="Clear"
+                            icons={[[trashIcon, "Clear entries"]]}
+                    />
                 </div>
 
             </div>
@@ -250,17 +258,34 @@ export function AddCard(){
                         {book =>
                             <li class="book-entry"><h5>{book.name}</h5> 
                                 <div class="button-group">
-                                    <button aria-label={"Remove \"" + book.name + "\""} onclick={() => removeBook(book.name)} title={"Remove \"" + book.name + "\""}><img src={trashIcon.src} alt="Remove book"/></button>
-                                    <button aria-label={"Export \"" + book.name + "\""} onclick={() => exportBook(book)} title={"Export \"" + book.name + "\""}><img src={downloadIcon.src} alt="Export book"/></button>
-                                    <button aria-label={"Import \"" + book.name + "\""} onclick={() => importBook(book)} title={"Import \"" + book.name + "\""}><img src={uploadIcon.src} alt="Import book to fields"/></button>
-                                    <a href={"https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=book+suggestion&projects=&template=book-suggestion.md&title=%5BBook+suggestion%5D+" + book.name} target="_blank"><button aria-label="Suggest a book" id="suggest" title="Suggest a book" disabled={library().length == 0}><img src={shareIcon.src} alt="Suggest a book"/></button></a>
+                                    <Button label={"Remove \"" + book.name + "\""}
+                                            onclick={() => removeBook(book.name)}
+                                            icons={[[trashIcon, "Remove book"]]}
+                                    />
+                                    <Button label={"Export \"" + book.name + "\""}
+                                            onclick={() => exportBook(book)}
+                                            icons={[[downloadIcon, "Export book"]]}
+                                    />
+                                    <Button label={"Import \"" + book.name + "\""}
+                                            onclick={() => importBook(book)}
+                                            icons={[[uploadIcon, "Import book"]]}
+                                    />
+                                    <a href={"https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=book+suggestion&projects=&template=book-suggestion.md&title=%5BBook+suggestion%5D+" + book.name} target="_blank">
+                                        <Button label="Suggest a book"
+                                                icons={[[shareIcon, "Suggest book"]]}
+                                        />
+                                    </a>
                                 </div>
                             </li>
                         }
                     </For>
                 </ol>
                 
-                <button aria-label="Reset library" id="reset" onclick={() => removeAllBooks()} disabled={library().length == 0} title="Remove all books from personal library"><img src={trashIcon.src} alt="Clear all books"/><p>Reset</p></button>
+                <Button label={"Remove all books from personal library"}
+                        onclick={() => removeAllBooks()} text="Reset"
+                        disabled={library().length == 0}
+                        icons={[[trashIcon, "Clear all books"]]}
+                />
                 
             </div>
         </div>

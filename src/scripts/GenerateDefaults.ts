@@ -1,4 +1,5 @@
-// This file is to be run locally.
+// This file is to be run locally. It is a workaround, since I had difficulties making the other code run in a terminal.
+
 import { writeFile } from 'fs/promises';
 /**
  * Generates a book
@@ -9,23 +10,21 @@ import { writeFile } from 'fs/promises';
  * @returns The book object
  */
 export function generateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, source: string){
-    const generatorVersion = "1.0.3";
+    const generatorVersion = "1.0.4";
     
     var parsedChapters: Chapter[] = [];
-    var currentIndex = 1;
-    input.forEach((length, chapter) => {
-        var taskList: number[] = Array.from({length: length}, (_, i) => i + 1);
-        var processedTasks: Task[] = [];
 
-        taskList.forEach((task) => processedTasks.push({task: task}));
+    input.forEach((length, chapter) => { // For every chapter given
+        var taskList: Task[] = Array.from({length: length}, (_, i) => {return {task: i + 1}}); // Create an array of tasks
+
         var chapterObj: Chapter = {
             fullname: chapter,
-            number: currentIndex,
-            tasks: processedTasks
+            number: 0,
+            tasks: taskList
         };
         parsedChapters.push(chapterObj);
-        currentIndex += 1;
     });
+    parsedChapters.forEach(chapter => chapter.number = parsedChapters.indexOf(chapter) + 1); // Set the numbers based on index automatically 
 
     var book: Book =  {
         name: bookName,
@@ -34,7 +33,7 @@ export function generateBook(input: Map<string, number>, bookName: string, bookP
         chapters: parsedChapters,
         generatorVersion: generatorVersion,
         custom: false,
-        id: bookName + ":" + false
+        id: bookName
     }
     return book;
 }
