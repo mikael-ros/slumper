@@ -97,9 +97,10 @@
     }
 
     #slider{
+        --_height: var(--height, 0);
         position: relative;
 
-        height: 0%;
+        height: calc(var(--_height)*1%);
         background-image: linear-gradient(rgba(var(--highlight-color),0.5), rgba(var(--highlight-color),0.05));
 
         border-radius: 0 0 var(--aggressive-border-radius) var(--aggressive-border-radius);

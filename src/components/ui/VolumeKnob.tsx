@@ -93,7 +93,7 @@ export function VolumeKnob(){
                 onmouseup={handleMouseUp}
                 aria-label="Volume slider"
                 data-open={open()}>
-                    <figure id="slider" style={"height: " + (volume()*100) + "%"}></figure>
+                    <figure id="slider" style={"--height: " + (volume()*100)}></figure>
                     <p>{(volume()*100).toString().split(".")[0]}</p>
                 </figure>
             <button class="knob" onclick={handleKnob} onkeypress={handleKeyPress} aria-label="Toggle volume slider" aria-controls="volume-slider" title="Open/close volume slider">
