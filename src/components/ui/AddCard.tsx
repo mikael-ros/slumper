@@ -9,19 +9,18 @@ import downloadIcon from "/src/assets/download.svg";
 import plusIcon from "/src/assets/plus.svg";
 import shareIcon from "/src/assets/share.svg";
 
-import { createEffect, createSignal, For, Show } from "solid-js";
+import { createEffect, createSignal, For, Show, on } from "solid-js";
 
 import {dummyBook, resetSpentTasksFromBook} from "../../scripts/Books.ts";
 import {generateBook, exportBook} from "../../scripts/BookGenerator.ts";
 import type {Book } from "../../scripts/BookGenerator.ts";
 
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
-import { warn } from "../../scripts/Utils.ts";
+import {isValid as _isValid, warn } from "../../scripts/Utils.ts";
 import Button from "../interactive/Button.tsx";
 
 export function AddCard(){
     var input : Map<string, number> = new Map<string, number>();
-    
 
     const [chapters, setChapters] = createSignal(1);
     const [library, setLibrary] = createSignal(getLibrary());
@@ -34,10 +33,10 @@ export function AddCard(){
 
     var valids = new Array;
 
-    createEffect(() => { // Add another field every time we add a chapter
-        chapters();
+    createEffect(on(chapters, () => { // Add another field every time we add a chapter
         valids.push([false,false]);
-        setIsValid(false);})
+        setIsValid(false);
+    }))
 
     function getLibrary() : Book[] {
         return getSetOrElse("personalLibrary", new Array<Book>);
@@ -142,32 +141,33 @@ export function AddCard(){
     }
 
     function handleTitleChange(event : Event & {currentTarget : HTMLInputElement}){
-        const valid = event.currentTarget.value.trim().length > 0;
-        warn(valid, event)
+        const value = event.currentTarget.value.trim();
+        const valid = _isValid(value, (text: string) => text.length > 0)
         if (valid) {
-            setTitle(event.currentTarget.value.trim());
+            setTitle(value);
             setIsValid(valid && allValid())
         } else 
             setIsValid(false);
+        warn(valid, event);
     }
 
     function handleTitlesChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
         const input : string = event.currentTarget.value.trim();
         const copy = titles().indexOf(input);
-        const valid = input.length != 0 && (copy == index || copy == -1);
-        warn(valid, event)
+        const valid = _isValid(input, (text: string) => text.length != 0 && (copy == index || copy == -1));
         updateValidity(index, valid, false);
         if (valid)
             updateTitles(index, event); 
+        warn(valid, event);
     }
 
     function handleAmountChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
         const number = event.currentTarget.value.length > 0 ? parseInt(event.currentTarget.value) : -1; 
-        const valid = !Number.isNaN(number) && number > 0;
-        warn(valid, event);
+        const valid = _isValid(number, (num: number) => !Number.isNaN(num) && num > 0);
         updateValidity(index, valid, true);
         if (valid)
             updateAmounts(index, number);
+        warn(valid, event);
     }
 
     function handleFileSelect(event : Event & {currentTarget : HTMLInputElement}) {
@@ -197,7 +197,6 @@ export function AddCard(){
 
     return (
         <div class="card-group vertical">
-            
             <div class="card add">
                 <a id="back" href="/">
                     <Button label="Go home" title="Go back to the index page"
