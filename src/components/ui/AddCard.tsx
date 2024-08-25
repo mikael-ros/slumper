@@ -199,7 +199,12 @@ export function AddCard(){
         <div class="card-group vertical">
             
             <div class="card add">
-                <a id="back" href="/"><button aria-label="Go home" title="Go back to the index page"><img src={homeIcon.src} alt="Return to home"/><p>Back</p></button></a>
+                <a id="back" href="/">
+                    <Button label="Go home" title="Go back to the index page"
+                            text="Back"
+                            icons={[[homeIcon, "Return to home"]]}
+                    />
+                </a>
                 <h1>Add book</h1>
 
                 <div id="book-params">
