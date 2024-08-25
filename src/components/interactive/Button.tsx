@@ -18,7 +18,7 @@ const Button: Component<ButtonProps> = (props: ButtonProps) => {
         <button class={(props.iconOnly ? "icon-only " : "") + (props.class ?? "")} id={props.id ?? ""} aria-label={props.label}
         onclick={props.onclick} 
         disabled={props.disabled}
-        title={props.title}>
+        title={props.title ? props.title : props.label}>
             <For each={props.icons}>
                 {entry =>
                     <img src={entry[0].src} alt={entry[1]}></img>

@@ -16,6 +16,8 @@ import {generateBook, exportBook} from "../../scripts/BookGenerator.ts";
 import type {Book } from "../../scripts/BookGenerator.ts";
 
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
+import { warn } from "../../scripts/Utils.ts";
+import Button from "../interactive/Button.tsx";
 
 export function AddCard(){
     var input : Map<string, number> = new Map<string, number>();
@@ -139,15 +141,6 @@ export function AddCard(){
         return allValid;
     }
 
-    /**
-     * Warns the user by changing the text color
-     * @param valid Wheter the input was valid
-     * @param event The event that triggered this method
-     */
-    function warn(valid: boolean, event : Event & {currentTarget : HTMLInputElement}){
-        event.currentTarget.style.color = valid ? "var(--text-color-negative)" : "red";
-    }
-
     function handleTitleChange(event : Event & {currentTarget : HTMLInputElement}){
         const valid = event.currentTarget.value.trim().length > 0;
         warn(valid, event)
@@ -231,11 +224,21 @@ export function AddCard(){
                 </div>
 
                 <div class="button-group">
-                    <button aria-label="Save book" id="done" onclick={saveBook} disabled={!isValid()} title="Save book to browser memory"><img src={tickIcon.src} alt="Save book"/><p>Save</p></button>
-                    <button aria-label="Export book" id="export" onclick={getBook} disabled={!isValid()} title="Save book to disk"><img src={downloadIcon.src} alt="Export book"/><p>Export</p></button>
+                    <Button id="done" label="Save book" title="Save book to browser memory"
+                            disabled={!isValid()} onclick={saveBook} text="Save"
+                            icons={[[tickIcon, "Save book"]]}
+                    />
+                    <Button id="export" label="Export book" title="Save book to disk"
+                            disabled={!isValid()} onclick={getBook} text="Export"
+                            icons={[[downloadIcon, "Export book"]]}
+                    />
                     <input type="file" aria-label="Import file" aria-hidden="true" aria-labelledby="file-import-label" id="file-import" onchange={handleFileSelect} title="Import file from disk"></input>
                     <label class="faux-button" id="file-import-label" aria-label="Import file" for="file-import"><img src={uploadIcon.src} alt="Import book" title="Import file from disk"/><p>Import</p></label>
-                    <button aria-label="Clear entries" id="clear" onclick={() => clear()} title="Remove the entered values"><img src={trashIcon.src} alt="Clear entries"/><p>Clear</p></button>
+
+                    <Button id="clear" label="Clear entries" title="Remove the entered values"
+                            disabled={!isValid()} onclick={() => clear()} text="Clear"
+                            icons={[[trashIcon, "Clear entries"]]}
+                    />
                 </div>
 
             </div>
@@ -250,17 +253,34 @@ export function AddCard(){
                         {book =>
                             <li class="book-entry"><h5>{book.name}</h5> 
                                 <div class="button-group">
-                                    <button aria-label={"Remove \"" + book.name + "\""} onclick={() => removeBook(book.name)} title={"Remove \"" + book.name + "\""}><img src={trashIcon.src} alt="Remove book"/></button>
-                                    <button aria-label={"Export \"" + book.name + "\""} onclick={() => exportBook(book)} title={"Export \"" + book.name + "\""}><img src={downloadIcon.src} alt="Export book"/></button>
-                                    <button aria-label={"Import \"" + book.name + "\""} onclick={() => importBook(book)} title={"Import \"" + book.name + "\""}><img src={uploadIcon.src} alt="Import book to fields"/></button>
-                                    <a href={"https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=book+suggestion&projects=&template=book-suggestion.md&title=%5BBook+suggestion%5D+" + book.name} target="_blank"><button aria-label="Suggest a book" id="suggest" title="Suggest a book" disabled={library().length == 0}><img src={shareIcon.src} alt="Suggest a book"/></button></a>
+                                    <Button label={"Remove \"" + book.name + "\""}
+                                            onclick={() => removeBook(book.name)}
+                                            icons={[[trashIcon, "Remove book"]]}
+                                    />
+                                    <Button label={"Export \"" + book.name + "\""}
+                                            onclick={() => exportBook(book)}
+                                            icons={[[downloadIcon, "Export book"]]}
+                                    />
+                                    <Button label={"Import \"" + book.name + "\""}
+                                            onclick={() => importBook(book)}
+                                            icons={[[uploadIcon, "Import book"]]}
+                                    />
+                                    <a href={"https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=book+suggestion&projects=&template=book-suggestion.md&title=%5BBook+suggestion%5D+" + book.name} target="_blank">
+                                        <Button label="Suggest a book"
+                                                icons={[[shareIcon, "Suggest book"]]}
+                                        />
+                                    </a>
                                 </div>
                             </li>
                         }
                     </For>
                 </ol>
                 
-                <button aria-label="Reset library" id="reset" onclick={() => removeAllBooks()} disabled={library().length == 0} title="Remove all books from personal library"><img src={trashIcon.src} alt="Clear all books"/><p>Reset</p></button>
+                <Button label={"Remove all books from personal library"}
+                        onclick={() => removeAllBooks()} text="Reset"
+                        disabled={library().length == 0}
+                        icons={[[trashIcon, "Clear all books"]]}
+                />
                 
             </div>
         </div>
