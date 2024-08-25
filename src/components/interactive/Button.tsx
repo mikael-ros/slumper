@@ -15,7 +15,7 @@ interface ButtonProps {
 
 const Button: Component<ButtonProps> = (props: ButtonProps) => {
     return (
-        <button class={(props.iconOnly ? "icon-only " : "") + (props.class ?? "")} id={props.id ?? ""} aria-label={props.label} id="done" 
+        <button class={(props.iconOnly ? "icon-only " : "") + (props.class ?? "")} id={props.id ?? ""} aria-label={props.label}
         onclick={props.onclick} 
         disabled={props.disabled}
         title={props.title}>
