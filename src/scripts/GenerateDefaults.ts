@@ -124,6 +124,20 @@ export default async function generateDefaultLibrary(){
         ["Prestanda och QoS", 6],
     ]) 
 
+    const h99 = new Map<string,number>([
+        ["Lists",10],
+        ["Lists, continued",10],
+        ["Lists again",8],
+        ["Arithmetic",11],
+        ["Logic and codes",5],
+        ["Binary trees",7],
+        ["Binary trees, continued",9],
+        ["Multiway trees",4],
+        ["Graphs",10],
+        ["Miscellaneous problems",5],
+        ["Miscellaneous problems, continued",5],
+    ])
+
     const toGen = new Map([
         [PGK1_2022, 
             [
@@ -151,6 +165,13 @@ export default async function generateDefaultLibrary(){
                 "Datakommunikation och nätverk, andra upplagan",
                 "https://www.studentlitteratur.se/globalassets/inriver/resources/978-91-44-13502-1_01_coverimage2.jpg?preset=quality90",
                 "https://www.studentlitteratur.se/kurslitteratur/teknik/tele--och-datakommunikation/datakommunikation-och-natverk/?srsltid=AfmBOor6Qss-WlACmeqRhSWCGIEnTvrmREXMb-HaluoK0BmoB3LyzqIg"
+            ]
+        ],
+        [h99,
+            [
+                "H-99: Ninety-Nine Haskell Problems",
+                "https://github.com/mikael-ros/slumper/blob/main/src/assets/previews/h99.png?raw=true",
+                "https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems"
             ]
         ]
     ])

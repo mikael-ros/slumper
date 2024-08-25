@@ -31,6 +31,7 @@ import pgk1_2022 from '../content/tasks/introduktiontillprogrammeringmedscaladel
 import pgk2_2022 from '../content/tasks/introduktiontillprogrammeringmedscaladel2.json';
 import programmingInHaskell from '../content/tasks/programminginhaskellsecondedition.json';
 import datakommunikationOchNatverk from '../content/tasks/datakommunikationochntverkandraupplagan.json';
+import h99 from '../content/tasks/h99ninetyninehaskellproblems.json';
 
 var library : Book[] = assembleLibrary();
 
@@ -41,7 +42,7 @@ export function refreshLibrary() {
 
 /** Concatenates the built in library with the personal */
 function assembleLibrary() {
-    return [pgk1_2022, pgk2_2022, programmingInHaskell,datakommunikationOchNatverk].concat(getSetOrElse("personalLibrary", new Array<Book>));
+    return [pgk1_2022, pgk2_2022, programmingInHaskell,datakommunikationOchNatverk,h99].concat(getSetOrElse("personalLibrary", new Array<Book>));
 }
 
 /** Refreshes, then retrieves the library */
