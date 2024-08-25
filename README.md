@@ -140,6 +140,7 @@ These books are included with the site. The permission to use them has been gran
 | EDAA45                 | [Introduktion till programmering med Scala, del 2](https://cs.lth.se/pgk/compendium/) | Björn Regnell | 2024-07-26 |
 | EDAN40, EDAF95         | [Programming in Haskell, second edition](https://www.amazon.co.uk/Programming-Haskell-Graham-Hutton/dp/1316626229) | Graham Hutton | 2024-07-27 |
 | EITF45         | [Datakommunikation och nätverk, andra upplagan](https://www.studentlitteratur.se/kurslitteratur/teknik/tele--och-datakommunikation/datakommunikation-och-natverk/?srsltid=AfmBOor6Qss-WlACmeqRhSWCGIEnTvrmREXMb-HaluoK0BmoB3LyzqIg) | Jens A. Andersson; Maria Kihl | 2024-08-04 |
+| EDAN40,EDAF95         | [H-99: Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems) | Haskell wiki contributors | Not relevant |
 
 ## 📚 Banned books 🚫
 What follows is a list of books that will never be added to the default list of books, and the reason why. You can, however, add these yourself locally; I simply cannot, due to copyright issues, include them in the default list.
