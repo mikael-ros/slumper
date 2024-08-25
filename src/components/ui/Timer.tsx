@@ -100,7 +100,7 @@ export function Timer(props: TimerProps){
     var startTimer = 180;
     const title = document.title; // Save the original document title
 
-    const [displayTimer, setDisplayTimer] = createSignal(true);
+    const [displayTimer, setDisplayTimer] = createSignal(false);
     const [time, setTime] = createSignal("00:00");
     const [elapsed, setElapsed] = createSignal(false);
 
