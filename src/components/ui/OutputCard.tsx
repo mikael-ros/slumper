@@ -4,7 +4,7 @@ import "./OutputCard.css";
 import tickIcon from "/src/assets/tick.svg";
 import refreshIcon from "/src/assets/refresh.svg";
 import trashIcon from "/src/assets/trash.svg";
-import timerIcon from "/src/assets/timer.svg";
+
 import linkIcon from "/src/assets/link.svg";
 import plusIcon from "/src/assets/plus.svg";
 
@@ -14,19 +14,14 @@ import { Timer } from "./Timer.tsx";
 import complete from "../../assets/complete.wav";
 
 import {dummyChapter, dummyTask, getBook, getLibrary} from "../../scripts/Books.ts";
-import type {Chapter,Book} from "../../scripts/BookGenerator.ts";
+import type {Book} from "../../scripts/BookGenerator.ts";
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 
 export function OutputCard(){
-    var defaultTimer : number = 180;
     const completionSound = new Audio(complete);
     completionSound.volume = getSetOrElse("volume", 1.0);
 
-    const [displayTimer, setDisplayTimer] = createSignal(false);
-    const [timer, setTimer] = createSignal(defaultTimer, { equals: false });
-
     const [library, setLibrary] = createSignal(getLibrary());
-
     const [book, setBook] = createSignal<Book>(getBook(getSetOrElse("prior", library()[0].id)));
     const [chapter, setChapter] = createSignal(dummyChapter);
     const [task, setTask] = createSignal(dummyTask);
@@ -56,16 +51,10 @@ export function OutputCard(){
         setChapter(randomizer.getChapter());
         setTask(randomizer.getTask());
         updateChecks();
-        setTimer(defaultTimer);
         if (memorize){
             completionSound.volume = getSetOrElse("volume", 1.0); // Updates the volume to current level. Would ideally be handled by a context provider, but I couldn't figure it out
             completionSound.play();
         }
-    }
-
-    function setNewTimer(timer : number){
-        defaultTimer = timer;
-        setTimer(timer);
     }
 
     onMount(() => { // Randomize on load
@@ -80,25 +69,6 @@ export function OutputCard(){
         setAbort(checked().size == 0 || book().chapters.every(chapter => randomizer.chapterIsDisabled(chapter)));
     }
 
-    function warn(valid: boolean, event : Event & {currentTarget : HTMLInputElement}){
-        event.currentTarget.style.color = valid ? "var(--text-color-negative)" : "red";
-    }
-
-    function handleInput(event : Event & {currentTarget : HTMLInputElement}){
-        const number = event.currentTarget.value.length != 0 ? parseInt(event.currentTarget.value) : defaultTimer; 
-        const valid = !Number.isNaN(number) && number > 0 && number <= 3600;
-        warn(valid, event);
-    }
-
-    function handleChange(event : Event & {currentTarget : HTMLInputElement}){
-        const number = event.currentTarget.value.length != 0 ? parseInt(event.currentTarget.value) : defaultTimer; // Makes sure empty input is handled correctly
-        const valid = !Number.isNaN(number) && number > 0 && number <= 3600;
-        
-        if (valid && number != defaultTimer) // Only set a number if it is non negative and actually a number, and if it is actually changed
-            setNewTimer(number)
-        warn(valid, event);
-    }
-
     onMount(() => {
         if (getSetOrElse("refreshPersonalLibrary", false)) { // Refresh the library if necessary
             setLibrary(getLibrary());
@@ -108,22 +78,8 @@ export function OutputCard(){
 
     return (
         <div class="card-group">
-            <div class ="card small" id="timer">
-                <div id="timer-display" data-open={displayTimer() && !abort()}>
-                    <Show when={displayTimer() && !abort()}>
-                        <Timer time={timer()}/>
-                    </Show>
-                </div>
-                <div id="timer-config">
-                    <button data-open={displayTimer() && !abort()} aria-label="Toggle timer" aria-controls="timer-display" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={abort()}><img src={timerIcon.src} alt="Timer icon"/><p>Timer</p></button>
-                    <Show when={displayTimer() && !abort()}>
-                        <input type="text" inputmode="numeric" pattern="[0-9]*" placeholder={timer().toString()} 
-                        onchange={handleChange} 
-                        oninput={handleInput}
-                        aria-required="false"/><p>seconds</p>
-                    </Show>
-                </div>
-            </div>
+
+            <Timer closeOn={abort} refreshOn={task}/>
             
             <div class="card output">
                 <div id="output-wrapper">

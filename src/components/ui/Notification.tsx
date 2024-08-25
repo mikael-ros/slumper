@@ -1,7 +1,7 @@
 
 import "./Notification.css";
 
-import {createSignal, createEffect, onCleanup, Show, type Accessor, onMount, on} from "solid-js";
+import {createSignal, createEffect, onCleanup, Show, type Accessor, on} from "solid-js";
 
 interface NotificationProps {
     trigger: Accessor<any>; // The trigger signal, most aptly a boolean but it does not matter

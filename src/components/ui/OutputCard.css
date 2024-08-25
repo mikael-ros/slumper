@@ -128,54 +128,7 @@
     }
 }
 
-#timer-display{
-    height: 0em;
 
-    transition-property: height;
-    transition-duration: var(--transition-duration-medium);
-
-    &[data-open = "true"]{
-        height: 3em;
-    }
-}
-
-#timer-config{
-    display: flex;
-    align-items: center;
-    height: 3em;
-    
-    button {
-        height: 3em;
-        width: 100%;
-
-        margin: 0;
-        transition-property: width, border-radius, filter;
-        transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
-
-        &:hover{
-            border-radius: var(--default-border-radius);
-            filter: brightness(0.95);
-    
-            transition-property: width, border-radius, filter;
-            transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
-        }    
-
-        &:disabled:hover{
-            border-radius: var(--mild-border-radius);
-            filter: brightness(70%);
-            cursor: not-allowed;
-        }
-
-        &[data-open = "true"]{
-            width: 70%;
-        }
-    }
-
-    input {
-        width: 30%;
-        height: 3em;
-    }
-}
 
 @media (max-width:900px) {
     
