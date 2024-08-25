@@ -4,7 +4,6 @@ import "./OutputCard.css";
 import tickIcon from "/src/assets/tick.svg";
 import refreshIcon from "/src/assets/refresh.svg";
 import trashIcon from "/src/assets/trash.svg";
-
 import linkIcon from "/src/assets/link.svg";
 import plusIcon from "/src/assets/plus.svg";
 
@@ -16,6 +15,7 @@ import complete from "../../assets/complete.wav";
 import {dummyChapter, dummyTask, getBook, getLibrary} from "../../scripts/Books.ts";
 import type {Book} from "../../scripts/BookGenerator.ts";
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
+import Button from "../interactive/Button.tsx";
 
 export function OutputCard(){
     const completionSound = new Audio(complete);
@@ -88,24 +88,18 @@ export function OutputCard(){
                 </div>
                 
                 <div class="button-group">
-                    <button class="icon-only" aria-label="Randomize" id="random" 
-                    onclick={() => random(false)} 
-                    disabled={abort()}
-                    title="Randomize new task">
-                        <img src={refreshIcon.src} alt="Randomize"/>
-                    </button>
-                    <button class="icon-only" aria-label="Complete task" id="done" 
-                    onclick={() => random(true)} 
-                    disabled={abort()}
-                    title="Randomize new task, and mark prior as complete">
-                        <img src={tickIcon.src} alt="Complete (tick) icon"/>
-                        <img src={refreshIcon.src} alt="Randomize icon, below complete"/>
-                    </button>
-                    <button class="icon-only" aria-label="Reset memory" id="reset" 
-                    onclick={() => {randomizer.resetSpentTasks(); random(false)}}
-                    title="Reset the task memory" >
-                        <img src={trashIcon.src} alt="Reset memory"/>
-                    </button>
+                    <Button iconOnly={true} id="random" label="Randomize" title="Randomize new task"
+                            disabled={abort()} onclick={() => random(false)} 
+                            icons={[[refreshIcon, "Randomize"]]}
+                    />
+                    <Button iconOnly={true} id="done" label="Complete task" title="Randomize new task, and mark prior as complete"
+                            disabled={abort()} onclick={() => random(true)} 
+                            icons={[[tickIcon, "Complete (tick) icon"], [refreshIcon, "Randomize icon, below complete"]]}
+                    />
+                    <Button iconOnly={true} id="reset" label="Reset memory" title="Randomize new task"
+                            disabled={abort()} onclick={() => {randomizer.resetSpentTasks(); random(false)}} 
+                            icons={[[trashIcon, "Reset memory"]]}
+                    />
                 </div>
 
                 <Show when={book().chapters.length > 1}>
@@ -134,7 +128,7 @@ export function OutputCard(){
                 </Show>
 
                 <div id="course-select-wrapper">
-                    <select id="course-select" value={JSON.stringify(book())} name="course" onchange={(event) => {setNewBook(JSON.parse(event.target.value))}} title="Select a book" aria-label="Select a book" aria-required="false">
+                    <select id="course-select" value={JSON.stringify(book())} name="course" onchange={event => {setNewBook(JSON.parse(event.target.value))}} title="Select a book" aria-label="Select a book" aria-required="false">
                         <For each={library()}>
                             {(book) =>
                                 <option value={JSON.stringify(book)}>{(book.custom ? "[P] " : "") + book.name}</option>
@@ -142,9 +136,15 @@ export function OutputCard(){
                         </For>
                     </select>
                     <Show when={book().source != ""}>
-                        <a href={book().source} id="get"><button aria-label="Go to the source" title="Go to the source of the book"><img src={linkIcon.src} alt="Book source"/><p>Get</p></button></a>
+                        <a href={book().source} id="get">
+                            <Button label="Go to the source" title="Go to the source of the book" text="Get"
+                                    icons={[[linkIcon, "Book source"]]} />
+                        </a>
                     </Show>
-                    <a href="add" id="add"><button aria-label="Add a custom book" title="Add a custom book (leaves page)"><img src={plusIcon.src} alt="Add book"/><p>Add</p></button></a>
+                    <a href="add" id="add">
+                        <Button label="Add a custom book" title="Add a custom book (leaves page)" text="Add"
+                                icons={[[plusIcon, "Add book"]]} />
+                    </a>
                 </div>
                 
             </div>
