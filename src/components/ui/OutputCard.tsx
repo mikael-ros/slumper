@@ -30,7 +30,7 @@ export function OutputCard(){
     const [book, setBook] = createSignal<Book>(getBook(getSetOrElse("prior", library()[0].id)));
     const [chapter, setChapter] = createSignal(dummyChapter);
     const [task, setTask] = createSignal(dummyTask);
-    const [unchecked, setUnchecked] = createSignal<Set<Number>>(new Set<Number>);
+    const [checked, setChecked] = createSignal<Set<Number>>(new Set<Number>);
     const [abort, setAbort] = createSignal(false);
 
     var randomizer : Randomizer = new Randomizer(book());
@@ -42,7 +42,7 @@ export function OutputCard(){
         set("prior", book.id);
         randomizer = new Randomizer(book);
         document.body.style.backgroundImage = "url(" + book.previewImagePath + ")"; 
-        setUnchecked(new Set<Number>);
+        setChecked(new Set<Number>);
         updateChecks();
         random(false);
     }
@@ -73,13 +73,11 @@ export function OutputCard(){
     })
 
     function updateChecks(){
-        var unchecked : Set<Number> = new Set<Number>();
-        book().chapters.forEach((chapter) => {if (randomizer.chapterIsSpent(chapter)){
-            unchecked.add(chapter.number);
-        }});
-        setUnchecked(unchecked);
+        setChecked(new Set(book().chapters
+                        .filter(chapter => randomizer.chapterIsEnabled(chapter))
+                        .map(chapter => chapter.number)));
         
-        setAbort(unchecked.size == book().chapters.length || randomizer.disclude.size == book().chapters.length);
+        setAbort(checked().size == 0 || book().chapters.every(chapter => randomizer.chapterIsDisabled(chapter)));
     }
 
     function warn(valid: boolean, event : Event & {currentTarget : HTMLInputElement}){
@@ -162,8 +160,8 @@ export function OutputCard(){
                                 {(chapter) => 
                                     <div class="checkbox">
                                         <input id={chapter.fullname.toLowerCase().replace(/\s/g, "")} type="checkbox" 
-                                        disabled={unchecked().has(chapter.number)} 
-                                        checked={randomizer.chapterIsFiltered(chapter)} 
+                                        disabled={!checked().has(chapter.number) && randomizer.chapterIsDisabled(chapter)} 
+                                        checked={checked().has(chapter.number)} 
                                         onchange={() => {
                                             randomizer.toggleFilter(chapter);
                                             updateChecks();

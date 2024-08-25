@@ -8,6 +8,7 @@ export class Randomizer{
     book: Book; // The book
     spentTasks: Book; // The corresponding spent tasks from the book
     disclude: Set<Number> = new Set<Number>(); // Which chapters to disclude from the process
+    filtered: Set<Number> = new Set<Number>();
     
     filteredChapters: Chapter[]; // The chapters included
 
@@ -21,47 +22,48 @@ export class Randomizer{
         this.filteredChapters = book.chapters;
         this.updateFilteredChapters();
         [this.currentChapter, this.currentTask] = this.bookIsSpent() ? [dummyChapter, dummyTask] : this.getNew(false); // If the book is completely exhausted, display dummy tasks
-        this.spentTasks = this.getSpentTasks();
+        this.spentTasks = getSpentTasksFromBook(this.book);
     }
 
-    /** Updates the filtered chapters based on disclude */
+    /** Updates the filtered chapters based on disclude and filter */
     updateFilteredChapters(){
-        this.filteredChapters = this.book.chapters.filter((chapter) => !this.disclude.has(chapter.number));
-    }
-
-    /** Updates disclude, and then updates the filtered chapters */
-    updateFilter(newDisclude: Set<Number>){
-        this.disclude = newDisclude;
-        this.updateFilteredChapters();
+        this.book.chapters.forEach(chapter => { // Add any discluded chapters right off the bat
+            if (this.chapterIsSpent(chapter))
+                this.disclude.add(chapter.number);
+        })
+        this.filteredChapters = this.book.chapters.filter(chapter => this.chapterIsEnabled(chapter));
     }
     
     /** Discludes a chapter, and then updates the filter based on that */
     addToFilter(chapter: Chapter){
-        this.updateFilter(this.disclude.add(chapter.number));
+        this.filtered = this.filtered.add(chapter.number);
+        this.updateFilteredChapters();
     }
     
     /** Removes a chapter from the disclusion list, and updates the filter */
     removeFromFilter(chapter: Chapter){
-        this.disclude.delete(chapter.number)
+        this.filtered.delete(chapter.number)
         this.updateFilteredChapters();
     }
 
     toggleFilter(chapter: Chapter) {
         if (this.chapterIsFiltered(chapter)) {
-            this.addToFilter(chapter);
-        } else {
             this.removeFromFilter(chapter);
+        } else {
+            this.addToFilter(chapter);
         }
     }
 
     /** Resets the disclude list, and updates the filter too */
     resetFilter(){
-        this.updateFilter(new Set);
+        this.disclude = new Set;
+        this.filtered = new Set;
+        this.updateFilteredChapters();
     }
 
     /** Sets what filters should be discluded based on browser storage, immideately */
     setInitialSpent(){
-        this.book.chapters.forEach(chapter => {if (this.chapterIsSpent(chapter)) {this.addToFilter(chapter)}});
+        this.book.chapters.forEach(chapter => {if (this.chapterIsSpent(chapter)) {this.disclude.add(chapter.number)}});
     }
 
     /**
@@ -85,14 +87,14 @@ export class Randomizer{
     getRandomChapter() : Chapter{
         return this.filteredChapters.length > 0 
         ? this.filteredChapters[Math.floor(Math.random() * this.filteredChapters.length)]
-        : this.currentChapter; // Don't change chapter if exhausted
+        : dummyChapter; // Return dummy chapter if exhausted
     }
 
     /** Retrieves a random task from a chapter in the book */
     getRandomTaskInChapter(chapter: Chapter) : Task{
         const spentTasksFromChapter = getSpentTasksFromChapter(this.book, chapter);
         if (this.chapterIsSpent(chapter)){
-            this.addToFilter(chapter);
+            this.disclude.add(chapter.number);
             return dummyTask; // Return a dummy task if exhausted
         } else {
             const filteredTasks: Task[] = chapter.tasks.filter((task) => spentTasksFromChapter.find((spentTask) => spentTask.task == task.task) == undefined);
@@ -106,10 +108,18 @@ export class Randomizer{
         return spentTasksFromChapter.length >= chapter.tasks.length;
     }
 
-    /** Checks wether the chapter is filtered and is not in the discluded*/
+    /** Checks filter status of chapter */
     chapterIsFiltered(chapter: Chapter) : boolean {
-        return !(this.filteredChapters.findIndex(_chapter => _chapter.number == chapter.number) == -1 
-                || this.disclude.has(chapter.number));
+        return this.filtered.has(chapter.number);
+    }
+
+    /** Checks wether the chapter is discluded*/
+    chapterIsDisabled(chapter: Chapter) : boolean {
+        return this.disclude.has(chapter.number);
+    }
+
+    chapterIsEnabled(chapter: Chapter) : boolean {
+        return !this.chapterIsFiltered(chapter) && !this.chapterIsDisabled(chapter);
     }
 
     /** Checks whether all chapters are spent, which would indicate the book being spent */
@@ -117,14 +127,9 @@ export class Randomizer{
         return this.book.chapters.every(chapter => this.chapterIsSpent(chapter));
     }
 
-    /** Retrieves the spent tasks for the book. Doesn't do much more other than make retrieving them shorter */
-    getSpentTasks() : Book {
-        return getSpentTasksFromBook(this.book);
-    }
-
     /** Retrieve new spent tasks */
     updateSpentTasks() {
-        this.spentTasks = this.getSpentTasks();
+        this.spentTasks = getSpentTasksFromBook(this.book);
     }
 
     /** Clear the memory, and update filters */
