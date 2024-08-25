@@ -38,8 +38,8 @@ export function OutputCard(){
     document.body.style.backgroundImage = "url(" + book().previewImagePath + ")"; 
 
     function setNewBook(book : Book){
-        set("prior", book.id);
         setBook(book);
+        set("prior", book.id);
         randomizer = new Randomizer(book);
         document.body.style.backgroundImage = "url(" + book.previewImagePath + ")"; 
         setUnchecked(new Set<Number>);
@@ -80,10 +80,6 @@ export function OutputCard(){
         setUnchecked(unchecked);
         
         setAbort(unchecked.size == book().chapters.length || randomizer.disclude.size == book().chapters.length);
-    }
-
-    function filtered(chapter: Chapter){
-        return !unchecked().has(chapter.number) && !randomizer.disclude.has(chapter.number);
     }
 
     function warn(valid: boolean, event : Event & {currentTarget : HTMLInputElement}){
@@ -167,13 +163,9 @@ export function OutputCard(){
                                     <div class="checkbox">
                                         <input id={chapter.fullname.toLowerCase().replace(/\s/g, "")} type="checkbox" 
                                         disabled={unchecked().has(chapter.number)} 
-                                        checked={filtered(chapter)} 
+                                        checked={randomizer.chapterIsFiltered(chapter)} 
                                         onchange={() => {
-                                            if (filtered(chapter)){
-                                                randomizer.addToFilter(chapter);
-                                            } else {
-                                                randomizer.removeFromFilter(chapter);
-                                            }
+                                            randomizer.toggleFilter(chapter);
                                             updateChecks();
                                         }} 
                                         title={"Toggle chapter " + chapter.number}

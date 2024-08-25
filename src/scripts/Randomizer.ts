@@ -46,6 +46,14 @@ export class Randomizer{
         this.updateFilteredChapters();
     }
 
+    toggleFilter(chapter: Chapter) {
+        if (this.chapterIsFiltered(chapter)) {
+            this.addToFilter(chapter);
+        } else {
+            this.removeFromFilter(chapter);
+        }
+    }
+
     /** Resets the disclude list, and updates the filter too */
     resetFilter(){
         this.updateFilter(new Set);
@@ -96,6 +104,12 @@ export class Randomizer{
     chapterIsSpent(chapter: Chapter){
         const spentTasksFromChapter = getSpentTasksFromChapter(this.book, chapter);
         return spentTasksFromChapter.length >= chapter.tasks.length;
+    }
+
+    /** Checks wether the chapter is filtered and is not in the discluded*/
+    chapterIsFiltered(chapter: Chapter) : boolean {
+        return !(this.filteredChapters.findIndex(_chapter => _chapter.number == chapter.number) == -1 
+                || this.disclude.has(chapter.number));
     }
 
     /** Checks whether all chapters are spent, which would indicate the book being spent */
