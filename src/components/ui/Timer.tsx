@@ -3,7 +3,7 @@ import { createSignal, createEffect, onCleanup, Show, type Accessor, type Setter
 import timerSound from "../../assets/timer-sound.wav";
 import timerIcon from "/src/assets/timer.svg";
 import {getSetOrElse} from "../../scripts/StorageHandler.ts";
-import {handleInput, warn, isValid, parseInput} from "../../scripts/Utils.ts";
+import {handleInput, isValid} from "../../scripts/Utils.ts";
 
 /**
  * A class for handling time. Created to minimize unnecessary imports. All we want is a simply max 1 hr timer, so this suffices.
@@ -13,7 +13,7 @@ class Time {
     time: number;
     interval: any;
     sound: any;
-    timeDisplay: Setter<string>;
+    timeDisplay: Setter<string>; // We'll use a signal to display the time, as this is the easiest imo
 
     constructor (time: number, timeDisplay: Setter<string>){
         this.timeDisplay = timeDisplay;
@@ -42,6 +42,9 @@ class Time {
         this.timeDisplay(this.toString());
     }
 
+    /**
+     * Sets a new time for the router and handles the necessary logic to do such
+     */
     setTime(time: number){
         this.initTime = time % 3601; // Makes sure time can never be above an hour. Might need to change this in the future
         this.time = this.initTime;
@@ -84,7 +87,7 @@ class Time {
             this.sound.volume = getSetOrElse("volume", 1.0); // Updates the volume to current level. Would ideally be handled by a context provider, but I couldn't figure it out
             this.sound.play();
         }
-        window.clearInterval(this.interval);
+        window.clearInterval(this.interval); // Important to avoid concurrent intervals
     }
 }
 
@@ -95,14 +98,15 @@ interface TimerProps {
 
 export function Timer(props: TimerProps){
     var startTimer = 180;
+    const title = document.title; // Save the original document title
+
     const [displayTimer, setDisplayTimer] = createSignal(true);
-
-    const [time, setTime] = createSignal("");
-    var timer : Time = new Time(startTimer, setTime);
+    const [time, setTime] = createSignal("00:00");
     const [elapsed, setElapsed] = createSignal(false);
-    const title = document.title;
 
-    const valid = (number: number) => !Number.isNaN(number) && number > 0 && number <= 3600
+    var timer : Time = new Time(startTimer, setTime);
+
+    const valid = (number: number) => !Number.isNaN(number) && number > 0 && number <= 3600; // The conditions under which a number is valid in this component
 
     function handleChange(event : Event & {currentTarget : HTMLInputElement}){
         const number = event.currentTarget.value.length != 0 ? parseInt(event.currentTarget.value) : startTimer; 
@@ -111,17 +115,27 @@ export function Timer(props: TimerProps){
             timer.setTime(startTimer = number);
     }
 
+    /**
+     * Resets the timer to the set time
+     * and sets the title to the default again
+     */
     function reset() {
         timer.reset()
         setElapsed(false);
         document.title = title;
     }
 
+    /**
+     * Kills the timer, and sets the title to default again
+     */
     function kill() {
         timer.kill(false);
         document.title = title;
     }
     
+    /**
+     * Starts the timer
+     */
     function init() {
         timer.setTime(startTimer);
         setElapsed(false);
