@@ -137,6 +137,13 @@
     }
 }
 
+#save-warning {
+    color: orangered;
+    font-size: .9em;
+    margin: .25em 0;
+    opacity: .7;
+}
+
 @media (max-width:900px)  {
     #back button{
         width: 100%;

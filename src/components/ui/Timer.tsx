@@ -3,7 +3,7 @@ import { createSignal, createEffect, onCleanup, Show, type Accessor, type Setter
 import timerSound from "../../assets/timer-sound.wav";
 import timerIcon from "/src/assets/timer.svg";
 import {getSetOrElse} from "../../scripts/StorageHandler.ts";
-import {handleInput, isValid} from "../../scripts/Utils.ts";
+import  {isValid} from "../../scripts/Utils.ts";
 
 /**
  * A class for handling time. Created to minimize unnecessary imports. All we want is a simply max 1 hr timer, so this suffices.
@@ -171,9 +171,8 @@ export function Timer(props: TimerProps){
             <div id="timer-config">
                 <button data-open={displayTimer() && !props.closeOn()} aria-label="Toggle timer" aria-controls="timer-display" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={props.closeOn()}><img src={timerIcon.src} alt="Timer icon"/><p>Timer</p></button>
                 <Show when={displayTimer() && !props.closeOn()}>
-                    <input type="text" inputmode="numeric" pattern="[0-9]*" placeholder={startTimer.toString()} 
+                    <input type="number" min="1" max="3600" inputmode="numeric" pattern="[0-9]*" placeholder={startTimer.toString()} 
                     onchange={handleChange} 
-                    oninput={(event) => handleInput(event, valid)}
                     aria-required="false"/><p>seconds</p>
                 </Show>
             </div>

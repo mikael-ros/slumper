@@ -25,12 +25,3 @@ export function parseInput (input: string){
 export function isValid (value: any, condition: (value: any) => boolean) {
     return condition(parseInput(value));
 }
-
-/**
- * Handles input events
- * @param event The event that fired this function
- * @param condition The condition under which the input is valid
- */
-export function handleInput(event : Event & {currentTarget : HTMLInputElement}, condition: (value: any) => boolean){
-    warn(isValid(event.currentTarget.value, condition), event);
-}

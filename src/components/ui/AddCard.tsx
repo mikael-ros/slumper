@@ -11,12 +11,12 @@ import shareIcon from "/src/assets/share.svg";
 
 import { createEffect, createSignal, For, Show, on } from "solid-js";
 
-import {dummyBook, resetSpentTasksFromBook} from "../../scripts/Books.ts";
+import {dummyBook, libraryHas, resetSpentTasksFromBook} from "../../scripts/Books.ts";
 import {generateBook, exportBook} from "../../scripts/BookGenerator.ts";
 import type {Book } from "../../scripts/BookGenerator.ts";
 
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
-import {isValid as _isValid, warn } from "../../scripts/Utils.ts";
+import {isValid as _isValid} from "../../scripts/Utils.ts";
 import Button from "../interactive/Button.tsx";
 
 export function AddCard(){
@@ -148,7 +148,6 @@ export function AddCard(){
             setIsValid(valid && allValid())
         } else 
             setIsValid(false);
-        warn(valid, event);
     }
 
     function handleTitlesChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
@@ -158,7 +157,6 @@ export function AddCard(){
         updateValidity(index, valid, false);
         if (valid)
             updateTitles(index, event); 
-        warn(valid, event);
     }
 
     function handleAmountChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
@@ -167,7 +165,6 @@ export function AddCard(){
         updateValidity(index, valid, true);
         if (valid)
             updateAmounts(index, number);
-        warn(valid, event);
     }
 
     function handleFileSelect(event : Event & {currentTarget : HTMLInputElement}) {
@@ -219,13 +216,17 @@ export function AddCard(){
                             <li class="chapter-input">
                                 <p>{chapter + 1}</p>
                                 <input type="text" value={titles()[chapter] == undefined ? "" : titles()[chapter]} placeholder="Chapter title*" oninput={event => handleTitlesChange(chapter, event)} onchange={event => handleTitlesChange(chapter, event)} required aria-required="true"/>
-                                <input type="text" inputmode="numeric" pattern="[0-9]*" value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
+                                <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
                                 oninput={event => handleAmountChange(chapter, event)} required aria-required="true"/>
                             </li>
                             }
                         </For>
                     </ol>
                 </div>
+
+                <Show when={libraryHas(title())}>
+                    <p id="save-warning">There already exists a book under this name. Saving will overwrite it!</p>
+                </Show>
 
                 <div class="button-group">
                     <Button id="done" label="Save book" title="Save book to browser memory"

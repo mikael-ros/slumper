@@ -153,6 +153,10 @@ button, select, option, input:not([type=checkbox]), .checkbox-label, .faux-butto
         font-weight: 600;
     }
 
+    &:invalid {
+        color: red;
+    }
+
     &:hover, &:focus{
         border-radius: var(--default-border-radius);
         filter: brightness(0.95);
