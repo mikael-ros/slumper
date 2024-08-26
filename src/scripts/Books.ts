@@ -154,7 +154,7 @@ export function libraryHasByName(name: string) : boolean {
 
 /* In the personal library */
 export function indexOfBookPersonal(book: Book) : number {
-    return indexOfBookByName(book.name);
+    return indexOfBookByNamePersonal(book.name);
 }
 
 export function indexOfBookByNamePersonal(name: string) : number {
@@ -166,7 +166,7 @@ export function indexOfBookByIdPersonal(id: string) : number {
 }
 
 export function libraryHasPersonal(book: Book): boolean {
-    return libraryHasByName(book.name);
+    return libraryHasByNamePersonal(book.name);
 }
 
 export function libraryHasIdPersonal(id: string): boolean {
@@ -273,6 +273,39 @@ function setBook(book: Book){
         spentTasks[bookIndex] = book;
     }
     set("spent",spentTasks);
+}
+
+/**
+ * Removes a book from the personal library
+ * @param book the book being removed
+ */
+export function removeBook(book: Book) {
+    const current = getPersonalLibrary();
+    const index = indexOfBookPersonal(book);
+    if (libraryHasPersonal(book))
+        current.splice(index,1);
+    setPersonalLibrary(current);
+}
+
+/**
+ * Resets the personal library
+ */
+export function removeAllBooks() {
+    setPersonalLibrary(new Array);
+}
+
+/**
+ * Adds a new book to the personal library. In place where possible, otherwise tacked onto the end
+ * @param book The book being inserted
+ */
+export function insertBook(book: Book) {
+    const current = getPersonalLibrary();
+    if (libraryHasPersonal(book))
+        current[indexOfBookPersonal(book)] = book;
+    else
+        current.push(book);
+    setPersonalLibrary(current);
+    resetSpentTasksFromBook(book); // Reset tasks, if there are any, to prevent conflicts
 }
 
 /**

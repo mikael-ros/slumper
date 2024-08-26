@@ -12,7 +12,7 @@ import shareIcon from "/src/assets/share.svg";
 
 import {createSignal, For, Show} from "solid-js";
 
-import {dummyBook, resetSpentTasksFromBook, getPersonalLibrary, setPersonalLibrary, libraryHasIdPersonal, indexOfBookByIdPersonal} from "../../scripts/Books.ts";
+import {dummyBook, getPersonalLibrary, libraryHasIdPersonal, removeBook, removeAllBooks, insertBook} from "../../scripts/Books.ts";
 import {generateBook, exportBook} from "../../scripts/BookGenerator.ts";
 import type {Book } from "../../scripts/BookGenerator.ts";
 
@@ -26,21 +26,27 @@ export function AddCard(){
 
     const [chapters, setChapters] = createSignal(1);
     const [library, setLibrary] = createSignal(getPersonalLibrary());
-    console.log(library());
     const [title, setTitle] = createSignal("");
     const [link, setLink] = createSignal("");
-    const [titles, setTitles] = createSignal(new Array(chapters()));
+    const [chapterTitles, setChapterTitles] = createSignal(new Array(chapters()));
     const [amounts, setAmounts] = createSignal(new Array<number>(chapters()));
 
+    /**
+     * Clears the inputs by importing the "dummy book"
+     */
     function clear(){
         importBook(dummyBook);
     }
 
+    /**
+     * Imports a book into the form fields
+     * @param book The book imported
+     */
     function importBook(book: Book){
         setTitle(book.name);
         setLink(book.previewImagePath);
 
-        setTitles(book.chapters.map(chapter => chapter.fullname));
+        setChapterTitles(book.chapters.map(chapter => chapter.fullname));
         if (!(book.chapters.length == 1 && book.chapters[0].tasks.length == 0))
             setAmounts(book.chapters.map(chapter => chapter.tasks.length));
         else 
@@ -48,63 +54,77 @@ export function AddCard(){
         setChapters(book.chapters.length);
     }
 
-    const saveBook = () => {
-        const library = getPersonalLibrary();
-        const newbook = makeBook();
-        if (libraryHasIdPersonal(newbook.id))
-            library[indexOfBookByIdPersonal(newbook.id)] = newbook;
-        else
-            library.push(newbook);
-        setLibraries(library);
-        resetSpentTasksFromBook(newbook); // Reset tasks, if there are any
+    /**
+     * Removes a book from the personal library, both in the menu and in the browser storage (hence this being handled here and not seperate)
+     * @param book The book being removed
+     */
+    function remove(book: Book){
+        removeBook(book);
+        refreshLocalLibrary();
     }
 
-    const getBook = () => {
-        exportBook(makeBook());
+    /**
+     * Removes all personal books
+     */
+    function removeAll(){
+        removeAllBooks();
+        refreshLocalLibrary();
     }
 
-    function removeBook(name: string){
-        const library = getPersonalLibrary();
-        if (libraryHasIdPersonal(name))
-            library.splice(indexOfBookByIdPersonal(name),1);
-        setLibraries(library);
+    /**
+     * Fetches the personal library anew
+     */
+    function refreshLocalLibrary() {
+        setLibrary(getPersonalLibrary());
     }
 
-    function removeAllBooks(){
-        setLibraries(new Array);
-    }
-
-    function setLibraries(library: Array<Book>) {
-        setPersonalLibrary(library);
-        setLibrary(library);
-    }
-
+    /**
+     * Generates the a book from the current inputs
+     * @returns A book
+     */
     function makeBook() : Book{
         createInput();
         return generateBook(input, title(), link(), "", true);
     }
 
+    /**
+     * Generates a map of chapters from the inputs
+     */
     function createInput(){
         input = new Map<string, number>();
         for (var i = 0; i < chapters(); i++){
             if (amounts()[i] != undefined)
-            input.set(titles()[i], amounts()[i]);
+            input.set(chapterTitles()[i], amounts()[i]);
         }
     }
 
+    /**
+     * Sets the title if it is valid
+     * @param event The input event
+     */
     function handleTitleChange(event : Event & {currentTarget : HTMLInputElement}){
         if (event.currentTarget.validity)
             setTitle(event.currentTarget.value.trim());
     }
 
-    function handleTitlesChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
+    /**
+     * Changes the title of a chapter, if it is valid
+     * @param index The chapter index
+     * @param event The input event
+     */
+    function handleChapterTitlesChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
         if (event.currentTarget.validity){
-            const current = titles();
+            const current = chapterTitles();
             current[index] = event.currentTarget.value.trim();
-            setTitles(current);
+            setChapterTitles(current);
         }
     }
 
+    /**
+     * Changes the amount of tasks, if valid
+     * @param index The chapter index
+     * @param event The input event
+     */
     function handleAmountChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
         if (event.currentTarget.validity.valid){
             const current = amounts();
@@ -138,11 +158,14 @@ export function AddCard(){
         reader.readAsText(file);
     }
     
+    /**
+     * Submits the form, with actions based on those set by the bottom buttons
+     */
     const submitForm = () => {
         if (save()) {
-            saveBook()
+            insertBook(makeBook())
         } else {
-            getBook()
+            exportBook(makeBook());
         }
     }
 
@@ -169,9 +192,9 @@ export function AddCard(){
                                 {chapter => 
                                 <li class="interactive-group input-group chapter-input">
                                     <p>{chapter + 1}</p>
-                                    <input type="text" value={titles()[chapter] == undefined ? "" : titles()[chapter]} placeholder="Chapter title*" 
-                                    oninput={event => handleTitlesChange(chapter, event)} 
-                                    onchange={event => handleTitlesChange(chapter, event)} 
+                                    <input type="text" value={chapterTitles()[chapter] == undefined ? "" : chapterTitles()[chapter]} placeholder="Chapter title*" 
+                                    oninput={event => handleChapterTitlesChange(chapter, event)} 
+                                    onchange={event => handleChapterTitlesChange(chapter, event)} 
                                     required aria-required="true"/>
                                     <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
                                     oninput={event => handleAmountChange(chapter, event)} required aria-required="true"/>
@@ -216,7 +239,7 @@ export function AddCard(){
                             <li class="book-entry"><h5>{book.name}</h5> 
                                 <div class="interactive-group button-group interactive-group--tight">
                                     <Button label={"Remove \"" + book.name + "\""}
-                                            onclick={() => removeBook(book.name)}
+                                            onclick={() => remove(book)}
                                             icons={[[trashIcon, "Remove book"]]}
                                     />
                                     <Button label={"Export \"" + book.name + "\""}
@@ -239,7 +262,7 @@ export function AddCard(){
                 </ol>
                 
                 <Button label={"Remove all books from personal library"}
-                        onclick={() => removeAllBooks()} text="Reset"
+                        onclick={() => removeAll()} text="Reset"
                         disabled={library().length == 0}
                         icons={[[trashIcon, "Clear all books"]]}
                 />
