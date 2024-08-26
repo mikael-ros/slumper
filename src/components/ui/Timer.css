@@ -23,7 +23,7 @@
 }
 
 .timer__display{
-    --open-height: 2em;
+    --open-height: 3em;
     --closed-height: 0em;
 
     display: flex;
@@ -115,6 +115,7 @@
     }
 
     .timer__display{
+        --open-height: 2em;
         --closed-height: var(--open-height);
 
         .timer__display__text {
