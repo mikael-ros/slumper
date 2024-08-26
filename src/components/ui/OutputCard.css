@@ -133,7 +133,6 @@
 @media (max-width:900px) {
     
     .output{
-
         .button-group {
             flex-direction: row-reverse;
             position: fixed;

@@ -55,6 +55,10 @@ body{
     z-index: 0;
 }
 
+/*******************/
+/* Footers, e.t.c. */
+/*******************/
+
 footer, header {
     display: flex;
     align-items: center;
@@ -117,148 +121,12 @@ h6{
     text-shadow: .1em .1em 0px var(--text-color-shadowed);
 }
 
-a:has(> button){
-    text-decoration: none;
-}
-
-.icon-only{
-    max-width: 3em;
-}
-
-button, select, option, input:not([type=checkbox]), .checkbox-label, .faux-button{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-
-    margin: var(--mild-border-radius);
-    padding: var(--mild-border-radius);
-
-    border: none;
-    border-radius: var(--mild-border-radius);
-    background-color: rgba(var(--backdrop-color),0.3);
-    color: var(--text-color-negative);
-
-    font-size: 1.1em;
-    text-align: center;
-    text-shadow: .1em .1em 0px var(--text-color-shadowed);
-    text-overflow: ellipsis;
-
-    cursor: pointer;
-
-    transition: filter, border-radius;
-    transition-duration: var(--transition-duration-fast);
-
-    &:not(input) {
-        font-weight: 600;
-    }
-
-    &:invalid {
-        color: red;
-    }
-
-    &:hover, &:focus{
-        border-radius: var(--default-border-radius);
-        filter: brightness(0.95);
-
-        transition: filter, border-radius;
-        transition-duration: var(--transition-duration-fast);
-
-        img {
-            transform: scale(1.05) rotate(10deg);
-        }
-    }
-
-    &:focus {
-        outline: none;
-    }
-
-    &:not(button, select):focus {
-        outline: solid .1em var(--primary);
-        outline-offset: -.1em;
-    }
-
-    &:disabled{
-        filter: brightness(70%);
-        cursor: not-allowed;
-
-        &:hover{
-            border-radius: var(--mild-border-radius); 
-        }
-    }
-
-    img{
-        width: 2em;
-        height: 2em;
-
-        padding: .1em;
-
-        transform: scale(0.9);
-        filter: brightness(200%) contrast(75%);
-    }
-
-    p{
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-
-        color: var(--text-color-negative-dull);
-
-        padding-left: .35em;
-        
-        min-width: 2em;
-        height: 100%;
-    }
-}
-
-.button-group{
-    display: flex;
-    gap: .5em;
-    
-    button, input, label {
-        width: 100%;
-        margin: 0;
-    }
-
-    input {
-        display: none;
-    }
-}
-
-.checkbox {
-    input[type='checkbox']{ /* The checkbox itself */
-        margin: 1em;
-    
-        transform: scale(2.5); /* Visual size */
-    }
-
-    .checkbox-label {
-        align-items: end;
-        justify-content: end;
-        position: relative;
-        top:-3%;
-        width: 81%;
-        height: 0;
-        margin: 0;
-        padding: 0;
-
-        font-size: .7em;
-        line-height: 200%;
-        color: var(--text-color);
- 
-        text-shadow: none;
-
-        background: none;
-
-        /* Make it not interfere with the checkbox */
-        user-select: none;
-        pointer-events: none;
-        touch-action: none;
-    }
-    input[type='checkbox']:checked + label {
-        color: var(--text-color-negative); 
-        
-    }
+/* Warning texts */
+.warning {
+    color: orangered;
+    font-size: .9em;
+    margin: .25em 0;
+    opacity: .7;
 }
 
 /************/
@@ -347,17 +215,6 @@ article{
     /* Default text settings stuff */
     /*******************************/
     
-    .checkbox {
-        input[type='checkbox']{
-            margin: 1.5em;
-        
-            transform: scale(3); /* Visual size */
-        }
-    }
-
-    .button-group{
-        flex-wrap: wrap;
-    }
     
     article {
         min-height: 70vh;

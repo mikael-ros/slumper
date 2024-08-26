@@ -1,5 +1,6 @@
 import "./Card.css";
 import "./AddCard.css";
+import "../../styles/interactives.css"
 
 import homeIcon from "/src/assets/home.svg";
 import tickIcon from "/src/assets/tick.svg";
@@ -202,50 +203,50 @@ export function AddCard(){
                     />
                 </a>
                 <h1>Add book</h1>
+                <form id="book-form">
+                    <div class="input-list">
+                        <input value={title()} placeholder="Book name*" oninput={handleTitleChange} onchange={handleTitleChange} required aria-required="true"></input>
+                        <input type="url" value={link()} placeholder="Book image URL (optional)" oninput={event => setLink(event.target.value)} onchange={event => setLink(event.target.value)} aria-required="false"></input>
+                    </div>
+                    
+                    <div id="chapter-inputs">
+                        <button aria-label="add" id="add" onclick={() => setChapters(chapters() + 1)} title="Add an entry"><img src={plusIcon.src} alt="Add entry"/><p>Add entry</p></button>
+                        <ol class="input-list input-list--vertical">
+                            <For each={[...Array(chapters()).keys()]}>
+                                {chapter => 
+                                <li class="interactive-group input-group chapter-input">
+                                    <p>{chapter + 1}</p>
+                                    <input type="text" value={titles()[chapter] == undefined ? "" : titles()[chapter]} placeholder="Chapter title*" oninput={event => handleTitlesChange(chapter, event)} onchange={event => handleTitlesChange(chapter, event)} required aria-required="true"/>
+                                    <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
+                                    oninput={event => handleAmountChange(chapter, event)} required aria-required="true"/>
+                                </li>
+                                }
+                            </For>
+                        </ol>
+                    </div>
 
-                <div id="book-params">
-                    <input value={title()} placeholder="Book name*" oninput={handleTitleChange} onchange={handleTitleChange} required aria-required="true"></input>
-                    <input type="url" value={link()} placeholder="Book image URL (optional)" oninput={event => setLink(event.target.value)} onchange={event => setLink(event.target.value)} aria-required="false"></input>
-                </div>
-                
-                <div id="chapter-inputs">
-                    <button aria-label="add" id="add" onclick={() => setChapters(chapters() + 1)} title="Add an entry"><img src={plusIcon.src} alt="Add entry"/><p>Add entry</p></button>
-                    <ol>
-                        <For each={[...Array(chapters()).keys()]}>
-                            {chapter => 
-                            <li class="chapter-input">
-                                <p>{chapter + 1}</p>
-                                <input type="text" value={titles()[chapter] == undefined ? "" : titles()[chapter]} placeholder="Chapter title*" oninput={event => handleTitlesChange(chapter, event)} onchange={event => handleTitlesChange(chapter, event)} required aria-required="true"/>
-                                <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
-                                oninput={event => handleAmountChange(chapter, event)} required aria-required="true"/>
-                            </li>
-                            }
-                        </For>
-                    </ol>
-                </div>
+                    <Show when={libraryHas(title())}>
+                        <p class="warning">There already exists a book under this name. Saving will overwrite it!</p>
+                    </Show>
 
-                <Show when={libraryHas(title())}>
-                    <p id="save-warning">There already exists a book under this name. Saving will overwrite it!</p>
-                </Show>
+                    <div class="interactive-group button-group">
+                        <Button id="done" label="Save book" title="Save book to browser memory"
+                                disabled={!isValid()} onclick={saveBook} text="Save"
+                                icons={[[tickIcon, "Save book"]]}
+                        />
+                        <Button id="export" label="Export book" title="Save book to disk"
+                                disabled={!isValid()} onclick={getBook} text="Export"
+                                icons={[[downloadIcon, "Export book"]]}
+                        />
+                        <input type="file" aria-label="Import file" aria-hidden="true" aria-labelledby="file-import-label" id="file-import" onchange={handleFileSelect} title="Import file from disk"></input>
+                        <label class="faux-button" id="file-import-label" aria-label="Import file" for="file-import"><img src={uploadIcon.src} alt="Import book" title="Import file from disk"/><p>Import</p></label>
 
-                <div class="button-group">
-                    <Button id="done" label="Save book" title="Save book to browser memory"
-                            disabled={!isValid()} onclick={saveBook} text="Save"
-                            icons={[[tickIcon, "Save book"]]}
-                    />
-                    <Button id="export" label="Export book" title="Save book to disk"
-                            disabled={!isValid()} onclick={getBook} text="Export"
-                            icons={[[downloadIcon, "Export book"]]}
-                    />
-                    <input type="file" aria-label="Import file" aria-hidden="true" aria-labelledby="file-import-label" id="file-import" onchange={handleFileSelect} title="Import file from disk"></input>
-                    <label class="faux-button" id="file-import-label" aria-label="Import file" for="file-import"><img src={uploadIcon.src} alt="Import book" title="Import file from disk"/><p>Import</p></label>
-
-                    <Button id="clear" label="Clear entries" title="Remove the entered values"
-                            disabled={!isValid()} onclick={() => clear()} text="Clear"
-                            icons={[[trashIcon, "Clear entries"]]}
-                    />
-                </div>
-
+                        <Button id="clear" label="Clear entries" title="Remove the entered values"
+                                disabled={!isValid()} onclick={() => clear()} text="Clear"
+                                icons={[[trashIcon, "Clear entries"]]}
+                        />
+                    </div>
+                </form>
             </div>
             <div class="card library">
                 <h1>Personal library</h1>
@@ -257,7 +258,7 @@ export function AddCard(){
                     <For each={library()}>
                         {book =>
                             <li class="book-entry"><h5>{book.name}</h5> 
-                                <div class="button-group">
+                                <div class="interactive-group button-group interactive-group--tight">
                                     <Button label={"Remove \"" + book.name + "\""}
                                             onclick={() => removeBook(book.name)}
                                             icons={[[trashIcon, "Remove book"]]}

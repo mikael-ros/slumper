@@ -1,5 +1,6 @@
 import "./Card.css";
 import "./OutputCard.css";
+import "../../styles/interactives.css"
 
 import tickIcon from "/src/assets/tick.svg";
 import refreshIcon from "/src/assets/refresh.svg";
@@ -92,7 +93,7 @@ export function OutputCard(){
                     <h3 id="output">{formatTask()}</h3>
                 </div>
                 
-                <div class="button-group">
+                <div class="interactive-group button-group">
                     <Button iconOnly={true} id="random" label="Randomize" title="Randomize new task"
                             disabled={abort()} onclick={() => random(false)} 
                             icons={[[refreshIcon, "Randomize"]]}
