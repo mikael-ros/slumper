@@ -205,4 +205,12 @@ a:has(> button){
     .interactive-group .button-group{
         flex-wrap: wrap;
     }
+
+    .interactive-group {
+        --gap: .5em;
+    }
+    
+    .interactive-group--tight {
+        --gap: .15em;
+    }
 }
