@@ -74,7 +74,7 @@ footer, header {
 
 footer, header h1 {
     background-color: rgba(var(--backdrop-color),0.1);
-    backdrop-filter: blur(var(--mild-border-radius));
+    backdrop-filter: blur(2vh);
 }
 
 header{
@@ -175,9 +175,8 @@ article{
         min-height: 100vh;
     }
     
-    footer, header h1 {
+    header h1 {
         background-color: rgba(var(--backdrop-color),0.5);
-        backdrop-filter: blur(var(--mild-border-radius));
     }
     
     header{

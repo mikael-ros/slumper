@@ -93,8 +93,8 @@
 @media (max-width:900px) {
     .timer__config {
         flex-direction: row-reverse;
-        height: unset;
-        width: 100% !important;
+        height: fit-content;
+        width: 100%;
 
         button{
             height: 2.5em;
