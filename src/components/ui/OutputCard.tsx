@@ -1,5 +1,6 @@
 import "./Card.css";
 import "./OutputCard.css";
+import "../../styles/interactives.css"
 
 import tickIcon from "/src/assets/tick.svg";
 import refreshIcon from "/src/assets/refresh.svg";
@@ -89,10 +90,10 @@ export function OutputCard(){
             <div class="card output">
                 <div id="output-wrapper">
                     <h2 id="chapter">{chapter().fullname}</h2>
-                    <h3 id="output">{formatTask()}</h3>
+                    <h3 id="task-output">{formatTask()}</h3>
                 </div>
                 
-                <div class="button-group">
+                <div class="interactive-group button-group" id="control-panel">
                     <Button iconOnly={true} id="random" label="Randomize" title="Randomize new task"
                             disabled={abort()} onclick={() => random(false)} 
                             icons={[[refreshIcon, "Randomize"]]}
@@ -109,7 +110,7 @@ export function OutputCard(){
 
                 <Show when={book().chapters.length > 1}>
                     <div id="checkbox-wrapper">
-                        <h4>Filter chapters</h4>
+                        <h4 id="checkbox-context">Filter chapters</h4>
                         <div id="checkboxes">
                             <For each={book().chapters}>
                                 {(chapter) => 

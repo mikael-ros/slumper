@@ -162,13 +162,13 @@ export function Timer(props: TimerProps){
     }); // Kill the timer when its unmounted
 
     return (
-        <div class ="card small" id="timer">
-            <div id="timer-display" data-open={displayTimer() && !props.closeOn()}>
+        <div class ="card small timer">
+            <div class="timer__display" data-open={displayTimer() && !props.closeOn()}>
                 <Show when={displayTimer() && !props.closeOn()}>
-                    <h1 class="timer" data-elapsed={elapsed()} aria-live={elapsed() ? "assertive" : "off"} aria-atomic="true">{time()}</h1>
+                    <h2 class="timer__display__text" data-elapsed={elapsed()} aria-live={elapsed() ? "assertive" : "off"} aria-atomic="true">{time()}</h2>
                 </Show>
             </div>
-            <div id="timer-config">
+            <div class="interactive-group timer__config">
                 <button data-open={displayTimer() && !props.closeOn()} aria-label="Toggle timer" aria-controls="timer-display" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={props.closeOn()}><img src={timerIcon.src} alt="Timer icon"/><p>Timer</p></button>
                 <Show when={displayTimer() && !props.closeOn()}>
                     <input type="number" min="1" max="3600" inputmode="numeric" pattern="[0-9]*" placeholder={startTimer.toString()} 

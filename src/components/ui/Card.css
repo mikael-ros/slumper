@@ -1,60 +1,35 @@
+/* A group of cards is an element with several cards in it */
 .card-group{   
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* By default, we want to share space in a column direction */
     justify-content: center;
     align-items: center;
 
-    .card {
-        margin: 1em 0;
-    }
-}
-
-.vertical {
-    display: flex;
-    flex-direction: row;
-
     width: 900px;
     max-width: 900px;
-
-    .card {
-        margin: 2em 1em;
-    }
-
-    .card:nth-of-type(1){
-        flex-basis: 60%;
-        min-width: 60%;
-    }
-
-    .card:nth-of-type(2){
-        flex-basis: 40%;
-        min-width: 40%;
-        max-width: 40%;
-    }
+    gap: 1em;
 }
 
-.small {
-    min-width: 400px !important;
-    width: 20% !important;
-    max-height: 30vh !important;
-    border-radius: var(--default-border-radius) !important;
-    padding: var(--default-border-radius) !important;
+/* A card group that is vertically shared */
+.card-group--vertical {
+    flex-direction: row;
 }
 
 .card{
+    --_radius: var(--radius, var(--aggressive-border-radius));
+    --_bg-opacity: var(--bg-opacity, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: center;
-
 
     width: 800px;
     max-height: 70vh;
 
+    padding: var(--_radius);
 
-    padding: var(--aggressive-border-radius);
-
-    background-color: rgba(var(--backdrop-color),0.1);
-    border-radius: var(--aggressive-border-radius);
-    backdrop-filter: blur(var(--aggressive-border-radius));
+    background-color: rgba(var(--backdrop-color),var(--_bg-opacity));
+    border-radius: var(--_radius);
+    backdrop-filter: blur(var(--_radius));
 
     color: var(--text-color-negative);
 
@@ -71,65 +46,42 @@
     }
 }
 
+/* Smaller cards, take up less of the width */
+.small {
+    width: 50%;
+    
+    --radius: var(--default-border-radius);
+}
 
 @media (max-width:900px)  {
     .card-group{
         display: flex;
         flex-direction: column-reverse;
-        height: unset;
 
-        width: 100vw;
-    
-        .card {
-            margin: 0;
-        }
-    }
-    
-    .vertical {
-        flex-direction: column;
-    
         width: 100%;
-        margin: 0;
-    
-        .card {
-            margin: 0;
-        }
-    
-        .card:nth-of-type(2){
-            width: 100%;
-        }
-
-        .card:nth-of-type(1){
-            min-width: 100%;
-        }
-    
-        .card:nth-of-type(2){
-            min-width: 100%;
-            max-width: 100%;
-        }
+        gap: 0;
     }
     
-    .small {
-        max-height: unset !important;
-        min-width: 100% !important;
-        border-radius: 0 !important;
+    .card-group--vertical {
+        flex-direction: column;
     }
     
     .card{
         width: 100%;
-        min-width: 100%;
-        max-height: unset;
+        max-height: fit-content;
     
         overflow-x: hidden;
         overflow-y: scroll;
     
         margin: 0;
-        padding: calc(2*var(--default-border-radius));
-    
-        background-color: rgba(var(--backdrop-color),0);
+
+        /* Remove background effect */
+        --bg-opacity: 0;
         border-radius: 0;
         backdrop-filter: none;
     }
-    
-    
+
+    .small {
+        width: 100%;
+    }
 }

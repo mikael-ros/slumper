@@ -8,6 +8,7 @@ interface ButtonProps {
     text?: string;
     disabled?: boolean;
     onclick?: any;
+    type?: "submit" | "reset" | "button";
 
     icons?: [ImageMetadata, string][];
     iconOnly?: boolean;
@@ -18,7 +19,8 @@ const Button: Component<ButtonProps> = (props: ButtonProps) => {
         <button class={(props.iconOnly ? "icon-only " : "") + (props.class ?? "")} id={props.id ?? ""} aria-label={props.label}
         onclick={props.onclick} 
         disabled={props.disabled}
-        title={props.title ? props.title : props.label}>
+        title={props.title ? props.title : props.label}
+        type={props.type}>
             <For each={props.icons}>
                 {entry =>
                     <img src={entry[0].src} alt={entry[1]}></img>

@@ -1,109 +1,40 @@
-/***************/
-/* output-card */
-/***************/
-
-#course-select-wrapper{
-    display: grid;
-    grid-template-areas: 
-        "select add";
-    grid-template-columns: 3.5fr 1fr;
-    grid-template-rows: 1fr;
-    grid-gap: .5em;
-    justify-items: center;
-
-    width: 100%;
-
-    margin: 1em auto;
-
-    a {
-        margin: 0;
-        height: 2.5em;
-        width: 100%;
-    }
-
-    button, select {
-        height: 100%;
-        width: 100%;
-        margin: 0;
-    }
-
-    select {
-        grid-area: select;
-    }
-
-    
-
-    #add {
-        grid-area: add;
-    }
-}
-
-#course-select-wrapper:has(> #get){
-    grid-template-areas: 
-        "select get add";
-    grid-template-columns: 3.5fr 1fr 1fr;
-    #get {
-        grid-area: get;
-    }
-}
-
-#checkbox-wrapper {
-    display: flex;
-    flex-direction: column;
-
-    #checkboxes {
-        display: flex;
-        flex-wrap: wrap;
-    }
-}
-
-
 .output{
     #random{
+        --scale: 1.2;
+        --rotate: 30deg;
         img{
-            transform: scale(1.2) rotate(30deg);
+            transform: scale(var(--scale)) rotate(var(--rotate));
         }
 
-        &:disabled:hover img {
-            transform: scale(1.2) rotate(30deg);
-        }
-
-        &:hover img{
-            transform: scale(1.2) rotate(390deg);
+        &:hover:not(:disabled){
+            --rotate: 390deg;
         }
     }
 
     #done{
+        --translate1: .1em, -0.2em;
+        --scale1: 0.9;
+
+        --translate2: -0.1em, .1em;
+        --scale2: 1.2;
+        --rotate2: 30deg;
         img:first-of-type{
-            transform: translate(.1em, -0.2em) scale(0.9);
+            
+            transform: translate(var(--translate1)) scale(var(--scale1));
         }
 
         img:last-of-type{
             margin-left: -2em;
-            transform: translate(-0.1em, .1em) scale(1.2) rotate(30deg);
+            
+            transform: translate(var(--translate2)) scale(var(--scale2)) rotate(var(--rotate2));
             opacity: 0.8;
         }
-    }
+        
+        &:hover:not(:disabled){
+            --translate1: .1em, -0.2em;
+            --scale1: 1.05;
 
-    #done:hover{
-        &:disabled {
-            img:first-of-type{
-                transform: translate(.1em, -0.2em) scale(0.9);
-            }
-    
-            img:last-of-type{
-                margin-left: -2em;
-                transform: translate(-0.1em, .1em) scale(1.2) rotate(30deg);
-                opacity: 0.8;
-            }
-        }
-
-        img:first-of-type{
-            transform: translate(.1em, -0.2em) scale(1.05);
-        }
-
-        img:last-of-type{
-            transform: translate(-0.1em, .1em) scale(1.2) rotate(390deg);
+            --rotate2: 390deg;
         }
     }
 
@@ -115,26 +46,47 @@
     }
 
     #add{
+        --rotate: -360deg;
         img{
-            transform: rotate(-360deg);
+            transform: rotate(var(--rotate));
+            transition-duration: var(--transition-duration-medium);
         }
         
         &:hover{
-            img{
-                transition-duration: var(--transition-duration-medium);
-                transform: rotate(360deg);
-            }
+            --rotate: 360deg;
         }
     }
 }
 
+#course-select-wrapper{
+    display: flex;
+    flex-wrap: no-wrap;
+    justify-content: center;
+    gap: .5em;
+    justify-items: center;
 
+    width: 100%;
+    height: 2.5em;
+
+    margin-top: 1em;
+
+    * {
+        height: 100%;
+    }
+}
+
+#checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+}
 
 @media (max-width:900px) {
-    
     .output{
+        overflow: hidden;
+        min-height: 80vh;
 
-        .button-group {
+        /* On mobile this becomes a weird element, it takes up extra space to account for the timer */
+        #control-panel {
             flex-direction: row-reverse;
             position: fixed;
             justify-content: center;
@@ -144,150 +96,48 @@
             left: 0;
             bottom: 0;
 
-            padding: 5em 1em 1em 1em;
+            padding: 5em 1.25em 1em 1.25em;
             border-radius: var(--default-border-radius) var(--default-border-radius) 0 0 !important;
             background-color: rgba(var(--backdrop-color),0.3);
             backdrop-filter: blur(var(--mild-border-radius));
 
             z-index: 2;
+            --gap: .75em;
 
             button {
-                flex-grow: 1;
-                width: 3em;
-           
-                margin: 0 .35em;
-                height: 100%;
-
-                max-width: unset;
+                max-width: 100%;
             }
         }
-    }
-
-    #chapter, #output{
-        text-align: center;
     }
 
     #output-wrapper {
         display: flex;
         flex-direction: column-reverse;
-        height: 100%;
+
+        text-align: center;
 
         #chapter {
-            line-height: 1.75em;
-            
+            line-height: 1.5em;
         }
 
-        #output{
-            align-items: flex-start;
+        #task-output{
             font-size: 2.5em;
-            width: 100%;
+            line-height: 1.25em;
             margin-top: 0;
             flex-basis: 2.5rem;
         }
     }
 
     #course-select-wrapper{
-        grid-template-columns: 1fr 2em;
-        height: 2em;
-        width: 100%;
-        min-width: 100%;
-
-        p {
-            display: none;
-        }
-
-        a {
-            margin: 0;
-            height: 2em;
-            width: 100%;
-        }
-    
-        button {
-            padding: .2em;
-        }
-
-        img {
-            width: 100%;
-        }
-
+        flex-wrap: wrap;
     }
 
-    #course-select-wrapper:has(> #get){
-        grid-template-columns: 1fr 2em 2em;
-    }
-
-    #timer-config {
-        flex-direction: row-reverse;
-        height: unset;
-        width: 100% !important;
-
-        button{
-            height: 2.5em;
-  
-            img {
-                height: 100%;
-            }
-        }
-
-        input{
-            width: 100%;
-            height: 2.5em;
-        }
-
-        & > p{
-            display: none;
-        }
-    }
-
-    #timer-display{
-        height: unset;
-    
-        &[data-open = "true"]{
-            height: unset;
-        }
-    }
-
-    #checkbox-wrapper {
-        justify-content: center;
-        align-items: center;
-
-        #checkboxes {
-            align-items: center;
-            justify-content: center;
-        }
-    }
-
-    #timer{
-        display: flex;
+    #checkboxes {
         align-items: center;
         justify-content: center;
-        flex-direction: row;
+    }
 
-        height: 4em;
-    
-        position: fixed;
-        bottom: 5em;
-        left: 0;
-        padding: 0 1.5em !important;
-        border-radius: var(--default-border-radius) !important;
-
-
-        z-index: 3;
-
-        * {
-            font-size: 0.95em;
-        }
-
-        h1{
-            width: 15%;
-            max-height: 2em;
-            margin: 0 .25em !important;
-            font-size: 2em;
-        }
-
-        #timer-config{
-            grid-area: config;
-            
-        }
+    #checkbox-context {
+        display: none;
     }
 }

@@ -1,38 +1,8 @@
-.chapter-input{
+#chapter-inputs, .book-list{
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: .5em;
 
-    margin: 0.75em 0;
-
-    height: 2em;
-
-    * {
-        height: 100%;
-        line-height: 2em;
-        
-        color: var(--text-color-negative-dull);
-    }
-
-    input{
-        width: 100%;
-        margin: 0;
-    }
-
-    input:first-of-type{
-        min-width: 70%;
-    }
-}
-
-.chapter-input:nth-of-type(n + 2){
-    opacity: 0.8;
-}
-
-.chapter-input:nth-of-type(n + 3){
-    opacity: 0.6;
-}
-
-#chapter-inputs, .book-list{
     min-height: 200px;
     max-height: 80%;
     max-width: 100%;
@@ -75,27 +45,20 @@
     }
 }
 
-#book-params{
-    display: flex;
-
-    input{
-        width: 100%;
-    }
+.chapter-input:nth-of-type(n + 2){
+    opacity: 0.8;
 }
 
-.book-list{
-    padding: 0 1em 3.5em 0;
-
-    width: 100%;
+.chapter-input:nth-of-type(n + 3){
+    opacity: 0.6;
 }
 
 .book-entry{
     display: flex;
     align-items: center;
-    justify-content: flex-start;
 
     height: 2.5em;
-    width: 100%;
+    
     padding: .25em .5em;
     border-radius: var(--mild-border-radius);
 
@@ -137,21 +100,10 @@
     }
 }
 
-#save-warning {
-    color: orangered;
-    font-size: .9em;
-    margin: .25em 0;
-    opacity: .7;
-}
 
 @media (max-width:900px)  {
-    #back button{
-        width: 100%;
-        margin: 0;
-    }
-
     .add {
-        .button-group {
+        #form-controls {
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
@@ -162,15 +114,7 @@
             }
         }
 
-        input:first-of-type {
-            margin-left: 0;
-        }
-        
-        input:last-of-type {
-            margin-right: 0;
-        }
-
-        #add {
+        #add-entry {
             width: 100%;
         }
 
@@ -179,38 +123,16 @@
             flex-direction: column;
             gap: .5em;
 
-            max-height: 500px;
-            padding: .5em 0;
-
-            button {
-                margin: 0;
-            }
-
-            ol {
-                padding: 0;
-            }
-        
-            .chapter-input {
-                p {
-                    display: none;
-                }
-            }
+            max-height: fit-content;
         }
     }
-
 
     .book-entry{
         button{
             display: flex;
-            max-width: 1.5em;
-            max-height: 1.5em;
-
-            img {
-                width: 1.25em !important;
-            }
         }
 
-        .button-group {
+        .interactive-group {
             flex-wrap: nowrap;
         }
     }
