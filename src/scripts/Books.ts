@@ -21,7 +21,7 @@ export const dummyBook: Book = {
         number: -1,
         tasks: new Array()
     }],
-    generatorVersion: "1.0.3",
+    generatorVersion: "1.0.4",
     custom: false,
     id: "dummybook"
 }
@@ -59,6 +59,69 @@ export function getLibrary() {
     return library;
 }
 
+/** Querying methods  **/
+
+/* Generic versions */
+/**
+ * Searches for the index of a book in a specified library
+ * @param book The book being queried
+ * @param library The library in which we are inquiring
+ * @returns The index of the book in said library
+ */
+export function indexOfBookIn(book: Book, library: Array<Book>) : number {
+    return indexOfBookByNameIn(book.name,library);
+}
+
+/**
+ * Searches for the index of a book in a specified library, using only it's name
+ * @param name The name of the book being queried
+ * @param library The library in which we are inquiring
+ * @returns The index of the book in said library
+ */
+export function indexOfBookByNameIn(name: string, library: Array<Book>) : number {
+    return library.findIndex(book => book.name == name);
+}
+
+/**
+ * Searches for the index of a book in a specified library, using only it's id
+ * @param id The id of the book being queried (similar to the name, but guaranteed to unique)
+ * @param library The library in which we are inquiring
+ * @returns The index of the book in said library
+ */
+export function indexOfBookByIdIn(id: string, library: Array<Book>) : number {
+    return library.findIndex(book => book.id == id);
+}
+
+/**
+ * Checks whether a book is in a library
+ * @param book The book queried
+ * @param library The library in which we are inquiring
+ * @returns Whether the book is in the library
+ */
+export function libraryHasIn(book: Book, library: Array<Book>): boolean {
+    return libraryHasByNameIn(book.name,library);
+}
+
+/**
+ * Checks whether a book is in a library, using only it's id
+ * @param id The id of the book queried
+ * @param library The library in which we are inquiring
+ * @returns Whether the book is in the library
+ */
+export function libraryHasIdIn(id: string, library: Array<Book>): boolean {
+    return indexOfBookByIdIn(id,library) != -1;
+}
+
+/**
+ * Checks whether a book is in a library, using only it's name
+ * @param name The name of the book queried
+ * @param library The library in which we are inquiring
+ * @returns Whether the book is in the library
+ */
+export function libraryHasByNameIn(name: string, library: Array<Book>) : boolean {
+    return indexOfBookByNameIn(name,library) != -1;
+}
+
 /* In the default library */
 export function indexOfBook(book: Book) : number {
     return indexOfBookByName(book.name);
@@ -74,10 +137,6 @@ export function indexOfBookById(id: string) : number {
     return indexOfBookByIdIn(id,library)
 }
 
-/**
- * @param book The book queried
- * @returns Whether the book is in the library
- */
 export function libraryHas(book: Book): boolean {
     refreshLibrary();
     return libraryHasByName(book.name);
@@ -106,10 +165,6 @@ export function indexOfBookByIdPersonal(id: string) : number {
     return indexOfBookByIdIn(id,getPersonalLibrary())
 }
 
-/**
- * @param book The book queried
- * @returns Whether the book is in the library
- */
 export function libraryHasPersonal(book: Book): boolean {
     return libraryHasByName(book.name);
 }
@@ -122,36 +177,6 @@ export function libraryHasByNamePersonal(name: string) : boolean {
     return libraryHasByNameIn(name,getPersonalLibrary());
 }
 
-/* Generic libraries */
-
-export function indexOfBookIn(book: Book, library: Array<Book>) : number {
-    return indexOfBookByNameIn(book.name,library);
-}
-
-export function indexOfBookByNameIn(name: string, library: Array<Book>) : number {
-    return library.findIndex(book => book.name == name);
-}
-
-export function indexOfBookByIdIn(id: string, library: Array<Book>) : number {
-    return library.findIndex(book => book.id == id);
-}
-
-/**
- * @param book The book queried
- * @returns Whether the book is in the library
- */
-export function libraryHasIn(book: Book, library: Array<Book>): boolean {
-    return libraryHasByNameIn(book.name,library);
-}
-
-export function libraryHasIdIn(id: string, library: Array<Book>): boolean {
-    return indexOfBookByIdIn(id,library) != -1;
-}
-
-export function libraryHasByNameIn(name: string, library: Array<Book>) : boolean {
-    return indexOfBookByNameIn(name,library) != -1;
-}
-
 /**
  * Retrieves a book from id
  * @param id The id of the book
@@ -159,8 +184,8 @@ export function libraryHasByNameIn(name: string, library: Array<Book>) : boolean
  */
 export function getBook(id: string): Book {
     refreshLibrary();
-    const indexOfBook = library.findIndex((book) => book.id == id);
-    return indexOfBook == -1 ? library[0] : library[indexOfBook];
+    const indexOfBook = indexOfBookById(id);
+    return libraryHasId(id) ? library[0] : library[indexOfBook];
 }
 
 /**
@@ -241,7 +266,7 @@ export function resetSpentTasksFromBook(book: Book){ initBook(book);}
  */
 function setBook(book: Book){
     var spentTasks: Book[] = getSpentTasks();
-    const bookIndex = spentTasks.findIndex((spentBook) => spentBook.id == book.id);
+    const bookIndex = indexOfBookIn(book, spentTasks);
     if (bookIndex == -1){
         spentTasks.push(book);
     } else {
