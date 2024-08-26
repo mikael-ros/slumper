@@ -147,7 +147,8 @@ export function Timer(props: TimerProps){
     }); // Updates the text in the title of the page to represent the remaining time
 
     createEffect(on(props.refreshOn, () => { // Trigger upon any change in the refresh signal
-        reset();
+        if (displayTimer())
+            reset();
     }, { defer: true }))
 
     createEffect(() => { // Trigger when closed
