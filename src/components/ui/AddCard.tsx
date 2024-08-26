@@ -193,7 +193,7 @@ export function AddCard(){
     }
 
     return (
-        <div class="card-group vertical">
+        <div class="card-group card-group--vertical">
             <div class="card add">
                 <a id="back" href="/">
                     <Button label="Go home" title="Go back to the index page"
