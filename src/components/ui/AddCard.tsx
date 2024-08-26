@@ -186,7 +186,10 @@ export function AddCard(){
                     </div>
                     
                     <div id="chapter-inputs">
-                        <button aria-label="add" id="add" onclick={() => setChapters(chapters() + 1)} title="Add an entry"><img src={plusIcon.src} alt="Add entry"/><p>Add entry</p></button>
+                        <Button id="add-entry" label="Add entry" title="Add an entry"
+                                onclick={() => setChapters(chapters() + 1)} text="Add entry"
+                                icons={[[plusIcon, "Add entry"]]}
+                        />
                         <ol class="input-list input-list--vertical">
                             <For each={[...Array(chapters()).keys()]}>
                                 {chapter => 
@@ -208,7 +211,7 @@ export function AddCard(){
                         <p class="warning">There already exists a book under this name. Saving will overwrite it!</p>
                     </Show>
 
-                    <div class="interactive-group button-group">
+                    <div class="interactive-group button-group" id="form-controls">
                         <Button id="done" label="Save book" title="Save book to browser memory"
                                 onclick={() => setSave(true)} text="Save" type="submit"
                                 icons={[[tickIcon, "Save book"]]}
