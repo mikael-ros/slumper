@@ -54,7 +54,7 @@ export function generateBook(input: Map<string, number>, bookName: string, bookP
         chapters: parsedChapters,
         generatorVersion: generatorVersion,
         custom: custom,
-        id: bookName + ":" + custom
+        id: bookName + (custom ? ":[P]" : "")
     }
     return book;
 }

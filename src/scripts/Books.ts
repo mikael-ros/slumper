@@ -40,9 +40,17 @@ export function refreshLibrary() {
     library = assembleLibrary();
 }
 
+export function setPersonalLibrary(library: Array<Book>) {
+    set("personalLibrary", library);
+}
+
+export function getPersonalLibrary() {
+    return getSetOrElse("personalLibrary", new Array<Book>);
+}
+
 /** Concatenates the built in library with the personal */
 function assembleLibrary() {
-    return [pgk1_2022, pgk2_2022, programmingInHaskell,datakommunikationOchNatverk,h99].concat(getSetOrElse("personalLibrary", new Array<Book>));
+    return [pgk1_2022, pgk2_2022, programmingInHaskell,datakommunikationOchNatverk,h99].concat(getPersonalLibrary());
 }
 
 /** Refreshes, then retrieves the library */
@@ -51,10 +59,97 @@ export function getLibrary() {
     return library;
 }
 
-export function libraryHas(name: string): boolean {
+/* In the default library */
+export function indexOfBook(book: Book) : number {
+    return indexOfBookByName(book.name);
+}
+
+export function indexOfBookByName(name: string) : number {
     refreshLibrary();
-    const indexOfBook = library.findIndex((book) => book.name == name);
-    return indexOfBook != -1;
+    return indexOfBookByNameIn(name,library);
+}
+
+export function indexOfBookById(id: string) : number {
+    refreshLibrary();
+    return indexOfBookByIdIn(id,library)
+}
+
+/**
+ * @param book The book queried
+ * @returns Whether the book is in the library
+ */
+export function libraryHas(book: Book): boolean {
+    refreshLibrary();
+    return libraryHasByName(book.name);
+}
+
+export function libraryHasId(id: string): boolean {
+    refreshLibrary();
+    return libraryHasIdIn(id,library);
+}
+
+export function libraryHasByName(name: string) : boolean {
+    refreshLibrary();
+    return libraryHasByNameIn(name,library);
+}
+
+/* In the personal library */
+export function indexOfBookPersonal(book: Book) : number {
+    return indexOfBookByName(book.name);
+}
+
+export function indexOfBookByNamePersonal(name: string) : number {
+    return indexOfBookByNameIn(name,getPersonalLibrary());
+}
+
+export function indexOfBookByIdPersonal(id: string) : number {
+    return indexOfBookByIdIn(id,getPersonalLibrary())
+}
+
+/**
+ * @param book The book queried
+ * @returns Whether the book is in the library
+ */
+export function libraryHasPersonal(book: Book): boolean {
+    return libraryHasByName(book.name);
+}
+
+export function libraryHasIdPersonal(id: string): boolean {
+    return libraryHasIdIn(id,getPersonalLibrary());
+}
+
+export function libraryHasByNamePersonal(name: string) : boolean {
+    return libraryHasByNameIn(name,getPersonalLibrary());
+}
+
+/* Generic libraries */
+
+export function indexOfBookIn(book: Book, library: Array<Book>) : number {
+    return indexOfBookByNameIn(book.name,library);
+}
+
+export function indexOfBookByNameIn(name: string, library: Array<Book>) : number {
+    return library.findIndex(book => book.name == name);
+}
+
+export function indexOfBookByIdIn(id: string, library: Array<Book>) : number {
+    return library.findIndex(book => book.id == id);
+}
+
+/**
+ * @param book The book queried
+ * @returns Whether the book is in the library
+ */
+export function libraryHasIn(book: Book, library: Array<Book>): boolean {
+    return libraryHasByNameIn(book.name,library);
+}
+
+export function libraryHasIdIn(id: string, library: Array<Book>): boolean {
+    return indexOfBookByIdIn(id,library) != -1;
+}
+
+export function libraryHasByNameIn(name: string, library: Array<Book>) : boolean {
+    return indexOfBookByNameIn(name,library) != -1;
 }
 
 /**
