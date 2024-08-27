@@ -82,9 +82,8 @@
 
 @media (max-width:900px) {
     .output{
-        
         overflow: hidden;
-        min-height: 80vh;
+        min-height: fit-content;
 
         /* On mobile this becomes a weird element, it takes up extra space to account for the timer */
         #control-panel {
@@ -132,6 +131,7 @@
 
     #course-select-wrapper{
         flex-wrap: wrap;
+        height: fit-content;
     }
 
     #checkboxes {
