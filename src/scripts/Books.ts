@@ -1,4 +1,4 @@
-import {getSetOrElse, set} from "./StorageHandler.ts";
+import {get, getSetOrElse, set} from "./StorageHandler.ts";
 import type {Task, Chapter, Book} from "./BookGenerator.ts";
 
 // Some placeholders for certain situations
@@ -185,7 +185,15 @@ export function libraryHasByNamePersonal(name: string) : boolean {
 export function getBook(id: string): Book {
     refreshLibrary();
     const indexOfBook = indexOfBookById(id);
-    return libraryHasId(id) ? library[0] : library[indexOfBook];
+    return libraryHasId(id) ? library[indexOfBook] : library[0];
+}
+
+/**
+ * Retrieves the last used book
+ * @returns The last book, if present, otherwise the first book
+ */
+export function getLastBook() {
+    return getBook(getSetOrElse("prior", library[0].id)); // Sets the prior id to that of the first book, if it is not present
 }
 
 /**
