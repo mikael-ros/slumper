@@ -13,7 +13,7 @@ import { Randomizer} from "../../scripts/Randomizer";
 import { Timer } from "./Timer.tsx";
 import complete from "../../assets/complete.wav";
 
-import {dummyChapter, dummyTask, getBook, getLibrary} from "../../scripts/Books.ts";
+import {dummyChapter, dummyTask, getLastBook, getLibrary} from "../../scripts/Books.ts";
 import type {Book} from "../../scripts/BookGenerator.ts";
 import {getSetOrElse, set} from "../../scripts/StorageHandler.ts";
 import Button from "../interactive/Button.tsx";
@@ -23,7 +23,7 @@ export function OutputCard(){
     completionSound.volume = getSetOrElse("volume", 1.0);
 
     const [library, setLibrary] = createSignal(getLibrary());
-    const [book, setBook] = createSignal<Book>(getBook(getSetOrElse("prior", library()[0].id)));
+    const [book, setBook] = createSignal<Book>(getLastBook());
     const [chapter, setChapter] = createSignal(dummyChapter);
     const [task, setTask] = createSignal(dummyTask);
     
