@@ -82,6 +82,7 @@
 
 @media (max-width:900px) {
     .output{
+        
         overflow: hidden;
         min-height: 80vh;
 
@@ -115,6 +116,7 @@
         flex-direction: column-reverse;
 
         text-align: center;
+        word-break: break-word;
 
         #chapter {
             line-height: 1.5em;

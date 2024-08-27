@@ -67,6 +67,7 @@
     }
     
     .card{
+        --radius: calc(1.5*var(--default-border-radius));
         width: 100%;
         max-height: fit-content;
     
