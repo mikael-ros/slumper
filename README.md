@@ -11,7 +11,7 @@
 🪄 **Custom books** :: You can add any book you like!
 
 > [!NOTE]
-> This website is upkept from my pocket. Consider [donating through ko-fi :)](https://ko-fi.com/embracket)
+> This website is upkept from my own pocket. Consider [donating through ko-fi :)](https://ko-fi.com/embracket)
 
 ## 🔨 Usage
 
