@@ -58,7 +58,7 @@ export function set<T>(key: string, value: T, type: storageType = "local"){
             localStorage.setItem(key, JSON.stringify(value));
             const keyInitialized = key.charAt(0).toUpperCase() + key.slice(1);
             document.dispatchEvent(new Event("storageChange" + keyInitialized)); // Fires an event with the name storageChangeKey
-            localStorage.setItem("refresh" + keyInitialized, "true"); // Also set a localStorage entry
+            set("refresh" + keyInitialized, "true", "session"); // Also set a sessionStorage entry
             break;
         case "session":
             sessionStorage.setItem(key, JSON.stringify(value));

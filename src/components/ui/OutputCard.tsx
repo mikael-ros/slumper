@@ -72,9 +72,9 @@ export function OutputCard(){
     }
 
     onMount(() => {
-        if (getSetOrElse("refreshPersonalLibrary", false)) { // Refresh the library if necessary
+        if (getSetOrElse("refreshPersonalLibrary", false, "session")) { // Refresh the library if necessary
             setLibrary(getLibrary());
-            set("refreshPersonalLibrary", false);
+            set("refreshPersonalLibrary", false, "session");
         }
     })
 
