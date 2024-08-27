@@ -1,8 +1,3 @@
-> [!NOTE]
-> This project is currently in a "pre-release" state. It is functionally largely finished, but I won't officially release it until school starts back up again. You can expect few changes until then though, so feel free to use it as is!
-
-> Donations are not currently operational, contact me if you wish to donate either way
-
 # 🎲 Slumper
 
 ***A web tool for randomizing and gameifying course exercises.***
@@ -14,6 +9,9 @@
 ⏱️ **Timer** :: Allows you to time your performance, and set max time goals.
 
 🪄 **Custom books** :: You can add any book you like!
+
+> [!NOTE]
+> This website is upkept from my pocket. Consider [donating through ko-fi :)](https://ko-fi.com/embracket)
 
 ## 🔨 Usage
 
