@@ -2,6 +2,7 @@
 import { ViewTransitions } from 'astro:transitions';
 import "/src/styles/slumper.css";
 import logo from "/public/favicon.svg"
+import preview from "/public/slumper.png";
 
 interface Props {
 	title: String;
@@ -9,13 +10,16 @@ interface Props {
     description?: string;
 }
 
-const { title, favicon = logo.src, description = "Slumper, the exercise randomizer" } = Astro.props; // Provides a default description
+const { title, favicon = logo.src, description = "Slumper, the gamified exercise randomizer. A simple tool made by Embracket" } = Astro.props; // Provides a default description
 ---
 
 <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
+    <meta property="og:image" content={preview.src}>
+    <meta property="og:image:width" content="1920">
+    <meta property="og:image:height" content="941">
     <link rel="icon" type="image/svg+xml" href={favicon} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="generator" content={Astro.generator} />
