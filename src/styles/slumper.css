@@ -74,7 +74,10 @@ footer, header {
 
 footer, header h1 {
     background-color: rgba(var(--backdrop-color),0.1);
-    backdrop-filter: blur(2vh);
+
+    --backdrop-filter: blur(2vh);
+    backdrop-filter: var(--backdrop-filter);
+    -webkit-backdrop-filter: var(--backdrop-filter);
 }
 
 header{
@@ -129,6 +132,10 @@ h6{
     opacity: .7;
 }
 
+a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* Disables the ugly tap color that displays in mobile chrome */
+}
+
 /************/
 /* Articles */
 /************/
@@ -142,7 +149,9 @@ article::before {
     height: 100%;
     
     /* Apply the backdrop-filter and background to the pseudo-element */
-    backdrop-filter: blur(2vh);
+    --backdrop-filter: blur(2vh);
+    backdrop-filter: var(--backdrop-filter);
+    -webkit-backdrop-filter: var(--backdrop-filter);
     background: rgba(var(--backdrop-color), 0.4);
     
     z-index: 0; /* Ensure it is behind the article content */
