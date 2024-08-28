@@ -2,6 +2,10 @@
 /* Buttons */
 /***********/
 button, select, option, input:not([type=checkbox]), .checkbox-label, .faux-button{
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,6 +17,8 @@ button, select, option, input:not([type=checkbox]), .checkbox-label, .faux-butto
 
     border: none;
     border-radius: var(--mild-border-radius);
+    
+    background: none;
     
     background-color: rgba(var(--backdrop-color),0.3);
     color: var(--text-color-negative);
