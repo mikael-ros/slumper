@@ -239,22 +239,22 @@ export function AddCard(){
                     </Show>
                     <For each={library()}>
                         {book =>
-                            <li class="book-entry"><h5>{book.name}</h5> 
-                                <div class="interactive-group button-group interactive-group--tight">
-                                    <Button label={"Remove \"" + book.name + "\""}
+                            <li tabIndex="0" class="book-entry"><h5>{book.name}</h5> 
+                                <div class="interactive-group button-group interactive-group--tight" tabIndex="0">
+                                    <Button tabIndex={0} label={"Remove \"" + book.name + "\""}
                                             onclick={() => remove(book)}
                                             icons={[[trashIcon, "Remove book"]]}
                                     />
-                                    <Button label={"Export \"" + book.name + "\""}
+                                    <Button tabIndex={0} label={"Export \"" + book.name + "\""}
                                             onclick={() => exportBook(book)}
                                             icons={[[downloadIcon, "Export book"]]}
                                     />
-                                    <Button label={"Import \"" + book.name + "\""}
+                                    <Button tabIndex={0} label={"Import \"" + book.name + "\""}
                                             onclick={() => importBook(book)}
                                             icons={[[uploadIcon, "Import book"]]}
                                     />
-                                    <a href={"https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=book+suggestion&projects=&template=book-suggestion.md&title=%5BBook+suggestion%5D+" + book.name} target="_blank">
-                                        <Button label="Suggest a book"
+                                    <a tabIndex="-1" href={"https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=book+suggestion&projects=&template=book-suggestion.md&title=%5BBook+suggestion%5D+" + book.name} target="_blank">
+                                        <Button tabIndex={0} label="Suggest a book"
                                                 icons={[[shareIcon, "Suggest book"]]}
                                         />
                                     </a>

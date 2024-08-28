@@ -12,6 +12,8 @@ interface ButtonProps {
 
     icons?: [ImageMetadata, string][];
     iconOnly?: boolean;
+
+    tabIndex?: number;
 }
 
 const Button: Component<ButtonProps> = (props: ButtonProps) => {
@@ -20,6 +22,7 @@ const Button: Component<ButtonProps> = (props: ButtonProps) => {
         onclick={props.onclick} 
         disabled={props.disabled}
         title={props.title ? props.title : props.label}
+        tabIndex={props.tabIndex}
         type={props.type}>
             <For each={props.icons}>
                 {entry =>
