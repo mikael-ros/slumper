@@ -12,6 +12,8 @@
     color: var(--text-color-negative);
     cursor: pointer;
 
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* Disables the ugly tap color that displays in mobile chrome */
+
     &:hover{
         text-decoration:underline;
 

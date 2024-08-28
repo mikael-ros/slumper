@@ -13,6 +13,7 @@ button, select, option, input:not([type=checkbox]), .checkbox-label, .faux-butto
 
     border: none;
     border-radius: var(--mild-border-radius);
+    
     background-color: rgba(var(--backdrop-color),0.3);
     color: var(--text-color-negative);
 
@@ -26,6 +27,9 @@ button, select, option, input:not([type=checkbox]), .checkbox-label, .faux-butto
     transition: filter, border-radius;
     transition-duration: var(--transition-duration-fast);
 
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* Disables the ugly tap color that displays in mobile chrome */
+
     &:not(input) {
         font-weight: 600;
     }
@@ -37,34 +41,37 @@ button, select, option, input:not([type=checkbox]), .checkbox-label, .faux-butto
         color: red;
     }
 
-    &:hover, &:focus{
-        border-radius: var(--default-border-radius);
-        filter: brightness(0.95);
+    @media (hover: none) {
+        &:hover, &:focus{
+            border-radius: var(--default-border-radius);
+            filter: brightness(0.95);
+    
+            transition: filter, border-radius;
+            transition-duration: var(--transition-duration-fast);
+    
+            img {
+                transform: scale(1.05) rotate(10deg);
+            }
+        }
+    
+        &:focus {
+            outline: none;
+        }
+    
+        &:not(button, select):focus {
+            outline: solid .1em var(--primary);
+            outline-offset: -.1em;
+        }
 
-        transition: filter, border-radius;
-        transition-duration: var(--transition-duration-fast);
-
-        img {
-            transform: scale(1.05) rotate(10deg);
+        &:disabled:hover{
+            border-radius: var(--mild-border-radius); 
         }
     }
-
-    &:focus {
-        outline: none;
-    }
-
-    &:not(button, select):focus {
-        outline: solid .1em var(--primary);
-        outline-offset: -.1em;
-    }
+    
 
     &:disabled{
         filter: brightness(70%);
         cursor: not-allowed;
-
-        &:hover{
-            border-radius: var(--mild-border-radius); 
-        }
     }
 
     img{
