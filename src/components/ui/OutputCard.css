@@ -113,6 +113,24 @@
         }
     }
 
+    #output:has([data-elapsed = "true"]) #control-panel{ /* Apply the animation that would otherwise be on timer */
+        --default-color: rgba(var(--secondaryRGB),0.3);
+        --mid-flash-color: rgba(var(--highlight-color),0.2);
+        --current-color: var(--default-color);
+        background-color: var(--current-color, red);
+    
+        transition-property: background-color;
+        transition-duration: var(--transition-duration-medium);
+    
+        animation: flash 1s 1;
+    }
+    
+    @keyframes flash {
+        0% {--current-color: var(--default-color)}
+        50% {--current-color: var(--mid-flash-color)}
+        100% {--current-color: var(--default-color)}
+    }
+
     #output-wrapper {
         display: flex;
         flex-direction: column-reverse;
