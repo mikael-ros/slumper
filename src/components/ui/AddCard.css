@@ -45,6 +45,13 @@
     }
 }
 
+.chapter-input label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
 .chapter-input:nth-of-type(n + 2){
     opacity: 0.8;
 }

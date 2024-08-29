@@ -96,6 +96,10 @@ export function VolumeKnob(){
                 onmousedown={handleMouseDown} 
                 onmouseup={handleMouseUp}
                 aria-label="Volume slider"
+                aria-valuenow={volume()}
+                aria-valuetext={(displayedVolume()).toString().split(".")[0]}
+                aria-valuemin="0"
+                aria-valuemax="100"
                 data-open={open()}>
                     <figure id="slider" style={"--height: " + displayedVolume()}></figure>
                     <p>{(displayedVolume()).toString().split(".")[0]}</p>

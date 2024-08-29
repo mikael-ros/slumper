@@ -194,13 +194,13 @@ export function AddCard(){
                             <For each={[...Array(chapters()).keys()]}>
                                 {chapter => 
                                 <li class="interactive-group input-group chapter-input">
-                                    <p>{chapter + 1}</p>
-                                    <input type="text" value={chapterTitles()[chapter] == undefined ? "" : chapterTitles()[chapter]} placeholder="Chapter title*" 
+                                    <label id={"label-"+chapter} for={"chapter-"+chapter} >{chapter + 1}</label>
+                                    <input id={"chapter-"+chapter} type="text" value={chapterTitles()[chapter] == undefined ? "" : chapterTitles()[chapter]} placeholder="Chapter title*" 
                                     oninput={event => handleChapterTitlesChange(chapter, event)} 
                                     onchange={event => handleChapterTitlesChange(chapter, event)} 
-                                    required aria-required="true"/>
+                                    required aria-required="true" aria-labelledby={"label-"+chapter}/>
                                     <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
-                                    oninput={event => handleAmountChange(chapter, event)} required aria-required="true"/>
+                                    oninput={event => handleAmountChange(chapter, event)} required aria-labelledby={"label-"+chapter} aria-required="true"/>
                                 </li>
                                 }
                             </For>
@@ -208,7 +208,7 @@ export function AddCard(){
                     </div>
 
                     <Show when={libraryHasIdPersonal(title()+":[P]")}>
-                        <p class="warning">There already exists a book under this name. Saving will overwrite it!</p>
+                        <p role="alert" class="warning">There already exists a book under this name. Saving will overwrite it!</p>
                     </Show>
 
                     <div class="interactive-group button-group" id="form-controls">
