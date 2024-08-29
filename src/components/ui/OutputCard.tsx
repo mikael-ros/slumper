@@ -93,7 +93,7 @@ export function OutputCard(){
                     <h3 id="task-output">{formatTask()}</h3>
                 </div>
                 
-                <div class="interactive-group button-group" id="control-panel">
+                <div role="menu" class="interactive-group button-group" id="control-panel">
                     <Button iconOnly={true} id="random" label="Randomize" title="Randomize new task"
                             disabled={abort()} onclick={() => random(false)} 
                             icons={[[refreshIcon, "Randomize"]]}
@@ -118,6 +118,7 @@ export function OutputCard(){
                                         <input id={chapter.fullname.toLowerCase().replace(/\s/g, "")} type="checkbox" 
                                         disabled={!checked().has(chapter.number) && randomizer.chapterIsDisabled(chapter)} 
                                         checked={checked().has(chapter.number)} 
+                                        aria-checked={checked().has(chapter.number)}
                                         onchange={() => {
                                             randomizer.toggleFilter(chapter);
                                             updateChecks();
@@ -142,12 +143,12 @@ export function OutputCard(){
                         </For>
                     </select>
                     <Show when={book().source != ""}>
-                        <a href={book().source} id="get">
+                        <a role="button" href={book().source} id="get">
                             <Button label="Go to the source" title="Go to the source of the book" text="Get"
                                     icons={[[linkIcon, "Book source"]]} />
                         </a>
                     </Show>
-                    <a href="add" id="add">
+                    <a role="button" href="add" id="add">
                         <Button label="Add a custom book" title="Add a custom book (leaves page)" text="Add"
                                 icons={[[plusIcon, "Add book"]]} />
                     </a>

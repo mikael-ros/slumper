@@ -5,12 +5,12 @@ import logo from "/public/favicon.svg"
 import preview from "/public/slumper.png";
 
 interface Props {
-	title: String;
+	title?: String;
     favicon?: string;
     description?: string;
 }
 
-const { title, favicon = logo.src, description = "Slumper, the gamified exercise randomizer. A simple tool made by Embracket" } = Astro.props; // Provides a default description
+const { title = "Slumper", favicon = logo.src, description = "Slumper, the gamified exercise randomizer. A simple tool made by Embracket" } = Astro.props; // Provides a default description
 ---
 
 <head>

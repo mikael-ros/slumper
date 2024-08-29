@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { createSignal, Match, Switch } from "solid-js";
 import "./Link.css";
 
 import { Notification } from "./ui/Notification.tsx";
@@ -32,10 +32,21 @@ export function Link({href, text, src, alt, clipboard = false, newtab = false}: 
     
     return (
         <div class="link-container" data-clipboard={clipboard}>
-            <a class="link" href={clipboard ? undefined : href} onclick={clipboard ? copy : undefined} target={(newtab && !clipboard) ? "_blank" : "_self"}>
-                <p>{text}</p>
-                <img src={src} alt={alt}/>
-            </a>
+            <Switch> 
+                <Match when={clipboard}>
+                    <div tabIndex="0" class="link" onclick={clipboard ? copy : undefined}>
+                        <p>{text}</p>
+                        <img src={src} alt={alt}/>
+                    </div>
+                </Match>
+                <Match when={!clipboard}>
+                    <a tabIndex="0" class="link" href={href} target={newtab ? "_blank" : "_self"}>
+                        <p>{text}</p>
+                        <img src={src} alt={alt}/>
+                    </a>
+                </Match>
+            </Switch>
+            
             <Notification trigger={copyTrigger} message="Link copied to clipboard" relative={false}/>
         </div>
     )

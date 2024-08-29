@@ -10,7 +10,7 @@ import downloadIcon from "/src/assets/download.svg";
 import plusIcon from "/src/assets/plus.svg";
 import shareIcon from "/src/assets/share.svg";
 
-import {createSignal, For, Show} from "solid-js";
+import {createSignal, For, Match, Show, Switch} from "solid-js";
 
 import {dummyBook, getPersonalLibrary, libraryHasIdPersonal, removeBook, removeAllBooks, insertBook} from "../../scripts/Books.ts";
 import {generateBook, exportBook} from "../../scripts/BookGenerator.ts";
@@ -172,7 +172,7 @@ export function AddCard(){
     return (
         <div class="card-group card-group--vertical">
             <div class="card add">
-                <a id="back" href="/">
+                <a role="button" id="back" href="/">
                     <Button label="Go home" title="Go back to the index page"
                             text="Back"
                             icons={[[homeIcon, "Return to home"]]}
@@ -182,25 +182,25 @@ export function AddCard(){
                 <form id="book-form" onsubmit={submitForm}>
                     <div class="input-list">
                         <input value={title()} placeholder="Book name*" oninput={handleTitleChange} onchange={handleTitleChange} required aria-required="true"></input>
-                        <input type="url" value={link()} placeholder="Book image URL (optional)" oninput={event => setLink(event.target.value)} onchange={event => setLink(event.target.value)} aria-required="false"></input>
+                        <input autocomplete="photo" type="url" value={link()} placeholder="Book image URL (optional)" oninput={event => setLink(event.target.value)} onchange={event => setLink(event.target.value)} aria-required="false"></input>
                     </div>
                     
                     <div id="chapter-inputs">
                         <Button id="add-entry" label="Add entry" title="Add an entry"
                                 onclick={() => setChapters(chapters() + 1)} text="Add entry"
-                                icons={[[plusIcon, "Add entry"]]}
+                                icons={[[plusIcon, ""]]}
                         />
                         <ol class="input-list input-list--vertical">
                             <For each={[...Array(chapters()).keys()]}>
                                 {chapter => 
                                 <li class="interactive-group input-group chapter-input">
-                                    <p>{chapter + 1}</p>
-                                    <input type="text" value={chapterTitles()[chapter] == undefined ? "" : chapterTitles()[chapter]} placeholder="Chapter title*" 
+                                    <label id={"label-"+chapter} for={"chapter-"+chapter} >{chapter + 1}</label>
+                                    <input id={"chapter-"+chapter} type="text" value={chapterTitles()[chapter] == undefined ? "" : chapterTitles()[chapter]} placeholder="Chapter title*" 
                                     oninput={event => handleChapterTitlesChange(chapter, event)} 
                                     onchange={event => handleChapterTitlesChange(chapter, event)} 
-                                    required aria-required="true"/>
+                                    required aria-required="true" aria-labelledby={"label-"+chapter}/>
                                     <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
-                                    oninput={event => handleAmountChange(chapter, event)} required aria-required="true"/>
+                                    oninput={event => handleAmountChange(chapter, event)} required aria-labelledby={"label-"+chapter} aria-required="true"/>
                                 </li>
                                 }
                             </For>
@@ -208,10 +208,10 @@ export function AddCard(){
                     </div>
 
                     <Show when={libraryHasIdPersonal(title()+":[P]")}>
-                        <p class="warning">There already exists a book under this name. Saving will overwrite it!</p>
+                        <p role="alert" class="warning">There already exists a book under this name. Saving will overwrite it!</p>
                     </Show>
 
-                    <div class="interactive-group button-group" id="form-controls">
+                    <div role="menu" class="interactive-group button-group" id="form-controls">
                         <Button id="done" label="Save book" title="Save book to browser memory"
                                 onclick={() => setSave(true)} text="Save" type="submit"
                                 icons={[[tickIcon, "Save book"]]}
@@ -221,7 +221,7 @@ export function AddCard(){
                                 icons={[[downloadIcon, "Export book"]]}
                         />
                         <input type="file" aria-label="Import file" aria-hidden="true" aria-labelledby="file-import-label" id="file-import" onchange={handleFileSelect} title="Import file from disk"></input>
-                        <label class="faux-button" id="file-import-label" aria-label="Import file" for="file-import"><img src={uploadIcon.src} alt="Import book" title="Import file from disk"/><p>Import</p></label>
+                        <label tabIndex="0" role="button" class="faux-button" id="file-import-label" aria-label="Import file" for="file-import"><img src={uploadIcon.src} alt="Import book" title="Import file from disk"/><p>Import</p></label>
 
                         <Button id="clear" label="Clear entries" title="Remove the entered values"
                                 onclick={() => clear()} text="Clear"
@@ -232,37 +232,43 @@ export function AddCard(){
             </div>
             <div class="card library">
                 <h1>Personal library</h1>
-                <ol class="book-list">
-                    <Show when={library().length == 0}>
-                        <p>Looks like your personal library is empty...</p><br/>
-                        <p><em>Once you have added books, they will appear here.</em></p>
-                    </Show>
-                    <For each={library()}>
-                        {book =>
-                            <li class="book-entry"><h5>{book.name}</h5> 
-                                <div class="interactive-group button-group interactive-group--tight">
-                                    <Button label={"Remove \"" + book.name + "\""}
-                                            onclick={() => remove(book)}
-                                            icons={[[trashIcon, "Remove book"]]}
-                                    />
-                                    <Button label={"Export \"" + book.name + "\""}
-                                            onclick={() => exportBook(book)}
-                                            icons={[[downloadIcon, "Export book"]]}
-                                    />
-                                    <Button label={"Import \"" + book.name + "\""}
-                                            onclick={() => importBook(book)}
-                                            icons={[[uploadIcon, "Import book"]]}
-                                    />
-                                    <a href={"https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=book+suggestion&projects=&template=book-suggestion.md&title=%5BBook+suggestion%5D+" + book.name} target="_blank">
-                                        <Button label="Suggest a book"
-                                                icons={[[shareIcon, "Suggest book"]]}
-                                        />
-                                    </a>
-                                </div>
-                            </li>
-                        }
-                    </For>
-                </ol>
+                <Switch>
+                    <Match when={library().length == 0}>
+                        <div class="book-disclaimer">
+                            <p>Looks like your personal library is empty...</p><br/>
+                            <p><em>Once you have added books, they will appear here.</em></p>
+                        </div>
+                    </Match>
+                    <Match when={library().length != 0}>
+                        <ol class="book-list">
+                            <For each={library()}>
+                                {book =>
+                                    <li tabIndex="0" class="book-entry"><h5>{book.name}</h5> 
+                                        <div aria-label={"Make choices about the book named " + book.name} role="menu" class="interactive-group button-group interactive-group--tight" tabIndex="0">
+                                            <Button tabIndex={0} label={"Remove the book named " + book.name} title={"Remove \"" + book.name + "\""}
+                                                    onclick={() => remove(book)}
+                                                    icons={[[trashIcon, "Remove book"]]}
+                                            />
+                                            <Button tabIndex={0} label={"Export the book named " + book.name} title={"Remove \"" + book.name + "\""}
+                                                    onclick={() => exportBook(book)}
+                                                    icons={[[downloadIcon, "Export book"]]}
+                                            />
+                                            <Button tabIndex={0} label={"Import the book named " + book.name} title={"Remove \"" + book.name + "\""}
+                                                    onclick={() => importBook(book)}
+                                                    icons={[[uploadIcon, "Import book"]]}
+                                            />
+                                            <a tabIndex="-1" href={"https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=book+suggestion&projects=&template=book-suggestion.md&title=%5BBook+suggestion%5D+" + book.name} target="_blank">
+                                                <Button tabIndex={0} label={"Suggest the book named " + book.name + " to be added to the default library"} title={"Suggest \"" + book.name + "\" to be added to the default library"}
+                                                        icons={[[shareIcon, "Suggest book"]]}
+                                                />
+                                            </a>
+                                        </div>
+                                    </li>
+                                }
+                            </For>
+                        </ol>
+                    </Match>
+                </Switch>
                 
                 <Button label={"Remove all books from personal library"}
                         onclick={() => removeAll()} text="Reset"

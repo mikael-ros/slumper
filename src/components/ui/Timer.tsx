@@ -164,9 +164,9 @@ export function Timer(props: TimerProps){
 
     return (
         <div class ="card small timer">
-            <div class="timer__display" data-open={displayTimer() && !props.closeOn()}>
+            <div id="timer-display" class="timer__display" data-open={displayTimer() && !props.closeOn()}>
                 <Show when={displayTimer() && !props.closeOn()}>
-                    <h2 class="timer__display__text" data-elapsed={elapsed()} aria-live={elapsed() ? "assertive" : "off"} aria-atomic="true">{time()}</h2>
+                    <h2 role="timer" class="timer__display__text" data-elapsed={elapsed()} aria-live={elapsed() ? "assertive" : "off"} aria-atomic="true">{time()}</h2>
                 </Show>
             </div>
             <div class="interactive-group timer__config">

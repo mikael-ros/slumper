@@ -26,7 +26,7 @@ export function Notification({trigger, duration = 4000, message, relative = true
     
     return (
         <Show when={alive()}>
-            <figure class="notification" aria-label="Notification" data-relative={relative}>
+            <figure role="alert" class="notification" aria-label="Notification" data-relative={relative}>
                 <p>{message}</p>
             </figure>
         </Show>
