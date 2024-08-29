@@ -1,14 +1,14 @@
 # 🎲 Slumper
 
-***A web tool for randomizing and gameifying course exercises.***
+***A web tool for randomizing and gameifying exercises from books.***
 
 🎰 **Randomizer** :: A smart randomizer that can save completed tasks and avoid them.
 
-⚙️ **Filters** :: Lets you filter chapters you want included.
+⚙️ **Filters** :: Lets you filter which chapters you want included.
 
-⏱️ **Timer** :: Allows you to time your performance, and set max time goals.
+⏱️ **Timer** :: Allows you to keep yourself within time constraints.
 
-🪄 **Custom books** :: You can add any book you like!
+🪄 **Custom books** :: Your book isn't in the included library? You can add it yourself in the meantime.
 
 <a href='https://ko-fi.com/Z8Z212GZR6' target='_blank'><img height='60' style='border:0px;height:60px;' src='https://storage.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 > This website is upkept from my own pocket. Consider donating with the button above ^ :)
@@ -19,19 +19,17 @@ Simply visit [slumper.me](https://www.slumper.me) and pick any of the included b
 > This website can also be run locally with ``npx astro dev``, and will work the exact same way :)
 
 ### 🎰 Randomization
-To randomize, simply hit the random button! To mark a task as completed, and randomize, press the "tick" button. To clear memory for the selected book, click the "trash" icon.
+To randomize, simply hit the random button! (the first button) To mark a task as completed, and randomize a new one, press the "tick" button. To clear the task memory for the selected book, click the "trash can" icon.
 ### ⚙️ Filters
-Select the chapters by toggling the corresponding boxes. When a chapter is exhausted, it will automatically be unchecked.
+Select the chapters by toggling the corresponding boxes. When a chapter is exhausted, it will automatically be unchecked and greyed out until memory is cleared.
 ### ⏱️ Timer
-If enabled, this will start every time you start a new task. The default time is 180 seconds (3 minutes), but you can provide your own, between 1 and 3600 seconds (1 hour), which will be upheld until the page is refreshed. It will flash and play a sound when elapsed.
+If enabled, this will start every time you start a new task. The default time is 180 seconds (3 minutes), but you can set your own, between 1 and 3600 seconds (1 hour), which will be upheld until the page is refreshed. It will flash and play a sound when the time is elapsed.
 ### 🪄 Adding books
-Click the ``+`` button next to the book selector. It will bring you to a different page where you can add the chapters of the book, or import a previously generated book.
+Click the "add" button next to the book selector. It will bring you to a different page where you can add the chapters of the book, or import a previously created book to edit it or duplicate it.
 
-Add entries by writing the chapter title and number of tasks, then click the + button. To remove or ignore a chapter, set the number of tasks to 0 and the generator will skip it.
+Add chapters by writing the chapter title and number of tasks, then click the + button to add another chapter. If there are no tasks in a given chapter, you can simply set it to 0, and the randomizer will handle it. At this time, there is no way to remove or reorder chapters, but it is a planned feature.
 
-You can also edit a previously generated book, by importing it. You can import from disk by clicking the ``Import`` button, or import from browser storage by clicking a similar button in your personal library.
-
-When all entries have been added, simply press ``Save`` and the book will be added to your local browser storage, as reflected by the personal library tab. You can also choose to save the book to disk by pressing ``Export`` (you can also export from your personal library).
+When all entries have been added, simply press ``Save`` and the book will be added to your local browser storage, as reflected by the personal library tab. You can also choose to save the book to disk by pressing ``Export``.
 
 Browser stored books are stored under the "Personal library" and can be managed from there. To edit a book, simply import it and make your changes, then save (it will overwrite as long as you don't change the title). You can also export it here, or completely remove it by clicking the "trashcan" icon.
 
@@ -40,13 +38,13 @@ Browser stored books are stored under the "Personal library" and can be managed 
 
 #### ✉️ Submitting a book to the default list
 > [!NOTE]
-> As per contact with the Swedish patent office [(PRV)](https://www.prv.se/sv/), it seems like I have to ask permission for every book added, hence why adding books wont be as simple as pull requests.
+> After inquiring with the Swedish patent office [(PRV)](https://www.prv.se/sv/), it seems like I have to ask permission for every book added, hence why adding books wont be as simple as pull requests.
 
-To submit a book to be considered as a default:
+To submit a book to be considered as a default entry:
 1. Check the banned books list, to see if it's banned
-2. If not, submit an issue with the tag ``book suggestion`` and title as the book title. The description should atleast contain the ISBN. Do NOT include an exported book that you have made, as it might infringe copyright.
+2. If not, submit an issue with the template ``Book suggestion`` and title as the book title. Do NOT include an exported book that you have made, as it might infringe copyright.
 
-I will, given time, then contact the copyright holder myself and seek permission, and will respond wheter or not it got approved or not. If approved, I will then ask you to provide the generated book. If the copyright holders decline, it will go in the banned books list.
+I will, given time, then contact the copyright holder myself and seek permission, and will respond wheter or not it got approved or not. If approved, I will then ask you to provide the generated book unless I also own a copy. If the copyright holders decline, it will go in the banned books list.
 
 ### 🔊 Changing the volume
 You can change the volume of the sounds (on PC) by pressing the knob in the lower right corner. Then slide your mouse up and down to adjust. You can also adjust the volume with your keyboard, by using the following keybinds:
@@ -62,9 +60,10 @@ You can change the volume of the sounds (on PC) by pressing the knob in the lowe
 
 #### 💢 Troubleshooting
 - 📤 ``"I tried to import a previously generated book, but it gave me an error"``: It is possible that the program has changed inbetween, which will unfortunately mean you have to regenerate the book. That, or you tried to import an invalid format.
+- 🔄 ``"The page wont load"``: It is very likely something happened with your ``localStorage``. Please report it as a bug if possible, and then coear your memory by opening the development tools in your browser (usually ``F12``) and within it's console type ``localStorage.clear()`` and press enter. Reload. If it still doesn't load, please definitely report it.
 
 #### ♿️ Accessibility
-The site has been designed with those impaired in mind. This includes having made the site keyboard-navigable, and improving the experience for screen-readers. Likewise, colors and contrasts have been chosen to create a grey-scale and legible design, easy for those with color-blindness of any type to use.
+The site has been designed with those impaired in mind. This includes having made the site keyboard-navigable, and improving the experience for screen-readers. Likewise, colors and contrasts have been chosen to create a design legible even in grey-scale, easy for those with color-blindness of any type to use.
 
 **Please feel free to [add an issue](https://www.github.com/mikael-ros/slumper/issues/new) with the "Accessibility" tag, if you feel your needs aren't accounted for. The goal is to create a site usable for everyone.**
 
@@ -83,7 +82,7 @@ The books provided are stored on server, but the memory of tasks is saved in ``l
 > This website is made with the frameworks [Astro.js](https://astro.build/) and [Solid.js](https://www.solidjs.com/) and written mostly in TypeScript and HTML. In addition, only pure CSS is used, no Tailwind. The website is automatically built and deployed to [Netlify](https://www.netlify.com/). You may or may not need to be comfortable with these to work on this project. In depth documentation is not yet provided.
 
 #### 🗒 If you cant work on the project, but have ideas
-Add them to the [**list of issues**](https://www.github.com/mikael-ros/slumper/issues) :)
+Add them to the [**list of issues**](https://www.github.com/mikael-ros/slumper/issues), perhaps by using the ``Feature suggestion`` template :)
 
 #### 🗒 Things to work on
 [**Check out the issues**](https://www.github.com/mikael-ros/slumper/issues) and pick any issue currently unassigned. Issued marked as ``good first issue`` are, like it says on the tin, good to start with.
@@ -100,7 +99,8 @@ Add them to the [**list of issues**](https://www.github.com/mikael-ros/slumper/i
 #### ✔️ Good-to-haves
 - Lighthouse browser addon
 - Some kind of screen reader
-- Some kind of addon that allows you to simulate colorblindness
+- Some kind of addon that allows you to simulate colorblindness (Firefox can do this natively)
+- A couple devices and browsers to test compatability
 
 ### 🖥 Running the site locally
 Simply run:
@@ -108,8 +108,11 @@ Simply run:
 npx astro dev
 npm install @astrojs/netlify
 npm install @astrojs/solid-js
+npx astro dev
 ```
 And navigate to [localhost:4321](http://localhost:4321).
+
+You can optionally append ``--host`` to expose the site to your local network (useful when testing on other devices).
 
 ### 📚 Regenerating the default library
 Change directory to ``/src/scripts/``:
