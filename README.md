@@ -10,8 +10,8 @@
 
 🪄 **Custom books** :: You can add any book you like!
 
-> [!NOTE]
-> This website is upkept from my own pocket. Consider [donating through ko-fi :)](https://ko-fi.com/embracket)
+<a href='https://ko-fi.com/Z8Z212GZR6' target='_blank'><img height='60' style='border:0px;height:60px;' src='https://storage.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+> This website is upkept from my own pocket. Consider donating with the button above ^ :)
 
 ## 🔨 Usage
 
