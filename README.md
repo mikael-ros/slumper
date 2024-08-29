@@ -1,4 +1,4 @@
-# 🎲 Slumper
+# [🎲 Slumper](https://www.slumper.me)
 
 ***A web tool for randomizing and gameifying exercises from books.***
 
