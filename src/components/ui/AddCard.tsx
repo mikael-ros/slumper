@@ -211,7 +211,7 @@ export function AddCard(){
                         <p role="alert" class="warning">There already exists a book under this name. Saving will overwrite it!</p>
                     </Show>
 
-                    <div class="interactive-group button-group" id="form-controls">
+                    <div role="menu" class="interactive-group button-group" id="form-controls">
                         <Button id="done" label="Save book" title="Save book to browser memory"
                                 onclick={() => setSave(true)} text="Save" type="submit"
                                 icons={[[tickIcon, "Save book"]]}
@@ -221,7 +221,7 @@ export function AddCard(){
                                 icons={[[downloadIcon, "Export book"]]}
                         />
                         <input type="file" aria-label="Import file" aria-hidden="true" aria-labelledby="file-import-label" id="file-import" onchange={handleFileSelect} title="Import file from disk"></input>
-                        <label role="button" class="faux-button" id="file-import-label" aria-label="Import file" for="file-import"><img src={uploadIcon.src} alt="Import book" title="Import file from disk"/><p>Import</p></label>
+                        <label tabIndex="0" role="button" class="faux-button" id="file-import-label" aria-label="Import file" for="file-import"><img src={uploadIcon.src} alt="Import book" title="Import file from disk"/><p>Import</p></label>
 
                         <Button id="clear" label="Clear entries" title="Remove the entered values"
                                 onclick={() => clear()} text="Clear"
@@ -244,21 +244,21 @@ export function AddCard(){
                             <For each={library()}>
                                 {book =>
                                     <li tabIndex="0" class="book-entry"><h5>{book.name}</h5> 
-                                        <div class="interactive-group button-group interactive-group--tight" tabIndex="0">
-                                            <Button tabIndex={0} label={"Remove \"" + book.name + "\""}
+                                        <div aria-label={"Make choices about the book named " + book.name} role="menu" class="interactive-group button-group interactive-group--tight" tabIndex="0">
+                                            <Button tabIndex={0} label={"Remove the book named " + book.name} title={"Remove \"" + book.name + "\""}
                                                     onclick={() => remove(book)}
                                                     icons={[[trashIcon, "Remove book"]]}
                                             />
-                                            <Button tabIndex={0} label={"Export \"" + book.name + "\""}
+                                            <Button tabIndex={0} label={"Export the book named " + book.name} title={"Remove \"" + book.name + "\""}
                                                     onclick={() => exportBook(book)}
                                                     icons={[[downloadIcon, "Export book"]]}
                                             />
-                                            <Button tabIndex={0} label={"Import \"" + book.name + "\""}
+                                            <Button tabIndex={0} label={"Import the book named " + book.name} title={"Remove \"" + book.name + "\""}
                                                     onclick={() => importBook(book)}
                                                     icons={[[uploadIcon, "Import book"]]}
                                             />
                                             <a tabIndex="-1" href={"https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=book+suggestion&projects=&template=book-suggestion.md&title=%5BBook+suggestion%5D+" + book.name} target="_blank">
-                                                <Button tabIndex={0} label="Suggest a book"
+                                                <Button tabIndex={0} label={"Suggest the book named " + book.name + " to be added to the default library"} title={"Suggest \"" + book.name + "\" to be added to the default library"}
                                                         icons={[[shareIcon, "Suggest book"]]}
                                                 />
                                             </a>

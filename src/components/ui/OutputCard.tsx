@@ -93,7 +93,7 @@ export function OutputCard(){
                     <h3 id="task-output">{formatTask()}</h3>
                 </div>
                 
-                <div class="interactive-group button-group" id="control-panel">
+                <div role="menu" class="interactive-group button-group" id="control-panel">
                     <Button iconOnly={true} id="random" label="Randomize" title="Randomize new task"
                             disabled={abort()} onclick={() => random(false)} 
                             icons={[[refreshIcon, "Randomize"]]}
