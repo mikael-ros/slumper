@@ -22,6 +22,13 @@
     animation: flash .5s 2;
 }
 
+@keyframes flash {
+    0% {--current-color: var(--default-color)}
+    50% {--current-color: var(--mid-flash-color)}
+    100% {--current-color: var(--default-color)}
+}
+
+
 .timer__display{
     --open-height: 3em;
     --closed-height: 0em;
@@ -84,13 +91,18 @@
     }
 }
 
-@keyframes flash {
-    0% {--current-color: var(--default-color)}
-    50% {--current-color: var(--mid-flash-color)}
-    100% {--current-color: var(--default-color)}
-}
 
 @media (max-width:900px) {
+    .timer:has([data-elapsed = "true"]){
+        --current-color: none;
+        animation: none;
+    }
+    
+    [data-elapsed = "true"]{
+        animation: none;
+    }
+    
+
     .timer__config {
         flex-direction: row-reverse;
         height: fit-content;
@@ -137,8 +149,8 @@
         bottom: 5em;
         left: 0;
         padding: 0 1.5em;
-        border-radius: var(--default-border-radius);
-        z-index: 3;
+
+        z-index: 2;
 
         input {
             margin-left: 1em;

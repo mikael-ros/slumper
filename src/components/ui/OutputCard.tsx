@@ -83,7 +83,7 @@ export function OutputCard(){
     }
 
     return (
-        <div class="card-group">
+        <div class="card-group" id="output">
 
             <Timer closeOn={abort} refreshOn={task}/>
             
