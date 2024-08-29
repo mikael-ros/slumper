@@ -31,7 +31,7 @@ export function Link({href, text, src, alt, clipboard = false, newtab = false}: 
     }
     
     return (
-        <div class="link-container" data-clipboard={clipboard}>
+        <div role="link" class="link-container" data-clipboard={clipboard}>
             <a tabIndex="0" class="link" href={clipboard ? undefined : href} onclick={clipboard ? copy : undefined} target={(newtab && !clipboard) ? "_blank" : "_self"}>
                 <p>{text}</p>
                 <img src={src} alt={alt}/>

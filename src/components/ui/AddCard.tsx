@@ -172,7 +172,7 @@ export function AddCard(){
     return (
         <div class="card-group card-group--vertical">
             <div class="card add">
-                <a id="back" href="/">
+                <a role="button" id="back" href="/">
                     <Button label="Go home" title="Go back to the index page"
                             text="Back"
                             icons={[[homeIcon, "Return to home"]]}
@@ -180,7 +180,7 @@ export function AddCard(){
                 </a>
                 <h1>Add book</h1>
                 <form id="book-form" onsubmit={submitForm}>
-                    <div class="input-list">
+                    <div role="list" class="input-list">
                         <input value={title()} placeholder="Book name*" oninput={handleTitleChange} onchange={handleTitleChange} required aria-required="true"></input>
                         <input type="url" value={link()} placeholder="Book image URL (optional)" oninput={event => setLink(event.target.value)} onchange={event => setLink(event.target.value)} aria-required="false"></input>
                     </div>
@@ -221,7 +221,7 @@ export function AddCard(){
                                 icons={[[downloadIcon, "Export book"]]}
                         />
                         <input type="file" aria-label="Import file" aria-hidden="true" aria-labelledby="file-import-label" id="file-import" onchange={handleFileSelect} title="Import file from disk"></input>
-                        <label class="faux-button" id="file-import-label" aria-label="Import file" for="file-import"><img src={uploadIcon.src} alt="Import book" title="Import file from disk"/><p>Import</p></label>
+                        <label role="button" class="faux-button" id="file-import-label" aria-label="Import file" for="file-import"><img src={uploadIcon.src} alt="Import book" title="Import file from disk"/><p>Import</p></label>
 
                         <Button id="clear" label="Clear entries" title="Remove the entered values"
                                 onclick={() => clear()} text="Clear"
