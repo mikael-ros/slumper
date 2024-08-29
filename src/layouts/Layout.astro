@@ -4,7 +4,6 @@ import donateIcon from "/src/assets/altdonate.svg";
 import shareIcon from "/src/assets/share.svg";
 import githubIcon from "/src/assets/github-mark-white.svg";
 import bugIcon from "/src/assets/bug.svg";
-import favicon from "/src/assets/refresh-negative.svg";
 
 import Head from '../components/layouts/Head.astro';
 import {Link} from '../components/Link.tsx';
@@ -18,7 +17,7 @@ const { title = "Slumper", description } = Astro.props;
 
 <!doctype html>
 <html lang="en" transition:animate="none">
-	<Head title={title} description={description} favicon={favicon.src}/>
+	<Head title={title} description={description}/>
 	<body>
 		<header>
 			<h1>{title}</h1>
