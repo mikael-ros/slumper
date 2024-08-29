@@ -1,9 +1,8 @@
-#chapter-inputs, .book-list{
+#chapter-inputs, .book-list, .book-disclaimer{
     display: flex;
     flex-direction: column;
     gap: .5em;
-
-    min-height: 200px;
+    
     max-height: 300px;
     max-width: 100%;
     margin: 1em 0;
