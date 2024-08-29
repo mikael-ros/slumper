@@ -52,9 +52,10 @@ export function VolumeKnob(){
 
     const handleKeyPress = (event : KeyboardEvent) => {
         const target = event.target as HTMLElement; // Assert the target as a HTML element
-        if (target.tagName.toUpperCase() !== "INPUT") { // If we are not modifying an input, proceed.
-            setOpen(true);
-            const key = event.key.toLowerCase();
+        const key = event.key.toLowerCase();
+        console.log(key);
+        if (target.tagName.toUpperCase() !== "INPUT" && target.tagName.toUpperCase() !== "SELECT") { // If we are not modifying an input or select, and not tab navigating something else, proceed.
+            var open = true; // Whether it should be opened after
             switch (key) {
                 case "w":
                 case "arrowup": 
@@ -80,9 +81,12 @@ export function VolumeKnob(){
                     const volumeCandidate = parseFloat(key); // Try to parse as a number (number keys)
                     if (!Number.isNaN(volumeCandidate)) { // If it is a number, try to use it
                         changeVolume(volumeCandidate/10);
+                    } else {
+                        open = false;
                     }
                     break;
             }
+            setOpen(open); 
         }
     }
 
