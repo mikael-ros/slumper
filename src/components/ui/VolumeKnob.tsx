@@ -90,7 +90,7 @@ export function VolumeKnob(){
  
     return (
         <div class="volume-knob" onmouseleave={() => setOpen(false)} >
-            <figure id="volume-slider" class="volume-slider" 
+            <figure role="meter" id="volume-slider" class="volume-slider" 
                 onclick={handleSliderClick} 
                 onmousemove={handleMouseMove} 
                 onmousedown={handleMouseDown} 
