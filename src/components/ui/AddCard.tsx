@@ -182,7 +182,7 @@ export function AddCard(){
                 <form id="book-form" onsubmit={submitForm}>
                     <div role="list" class="input-list">
                         <input value={title()} placeholder="Book name*" oninput={handleTitleChange} onchange={handleTitleChange} required aria-required="true"></input>
-                        <input type="url" value={link()} placeholder="Book image URL (optional)" oninput={event => setLink(event.target.value)} onchange={event => setLink(event.target.value)} aria-required="false"></input>
+                        <input autocomplete="photo" type="url" value={link()} placeholder="Book image URL (optional)" oninput={event => setLink(event.target.value)} onchange={event => setLink(event.target.value)} aria-required="false"></input>
                     </div>
                     
                     <div id="chapter-inputs">
