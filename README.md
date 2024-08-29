@@ -60,7 +60,7 @@ You can change the volume of the sounds (on PC) by pressing the knob in the lowe
 
 #### 💢 Troubleshooting
 - 📤 ``"I tried to import a previously generated book, but it gave me an error"``: It is possible that the program has changed inbetween, which will unfortunately mean you have to regenerate the book. That, or you tried to import an invalid format.
-- 🔄 ``"The page wont load"``: It is very likely something happened with your ``localStorage``. Please report it as a bug if possible, and then coear your memory by opening the development tools in your browser (usually ``F12``) and within it's console type ``localStorage.clear()`` and press enter. Reload. If it still doesn't load, please definitely report it.
+- 🔄 ``"The page wont load"``: It is very likely something happened with your ``localStorage``. Please report it as a bug if possible, and then clear your memory by opening the development tools in your browser (usually ``F12``) and within it's console type ``localStorage.clear()`` and press enter. Reload. If it still doesn't load, please definitely report it.
 
 #### ♿️ Accessibility
 The site has been designed with those impaired in mind. This includes having made the site keyboard-navigable, and improving the experience for screen-readers. Likewise, colors and contrasts have been chosen to create a design legible even in grey-scale, easy for those with color-blindness of any type to use.
