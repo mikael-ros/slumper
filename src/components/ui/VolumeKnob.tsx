@@ -5,7 +5,7 @@ import knobDot from "/src/assets/volume-knob-onlydot.svg";
 
 import { createEffect, createSignal } from "solid-js";
 
-import {getSetOrElse,set} from "../../scripts/StorageHandler.ts";
+import {getSetOrElse,set} from "../../scripts/StorageHandler";
 
 export function VolumeKnob(){
     const volumeStep = 0.01; // 1%, the amount each step should equate to

@@ -106,6 +106,8 @@ Add them to the [**list of issues**](https://www.github.com/mikael-ros/slumper/i
 Simply run:
 ```sh
 npx astro dev
+npm install @astrojs/netlify
+npm install @astrojs/solid-js
 ```
 And navigate to [localhost:4321](http://localhost:4321).
 
