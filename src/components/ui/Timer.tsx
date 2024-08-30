@@ -111,8 +111,10 @@ export function Timer(props: TimerProps){
     function handleChange(event : Event & {currentTarget : HTMLInputElement}){
         const number = event.currentTarget.value.length != 0 ? parseInt(event.currentTarget.value) : startTimer; 
         
-        if (isValid(number, valid) && number != startTimer) // Only set a number if it is non negative and actually a number, and if it is actually changed
+        if (isValid(number, valid) && number != startTimer){ // Only set a number if it is non negative and actually a number, and if it is actually changed
             timer.setTime(startTimer = number);
+            setElapsed(false);
+        }
     }
 
     /**
