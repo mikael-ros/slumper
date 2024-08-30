@@ -4,6 +4,7 @@ import donateIcon from "/src/assets/altdonate.svg";
 import shareIcon from "/src/assets/share.svg";
 import githubIcon from "/src/assets/github-mark-white.svg";
 import bugIcon from "/src/assets/bug.svg";
+import ideaIcon from "/src/assets/idea.svg";
 
 import Head from '../components/layouts/Head.astro';
 import {Link} from '../components/Link.tsx';
@@ -29,6 +30,7 @@ const { title = "Slumper", description } = Astro.props;
 			<Link href="https://www.slumper.me" src={shareIcon.src} alt="Share icon" text="Share" clipboard={true} client:only="solid-js"/>
 			<Link href="https://www.github.com/mikael-ros/slumper" src={githubIcon.src} alt="GitHub logo" text="GitHub" />
 			<Link href="https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=bug&projects=&template=bug-report.md&title=%5BBug+report%5D+Short+description" src={bugIcon.src} alt="Bug report icon" text="Report bug" newtab={true}/>
+			<Link href="https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=enhancement&projects=&template=feature-request.md&title=%5BFeature+request%5D+Short+description" src={ideaIcon.src} alt="Feature request icon" text="Feature request" newtab={true}/>
 		</footer>
 	</body>
 </html>
