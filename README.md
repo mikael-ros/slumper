@@ -16,7 +16,7 @@
 ## 🔨 Usage
 
 Simply visit [slumper.me](https://www.slumper.me) and pick any of the included books, or add your own.
-> This website can also be run locally with ``npx astro dev``, and will work the exact same way :)
+> This website can also be run locally (see section on contributing), and will work the exact same way :) (just with different instances of localStorage)
 
 ### 🎰 Randomization
 To randomize, simply hit the random button! (the first button) To mark a task as completed, and randomize a new one, press the "tick" button. To clear the task memory for the selected book, click the "trash can" icon.

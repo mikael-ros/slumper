@@ -19,17 +19,20 @@ import type {Book } from "../../scripts/BookGenerator.ts";
 import {isValid as _isValid} from "../../scripts/Utils.ts";
 import Button from "../interactive/Button.tsx";
 
+type ChapterEntry = {
+    title: string;
+    amount: number;
+}
+
 export function AddCard(){
     var input : Map<string, number> = new Map<string, number>();
 
     const [save, setSave] = createSignal(true);
 
-    const [chapters, setChapters] = createSignal(1);
     const [library, setLibrary] = createSignal(getPersonalLibrary());
     const [title, setTitle] = createSignal("");
     const [link, setLink] = createSignal("");
-    const [chapterTitles, setChapterTitles] = createSignal(new Array(chapters()));
-    const [amounts, setAmounts] = createSignal(new Array<number>(chapters()));
+    const [chapters, setChapters] = createSignal<Array<ChapterEntry>>(new Array({title: "", amount: 0}))
 
     /**
      * Clears the inputs by importing the "dummy book"
@@ -45,13 +48,10 @@ export function AddCard(){
     function importBook(book: Book){
         setTitle(book.name);
         setLink(book.previewImagePath);
-
-        setChapterTitles(book.chapters.map(chapter => chapter.fullname));
-        if (!(book.chapters.length == 1 && book.chapters[0].tasks.length == 0))
-            setAmounts(book.chapters.map(chapter => chapter.tasks.length));
-        else 
-            setAmounts(new Array<number>(chapters()));
-        setChapters(book.chapters.length);
+        setChapters(book.chapters.map(chapter => {return {
+            title: chapter.fullname,
+            amount: chapter.tasks.length
+        }}))
     }
 
     /**
@@ -92,10 +92,8 @@ export function AddCard(){
      */
     function createInput(){
         input = new Map<string, number>();
-        for (var i = 0; i < chapters(); i++){
-            if (amounts()[i] != undefined)
-            input.set(chapterTitles()[i], amounts()[i]);
-        }
+        chapters().forEach(chapter => input.set(chapter.title, chapter.amount));
+        return input;
     }
 
     /**
@@ -114,9 +112,13 @@ export function AddCard(){
      */
     function handleChapterTitlesChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
         if (event.currentTarget.validity){
-            const current = chapterTitles();
-            current[index] = event.currentTarget.value.trim();
-            setChapterTitles(current);
+            const currentChapters = chapters();
+            const entry = currentChapters[index];
+            currentChapters[index] = {
+                title: event.currentTarget.value,
+                amount: entry.amount
+            }
+            setChapters(currentChapters);
         }
     }
 
@@ -127,9 +129,13 @@ export function AddCard(){
      */
     function handleAmountChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
         if (event.currentTarget.validity.valid){
-            const current = amounts();
-            current[index] = parseInt(event.currentTarget.value);
-            setAmounts(current);
+            const currentChapters = chapters();
+            const entry = currentChapters[index];
+            currentChapters[index] = {
+                title: entry.title,
+                amount: parseInt(event.currentTarget.value)
+            }
+            setChapters(currentChapters);
         }
     }
 
@@ -169,6 +175,13 @@ export function AddCard(){
         }
     }
 
+    const addEntry = () => {
+        var newC = chapters(); 
+        newC.push({title: "", amount: 0}); 
+        setChapters(newC);
+        console.log(chapters())
+    }
+
     return (
         <div class="card-group card-group--vertical">
             <div class="card add">
@@ -186,21 +199,21 @@ export function AddCard(){
                     </div>
                     
                     <div id="chapter-inputs">
-                        <Button id="add-entry" label="Add entry" title="Add an entry"
-                                onclick={() => setChapters(chapters() + 1)} text="Add entry"
+                        <Button id="add-entry" label="Add entry" title="Add an entry" type="button"
+                                onclick={addEntry} text="Add entry"
                                 icons={[[plusIcon, ""]]}
                         />
                         <ol class="input-list input-list--vertical">
-                            <For each={[...Array(chapters()).keys()]}>
+                            <For each={chapters()}>
                                 {chapter => 
                                 <li class="interactive-group input-group chapter-input">
-                                    <label id={"label-"+chapter} for={"chapter-"+chapter} >{chapter + 1}</label>
-                                    <input id={"chapter-"+chapter} type="text" value={chapterTitles()[chapter] == undefined ? "" : chapterTitles()[chapter]} placeholder="Chapter title*" 
-                                    oninput={event => handleChapterTitlesChange(chapter, event)} 
-                                    onchange={event => handleChapterTitlesChange(chapter, event)} 
-                                    required aria-required="true" aria-labelledby={"label-"+chapter}/>
-                                    <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
-                                    oninput={event => handleAmountChange(chapter, event)} required aria-labelledby={"label-"+chapter} aria-required="true"/>
+                                    <label id={"label-"+chapters().indexOf(chapter)+1} for={"chapter-"+chapters().indexOf(chapter)+1} >{chapters().indexOf(chapter)+1}</label>
+                                    <input id={"chapter-"+chapters().indexOf(chapter)+1} type="text" value={chapter.title} placeholder="Chapter title*" 
+                                    oninput={event => handleChapterTitlesChange(chapters().indexOf(chapter), event)} 
+                                    onchange={event => handleChapterTitlesChange(chapters().indexOf(chapter), event)} 
+                                    required aria-required="true" aria-labelledby={"label-"+chapters().indexOf(chapter)+1}/>
+                                    <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={chapter.amount} placeholder="# tasks*" onchange={event => handleAmountChange(chapters().indexOf(chapter), event)}
+                                    oninput={event => handleAmountChange(chapters().indexOf(chapter), event)} required aria-labelledby={"label-"+chapters().indexOf(chapter)+1} aria-required="true"/>
                                 </li>
                                 }
                             </For>
