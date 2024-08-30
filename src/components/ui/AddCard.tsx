@@ -32,7 +32,7 @@ export function AddCard(){
     const [library, setLibrary] = createSignal(getPersonalLibrary());
     const [title, setTitle] = createSignal("");
     const [link, setLink] = createSignal("");
-    const [chapters, setChapters] = createSignal<Array<ChapterEntry>>(new Array({title: "", amount: 0}))
+    const [chapters, setChapters] = createSignal<Array<ChapterEntry>>(new Array({title: "", amount: 0}), { equals: false })
 
     /**
      * Clears the inputs by importing the "dummy book"
