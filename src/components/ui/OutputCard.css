@@ -18,8 +18,8 @@
         --translate2: -0.1em, .1em;
         --scale2: 1.2;
         --rotate2: 30deg;
+
         img:first-of-type{
-            
             transform: translate(var(--translate1)) scale(var(--scale1));
         }
 
@@ -36,6 +36,27 @@
 
             --rotate2: 390deg;
         }
+
+        &:focus {
+            --default-color: rgba(158, 240, 5, 0.2);
+            --mid-flash-color: rgba(255,255,255,0);
+            --current-color: var(--default-color);
+            background: radial-gradient(circle, rgba(var(--backdrop-color),0.3) 0%, var(--current-color, red) 100%);
+        
+            transition-property: background;
+            transition-duration: var(--transition-duration-medium);
+        
+            animation: flash .5s 2;
+        }
+
+        transition-property: background;
+        transition-duration: var(--transition-duration-medium);
+    }
+    
+    @keyframes flash {
+        0% {--current-color: var(--default-color)}
+        50% {--current-color: var(--mid-flash-color)}
+        100% {--current-color: var(--default-color)}
     }
 
     #reset:hover{
