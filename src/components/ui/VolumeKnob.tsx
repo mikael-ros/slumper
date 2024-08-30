@@ -53,7 +53,6 @@ export function VolumeKnob(){
     const handleKeyPress = (event : KeyboardEvent) => {
         const target = event.target as HTMLElement; // Assert the target as a HTML element
         const key = event.key.toLowerCase();
-        console.log(key);
         if (target.tagName.toUpperCase() !== "INPUT" && target.tagName.toUpperCase() !== "SELECT") { // If we are not modifying an input or select, and not tab navigating something else, proceed.
             var open = true; // Whether it should be opened after
             switch (key) {
