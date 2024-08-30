@@ -21,6 +21,7 @@ class Time {
         this.time = this.initTime;
         this.sound = new Audio(timerSound);
         this.sound.volume = getSetOrElse("volume", 1.0);
+        this.timeDisplay(this.toString());
         this.interval = window.setInterval(() => {
             if (!this.lapsed()){
                 this.tick()
@@ -49,6 +50,7 @@ class Time {
         this.initTime = time % 3601; // Makes sure time can never be above an hour. Might need to change this in the future
         this.time = this.initTime;
         this.kill(false);
+        this.timeDisplay(this.toString());
         this.interval = window.setInterval(() => {
             if (!this.lapsed()){
                 this.tick()
