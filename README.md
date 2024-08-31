@@ -27,7 +27,7 @@ If enabled, this will start every time you start a new task. The default time is
 ### 🪄 Adding books
 Click the "add" button next to the book selector. It will bring you to a different page where you can add the chapters of the book, or import a previously created book to edit it or duplicate it.
 
-Add chapters by writing the chapter title and number of tasks, then click the + button to add another chapter. If there are no tasks in a given chapter, you can simply set it to 0, and the randomizer will handle it. At this time, there is no way to remove or reorder chapters, but it is a planned feature.
+Add chapters by writing the chapter title and number of tasks, then click the ``+ Add entry`` button to add another chapter. If there are no tasks in a given chapter, you can simply set it to 0, and the randomizer will skip it. To remove a chapter, click the trash can icon next to it. 
 
 When all entries have been added, simply press ``Save`` and the book will be added to your local browser storage, as reflected by the personal library tab. You can also choose to save the book to disk by pressing ``Export``.
 
