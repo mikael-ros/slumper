@@ -20,6 +20,7 @@ import {isValid as _isValid} from "../../scripts/Utils.ts";
 import Button from "../interactive/Button.tsx";
 
 type ChapterEntry = {
+    number: number;
     title: string;
     amount: number;
 }
@@ -32,7 +33,7 @@ export function AddCard(){
     const [library, setLibrary] = createSignal(getPersonalLibrary());
     const [title, setTitle] = createSignal("");
     const [link, setLink] = createSignal("");
-    const [chapters, setChapters] = createSignal<Array<ChapterEntry>>(new Array({title: "", amount: 0}), { equals: false })
+    const [chapters, setChapters] = createSignal<Array<ChapterEntry>>(new Array({number: 1, title: "", amount: 0}), { equals: false })
 
     /**
      * Clears the inputs by importing the "dummy book"
@@ -49,6 +50,7 @@ export function AddCard(){
         setTitle(book.name);
         setLink(book.previewImagePath);
         setChapters(book.chapters.map(chapter => {return {
+            number: chapter.number,
             title: chapter.fullname,
             amount: chapter.tasks.length
         }}))
@@ -115,6 +117,7 @@ export function AddCard(){
             const currentChapters = chapters();
             const entry = currentChapters[index];
             currentChapters[index] = {
+                number: entry.number,
                 title: event.currentTarget.value,
                 amount: entry.amount
             }
@@ -132,6 +135,7 @@ export function AddCard(){
             const currentChapters = chapters();
             const entry = currentChapters[index];
             currentChapters[index] = {
+                number: entry.number,
                 title: entry.title,
                 amount: parseInt(event.currentTarget.value)
             }
@@ -177,8 +181,20 @@ export function AddCard(){
 
     const addEntry = () => {
         var newC = chapters(); 
-        newC.push({title: "", amount: 0}); 
+        newC.push({number: newC.findLast(() => true)!.number+1, title: "", amount: 0}); 
         setChapters(newC);
+        console.log(chapters())
+    }
+
+    const removeEntry = (chapter: ChapterEntry) => {
+        const newChapters = chapters();
+        const index = newChapters.findIndex(c => c.number == chapter.number);
+        newChapters[index] = {
+            number: chapter.number,
+            amount: 0,
+            title: "Empty"
+        }
+        setChapters(newChapters);
         console.log(chapters())
     }
 
@@ -205,16 +221,26 @@ export function AddCard(){
                         />
                         <ol class="input-list input-list--vertical">
                             <For each={chapters()}>
-                                {chapter => 
-                                <li class="interactive-group input-group chapter-input">
-                                    <label id={"label-"+chapters().indexOf(chapter)+1} for={"chapter-"+chapters().indexOf(chapter)+1} >{chapters().indexOf(chapter)+1}</label>
-                                    <input id={"chapter-"+chapters().indexOf(chapter)+1} type="text" value={chapter.title} placeholder="Chapter title*" 
-                                    oninput={event => handleChapterTitlesChange(chapters().indexOf(chapter), event)} 
-                                    onchange={event => handleChapterTitlesChange(chapters().indexOf(chapter), event)} 
-                                    required aria-required="true" aria-labelledby={"label-"+chapters().indexOf(chapter)+1}/>
-                                    <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={chapter.amount} placeholder="# tasks*" onchange={event => handleAmountChange(chapters().indexOf(chapter), event)}
-                                    oninput={event => handleAmountChange(chapters().indexOf(chapter), event)} required aria-labelledby={"label-"+chapters().indexOf(chapter)+1} aria-required="true"/>
-                                </li>
+                                {chapter => {
+                                    const index = chapters().indexOf(chapter);
+                                    console.log(index);
+                                    return (
+                                    <li class="interactive-group input-group chapter-input">
+                                        <label id={"label-"+index+1} for={"chapter-"+index+1} >{chapter.number}</label>
+                                        <input id={"chapter-"+index+1} type="text" value={chapter.title} placeholder="Chapter title*" 
+                                        onblur={event => handleChapterTitlesChange(index, event)} 
+                                        onchange={event => handleChapterTitlesChange(index, event)} 
+                                        required aria-required="true" aria-labelledby={"label-"+index+1}/>
+                                        <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={chapter.amount} placeholder="# tasks*" 
+                                        onchange={event => handleAmountChange(index, event)}
+                                        onblur={event => handleAmountChange(index, event)} 
+                                        required aria-labelledby={"label-"+index+1} aria-required="true"/>
+                                        <Button id="remove-entry" label={"Remove chapter " + index + 1} type="button"
+                                            onclick={() => removeEntry(chapter)}
+                                            icons={[[trashIcon, "Remove chapter"]]}
+                                        />
+                                    </li>)
+                                    }
                                 }
                             </For>
                         </ol>
