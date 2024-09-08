@@ -181,10 +181,14 @@ export function AddCard(){
     const removeEntry = (chapter: ChapterEntry) => {
         const newChapters = chapters();
         const index = newChapters.findIndex(c => c.number == chapter.number);
-        newChapters[index] = {
-            number: chapter.number,
-            amount: 0,
-            title: ""
+        if (index != chapters().length - 1) {
+            newChapters[index] = {
+                number: chapter.number,
+                amount: 0,
+                title: ""
+            }
+        } else if (index != 0) {
+            newChapters.pop();
         }
         setChapters(newChapters);
     }
@@ -235,7 +239,7 @@ export function AddCard(){
                                         aria-required="true" aria-labelledby={"label-"+index+1} required/>
                                         <Button class="remove-entry" label={"Remove chapter " + index + 1} type="button" iconOnly={true}
                                             onclick={() => removeEntry(chapter)}
-                                            icons={[[trashIcon, "Remove chapter"]]}
+                                            icons={[[trashIcon, "Remove chapter"]]} disabled={index == 0}
                                         />
                                     </li>)
                                     }
