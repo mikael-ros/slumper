@@ -16,7 +16,7 @@
 ## 🔨 Usage
 
 Simply visit [slumper.me](https://www.slumper.me) and pick any of the included books, or add your own.
-> This website can also be run locally with ``npx astro dev``, and will work the exact same way :)
+> This website can also be run locally (see section on contributing), and will work the exact same way :) (just with different instances of localStorage)
 
 ### 🎰 Randomization
 To randomize, simply hit the random button! (the first button) To mark a task as completed, and randomize a new one, press the "tick" button. To clear the task memory for the selected book, click the "trash can" icon.
@@ -27,7 +27,7 @@ If enabled, this will start every time you start a new task. The default time is
 ### 🪄 Adding books
 Click the "add" button next to the book selector. It will bring you to a different page where you can add the chapters of the book, or import a previously created book to edit it or duplicate it.
 
-Add chapters by writing the chapter title and number of tasks, then click the + button to add another chapter. If there are no tasks in a given chapter, you can simply set it to 0, and the randomizer will handle it. At this time, there is no way to remove or reorder chapters, but it is a planned feature.
+Add chapters by writing the chapter title and number of tasks, then click the ``+ Add entry`` button to add another chapter. If there are no tasks in a given chapter, you can simply set it to 0, and the randomizer will skip it. To remove a chapter, click the trash can icon next to it. 
 
 When all entries have been added, simply press ``Save`` and the book will be added to your local browser storage, as reflected by the personal library tab. You can also choose to save the book to disk by pressing ``Export``.
 
@@ -130,6 +130,8 @@ Then run the script:
 It should then print a line for each successfully generated book.
 
 To modify the included books, change the ``GenerateDefaults.ts`` file. Note that this also needs to be changed any time you change the book object format or generation behaviour (it has it's own copies of these, as I couldn't get it to run in terminal otherwise.).
+
+> Do note that this is my first website of this nature, so a lot of code might not "make sense". Feel free to correct me, but keep that in mind when communicating.
 
 </details>
  

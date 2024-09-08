@@ -124,12 +124,19 @@ h6{
     text-shadow: .1em .1em 0px var(--text-color-shadowed);
 }
 
-/* Warning texts */
-.warning {
-    color: orangered;
+.tip, .warning {
     font-size: .9em;
     margin: .25em 0;
     opacity: .7;
+}
+
+/* Warning texts */
+.warning {
+    color: orangered;
+}
+
+.tip {
+    color: var(--text-color-negative-dull);
 }
 
 a {

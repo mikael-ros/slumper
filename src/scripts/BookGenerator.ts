@@ -30,16 +30,16 @@ export interface Book {
  * @param custom Wheter the book is a result of user generation
  * @returns The book object
  */
-export function generateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, source: string, custom: boolean){
-    const generatorVersion = "1.0.4";
+export function generateBook(input: [string, number][], bookName: string, bookPreviewImagePath: string, source: string, custom: boolean){
+    const generatorVersion = "1.0.5";
     
     var parsedChapters: Chapter[] = [];
 
-    input.forEach((length, chapter) => { // For every chapter given
-        var taskList: Task[] = Array.from({length: length}, (_, i) => {return {task: i + 1}}); // Create an array of tasks
+    input.forEach(chapter => { // For every chapter given
+        var taskList: Task[] = Array.from({length: chapter[1]}, (_, i) => {return {task: i + 1}}); // Create an array of tasks
 
         var chapterObj: Chapter = {
-            fullname: chapter,
+            fullname: chapter[0],
             number: 0,
             tasks: taskList
         };
@@ -76,6 +76,6 @@ export function exportBook(book: Book) {
     URL.revokeObjectURL(url);
 }
 
-export function exportAndGenerateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, source: string){
+export function exportAndGenerateBook(input: [string, number][], bookName: string, bookPreviewImagePath: string, source: string){
     exportBook(generateBook(input,bookName,bookPreviewImagePath,source,true));
 }

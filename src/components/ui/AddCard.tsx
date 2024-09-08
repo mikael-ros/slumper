@@ -9,6 +9,8 @@ import uploadIcon from "/src/assets/upload.svg";
 import downloadIcon from "/src/assets/download.svg";
 import plusIcon from "/src/assets/plus.svg";
 import shareIcon from "/src/assets/share.svg";
+import eyeOpen from "/src/assets/eye-open.svg";
+import eyeClosed from "/src/assets/eye-closed.svg";
 
 import {createSignal, For, Match, Show, Switch} from "solid-js";
 
@@ -19,17 +21,19 @@ import type {Book } from "../../scripts/BookGenerator.ts";
 import {isValid as _isValid} from "../../scripts/Utils.ts";
 import Button from "../interactive/Button.tsx";
 
+type ChapterEntry = {
+    title: string;
+    amount: number;
+}
+
 export function AddCard(){
-    var input : Map<string, number> = new Map<string, number>();
-
     const [save, setSave] = createSignal(true);
+    const [displayEmpty, setDisplayEmpty] = createSignal(true);
 
-    const [chapters, setChapters] = createSignal(1);
     const [library, setLibrary] = createSignal(getPersonalLibrary());
     const [title, setTitle] = createSignal("");
     const [link, setLink] = createSignal("");
-    const [chapterTitles, setChapterTitles] = createSignal(new Array(chapters()));
-    const [amounts, setAmounts] = createSignal(new Array<number>(chapters()));
+    const [chapters, setChapters] = createSignal<Array<ChapterEntry>>(new Array({title: "", amount: 0}), { equals: false })
 
     /**
      * Clears the inputs by importing the "dummy book"
@@ -45,13 +49,11 @@ export function AddCard(){
     function importBook(book: Book){
         setTitle(book.name);
         setLink(book.previewImagePath);
-
-        setChapterTitles(book.chapters.map(chapter => chapter.fullname));
-        if (!(book.chapters.length == 1 && book.chapters[0].tasks.length == 0))
-            setAmounts(book.chapters.map(chapter => chapter.tasks.length));
-        else 
-            setAmounts(new Array<number>(chapters()));
-        setChapters(book.chapters.length);
+        setChapters(book.chapters.map(chapter => {return {
+            id: chapter.number,
+            title: chapter.fullname,
+            amount: chapter.tasks.length
+        }}))
     }
 
     /**
@@ -83,19 +85,8 @@ export function AddCard(){
      * @returns A book
      */
     function makeBook() : Book{
-        createInput();
+        const input : [string,number][] = chapters().map(c => [c.title, c.amount]);
         return generateBook(input, title(), link(), "", true);
-    }
-
-    /**
-     * Generates a map of chapters from the inputs
-     */
-    function createInput(){
-        input = new Map<string, number>();
-        for (var i = 0; i < chapters(); i++){
-            if (amounts()[i] != undefined)
-            input.set(chapterTitles()[i], amounts()[i]);
-        }
     }
 
     /**
@@ -114,9 +105,13 @@ export function AddCard(){
      */
     function handleChapterTitlesChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
         if (event.currentTarget.validity){
-            const current = chapterTitles();
-            current[index] = event.currentTarget.value.trim();
-            setChapterTitles(current);
+            const currentChapters = chapters();
+            const entry = currentChapters[index];
+            currentChapters[index] = {
+                title: event.currentTarget.value,
+                amount: entry.amount
+            }
+            setChapters(currentChapters);
         }
     }
 
@@ -127,9 +122,13 @@ export function AddCard(){
      */
     function handleAmountChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
         if (event.currentTarget.validity.valid){
-            const current = amounts();
-            current[index] = parseInt(event.currentTarget.value);
-            setAmounts(current);
+            const currentChapters = chapters();
+            const entry = currentChapters[index];
+            currentChapters[index] = {
+                title: entry.title,
+                amount: parseInt(event.currentTarget.value)
+            }
+            setChapters(currentChapters);
         }
     }
 
@@ -169,6 +168,22 @@ export function AddCard(){
         }
     }
 
+    const addEntry = () => {
+        var newC = chapters(); 
+        newC.push({title: "", amount: 0}); 
+        setChapters(newC);
+        console.log(chapters())
+    }
+
+    const removeEntry = (chapter: ChapterEntry) => {
+        if (chapters().length > 1) {
+            const newChapters = chapters();
+            const index = newChapters.indexOf(chapter);
+            newChapters.splice(index, 1);
+            setChapters(newChapters);
+        }
+    }
+
     return (
         <div class="card-group card-group--vertical">
             <div class="card add">
@@ -186,27 +201,47 @@ export function AddCard(){
                     </div>
                     
                     <div id="chapter-inputs">
-                        <Button id="add-entry" label="Add entry" title="Add an entry"
-                                onclick={() => setChapters(chapters() + 1)} text="Add entry"
-                                icons={[[plusIcon, ""]]}
-                        />
-                        <ol class="input-list input-list--vertical">
-                            <For each={[...Array(chapters()).keys()]}>
-                                {chapter => 
-                                <li class="interactive-group input-group chapter-input">
-                                    <label id={"label-"+chapter} for={"chapter-"+chapter} >{chapter + 1}</label>
-                                    <input id={"chapter-"+chapter} type="text" value={chapterTitles()[chapter] == undefined ? "" : chapterTitles()[chapter]} placeholder="Chapter title*" 
-                                    oninput={event => handleChapterTitlesChange(chapter, event)} 
-                                    onchange={event => handleChapterTitlesChange(chapter, event)} 
-                                    required aria-required="true" aria-labelledby={"label-"+chapter}/>
-                                    <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={amounts()[chapter] == undefined ? "" : amounts()[chapter]} placeholder="# tasks*" onchange={event => handleAmountChange(chapter, event)}
-                                    oninput={event => handleAmountChange(chapter, event)} required aria-labelledby={"label-"+chapter} aria-required="true"/>
-                                </li>
+                        <div class="interactive-group button-group">
+                            <Button id="add-entry" label="Add entry" title="Add an entry" type="button"
+                                    onclick={addEntry} text="Add entry"
+                                    icons={[[plusIcon, ""]]}
+                            />
+                            <Button id="toggle-empty" label={(displayEmpty() ? "Hide" : "View") + " empty"} type="button" iconOnly={true}
+                                    onclick={() => setDisplayEmpty(!displayEmpty())}
+                                    icons={[[displayEmpty() ? eyeOpen : eyeClosed, (displayEmpty() ? "Hide" : "View") + " empty icon"]]}
+                            />
+                            
+                        </div>
+                        
+                        <ol class="input-list input-list--vertical" data-display-empty={displayEmpty()}>
+                            <For each={chapters()}>
+                                {(chapter,index) => {
+                                    return (
+                                    <li class="interactive-group input-group chapter-input" data-empty={chapter.amount == 0 && index() != 0}>
+                                        <label id={"label-"+index()+1} for={"chapter-"+index()+1} >{index()+1}</label>
+                                        <input id={"chapter-"+index()+1} type="text" value={chapter.title} placeholder="Chapter title*" 
+                                        onblur={event => handleChapterTitlesChange(index(), event)} 
+                                        onchange={event => handleChapterTitlesChange(index(), event)} 
+                                        aria-required="true" aria-labelledby={"label-"+index()+1} required/>
+                                        <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={chapter.amount} placeholder="# tasks*" 
+                                        onchange={event => handleAmountChange(index(), event)}
+                                        onblur={event => handleAmountChange(index(), event)} 
+                                        aria-required="true" aria-labelledby={"label-"+index()+1} required/>
+                                        <Button class="remove-entry" label={"Remove chapter " + index() + 1} type="button" iconOnly={true}
+                                            onclick={() => removeEntry(chapter)}
+                                            icons={[[trashIcon, "Remove chapter"]]} disabled={chapters().length <= 1}
+                                        />
+                                    </li>)
+                                    }
                                 }
                             </For>
                         </ol>
+                        <Show when={!displayEmpty()}>
+                            <p role="note" class="tip">{chapters().slice(1).filter(c => c.amount == 0).length} hidden chapters</p>
+                        </Show>
                     </div>
 
+                    
                     <Show when={libraryHasIdPersonal(title()+":[P]")}>
                         <p role="alert" class="warning">There already exists a book under this name. Saving will overwrite it!</p>
                     </Show>

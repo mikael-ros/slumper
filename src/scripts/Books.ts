@@ -18,7 +18,7 @@ export const dummyBook: Book = {
     source: "",
     chapters: [{
         fullname: "",
-        number: -1,
+        number: 1,
         tasks: new Array()
     }],
     generatorVersion: "1.0.4",

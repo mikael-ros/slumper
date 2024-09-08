@@ -28,7 +28,6 @@
     mask-repeat: no-repeat, no-repeat;
 
     button {
-        height: 2em;
         width: 15em;
         
         img {
@@ -42,6 +41,10 @@
             }
         }
     }
+
+    #add-entry, #toggle-empty, .book-entry button {
+        height: 2em;
+    }
 }
 
 .chapter-input label {
@@ -52,12 +55,21 @@
 }
 
 .chapter-input:nth-of-type(n + 2){
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .chapter-input:nth-of-type(n + 3){
-    opacity: 0.6;
+    opacity: 0.8;
 }
+
+.chapter-input[data-empty="true"]{
+    opacity: .4;
+}
+
+.input-list[data-display-empty="false"] .chapter-input[data-empty="true"]:not(:first-of-type) {
+    display: none;
+}
+
 
 .book-entry{
     display: flex;
