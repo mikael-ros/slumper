@@ -239,12 +239,12 @@ export function AddCard(){
                                         <input id={"chapter-"+index+1} type="text" value={chapter.title != " " ? chapter.title : ""} placeholder="Chapter title*" 
                                         onblur={event => handleChapterTitlesChange(index, event)} 
                                         onchange={event => handleChapterTitlesChange(index, event)} 
-                                        required aria-required="true" aria-labelledby={"label-"+index+1} tabIndex={0}/>
+                                        required aria-required="true" aria-labelledby={"label-"+index+1}/>
                                         <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={chapter.amount} placeholder="# tasks*" 
                                         onchange={event => handleAmountChange(index, event)}
                                         onblur={event => handleAmountChange(index, event)} 
-                                        required aria-labelledby={"label-"+index+1} aria-required="true" tabIndex={0}/>
-                                        <Button tabIndex={0} class="remove-entry" label={"Remove chapter " + index + 1} type="button" iconOnly={true}
+                                        required aria-labelledby={"label-"+index+1} aria-required="true"/>
+                                        <Button class="remove-entry" label={"Remove chapter " + index + 1} type="button" iconOnly={true}
                                             onclick={() => removeEntry(chapter)}
                                             icons={[[trashIcon, "Remove chapter"]]}
                                         />

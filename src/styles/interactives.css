@@ -110,7 +110,7 @@ a:has(> button){
 }
 
 .icon-only{
-    max-width: 2em;
+    max-width: 3em;
 }
 
 .button-group{

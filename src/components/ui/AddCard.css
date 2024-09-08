@@ -42,7 +42,7 @@
         }
     }
 
-    #add-entry, #toggle-empty {
+    #add-entry, #toggle-empty, .book-entry button {
         height: 2em;
     }
 }
