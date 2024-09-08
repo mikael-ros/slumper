@@ -28,8 +28,6 @@ type ChapterEntry = {
 }
 
 export function AddCard(){
-    var input : Map<string, number> = new Map<string, number>();
-
     const [save, setSave] = createSignal(true);
     const [displayEmpty, setDisplayEmpty] = createSignal(true);
 
@@ -88,17 +86,8 @@ export function AddCard(){
      * @returns A book
      */
     function makeBook() : Book{
-        createInput();
+        const input : [string,number][] = chapters().map(c => [c.title, c.amount]);
         return generateBook(input, title(), link(), "", true);
-    }
-
-    /**
-     * Generates a map of chapters from the inputs
-     */
-    function createInput(){
-        input = new Map<string, number>();
-        chapters().forEach(chapter => input.set(chapter.title, chapter.amount));
-        return input;
     }
 
     /**
@@ -195,7 +184,7 @@ export function AddCard(){
         newChapters[index] = {
             number: chapter.number,
             amount: 0,
-            title: " "
+            title: ""
         }
         setChapters(newChapters);
     }
@@ -236,14 +225,14 @@ export function AddCard(){
                                     return (
                                     <li class="interactive-group input-group chapter-input" data-empty={chapter.amount == 0 && index != 0}>
                                         <label id={"label-"+index+1} for={"chapter-"+index+1} >{chapter.number}</label>
-                                        <input id={"chapter-"+index+1} type="text" value={chapter.title != " " ? chapter.title : ""} placeholder="Chapter title*" 
+                                        <input id={"chapter-"+index+1} type="text" value={chapter.title} placeholder="Chapter title*" 
                                         onblur={event => handleChapterTitlesChange(index, event)} 
                                         onchange={event => handleChapterTitlesChange(index, event)} 
-                                        required aria-required="true" aria-labelledby={"label-"+index+1}/>
+                                        aria-labelledby={"label-"+index+1}/>
                                         <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={chapter.amount} placeholder="# tasks*" 
                                         onchange={event => handleAmountChange(index, event)}
                                         onblur={event => handleAmountChange(index, event)} 
-                                        required aria-labelledby={"label-"+index+1} aria-required="true"/>
+                                        aria-required="true" aria-labelledby={"label-"+index+1} required/>
                                         <Button class="remove-entry" label={"Remove chapter " + index + 1} type="button" iconOnly={true}
                                             onclick={() => removeEntry(chapter)}
                                             icons={[[trashIcon, "Remove chapter"]]}

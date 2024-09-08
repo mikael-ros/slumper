@@ -9,16 +9,16 @@ import { writeFile } from 'fs/promises';
  * @param source Where you can acquire the book
  * @returns The book object
  */
-export function generateBook(input: Map<string, number>, bookName: string, bookPreviewImagePath: string, source: string){
-    const generatorVersion = "1.0.4";
+export function generateBook(input: [string, number][], bookName: string, bookPreviewImagePath: string, source: string){
+    const generatorVersion = "1.0.5";
     
     var parsedChapters: Chapter[] = [];
 
-    input.forEach((length, chapter) => { // For every chapter given
-        var taskList: Task[] = Array.from({length: length}, (_, i) => {return {task: i + 1}}); // Create an array of tasks
+    input.forEach(chapter => { // For every chapter given
+        var taskList: Task[] = Array.from({length: chapter[1]}, (_, i) => {return {task: i + 1}}); // Create an array of tasks
 
         var chapterObj: Chapter = {
-            fullname: chapter,
+            fullname: chapter[0],
             number: 0,
             tasks: taskList
         };
@@ -68,7 +68,7 @@ async function writeBook(book: Book){
 }
 
 export default async function generateDefaultLibrary(){
-    const PGK1_2022 = new Map<string,number>([
+    const PGK1_2022 : [string,number][] = [
         ["Introduktion", 37],
         ["Program och kontrollstrukturer", 18],
         ["Funktioner och abstraktion", 19],
@@ -76,16 +76,16 @@ export default async function generateDefaultLibrary(){
         ["Klasser och datamodellering", 17],
         ["Mönster och felhantering", 22],
         ["Sekvenser och enumerationer", 27],
-    ]) 
+    ]
 
-    const PGK2_2022 = new Map<string,number>([
+    const PGK2_2022 : [string,number][] = [
         ["Nästlade och generiska strukturer", 10],
         ["Mängder och tabeller", 14],
         ["Arv och komposition", 12],
         ["Kontextuella abstraktioner och varians", 9],
-    ]) 
+    ]
 
-    const programmingInHaskell = new Map<string,number>([
+    const programmingInHaskell : [string,number][] = [
         ["Introduction", 5],
         ["First steps", 5],
         ["Types and classes", 5],
@@ -103,9 +103,9 @@ export default async function generateDefaultLibrary(){
         ["Lazy evaluation", 6],
         ["Reasoning about programs", 9],
         ["Calculating compilers", 1],
-    ]) 
+    ]
 
-    const datakommunikationOchNatverk = new Map<string,number>([
+    const datakommunikationOchNatverk : [string,number][] = [
         ["Introduktion", 0],
         ["Information och bitar", 11],
         ["Att skicka signaler på en länk", 18],
@@ -122,9 +122,9 @@ export default async function generateDefaultLibrary(){
         ["Stamnät", 0],
         ["Internet of Things (IoT)",0],
         ["Prestanda och QoS", 6],
-    ]) 
+    ]
 
-    const h99 = new Map<string,number>([
+    const h99 : [string,number][] = [
         ["Lists",10],
         ["Lists, continued",10],
         ["Lists again",8],
@@ -136,9 +136,9 @@ export default async function generateDefaultLibrary(){
         ["Graphs",10],
         ["Miscellaneous problems",5],
         ["Miscellaneous problems, continued",5],
-    ])
+    ]
 
-    const toGen = new Map([
+    const toGen = new Map<[string,number][], string[]>([
         [PGK1_2022, 
             [
                 "Introduktion till programmering med Scala, del 1", 
