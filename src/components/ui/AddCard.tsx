@@ -226,30 +226,30 @@ export function AddCard(){
                         </div>
                         
                         <ol class="input-list input-list--vertical" data-display-empty={displayEmpty()}>
-                            <Index each={chapters()}>
-                                {(chapter,index) => 
-                                    <li class="interactive-group input-group chapter-input" data-empty={chapter().amount == 0 && index != 0}>   
-                                        <input class="input__index" id={"index-"+index+1} type="number" value={index + 1}  
+                            <For each={chapters()}>
+                                {(chapter,index) =>
+                                    <li class="interactive-group input-group chapter-input" data-empty={chapter.amount == 0 && index() != 0}>   
+                                        <input class="input__index" id={"index-"+index+1} type="number" value={index() + 1}  
                                         min="1" max={chapters().length} 
                                         inputmode="numeric" pattern="[0-9]*"
-                                        onblur={event => moveChapter(index, event)} 
-                                        onchange={event => moveChapter(index, event)} 
+                                        onblur={event => moveChapter(index(), event)} 
+                                        onchange={event => moveChapter(index(), event)} 
                                         aria-required="true" required/>
-                                        <input class="input__chapter" id={"chapter-"+index+1} type="text" value={chapter().title} placeholder="Chapter title*" 
-                                        onblur={event => handleChapterTitlesChange(index, event)} 
-                                        onchange={event => handleChapterTitlesChange(index, event)} 
+                                        <input class="input__chapter" id={"chapter-"+index+1} type="text" value={chapter.title} placeholder="Chapter title*" 
+                                        onblur={event => handleChapterTitlesChange(index(), event)} 
+                                        onchange={event => handleChapterTitlesChange(index(), event)} 
                                         aria-required="true" required/>
-                                        <input class="input__amount" type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={chapter().amount} 
-                                        onblur={event => handleAmountChange(index, event)} 
-                                        onchange={event => handleAmountChange(index, event)}
+                                        <input class="input__amount" type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={chapter.amount} 
+                                        onblur={event => handleAmountChange(index(), event)} 
+                                        onchange={event => handleAmountChange(index(), event)}
                                         aria-required="true" required/>
                                         <Button class="remove-entry" label={"Remove chapter " + index + 1} type="button" iconOnly={true}
-                                            onclick={() => removeEntry(chapter())}
+                                            onclick={() => removeEntry(chapter)}
                                             icons={[[trashIcon, "Remove chapter"]]} disabled={chapters().length <= 1}
                                         />
                                     </li>
                                 }
-                            </Index>
+                            </For>
                         </ol>
                         <Show when={!displayEmpty()}>
                             <p role="note" class="tip">{chapters().slice(1).filter(c => c.amount == 0).length} hidden chapters</p>
