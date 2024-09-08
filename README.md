@@ -131,6 +131,8 @@ It should then print a line for each successfully generated book.
 
 To modify the included books, change the ``GenerateDefaults.ts`` file. Note that this also needs to be changed any time you change the book object format or generation behaviour (it has it's own copies of these, as I couldn't get it to run in terminal otherwise.).
 
+> Do note that this is my first website of this nature, so a lot of code might not "make sense". Feel free to correct me, but keep that in mind when communicating.
+
 </details>
  
 ---

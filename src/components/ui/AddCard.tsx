@@ -9,6 +9,8 @@ import uploadIcon from "/src/assets/upload.svg";
 import downloadIcon from "/src/assets/download.svg";
 import plusIcon from "/src/assets/plus.svg";
 import shareIcon from "/src/assets/share.svg";
+import eyeOpen from "/src/assets/eye-open.svg";
+import eyeClosed from "/src/assets/eye-closed.svg";
 
 import {createSignal, For, Match, Show, Switch} from "solid-js";
 
@@ -29,6 +31,7 @@ export function AddCard(){
     var input : Map<string, number> = new Map<string, number>();
 
     const [save, setSave] = createSignal(true);
+    const [displayEmpty, setDisplayEmpty] = createSignal(true);
 
     const [library, setLibrary] = createSignal(getPersonalLibrary());
     const [title, setTitle] = createSignal("");
@@ -192,10 +195,9 @@ export function AddCard(){
         newChapters[index] = {
             number: chapter.number,
             amount: 0,
-            title: "Empty"
+            title: " "
         }
         setChapters(newChapters);
-        console.log(chapters())
     }
 
     return (
@@ -215,27 +217,34 @@ export function AddCard(){
                     </div>
                     
                     <div id="chapter-inputs">
-                        <Button id="add-entry" label="Add entry" title="Add an entry" type="button"
-                                onclick={addEntry} text="Add entry"
-                                icons={[[plusIcon, ""]]}
-                        />
-                        <ol class="input-list input-list--vertical">
+                        <div class="interactive-group button-group">
+                            <Button id="add-entry" label="Add entry" title="Add an entry" type="button"
+                                    onclick={addEntry} text="Add entry"
+                                    icons={[[plusIcon, ""]]}
+                            />
+                            <Button id="toggle-empty" label={(displayEmpty() ? "Hide" : "View") + " empty"} type="button" iconOnly={true}
+                                    onclick={() => setDisplayEmpty(!displayEmpty())}
+                                    icons={[[displayEmpty() ? eyeOpen : eyeClosed, (displayEmpty() ? "Hide" : "View") + " empty icon"]]}
+                            />
+                            
+                        </div>
+                        
+                        <ol class="input-list input-list--vertical" data-display-empty={displayEmpty()}>
                             <For each={chapters()}>
                                 {chapter => {
                                     const index = chapters().indexOf(chapter);
-                                    console.log(index);
                                     return (
-                                    <li class="interactive-group input-group chapter-input">
+                                    <li class="interactive-group input-group chapter-input" data-empty={chapter.amount == 0 && index != 0}>
                                         <label id={"label-"+index+1} for={"chapter-"+index+1} >{chapter.number}</label>
-                                        <input id={"chapter-"+index+1} type="text" value={chapter.title} placeholder="Chapter title*" 
+                                        <input id={"chapter-"+index+1} type="text" value={chapter.title != " " ? chapter.title : ""} placeholder="Chapter title*" 
                                         onblur={event => handleChapterTitlesChange(index, event)} 
                                         onchange={event => handleChapterTitlesChange(index, event)} 
-                                        required aria-required="true" aria-labelledby={"label-"+index+1}/>
+                                        required aria-required="true" aria-labelledby={"label-"+index+1} tabIndex={0}/>
                                         <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={chapter.amount} placeholder="# tasks*" 
                                         onchange={event => handleAmountChange(index, event)}
                                         onblur={event => handleAmountChange(index, event)} 
-                                        required aria-labelledby={"label-"+index+1} aria-required="true"/>
-                                        <Button id="remove-entry" label={"Remove chapter " + index + 1} type="button"
+                                        required aria-labelledby={"label-"+index+1} aria-required="true" tabIndex={0}/>
+                                        <Button tabIndex={0} class="remove-entry" label={"Remove chapter " + index + 1} type="button" iconOnly={true}
                                             onclick={() => removeEntry(chapter)}
                                             icons={[[trashIcon, "Remove chapter"]]}
                                         />
@@ -244,8 +253,12 @@ export function AddCard(){
                                 }
                             </For>
                         </ol>
+                        <Show when={!displayEmpty()}>
+                            <p role="note" class="tip">{chapters().slice(1).filter(c => c.amount == 0).length} hidden chapters</p>
+                        </Show>
                     </div>
 
+                    
                     <Show when={libraryHasIdPersonal(title()+":[P]")}>
                         <p role="alert" class="warning">There already exists a book under this name. Saving will overwrite it!</p>
                     </Show>
