@@ -222,7 +222,7 @@ export function AddCard(){
                                     onclick={() => setDisplayEmpty(!displayEmpty())}
                                     icons={[[displayEmpty() ? eyeOpen : eyeClosed, (displayEmpty() ? "Hide" : "View") + " empty icon"]]}
                             />
-                            
+
                         </div>
                         
                         <ol class="input-list input-list--vertical" data-display-empty={displayEmpty()}>
