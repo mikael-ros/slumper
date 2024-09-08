@@ -70,6 +70,10 @@
     display: none;
 }
 
+.input__chapter  {
+    flex: 600%;
+}
+
 
 .book-entry{
     display: flex;
@@ -159,5 +163,9 @@
         .interactive-group {
             flex-wrap: nowrap;
         }
+    }
+
+    .input__chapter  {
+        flex: 300%;
     }
 }

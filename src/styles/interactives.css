@@ -164,10 +164,6 @@ a:has(> button){
         width: 100%;
         margin: 0;
     }
-
-    input:first-of-type{
-        min-width: 70%;
-    }
 }
 
 .checkbox {

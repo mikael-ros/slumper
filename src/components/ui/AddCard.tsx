@@ -132,6 +132,18 @@ export function AddCard(){
         }
     }
 
+    function moveChapter(index: number, event : Event & {currentTarget : HTMLInputElement}){
+        if (event.currentTarget.validity.valid){
+            const currentChapters = chapters();
+            const entry = currentChapters[index];
+            const newIndex = parseInt(event.currentTarget.value) - 1;
+            currentChapters.splice(index, 1);
+            currentChapters.splice(newIndex, 0, entry)
+
+            setChapters(currentChapters);
+        }
+    }
+
     function handleFileSelect(event : Event & {currentTarget : HTMLInputElement}) {
         const file = event.currentTarget.files?.[0];
         
@@ -194,7 +206,7 @@ export function AddCard(){
                     />
                 </a>
                 <h1>Add book</h1>
-                <form id="book-form" onsubmit={submitForm}>
+                <form id="book-form" onsubmit={submitForm} onkeydown={(event) => {if (event.key == "Enter") {event.preventDefault()}}}>
                     <div class="input-list">
                         <input value={title()} placeholder="Book name*" oninput={handleTitleChange} onchange={handleTitleChange} required aria-required="true"></input>
                         <input autocomplete="photo" type="url" value={link()} placeholder="Book image URL (optional)" oninput={event => setLink(event.target.value)} onchange={event => setLink(event.target.value)} aria-required="false"></input>
@@ -218,15 +230,21 @@ export function AddCard(){
                                 {(chapter,index) => {
                                     return (
                                     <li class="interactive-group input-group chapter-input" data-empty={chapter.amount == 0 && index() != 0}>
-                                        <label id={"label-"+index()+1} for={"chapter-"+index()+1} >{index()+1}</label>
-                                        <input id={"chapter-"+index()+1} type="text" value={chapter.title} placeholder="Chapter title*" 
+                                        <input class="input__index" id={"index-"+index()+1} type="number" value={index() + 1} placeholder="Index*"  
+                                        min="1" max={chapters().length} 
+                                        inputmode="numeric" pattern="[0-9]*"
+                                        onblur={event => moveChapter(index(), event)} 
+                                        onchange={event => moveChapter(index(), event)} 
+                                        onkeydown={event => {if (event.key == "Enter") {moveChapter(index(), event)}}}
+                                        aria-required="true" required/>
+                                        <input class="input__chapter" id={"chapter-"+index()+1} type="text" value={chapter.title} placeholder="Chapter title*" 
                                         onblur={event => handleChapterTitlesChange(index(), event)} 
                                         onchange={event => handleChapterTitlesChange(index(), event)} 
-                                        aria-required="true" aria-labelledby={"label-"+index()+1} required/>
-                                        <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={chapter.amount} placeholder="# tasks*" 
+                                        aria-required="true" required/>
+                                        <input class="input__amount" type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={chapter.amount} placeholder="# tasks*" 
                                         onchange={event => handleAmountChange(index(), event)}
                                         onblur={event => handleAmountChange(index(), event)} 
-                                        aria-required="true" aria-labelledby={"label-"+index()+1} required/>
+                                        aria-required="true" required/>
                                         <Button class="remove-entry" label={"Remove chapter " + index() + 1} type="button" iconOnly={true}
                                             onclick={() => removeEntry(chapter)}
                                             icons={[[trashIcon, "Remove chapter"]]} disabled={chapters().length <= 1}
