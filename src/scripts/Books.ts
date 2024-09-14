@@ -32,6 +32,7 @@ import pgk2_2022 from '../content/tasks/introduktiontillprogrammeringmedscaladel
 import programmingInHaskell from '../content/tasks/programminginhaskellsecondedition.json';
 import datakommunikationOchNatverk from '../content/tasks/datakommunikationochntverkandraupplagan.json';
 import h99 from '../content/tasks/h99ninetyninehaskellproblems.json';
+import reglerteknikKompendie from '../content/tasks/reglerteknikakvningsexempel2022.json';
 
 var library : Book[] = assembleLibrary();
 
@@ -40,17 +41,21 @@ export function refreshLibrary() {
     library = assembleLibrary();
 }
 
+function sortLibrary(library: Array<Book>){
+    return library.sort((b1: Book,b2: Book) => b1.name.localeCompare(b2.name))
+}
+
 export function setPersonalLibrary(library: Array<Book>) {
     set("personalLibrary", library);
 }
 
 export function getPersonalLibrary() {
-    return getSetOrElse("personalLibrary", new Array<Book>);
+    return sortLibrary(getSetOrElse("personalLibrary", new Array<Book>));
 }
 
 /** Concatenates the built in library with the personal */
 function assembleLibrary() {
-    return [pgk1_2022, pgk2_2022, programmingInHaskell,datakommunikationOchNatverk,h99].concat(getPersonalLibrary());
+    return sortLibrary([pgk1_2022, pgk2_2022, programmingInHaskell,datakommunikationOchNatverk,h99,reglerteknikKompendie]).concat(getPersonalLibrary());
 }
 
 /** Refreshes, then retrieves the library */
