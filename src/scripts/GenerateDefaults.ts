@@ -162,6 +162,19 @@ export default async function generateDefaultLibrary(){
         ["Interactive Comparison Between Model Descriptions",3]
     ]
 
+    const computerOrganizationRISCV : [string,number][] = [
+        ["Computer Abstractions and Technology",15],
+        ["Instructions",42],
+        ["Arithmetic for Computers",47],
+        ["The Processor",33],
+        ["Large and Fast",29],
+        ["Parallel Processors from Client to Cloud",20],
+        ["Appendix A: The Basics of Logic Design",44],
+        ["Appendix B: Graphics and Computing GPUs",0],
+        ["Appendix C: Mapping Control to Hardware",6],
+        ["Appendix D: A Survey of RISC Architectures for Desktop, Server, and Embedded Computers",0]
+    ]
+
     const toGen = new Map<[string,number][], string[]>([
         [PGK1_2022, 
             [
@@ -208,8 +221,15 @@ export default async function generateDefaultLibrary(){
         [automaticcontrolCompendium,
             [
                 "Automatic Control Basic Course Exercises 2022",
-                "https://github.com/mikael-ros/slumper/blob/main/src/assets/previews/regtek2022.png?raw=true",
+                "https://github.com/mikael-ros/slumper/blob/main/src/assets/previews/auto2022.png?raw=true",
                 "https://control.lth.se/fileadmin/control/Education/EngineeringProgram/FRTF05/exercises_print.pdf"
+            ]
+        ],
+        [computerOrganizationRISCV,
+            [
+                "Computer Organization and Design RISC-V Edition 2017",
+                "https://shop.elsevier.com/_next/image?url=https%3A%2F%2Fsecure-ecsd.elsevier.com%2Fcovers%2F80%2FTango2%2Flarge%2F9780128122761.jpg&w=256&q=75",
+                "https://shop.elsevier.com/books/computer-organization-and-design-risc-v-edition/patterson/978-0-12-812275-4"
             ]
         ]
     ])

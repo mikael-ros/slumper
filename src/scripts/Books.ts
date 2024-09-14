@@ -34,6 +34,7 @@ import datakommunikationOchNatverk from '../content/tasks/datakommunikationochnt
 import h99 from '../content/tasks/h99ninetyninehaskellproblems.json';
 import reglerteknikKompendie from '../content/tasks/reglerteknikakvningsexempel2022.json';
 import automaticcontrolCompendium from '../content/tasks/automaticcontrolbasiccourseexercises2022.json';
+import computerOrganizationRISCV from '../content/tasks/computerorganizationanddesignriscvedition2017.json';
 
 var library : Book[] = assembleLibrary();
 
@@ -56,7 +57,7 @@ export function getPersonalLibrary() {
 
 /** Concatenates the built in library with the personal */
 function assembleLibrary() {
-    return sortLibrary([pgk1_2022, pgk2_2022, programmingInHaskell,datakommunikationOchNatverk,h99,reglerteknikKompendie,automaticcontrolCompendium]).concat(getPersonalLibrary());
+    return sortLibrary([pgk1_2022, pgk2_2022, programmingInHaskell,datakommunikationOchNatverk,h99,reglerteknikKompendie,automaticcontrolCompendium,computerOrganizationRISCV]).concat(getPersonalLibrary());
 }
 
 /** Refreshes, then retrieves the library */
