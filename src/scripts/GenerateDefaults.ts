@@ -150,6 +150,18 @@ export default async function generateDefaultLibrary(){
         ["Interaktiv jämförelse mellan modellbeskrivningar",3]
     ]
 
+    const automaticcontrolCompendium : [string,number][] = [
+        ["Model Building and Linearization",9],
+        ["Dynamical Systems",16],
+        ["Frequency Analysis",7],
+        ["Feedback Systems",19],
+        ["State Feedback and Kalman Filtering",13],
+        ["Design methods",16],
+        ["Controller Structures",10],
+        ["Design Examples",2],
+        ["Interactive Comparison Between Model Descriptions",3]
+    ]
+
     const toGen = new Map<[string,number][], string[]>([
         [PGK1_2022, 
             [
@@ -191,6 +203,13 @@ export default async function generateDefaultLibrary(){
                 "Reglerteknik AK Övningsexempel 2022",
                 "https://github.com/mikael-ros/slumper/blob/main/src/assets/previews/regtek2022.png?raw=true",
                 "https://control.lth.se/fileadmin/control/Education/EngineeringProgram/FRTF05/exempelsamling_print.pdf"
+            ]
+        ],
+        [automaticcontrolCompendium,
+            [
+                "Automatic Control Basic Course Exercises 2022",
+                "https://github.com/mikael-ros/slumper/blob/main/src/assets/previews/regtek2022.png?raw=true",
+                "https://control.lth.se/fileadmin/control/Education/EngineeringProgram/FRTF05/exercises_print.pdf"
             ]
         ]
     ])
