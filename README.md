@@ -93,7 +93,7 @@ Add them to the [**list of issues**](https://www.github.com/mikael-ros/slumper/i
 #### ✅️ Recommended
 *If you run into issues, I am easierly able to help you if you are using the following:*
 - Linux
-- Visual Studio Code
+- Visual Studio Code w/ the [recommended extensions](.vscode/extensions.json) installed
 - Firefox or Chrome/Chromium
 
 #### ✔️ Good-to-haves
