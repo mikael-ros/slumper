@@ -149,6 +149,7 @@ These books are included with the site. The permission to use them has been gran
 | EDAN40, EDAF95         | [H-99: Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems) | Haskell wiki contributors | Not relevant |
 | FRTF05         | [Reglerteknik AK Övningsexempel 2022](https://control.lth.se/fileadmin/control/Education/EngineeringProgram/FRTF05/exempelsamling_print.pdf) | Tore Hägglund | 2024-09-10 |
 | FRTF05         | [Automatic Control Basic Course Exercises 2022](https://control.lth.se/fileadmin/control/Education/EngineeringProgram/FRTF05/exercises_print.pdf) | Tore Hägglund | 2024-09-10 |
+| EITF70         | [Computer Organization and Design RISC-V Edition 2017](https://shop.elsevier.com/books/computer-organization-and-design-risc-v-edition/patterson/978-0-12-812275-4) | David Patterson | 2024-09-10 |
 
 ## 📚 Banned books 🚫
 What follows is a list of books that will never be added to the default list of books, and the reason why. You can, however, add these yourself locally; I simply cannot, due to copyright issues, include them in the default list.
