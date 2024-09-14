@@ -1,0 +1,22 @@
+---
+import "../components/ui/Card.css"
+import "../styles/interactives.css"
+
+import homeIcon from "/src/assets/home.svg";
+
+import Layout from '../layouts/Layout.astro'
+import Button from '../components/interactive/Button'
+---
+
+<Layout title="Slumper / 404" description="The page you are trying to reach does not exist.">
+	<article>
+		<div class="card">
+            <h1>The page you are trying to reach does not exist</h1>
+            <a role="button" id="back" href="/">
+                <Button label="Go to the homepage" text="Go to the homepage" 
+                        icons={[[homeIcon, "Return to home"]]}
+                />
+            </a>
+        </div>
+	</article>
+</Layout>
