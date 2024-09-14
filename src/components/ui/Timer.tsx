@@ -22,6 +22,10 @@ class Time {
         this.sound = new Audio(timerSound);
         this.sound.volume = getSetOrElse("volume", 1.0);
         this.timeDisplay(this.toString());
+        this.interval = null;
+    }
+
+    start(){
         this.interval = window.setInterval(() => {
             if (!this.lapsed()){
                 this.tick()
@@ -51,12 +55,7 @@ class Time {
         this.time = this.initTime;
         this.kill(false);
         this.timeDisplay(this.toString());
-        this.interval = window.setInterval(() => {
-            if (!this.lapsed()){
-                this.tick()
-            } else {
-                this.kill(true); 
-            }}, 1000);
+        this.start();
     }
 
     reset(){
