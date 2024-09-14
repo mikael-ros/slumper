@@ -24,6 +24,7 @@ import Button from "../interactive/Button.tsx";
 type ChapterEntry = {
     title: string;
     amount: number;
+    index: number; // 1:1 same as the actual index. Necessary to have both accessibility and reactivity at the same time. A long story
 }
 
 export function AddCard(){
@@ -33,7 +34,7 @@ export function AddCard(){
     const [library, setLibrary] = createSignal(getPersonalLibrary());
     const [title, setTitle] = createSignal("");
     const [link, setLink] = createSignal("");
-    const [chapters, setChapters] = createSignal<Array<ChapterEntry>>(new Array({title: "", amount: 0}), { equals: false })
+    const [chapters, setChapters] = createSignal<Array<ChapterEntry>>(new Array({title: "", amount: 0, index: 0}), { equals: false })
 
     /**
      * Clears the inputs by importing the "dummy book"
@@ -50,7 +51,7 @@ export function AddCard(){
         setTitle(book.name);
         setLink(book.previewImagePath);
         setChapters(book.chapters.map(chapter => {return {
-            id: chapter.number,
+            index: chapter.number-1,
             title: chapter.fullname,
             amount: chapter.tasks.length
         }}))
@@ -90,6 +91,25 @@ export function AddCard(){
     }
 
     /**
+     * Sets corresponding indices for each chapter. Necessary to keep reactivity whilst upholding accessibility. It's a long story...
+     * @param chapters The chapters being modified
+     * @returns The modified chapters
+     */
+    function updateIndices(chapters: ChapterEntry[]) : ChapterEntry[] {
+        const updatedChapters = chapters; 
+        updatedChapters.forEach((chapter,index) => chapter.index = index);
+        return updatedChapters;
+    }
+
+    /**
+     * Updates the indices, before setting the chapters
+     * @param chapters The chapters to be set
+     */
+    function setNewChapters(chapters: ChapterEntry[]) {
+        setChapters(updateIndices(chapters));
+    }
+
+    /**
      * Sets the title if it is valid
      * @param event The input event
      */
@@ -104,12 +124,14 @@ export function AddCard(){
      * @param event The input event
      */
     function handleChapterTitlesChange(index: number, event : Event & {currentTarget : HTMLInputElement}){
+
         if (event.currentTarget.validity){
             const currentChapters = chapters();
             const entry = currentChapters[index];
             currentChapters[index] = {
                 title: event.currentTarget.value,
-                amount: entry.amount
+                amount: entry.amount,
+                index: entry.index
             }
             setChapters(currentChapters);
         }
@@ -126,9 +148,11 @@ export function AddCard(){
             const entry = currentChapters[index];
             currentChapters[index] = {
                 title: entry.title,
-                amount: parseInt(event.currentTarget.value)
+                amount: parseInt(event.currentTarget.value),
+                index: entry.index
             }
             setChapters(currentChapters);
+            
         }
     }
 
@@ -139,8 +163,7 @@ export function AddCard(){
             const newIndex = parseInt(event.currentTarget.value) - 1;
             currentChapters.splice(index, 1);
             currentChapters.splice(newIndex, 0, entry)
-
-            setChapters(currentChapters);
+            setNewChapters(currentChapters);
         }
     }
 
@@ -181,10 +204,9 @@ export function AddCard(){
     }
 
     const addEntry = () => {
-        var newC = chapters(); 
-        newC.push({title: "", amount: 0}); 
-        setChapters(newC);
-        console.log(chapters())
+        var newChapters = chapters(); 
+        newChapters.push({title: "", amount: 0, index: chapters().findLast(() => true)!.index+1}); 
+        setNewChapters(newChapters);
     }
 
     const removeEntry = (chapter: ChapterEntry) => {
@@ -192,7 +214,7 @@ export function AddCard(){
             const newChapters = chapters();
             const index = newChapters.indexOf(chapter);
             newChapters.splice(index, 1);
-            setChapters(newChapters);
+            setNewChapters(newChapters);
         }
     }
 
@@ -226,30 +248,30 @@ export function AddCard(){
                         </div>
                         
                         <ol class="input-list input-list--vertical" data-display-empty={displayEmpty()}>
-                            <For each={chapters()}>
-                                {(chapter,index) =>
-                                    <li class="interactive-group input-group chapter-input" data-empty={chapter.amount == 0 && index() != 0}>   
-                                        <input class="input__index" id={"index-"+index+1} type="number" value={index() + 1}  
+                            <Index each={chapters()}>
+                                {chapter => 
+                                    <li class="interactive-group input-group chapter-input" data-empty={chapter().amount == 0 && chapter().index != 0}>   
+                                        <input class="input__index" id={"index-"+chapter().index+1} type="number" value={chapter().index + 1}  
                                         min="1" max={chapters().length} 
                                         inputmode="numeric" pattern="[0-9]*"
-                                        onblur={event => moveChapter(index(), event)} 
-                                        onchange={event => moveChapter(index(), event)} 
+                                        onblur={event => moveChapter(chapter().index, event)} 
+                                        onchange={event => moveChapter(chapter().index, event)} 
                                         aria-required="true" required/>
-                                        <input class="input__chapter" id={"chapter-"+index+1} type="text" value={chapter.title} placeholder="Chapter title*" 
-                                        onblur={event => handleChapterTitlesChange(index(), event)} 
-                                        onchange={event => handleChapterTitlesChange(index(), event)} 
+                                        <input class="input__chapter" id={"chapter-"+chapter().index+1} type="text" value={chapter().title} placeholder="Chapter title*" 
+                                        onblur={event => handleChapterTitlesChange(chapter().index, event)} 
+                                        onchange={event => handleChapterTitlesChange(chapter().index, event)} 
                                         aria-required="true" required/>
-                                        <input class="input__amount" type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={chapter.amount} 
-                                        onblur={event => handleAmountChange(index(), event)} 
-                                        onchange={event => handleAmountChange(index(), event)}
+                                        <input class="input__amount" type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={chapter().amount} 
+                                        onblur={event => handleAmountChange(chapter().index, event)} 
+                                        onchange={event => handleAmountChange(chapter().index, event)}
                                         aria-required="true" required/>
-                                        <Button class="remove-entry" label={"Remove chapter " + index + 1} type="button" iconOnly={true}
-                                            onclick={() => removeEntry(chapter)}
+                                        <Button class="remove-entry" label={"Remove chapter " + chapter().index + 1} type="button" iconOnly={true}
+                                            onclick={() => removeEntry(chapter())}
                                             icons={[[trashIcon, "Remove chapter"]]} disabled={chapters().length <= 1}
                                         />
                                     </li>
                                 }
-                            </For>
+                            </Index>
                         </ol>
                         <Show when={!displayEmpty()}>
                             <p role="note" class="tip">{chapters().slice(1).filter(c => c.amount == 0).length} hidden chapters</p>
