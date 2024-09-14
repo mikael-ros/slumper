@@ -138,6 +138,18 @@ export default async function generateDefaultLibrary(){
         ["Miscellaneous problems, continued",5],
     ]
 
+    const reglerteknikKompendie : [string,number][] = [
+        ["Modellering och linjärisering",9],
+        ["Dynamiska system",16],
+        ["Frekvensanalys",7],
+        ["Återkopplade system",19],
+        ["Tillståndsåterkoppling och Kalmanfiltrering",13],
+        ["Designmetoder",16],
+        ["Regulatorstrukturer",10],
+        ["Några designexempel",2],
+        ["Interaktiv jämförelse mellan modellbeskrivningar",3]
+    ]
+
     const toGen = new Map<[string,number][], string[]>([
         [PGK1_2022, 
             [
@@ -172,6 +184,13 @@ export default async function generateDefaultLibrary(){
                 "H-99: Ninety-Nine Haskell Problems",
                 "https://github.com/mikael-ros/slumper/blob/main/src/assets/previews/h99.png?raw=true",
                 "https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems"
+            ]
+        ],
+        [reglerteknikKompendie,
+            [
+                "Reglerteknik AK Övningsexempel 2022",
+                "https://github.com/mikael-ros/slumper/blob/main/src/assets/previews/regtek2022.png?raw=true",
+                "https://control.lth.se/fileadmin/control/Education/EngineeringProgram/FRTF05/exempelsamling_print.pdf"
             ]
         ]
     ])
