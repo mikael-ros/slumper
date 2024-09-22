@@ -155,16 +155,18 @@ To modify the included books, change the ``GenerateDefaults.ts`` file. Note that
 ## 📚 Default library ✅️
 These books are included with the site. The permission to use them has been granted explicitly (when relevant) by the respective authors on the date referenced in the ``Accepted`` column.
 
-| Relevant courses @ LTH | Book title   | Author(s) | Accepted |
+Note that, whilst I prioritize books for the computer science program at LTH, in Lund, I am open to trying to add other books too!
+
+| Relevant courses | Book title   | Author(s) | Accepted |
 |------------------------| ------------ | ------ | -------- |
-| EDAA45                 | [Introduktion till programmering med Scala, del 1](https://cs.lth.se/pgk/compendium/) | Björn Regnell | 2024-07-26 |
-| EDAA45                 | [Introduktion till programmering med Scala, del 2](https://cs.lth.se/pgk/compendium/) | Björn Regnell | 2024-07-26 |
-| EDAN40, EDAF95         | [Programming in Haskell, second edition](https://www.amazon.co.uk/Programming-Haskell-Graham-Hutton/dp/1316626229) | Graham Hutton | 2024-07-27 |
-| EITF45         | [Datakommunikation och nätverk, andra upplagan](https://www.studentlitteratur.se/kurslitteratur/teknik/tele--och-datakommunikation/datakommunikation-och-natverk/?srsltid=AfmBOor6Qss-WlACmeqRhSWCGIEnTvrmREXMb-HaluoK0BmoB3LyzqIg) | Jens A. Andersson; Maria Kihl | 2024-08-04 |
-| EDAN40, EDAF95         | [H-99: Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems) | Haskell wiki contributors | Not relevant |
-| FRTF05         | [Reglerteknik AK Övningsexempel 2022](https://control.lth.se/fileadmin/control/Education/EngineeringProgram/FRTF05/exempelsamling_print.pdf) | Tore Hägglund | 2024-09-10 |
-| FRTF05         | [Automatic Control Basic Course Exercises 2022](https://control.lth.se/fileadmin/control/Education/EngineeringProgram/FRTF05/exercises_print.pdf) | Tore Hägglund | 2024-09-10 |
-| EITF70         | [Computer Organization and Design RISC-V Edition 2017](https://shop.elsevier.com/books/computer-organization-and-design-risc-v-edition/patterson/978-0-12-812275-4) | David A. Patterson; John L. Hennessy | 2024-09-10 |
+| EDAA45 @ LTH, Lund                | [Introduktion till programmering med Scala, del 1](https://cs.lth.se/pgk/compendium/) | Björn Regnell | 2024-07-26 |
+| EDAA45 @ LTH, Lund                | [Introduktion till programmering med Scala, del 2](https://cs.lth.se/pgk/compendium/) | Björn Regnell | 2024-07-26 |
+| EDAN40 @ LTH, Lund, EDAF95 @ LTH, Lund        | [Programming in Haskell, second edition](https://www.amazon.co.uk/Programming-Haskell-Graham-Hutton/dp/1316626229) | Graham Hutton | 2024-07-27 |
+| EITF45 @ LTH, Lund        | [Datakommunikation och nätverk, andra upplagan](https://www.studentlitteratur.se/kurslitteratur/teknik/tele--och-datakommunikation/datakommunikation-och-natverk/?srsltid=AfmBOor6Qss-WlACmeqRhSWCGIEnTvrmREXMb-HaluoK0BmoB3LyzqIg) | Jens A. Andersson; Maria Kihl | 2024-08-04 |
+| EDAN40 @ LTH, Lund, EDAF95 @ LTH, Lund        | [H-99: Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems) | Haskell wiki contributors | Not relevant |
+| FRTF05 @ LTH, Lund        | [Reglerteknik AK Övningsexempel 2022](https://control.lth.se/fileadmin/control/Education/EngineeringProgram/FRTF05/exempelsamling_print.pdf) | Tore Hägglund | 2024-09-10 |
+| FRTF05 @ LTH, Lund        | [Automatic Control Basic Course Exercises 2022](https://control.lth.se/fileadmin/control/Education/EngineeringProgram/FRTF05/exercises_print.pdf) | Tore Hägglund | 2024-09-10 |
+| EITF70 @ LTH, Lund        | [Computer Organization and Design RISC-V Edition 2017](https://shop.elsevier.com/books/computer-organization-and-design-risc-v-edition/patterson/978-0-12-812275-4) | David A. Patterson; John L. Hennessy | 2024-09-10 |
 
 ## 📚 Banned books 🚫
 What follows is a list of books that will never be added to the default list of books, and the reason why. You can, however, add these yourself locally; I simply cannot, due to copyright issues, include them in the default list.
