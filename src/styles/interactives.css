@@ -104,6 +104,13 @@ button, select, option, input:not([type=checkbox]), .checkbox-label, .faux-butto
     }
 }
 
+/* Only supported on some browsers */
+select option {
+    background-color: white;
+    color: var(--text-color);
+    font-weight: initial !important;
+}
+
 /** Links with buttons inside them should have no styling **/
 a:has(> button){
     text-decoration: none;
