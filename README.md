@@ -1,6 +1,6 @@
 # [🎲 Slumper](https://www.slumper.me)
 
-***A web tool for randomizing and gameifying exercises from books.***
+***A web tool for randomizing and gamifying exercises from books.***
 
 🎰 **Randomizer** :: A smart randomizer that can save completed tasks and avoid them.
 
@@ -19,19 +19,27 @@ Simply visit [slumper.me](https://www.slumper.me) and pick any of the included b
 > This website can also be run locally (see section on contributing), and will work the exact same way :) (just with different instances of localStorage)
 
 ### 🎰 Randomization
-To randomize, simply hit the random button! (the first button) To mark a task as completed, and randomize a new one, press the "tick" button. To clear the task memory for the selected book, click the "trash can" icon.
+- To randomize, simply hit the randomize button! *(the first button)* 
+- To mark a task as completed, and randomize a new one, press the *"tick"* button. 
+- To clear the task memory for the selected book, click the *"trash can"* icon.
 ### ⚙️ Filters
-Select the chapters by toggling the corresponding boxes. When a chapter is exhausted, it will automatically be unchecked and greyed out until memory is cleared.
+Select the chapters by toggling the corresponding boxes. 
+
+When a chapter is exhausted, it will automatically be unchecked and greyed out until memory is cleared.
 ### ⏱️ Timer
-If enabled, this will start every time you start a new task. The default time is 180 seconds (3 minutes), but you can set your own, between 1 and 3600 seconds (1 hour), which will be upheld until the page is refreshed. It will flash and play a sound when the time is elapsed.
+If enabled, this will start every time you start a new task. 
+
+The default time is 180 seconds (3 minutes), but you can set your own - between 1 and 3600 seconds (1 hour) - which will be upheld until the page is refreshed. It will flash and play a sound when the time is elapsed.
 ### 🪄 Adding books
-Click the "add" button next to the book selector. It will bring you to a different page where you can add the chapters of the book, or import a previously created book to edit it or duplicate it.
+Click the *"add"* button next to the book selector. It will bring you to a different page where you can add the chapters of the book, or import a previously created book to edit it or duplicate it.
 
-Add chapters by writing the chapter title and number of tasks, then click the ``+ Add entry`` button to add another chapter. If there are no tasks in a given chapter, you can simply set it to 0, and the randomizer will skip it. To remove a chapter, click the trash can icon next to it. 
+Add chapters by writing the chapter title and number of tasks, then click the *``+ Add entry``* button to add another chapter. If there are no tasks in a given chapter, you can simply set it to 0, which will grey it out. If you desire to hide such "empty" chapters, click the *"eye"* icon. Any such chapters will be skipped by the randomizer because they'll be exhausted from the get-go.
 
-When all entries have been added, simply press ``Save`` and the book will be added to your local browser storage, as reflected by the personal library tab. You can also choose to save the book to disk by pressing ``Export``.
+To move a chapter, change the leftmost number. You can also remove it by clicking the *"trashcan"* button on the right. 
 
-Browser stored books are stored under the "Personal library" and can be managed from there. To edit a book, simply import it and make your changes, then save (it will overwrite as long as you don't change the title). You can also export it here, or completely remove it by clicking the "trashcan" icon.
+When all entries have been added, simply press *``Save``* and the book will be added to your local browser storage, as reflected by the personal library tab. You can also choose to save the book to disk by pressing *``Export``*.
+
+Browser stored books are stored under the *"Personal library"* and can be managed from there. To edit a book, simply import it and make your changes, then save (it will overwrite as long as you don't change the title). You can also export it here, or completely remove it by clicking the *"trashcan"* icon.
 
 > [!WARNING]
 > As memory is stored solely in browser storage (``localStorage``) clearing your browser storage will reset any progress and remove any custom books. **It is therefore a good idea to export your books!**
@@ -42,7 +50,7 @@ Browser stored books are stored under the "Personal library" and can be managed 
 
 To submit a book to be considered as a default entry:
 1. Check the banned books list, to see if it's banned
-2. If not, submit an issue with the template ``Book suggestion`` and title as the book title. Do NOT include an exported book that you have made, as it might infringe copyright.
+2. If not, submit an issue with the template *``Book suggestion``* and title as the book title. Do NOT include an exported book that you have made, as it might infringe copyright.
 
 I will, given time, then contact the copyright holder myself and seek permission, and will respond wheter or not it got approved or not. If approved, I will then ask you to provide the generated book unless I also own a copy. If the copyright holders decline, it will go in the banned books list.
 
@@ -70,7 +78,11 @@ The site has been designed with those impaired in mind. This includes having mad
 ---
 
 ## 🔮 How does it work?
-This website uses books stored as JSON files. A book is just an object with ``title``, ``preview image``, ``source link``, ``chapters``, ``custom``, ``id``, and ``generator version`` (not actual variable names). The ``chapters`` field contains an array of chapter objects, which themselves consist of ``number``, ``full name`` and ``tasks``. Tasks is similarly just an array of task objects, which currently only hold the field ``task``, but could be expanded in the future to enable more content. ``id`` is just a string id, mostly used for memory management and is just the concatenation of the name and custom tag. The ``custom`` tag is just a boolean that indicates whether a book is a personal library item or not, and is used to identify custom books as well as handle conflicts. 
+This website uses books stored as JSON files. A book is just an object with ``title``, ``preview image``, ``source link``, ``chapters``, ``custom``, ``id``, and ``generator version`` (not actual variable names). 
+
+The ``chapters`` field contains an array of chapter objects, which themselves consist of ``number``, ``full name`` and ``tasks``. Tasks is similarly just an array of task objects, which currently only hold the field ``task``, but could be expanded in the future to enable more content. 
+
+``id`` is just a string id, mostly used for memory management and is just the concatenation of the name and custom tag. The ``custom`` tag is just a boolean that indicates whether a book is a personal library item or not, and is used to identify custom books as well as handle conflicts. 
 
 When a task is randomized, the script looks through any non-filtered chapters and checks whether their tasks are exhausted. It then picks a random chapter, and then a random task in that chapter.
 
@@ -100,7 +112,10 @@ Add them to the [**list of issues**](https://www.github.com/mikael-ros/slumper/i
 - Lighthouse browser addon
 - Some kind of screen reader
 - Some kind of addon that allows you to simulate colorblindness (Firefox can do this natively)
-- A couple devices and browsers to test compatability
+- A couple devices and browsers to test compatability, for example:
+    - Linux, Windows, Android and or IOS
+    - Phone and PC, maybe also a laptop or TV
+    - The above, or BrowserStack (or a similar service)
 
 ### 🖥 Running the site locally
 Simply run:
@@ -110,7 +125,7 @@ npm install @astrojs/netlify
 npm install @astrojs/solid-js
 npx astro dev
 ```
-And navigate to [localhost:4321](http://localhost:4321).
+And navigate to [``localhost:4321``](http://localhost:4321).
 
 You can optionally append ``--host`` to expose the site to your local network (useful when testing on other devices).
 
