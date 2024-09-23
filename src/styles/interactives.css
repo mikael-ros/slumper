@@ -109,6 +109,7 @@ select option {
     background-color: white;
     color: var(--text-color);
     font-weight: initial !important;
+    text-shadow: none;
 }
 
 /** Links with buttons inside them should have no styling **/
