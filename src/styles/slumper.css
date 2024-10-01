@@ -83,10 +83,10 @@ footer, header h1 {
 header{
     top: 2em;
     width: 100%;
+    height: auto;
 
     h1{
         max-width: 50%;
-        line-height: 2em;
 
         padding: .25em 1em;
 
@@ -192,12 +192,13 @@ article{
     }
     
     header h1 {
-        background-color: rgba(var(--backdrop-color),0.5);
+        background-color: rgba(var(--backdrop-color),0);
     }
     
     header{
         position: relative;
         top: 0;
+        background-color: rgba(var(--backdrop-color),0.5);
     
         h1{
             width: 100%;
