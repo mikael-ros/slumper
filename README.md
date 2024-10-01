@@ -123,6 +123,8 @@ Simply run:
 npx astro dev
 npm install @astrojs/netlify
 npm install @astrojs/solid-js
+npm install @vitejs/plugin-legacy
+npm install vite-plugin-top-level-await
 npx astro dev
 ```
 And navigate to [``localhost:4321``](http://localhost:4321).
