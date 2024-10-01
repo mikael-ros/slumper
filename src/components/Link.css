@@ -6,7 +6,7 @@
 
     padding: 0 .5em;
   
-    height: 100%;
+    
  
     text-decoration: none;
     color: var(--text-color-negative);
@@ -26,20 +26,23 @@
         padding: 0 .25em;
     }
 
-    &:has(> img){
-        p {
-            padding: 0 0.5em;
-        }
-    }
+    
 
-    img  {
-        width: 1.75em;
-        height: 1.75em;
+    .image  {
+
+        width: 2em;
+        height: 2em;
 
         opacity: 0.8;
 
         transition-property: opacity;
         transition-duration: var(--transition-duration-fast);
+    }
+}
+
+.link-with-image{
+    p {
+        padding: 0 0.5em;
     }
 }
 
@@ -59,13 +62,13 @@
         p {
             padding: 0;
         }
-    
-        &:has(> img){
-            p {
-                padding: 0 0.5em;
-            }
-        } 
     }
+
+    .link-with-image{
+        p {
+            padding: 0 0.5em;
+        }
+    } 
 
     .link-container{
         border: none;

@@ -34,15 +34,15 @@ export function Link({href, text, src, alt, clipboard = false, newtab = false}: 
         <div class="link-container" data-clipboard={clipboard}>
             <Switch> 
                 <Match when={clipboard}>
-                    <div tabIndex="0" class="link" onclick={clipboard ? copy : undefined}>
+                    <div tabIndex="0" class={"link " + (src ? "link-with-image" : "")} onclick={clipboard ? copy : undefined}>
                         <p>{text}</p>
-                        <img src={src} alt={alt}/>
+                        <img class="image" src={src} alt={alt}/>
                     </div>
                 </Match>
                 <Match when={!clipboard}>
-                    <a tabIndex="0" class="link" href={href} target={newtab ? "_blank" : "_self"}>
+                    <a tabIndex="0" class={"link " + (src ? "link-with-image" : "")} href={href} target={newtab ? "_blank" : "_self"}>
                         <p>{text}</p>
-                        <img src={src} alt={alt}/>
+                        <img class="image" src={src} alt={alt}/>
                     </a>
                 </Match>
             </Switch>
