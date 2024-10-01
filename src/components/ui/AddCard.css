@@ -1,7 +1,14 @@
 #chapter-inputs, .book-list, .book-disclaimer{
     display: flex;
     flex-direction: column;
-    gap: .5em;
+    --gap: .5em;
+
+    margin-top: calc(-1*var(--gap));
+
+    * {
+        margin-top: var(--gap);
+    }
+    
     
     max-height: 300px;
     max-width: 100%;
@@ -44,6 +51,12 @@
 
     #add-entry, #toggle-empty, .book-entry button {
         height: 2em;
+    }
+}
+
+@supports ((aspect-ratio: 1 / 1) and (gap: 0)) { /* Aspect ratio is a proxy for flex gap, as gap will sometimes incorrectly be true (as in grid gap) */
+    #chapter-inputs, .book-list, .book-disclaimer{
+        gap: var(--gap);
     }
 }
 

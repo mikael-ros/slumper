@@ -135,11 +135,26 @@ a:has(> button){
 .interactive-group {
     --gap: .75em;
     display: flex;
-    gap: var(--gap);
+    margin: calc(-1*var(--gap)) 0 0 calc(-1*var(--gap));
+}
+
+.interactive-group > * {
+    margin: var(--gap) 0 0 var(--gap);
 }
 
 .interactive-group--tight {
     --gap: .25em;
+}
+
+@supports ((aspect-ratio: 1 / 1) and (gap: 0)) {
+    .interactive-group {
+        gap: var(--gap);
+        margin: 0;
+    }
+
+    .interactive-group > * {
+        margin: 0;
+    }
 }
 
 /**********/
@@ -148,11 +163,26 @@ a:has(> button){
 
 .input-list {
     display: flex;
-    gap: .75em;
+    --gap: .75em;
+    margin: calc(-1*var(--gap)) 0 0 calc(-1*var(--gap));
+}
+
+.input-list > * {
+    margin: var(--gap) 0 0 var(--gap);
 }
 
 .input-list--vertical {
     flex-direction: column;
+}
+
+@supports ((aspect-ratio: 1 / 1) and (gap: 0)) {
+    .input-list {
+        gap: var(--gap);
+    }
+
+    .input-list > * {
+        margin: 0;
+    }
 }
 
 .input-group{
