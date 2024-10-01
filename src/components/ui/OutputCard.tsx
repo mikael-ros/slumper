@@ -143,12 +143,12 @@ export function OutputCard(){
                         </For>
                     </select>
                     <Show when={book().source != ""}>
-                        <a role="button" href={book().source} id="get">
+                        <a class="link-with-button" role="button" href={book().source} id="get">
                             <Button label="Go to the source" title="Go to the source of the book" text="Get"
                                     icons={[[linkIcon, "Book source"]]} />
                         </a>
                     </Show>
-                    <a role="button" href="add" id="add">
+                    <a class="link-with-button" role="button" href="add" id="add">
                         <Button label="Add a custom book" title="Add a custom book (leaves page)" text="Add"
                                 icons={[[plusIcon, "Add book"]]} />
                     </a>

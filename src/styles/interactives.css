@@ -112,8 +112,7 @@ select option {
     text-shadow: none;
 }
 
-/** Links with buttons inside them should have no styling **/
-a:has(> button){
+.link-with-button {
     text-decoration: none;
 }
 
