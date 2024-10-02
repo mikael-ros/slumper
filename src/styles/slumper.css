@@ -84,17 +84,17 @@ header{
     top: 2em;
     width: 100%;
     height: auto;
-
-    h1{
-        max-width: 50%;
-
-        padding: .25em 1em;
-
-        margin: 0;
-
-        border-radius: var(--aggressive-border-radius);
-    }
     z-index: 999;
+}
+
+header h1 {
+    max-width: 50%;
+
+    padding: .25em 1em;
+
+    margin: 0;
+
+    border-radius: var(--aggressive-border-radius);
 }
 
 footer {
@@ -193,20 +193,17 @@ article{
     
     header h1 {
         background-color: rgba(var(--backdrop-color),0);
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+
+        border-radius: 0;
     }
     
     header{
         position: relative;
         top: 0;
         background-color: rgba(var(--backdrop-color),0.5);
-    
-        h1{
-            width: 100%;
-            max-width: 100%;
-            margin: 0;
-    
-            border-radius: 0;
-        }
     }
     
     footer {

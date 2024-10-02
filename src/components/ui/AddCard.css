@@ -5,11 +5,6 @@
 
     margin-top: calc(-1*var(--gap));
 
-    * {
-        margin-top: var(--gap);
-    }
-    
-    
     max-height: 300px;
     max-width: 100%;
     margin: 1em 0;
@@ -52,6 +47,29 @@
     #add-entry, #toggle-empty, .book-entry button {
         height: 2em;
     }
+}
+
+#chapter-inputs *, .book-list *, .book-disclaimer * {
+    margin-top: var(--gap);
+}
+
+#chapter-inputs button, 
+.book-list button, 
+.book-disclaimer button {
+    width: 15em;
+}
+
+#chapter-inputs button img, 
+.book-list button img, 
+.book-disclaimer button img{
+    width: 1.5em;
+}
+
+#chapter-inputs button:hover img, 
+.book-list button:hover img, 
+.book-disclaimer button:hover img{
+    transition-duration: var(--transition-duration-medium);
+    transform: rotate(360deg);
 }
 
 @supports ((aspect-ratio: 1 / 1) and (gap: 0)) { /* Aspect ratio is a proxy for flex gap, as gap will sometimes incorrectly be true (as in grid gap) */
@@ -97,48 +115,49 @@
     padding: .25em .5em;
     border-radius: var(--mild-border-radius);
 
-    h5 {
-        width: 100%;
-        text-wrap: nowrap;
-        margin: 0;
-        overflow-x: hidden;
-        text-overflow: ellipsis;
+    
 
-        color: var(--text-color-negative-dull);
-    }
+    
+}
 
-    &:hover, &:focus {
-        background-color: rgba(var(--backdrop-color),0.1);
-    }
+.book-entry h5 {
+    width: 100%;
+    text-wrap: nowrap;
+    margin: 0;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
 
-    .interactive-group:hover, .interactive-group:focus, .interactive-group:has(:focus) {
-        button {
-            opacity: 1;
-        }
-    }
+    color: var(--text-color-negative-dull);
+}
 
-    button{
-        opacity: 0;
-        max-width: 2em;
+.book-entry:hover, .book-entry:focus {
+    background-color: rgba(var(--backdrop-color),0.1);
+}
 
-        img {
-            width: 2em;
-            transform: scale(1);
-        }
+.book-entry .interactive-group:hover, .book-entry .interactive-group:focus, .book-entry .interactive-group:has(:focus)  button {
+    opacity: 1;
+}
 
-        &:focus {
-            opacity: 1;
-        }
+.book-entry button{
+    opacity: 0;
+    max-width: 2em;
+}
 
-        &:hover {
-            border-radius: 1em;
+.book-entry button img {
+    width: 2em;
+    transform: scale(1);
+}
 
-            img {
-                transform: scale(1);
-            }
-            
-        }
-    }
+.book-entry button:focus {
+    opacity: 1;
+}
+
+.book-entry button:hover {
+    border-radius: 1em;  
+}
+
+.book-entry button:hover img {
+    transform: scale(1);
 }
 
 /* Where there is no hover, this should be displayed at all times */
@@ -149,39 +168,35 @@
 }
 
 @media (max-width:900px)  {
-    .add {
-        #form-controls {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            grid-gap: .5em;
-
-            button, label {
-                margin: 0;
-            }
-        }
-
-        #add-entry {
-            width: 100%;
-        }
-
-        #chapter-inputs{
-            display: flex;
-            flex-direction: column;
-            gap: .5em;
-
-            max-height: fit-content;
-        }
+    .add #form-controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-gap: .5em;
     }
 
-    .book-entry{
-        button{
-            opacity: 1;
-        }
-        
-        .interactive-group {
-            flex-wrap: nowrap;
-        }
+    .add #form-controls button, .add #form-controls label {
+        margin: 0;
+    }
+
+    .add #add-entry {
+        width: 100%;
+    }
+
+    .add #chapter-inputs{
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+
+        max-height: fit-content;
+    }
+
+    .book-entry button{
+        opacity: 1;
+    }
+    
+    .book-entry .interactive-group {
+        flex-wrap: nowrap;
     }
 
     .input__chapter  {

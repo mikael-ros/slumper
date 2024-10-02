@@ -36,18 +36,16 @@
     -webkit-backdrop-filter: var(--backdrop-filter);
 
     color: var(--text-color-negative);
+}
 
-    img{
+.card img{
+    transition: transform;
+    transition-duration: var(--transition-duration-fast);
+}
+
+.card button:hover img {
         transition: transform;
         transition-duration: var(--transition-duration-fast);
-    }
-
-    button:hover{
-        img {
-            transition: transform;
-            transition-duration: var(--transition-duration-fast);
-        }
-    }
 }
 
 /* Smaller cards, take up less of the width */
