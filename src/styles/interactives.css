@@ -204,24 +204,31 @@ select option {
 }
 
 .checkbox {
+    display: flex;
+    position: relative;
+
     input[type='checkbox']{ /* The checkbox itself */
         margin: 1em;
     
         transform: scale(2.5); /* Visual size */
+
+        
     }
 
     .checkbox-label {
-        align-items: end;
-        justify-content: end;
-        position: relative;
-        top:-3%;
-        width: 81%;
-        height: 0;
-        margin: 0;
-        padding: 0;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        position: absolute;
+
+        line-height: 100%;
+        
+        height: 100%;
+        width: 100%;
 
         font-size: .7em;
-        line-height: 200%;
+        padding: -.1em;
+        
         color: var(--text-color);
  
         text-shadow: none;
@@ -233,16 +240,16 @@ select option {
         pointer-events: none;
         touch-action: none;
     }
+
     input[type='checkbox']:checked + label {
         color: var(--text-color-negative); 
-        
     }
 }
 
 @media (max-width:900px)  {
     .checkbox {
         input[type='checkbox']{
-            margin: 1.5em;
+            margin: 1.25em;
         
             transform: scale(3); /* Visual size */
         }
