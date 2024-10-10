@@ -5,67 +5,63 @@
     position: relative;
 
     padding: 0 .5em;
-  
-    height: 100%;
- 
+
     text-decoration: none;
     color: var(--text-color-negative);
     cursor: pointer;
 
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* Disables the ugly tap color that displays in mobile chrome */
+}
 
-    &:hover{
-        text-decoration:underline;
+.link:hover {
+    text-decoration:underline;
+}
 
-        img{
-            opacity: 0.9;
-        }
-    }
-    
-    p {
-        padding: 0 .25em;
-    }
+.link:hover img {
+    opacity: 0.9;
+}
 
-    &:has(> img){
-        p {
-            padding: 0 0.5em;
-        }
-    }
+.link p {
+    padding: 0 .25em;
+}
 
-    img  {
-        width: 1.75em;
-        height: 1.75em;
+.link img  {
+    width: 2em;
+    height: 2em;
 
-        opacity: 0.8;
+    opacity: 0.8;
 
-        transition-property: opacity;
-        transition-duration: var(--transition-duration-fast);
-    }
+    transition-property: opacity;
+    transition-duration: var(--transition-duration-fast);
+}
+
+.link-with-image p {
+    padding: 0 0.5em;
 }
 
 .link-container{
     position: relative;
     border-left: .1em var(--text-color-negative-dull) solid;
 
-    &[data-clipboard = "false"]:nth-of-type(1){
-        border: 0;
-    }
+    
+}
+
+.link-container[data-clipboard = "false"]:nth-of-type(1){
+    border: 0;
 }
 
 @media (max-width:900px)  {
     .link  {
         padding: .5em 0;
-        
-        p {
-            padding: 0;
-        }
-    
-        &:has(> img){
-            p {
-                padding: 0 0.5em;
-            }
-        } 
     }
+
+    .link p {
+        padding: 0;
+    }
+
+    .link-with-image p {
+        padding: 0 0.5em;
+    } 
 
     .link-container{
         border: none;

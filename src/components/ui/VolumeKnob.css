@@ -14,51 +14,51 @@
     border-radius: var(--aggressive-border-radius);
 
     background-color: rgba(var(--backdrop-color),0.3);
-
-    .knob {
-        width: 2.5em;
-        height: 2.5em;
-
-        border-radius: 1.25em;
-
-        margin: .125em;
-        padding: 0;
-
-        img {
-            position: absolute;
-            width: 2.5em;
-            height: 2.5em;
-            padding: .2em;
-        
-            transform: scale(1) rotate(0deg);
-            transition: transform;
-            transition-duration: var(--transition-duration-medium);
-        }
-
-        &:hover, &:focus{
-            border-radius: 1.25em;
-
-            width: 2.5em;
-            height: 2.5em;
-    
-    
-            img {
-                transform: scale(1) rotate(0deg) ;
-            }
-
-            #no-dot {
-                transform: scale(1) rotate(360deg) ;
-            }
-        }
-
-    }
 }
+
+.knob {
+    width: 2.5em;
+    height: 2.5em;
+
+    border-radius: 1.25em;
+
+    margin: .125em;
+    padding: 0;
+}
+
+.knob img {
+    position: absolute;
+    width: 2.5em;
+    height: 2.5em;
+    padding: .2em;
+
+    transform: scale(1) rotate(0deg);
+    transition: transform;
+    transition-duration: var(--transition-duration-medium);
+}
+
+.knob:hover, .knob:focus{
+    border-radius: 1.25em;
+
+    width: 2.5em;
+    height: 2.5em;
+}
+
+
+.knob:hover img, .knob:focus img {
+    transform: scale(1) rotate(0deg) ;
+}
+
+.knob:hover #no-dot, .knob:focus #no-dot {
+    transform: scale(1) rotate(360deg) ;
+}
+
 
 .volume-slider{
     display: flex;
     flex-direction: column;
 
-    justify-content: end;
+    justify-content: flex-end;
 
     height: 0em;
     width: 80%;
@@ -71,53 +71,54 @@
     transition-property: height,margin,opacity;
     transition-duration: var(--transition-duration-fast);
 
-    &[data-open = "true"]{
-        height: 10em;
-    }
-
-    &[data-open = "false"]{
-        height: 0;
-        margin: 0;
-        opacity: 0;
-
-        p {
-            opacity: 0;
-        }
-
-        #slider {
-            opacity: 0;
-        }
-    }
-
     overflow: hidden;
-
-    p, #slider{
-        transition-property: opacity;
-        transition-duration: var(--transition-duration-fast);
-    }
-
-    #slider{
-        --_height: var(--height, 0);
-        position: relative;
-
-        height: calc(var(--_height)*1%);
-        background-image: linear-gradient(rgba(var(--highlight-color),0.5), rgba(var(--highlight-color),0.05));
-
-        border-radius: 0 0 var(--aggressive-border-radius) var(--aggressive-border-radius);
-        z-index: 2;
-    }
-
-    p {
-        position: absolute;
-        height: 2em;
-        width: 100%;
-        left: 0;
-        color: var(--text-color-negative-dull);
-        text-align: center;
-        z-index: 1;
-        user-select: none;
-    }
 }
+
+.volume-slider p, .volume-slider #slider{
+    transition-property: opacity;
+    transition-duration: var(--transition-duration-fast);
+}
+
+.volume-slider #slider{
+    --_height: var(--height, 0);
+    position: relative;
+
+    height: calc(var(--_height)*1%);
+    background-image: linear-gradient(rgba(var(--highlight-color),0.5), rgba(var(--highlight-color),0.05));
+
+    border-radius: 0 0 var(--aggressive-border-radius) var(--aggressive-border-radius);
+    z-index: 2;
+}
+
+.volume-slider p {
+    position: absolute;
+    height: 2em;
+    width: 100%;
+    left: 0;
+    color: var(--text-color-negative-dull);
+    text-align: center;
+    z-index: 3;
+    user-select: none;
+}
+
+.volume-slider[data-open = "true"]{
+    height: 10em;
+}
+
+.volume-slider[data-open = "false"]{
+    height: 0;
+    margin: 0;
+    opacity: 0;
+}
+
+.volume-slider[data-open = "false"]p {
+    opacity: 0;
+}
+
+.volume-slider[data-open = "false"] #slider {
+    opacity: 0;
+}    
+
 
 /* Volume knob should not be displayed on mobile */
 @media (max-width:900px)  {

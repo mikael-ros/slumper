@@ -11,12 +11,14 @@
     "generate-library": "tsc && node dist/index.js"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.3",
+    "@astrojs/check": "^0.9.4",
     "@astrojs/netlify": "^5.5.3",
     "@astrojs/solid-js": "^4.4.2",
-    "astro": "^4.15.8",
+    "@vitejs/plugin-legacy": "^5.4.2",
+    "astro": "^4.16.0",
     "solid-js": "^1.8.16",
-    "typescript": "^5.4.4"
+    "typescript": "^5.4.4",
+    "vite-plugin-top-level-await": "^1.4.4"
   },
   "devDependencies": {
     "@types/node": "^20.12.4"

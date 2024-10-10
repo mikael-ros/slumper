@@ -221,7 +221,7 @@ export function AddCard(){
     return (
         <div class="card-group card-group--vertical">
             <div class="card add">
-                <a role="button" id="back" href="/">
+                <a role="button" class="link-with-button" id="back" href="/">
                     <Button label="Go home" title="Go back to the index page"
                             text="Back"
                             icons={[[homeIcon, "Return to home"]]}
@@ -329,7 +329,7 @@ export function AddCard(){
                                                     onclick={() => importBook(book)}
                                                     icons={[[uploadIcon, "Import book"]]}
                                             />
-                                            <a tabIndex="-1" href={"https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=book+suggestion&projects=&template=book-suggestion.md&title=%5BBook+suggestion%5D+" + book.name} target="_blank">
+                                            <a class="link-with-button" tabIndex="-1" href={"https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=book+suggestion&projects=&template=book-suggestion.md&title=%5BBook+suggestion%5D+" + book.name} target="_blank">
                                                 <Button tabIndex={0} label={"Suggest the book named " + book.name + " to be added to the default library"} title={"Suggest \"" + book.name + "\" to be added to the default library"}
                                                         icons={[[shareIcon, "Suggest book"]]}
                                                 />
