@@ -172,7 +172,7 @@ select option {
 .interactive-group {
     --gap: .75em;
     display: flex;
-    margin: calc(-1*var(--gap)) 0 0 calc(-1*var(--gap)) !important;
+    margin: calc(-1*var(--gap)) 0 0 calc(-1*var(--gap)) !important; /* It refuses to apply properly without this ??? */
 }
 
 .interactive-group > * {
@@ -186,7 +186,7 @@ select option {
 @supports ((aspect-ratio: 1 / 1) and (gap: 0)) {
     .interactive-group {
         gap: var(--gap);
-        margin: 0;
+        margin: 0 !important;
     }
 
     .interactive-group > * {
@@ -223,7 +223,7 @@ select option {
         margin: 0;
     }
 
-    .input-list > *, .input-list--vertical > *  {
+    .input-list > *:not(.interactive-group), .input-list--vertical > *:not(.interactive-group)  {
         margin: 0;
     }
 }
