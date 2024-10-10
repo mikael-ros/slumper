@@ -105,7 +105,6 @@
     flex: 600%;
 }
 
-
 .book-entry{
     display: flex;
     align-items: center;
@@ -114,10 +113,6 @@
     
     padding: .25em .5em;
     border-radius: var(--mild-border-radius);
-
-    
-
-    
 }
 
 .book-entry h5 {

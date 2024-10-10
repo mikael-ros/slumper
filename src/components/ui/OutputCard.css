@@ -104,6 +104,7 @@
 
 @media (max-width:900px) {
     .output{
+        position: relative;
         overflow: hidden;
         min-height: fit-content;
 
@@ -127,6 +128,10 @@
         --backdrop-filter: blur(var(--mild-border-radius));
         backdrop-filter: var(--backdrop-filter);
         -webkit-backdrop-filter: var(--backdrop-filter);
+
+        overflow-y: hidden;
+        -webkit-overflow-scrolling:touch;
+        
 
         z-index: 2;
         --gap: .75em;
