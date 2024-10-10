@@ -44,8 +44,8 @@
 }
 
 .card button:hover img {
-        transition: transform;
-        transition-duration: var(--transition-duration-fast);
+    transition: transform;
+    transition-duration: var(--transition-duration-fast);
 }
 
 /* Smaller cards, take up less of the width */

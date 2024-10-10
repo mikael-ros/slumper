@@ -28,11 +28,13 @@
     100% {--current-color: var(--default-color)}
 }
 
-
-.timer__display{
+.timer {
     --open-height: 3em;
     --closed-height: 0em;
+    overflow: visible;
+}
 
+.timer__display{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,8 +50,9 @@
 }
 
 .timer__display__text {
-    font-size: 2em;
     text-align: center; 
+    height: 100%;
+    line-height: normal;
     margin: 0;
 }
 
@@ -57,7 +60,9 @@
     position: relative;
     display: flex;
     align-items: center;
-    height: 3em;
+    justify-content: center;
+    height: var(--open-height);
+    
     margin: 0;
 }
 
@@ -68,13 +73,14 @@
 
     height: 100%;
     width: 100%;
+    margin-top: 0;
 
     transition-property: width, border-radius, filter;
     transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
 }
 
 .timer__config button img {
-    height: 100%;
+    max-height: 100%;
     width: unset;
 }
 
@@ -97,10 +103,9 @@
     width: 70%;
 }
 
-.timer__config input {
+#timer__config__input {
     height: 100%;
     margin: 0;
-    line-height: 3em;
 }
 
 
@@ -152,7 +157,7 @@
         z-index: 2;
     }
 
-    .timer input {
+    #timer__config__input {
         margin-left: 1em;
     }
 }
