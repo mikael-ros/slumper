@@ -135,10 +135,10 @@ export function OutputCard(){
                 </Show>
 
                 <div id="course-select-wrapper">
-                    <select id="course-select" value={JSON.stringify(book())} name="course" onchange={event => {setNewBook(JSON.parse(event.target.value))}} title="Select a book" aria-label="Select a book" aria-required="false">
+                    <select class="interactive" id="course-select" value={JSON.stringify(book())} name="course" onchange={event => {setNewBook(JSON.parse(event.target.value))}} title="Select a book" aria-label="Select a book" aria-required="false">
                         <For each={library()}>
                             {(book) =>
-                                <option value={JSON.stringify(book)}>{(book.custom ? "[P] " : "") + book.name}</option>
+                                <option class="interactive" value={JSON.stringify(book)}>{(book.custom ? "[P] " : "") + book.name}</option>
                             }
                         </For>
                     </select>
