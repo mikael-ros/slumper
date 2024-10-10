@@ -1,4 +1,4 @@
-.timer:has([data-elapsed = "true"]){
+.timer[data-elapsed = "true"]{
     --default-color: rgba(var(--secondaryRGB),0.3);
     --mid-flash-color: rgba(var(--highlight-color),0.2);
     --current-color: var(--default-color);
@@ -10,7 +10,7 @@
     animation: flash 1s 1;
 }
 
-[data-elapsed = "true"]{
+.timer__display__text[data-elapsed = "true"]{
     --default-color: var(--secondary);
     --mid-flash-color: var(--text-color-negative);
     --current-color: var(--default-color);
@@ -41,69 +41,64 @@
 
     transition-property: height;
     transition-duration: var(--transition-duration-medium);
+}
 
-    &[data-open = "true"]{
-        height: var(--open-height);
-    }
+.timer__display[data-open = "true"]{
+    height: var(--open-height);
+}
 
-    .timer__display__text {
-        font-size: 2em;
-        text-align: center; 
-        margin: 0;
-    }
+.timer__display__text {
+    font-size: 2em;
+    text-align: center; 
+    margin: 0;
 }
 
 .timer__config{
     display: flex;
     align-items: center;
     height: 100%;
+    margin: 0;
+}
+
+.timer__config button {
+    --filter: unset;
+    filter: var(--filter);
+    -webkit-filter: var(--filter);
+
+    height: 100%;
+    width: 100%;
+
+    transition-property: width, border-radius, filter;
+    transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
+}
+
+.timer__config button:hover{
+    border-radius: var(--default-border-radius);
     
-    button {
-        --filter: unset;
-        filter: var(--filter);
-        -webkit-filter: var(--filter);
+    --filter: brightness(0.95);
 
-        height: 100%;
-        width: 100%;
+    transition-property: width, border-radius, filter;
+    transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
+}    
 
-        margin: 0;
-        transition-property: width, border-radius, filter;
-        transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
+.timer__config button:disabled:hover{
+    border-radius: var(--mild-border-radius);
+    --filter: brightness(70%);
+    cursor: not-allowed;
+}
 
-        &:hover{
-            border-radius: var(--default-border-radius);
-            
-            --filter: brightness(0.95);
-    
-            transition-property: width, border-radius, filter;
-            transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
-        }    
-
-        &:disabled:hover{
-            border-radius: var(--mild-border-radius);
-            --filter: brightness(70%);
-            cursor: not-allowed;
-        }
-
-        &[data-open = "true"]{
-            width: 70%;
-        }
-    }
-
-    input {
-        width: 30%;
-        height: 3em;
-    }
+.timer__config button[data-open = "true"]{
+    width: 70%;
 }
 
 
 @media (max-width:900px) {
-    .timer:has([data-elapsed = "true"]){
+    .timer[data-elapsed = "true"]{
         --current-color: none;
         animation: none;
     }
     
-    [data-elapsed = "true"]{
+    .timer__display__text[data-elapsed = "true"]{
         animation: none;
     }
     
@@ -112,34 +107,34 @@
         flex-direction: row-reverse;
         height: fit-content;
         width: 100%;
-
-        button{
-            height: 2.5em;
-  
-            img {
-                height: 100%;
-            }
-        }
-
-        input{
-            width: 100%;
-            height: 2.5em;
-        }
-
-        & > p{
-            display: none;
-        }
     }
 
+    .timer__config button{
+        height: 2.5em;
+    }
+
+    .timer__config button img {
+        height: 100%;
+    }
+
+    .timer__config input{
+        width: 100%;
+        height: 2.5em;
+    }
+
+    .timer__config > p{
+        display: none;
+    }
+    
     .timer__display{
         --open-height: 2em;
         --closed-height: var(--open-height);
+    }
 
-        .timer__display__text {
-            font-size: 1.5em;
-            text-align: center; 
-            margin: 0;
-        }
+    .timer__display .timer__display__text {
+        font-size: 1.5em;
+        text-align: center; 
+        margin: 0;
     }
 
     .timer{
@@ -156,9 +151,9 @@
         padding: 0 1.25em !important;
 
         z-index: 2;
+    }
 
-        input {
-            margin-left: 1em;
-        }
+    .timer input {
+        margin-left: 1em;
     }
 }
