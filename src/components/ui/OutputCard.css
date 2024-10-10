@@ -103,14 +103,15 @@
 }
 
 @media (max-width:900px) {
+
     .output{
         position: relative;
         overflow: hidden;
         min-height: fit-content;
-
-        /* On mobile this becomes a weird element, it takes up extra space to account for the timer */
+        --backdrop-filter: none; /* Without this, the control panel below would not be fixed on some versions of iOS... */
     }
 
+    /* On mobile this becomes a weird element, it takes up extra space to account for the timer */
     .output #control-panel {
         flex-direction: row-reverse;
         position: fixed;
@@ -130,12 +131,12 @@
         backdrop-filter: var(--backdrop-filter);
         -webkit-backdrop-filter: var(--backdrop-filter);
 
-        overflow-y: hidden;
+        overflow-y: auto;
         -webkit-overflow-scrolling:touch;
-        
 
         z-index: 2;
         --gap: .75em;
+
     }
 
     .output #control-panel button:last-of-type{
