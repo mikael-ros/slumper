@@ -49,7 +49,7 @@
     }
 }
 
-#chapter-inputs *, .book-list *, .book-disclaimer * {
+#chapter-inputs > *, .book-list > *, .book-disclaimer > * {
     margin-top: var(--gap);
 }
 

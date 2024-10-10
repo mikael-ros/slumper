@@ -160,7 +160,7 @@ select option {
     max-width: 3em;
 }
 
-.button-group * {
+.button-group > * {
     width: 100%;
     margin: 0;
 }
@@ -204,20 +204,26 @@ select option {
     margin: calc(-1*var(--gap)) 0 0 calc(-1*var(--gap));
 }
 
-.input-list > * {
+.input-list > *:not(.interactive-group) {
     margin: var(--gap) 0 0 var(--gap);
 }
 
 .input-list--vertical {
     flex-direction: column;
+    margin: calc(-1*var(--gap)) 0 0 0;
+}
+
+.input-list--vertical > *:not(.interactive-group) {
+    margin: var(--gap) 0 0 0;
 }
 
 @supports ((aspect-ratio: 1 / 1) and (gap: 0)) {
-    .input-list {
+    .input-list, .input-list--vertical {
         gap: var(--gap);
+        margin: 0;
     }
 
-    .input-list > * {
+    .input-list > *, .input-list--vertical > *  {
         margin: 0;
     }
 }
@@ -238,7 +244,6 @@ select option {
 
 .input-group input{
     width: 100%;
-    margin: 0;
 }
 
 .checkbox {
