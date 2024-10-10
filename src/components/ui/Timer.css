@@ -150,6 +150,8 @@
         left: 0;
         padding: 0 1.25em !important;
 
+        --backdrop-filter: none;
+
         z-index: 2;
     }
 

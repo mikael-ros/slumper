@@ -120,6 +120,7 @@
         height: 9em;
         left: 0;
         bottom: 0;
+        margin: 0 !important;
 
         padding: 5em 1.25em 1em 1.25em;
         border-radius: var(--default-border-radius) var(--default-border-radius) 0 0 !important;
@@ -137,7 +138,12 @@
         --gap: .75em;
     }
 
+    .output #control-panel button:last-of-type{
+        margin-left: 0;
+    }
+
     .output #control-panel button {
+        margin-top: 0;
         max-width: 100%;
     }
 
