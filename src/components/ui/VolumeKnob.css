@@ -17,20 +17,16 @@
 }
 
 .knob {
-    width: 2.5em;
-    height: 2.5em;
+    --interactive-height: 2.5em;
+    --radius: calc(var(--interactive-height) / 2);
+    --img-pad: .25em;
 
-    border-radius: 1.25em;
-
-    margin: .125em;
+    margin: calc(var(--img-pad) / 2);
     padding: 0;
 }
 
 .knob img {
     position: absolute;
-    width: 2.5em;
-    height: 2.5em;
-    padding: .2em;
 
     transform: scale(1) rotate(0deg);
     transition: transform;
@@ -38,10 +34,7 @@
 }
 
 .knob:hover, .knob:focus{
-    border-radius: 1.25em;
-
-    width: 2.5em;
-    height: 2.5em;
+    --radius: 1.25em;
 }
 
 
