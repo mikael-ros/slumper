@@ -173,7 +173,7 @@ export function Timer(props: TimerProps){
                 </Show>
             </div>
             <div class="interactive-group timer__config">
-                <button class="interactive interactive--heavy button" data-open={displayTimer() && !props.closeOn()} aria-label="Toggle timer" aria-controls="timer-display" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={props.closeOn()}><img src={timerIcon.src} alt="Timer icon"/><p>Timer</p></button>
+                <button class="interactive interactive--heavy interactive--triple-width button" data-open={displayTimer() && !props.closeOn()} aria-label="Toggle timer" aria-controls="timer-display" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={props.closeOn()}><img src={timerIcon.src} alt="Timer icon"/><p>Timer</p></button>
                 <Show when={displayTimer() && !props.closeOn()}>
                     <input class="interactive interactive--input" id="timer__config__input" type="number" min="1" max="3600" inputmode="numeric" pattern="[0-9]*" placeholder={startTimer.toString()} 
                     onchange={handleChange} 

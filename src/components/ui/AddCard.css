@@ -30,13 +30,12 @@
     mask-repeat: no-repeat, no-repeat;
 }
 
-.interactive-list .button:hover img {
-    transition-duration: var(--transition-duration-medium);
-    transform: rotate(360deg);
-}
-
 .interactive-list > * {
     margin-top: var(--gap);
+}
+
+.interactive-list *~.interactive-group {
+    margin-top: 0 !important;
 }
 
 @supports ((aspect-ratio: 1 / 1) and (gap: 0)) { /* Aspect ratio is a proxy for flex gap, as gap will sometimes incorrectly be true (as in grid gap) */
@@ -111,11 +110,15 @@
     color: var(--text-color-negative-dull);
 }
 
+.book-entry *~.interactive-group {
+    margin-top: 0 !important;
+}
+
 .book-entry:hover, .book-entry:focus {
     background-color: rgba(var(--backdrop-color),0.1);
 }
 
-.book-entry .button {
+.book-entry .interactive {
     --interactive-height: 2em;
 }
 
@@ -123,21 +126,13 @@
     opacity: 1;
 }
 
-.book-entry .button:focus {
+.book-entry .interactive:focus {
     opacity: 1;
-}
-
-.book-entry .button:hover {
-    border-radius: 1em;  
-}
-
-.book-entry .button:hover img {
-    transform: scale(1);
 }
 
 /* Where there is no hover, this should be displayed at all times */
 @media (hover: none)  {
-    .book-entry .button{
+    .book-entry .interactive{
         opacity: 1;
     }
 }
@@ -150,7 +145,7 @@
         grid-gap: .5em;
     }
 
-    .add #form-controls .button, .add #form-controls label {
+    .add #form-controls .interactive, .add #form-controls label {
         margin: 0;
     }
 
@@ -166,7 +161,7 @@
         max-height: fit-content;
     }
 
-    .book-entry .button{
+    .book-entry .interactive{
         opacity: 1;
     }
     

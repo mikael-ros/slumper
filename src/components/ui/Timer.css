@@ -57,57 +57,12 @@
 }
 
 .timer__config{
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: var(--open-height);
-    
-    margin: 0;
 }
 
-.timer__config button {
-    --filter: unset;
-    filter: var(--filter);
-    -webkit-filter: var(--filter);
-
-    height: 100%;
-    width: 100%;
-    margin-top: 0;
-
-    transition-property: width, border-radius, filter;
-    transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
+*~.timer__config {
+    margin-top: 0 !important;
 }
-
-.timer__config button img {
-    max-height: 100%;
-    width: unset;
-}
-
-.timer__config button:hover{
-    border-radius: var(--default-border-radius);
-    
-    --filter: brightness(0.95);
-
-    transition-property: width, border-radius, filter;
-    transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
-}    
-
-.timer__config button:disabled:hover{
-    border-radius: var(--mild-border-radius);
-    --filter: brightness(70%);
-    cursor: not-allowed;
-}
-
-.timer__config button[data-open = "true"]{
-    width: 70%;
-}
-
-#timer__config__input {
-    height: 100%;
-    margin: 0;
-}
-
 
 @media (max-width:900px) {
     .timer[data-elapsed = "true"]{
@@ -121,7 +76,6 @@
 
     .timer__config {
         flex-direction: row-reverse;
-        width: 100%;
     }
 
     .timer__config > p{
@@ -155,9 +109,5 @@
         --backdrop-filter: none;
 
         z-index: 2;
-    }
-
-    #timer__config__input {
-        margin-left: 1em;
     }
 }

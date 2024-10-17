@@ -4,9 +4,15 @@
 .interactive {
     --_interactive-height: var(--interactive-height, 3em);
     --_interactive-width: var(--interactive-width, 3em);
+    --_anim-radius: var(--anim-radius, var(--_radius));
     --_radius: var(--radius, var(--mild-border-radius));
     --_flex: var(--flex, 1);
     --_img-pad: var(--img-pad, 1em);
+
+    --_animation-speed: var(--animation-speed, var(--transition-duration-fast));
+    --_rotate: var(--rotate, 0deg);
+    --_anim-rotate: var(--anim-rotate, var(--_rotate));
+    --_scale: var(--scale, 1);
 
     /* Remove default styling */
     appearance: none;
@@ -31,7 +37,7 @@
     padding: calc(.5*var(--_radius)) var(--_radius);
 
     border: none; /* Backup unapplication */
-    border-radius: var(--_radius);
+    border-radius: var(--_anim-radius);
     
     background: none; /* Backup unapplication */
     background-color: rgba(var(--backdrop-color),0.3);
@@ -43,9 +49,9 @@
     text-overflow: ellipsis;
 
     cursor: pointer;
-
+    
     transition: filter, border-radius;
-    transition-duration: var(--transition-duration-fast);
+    transition-duration: var(--transition-duration-fast), var(--transition-duration-fast);
 
     filter: var(--filter);
     -webkit-filter: var(--filter);
@@ -78,16 +84,6 @@
     cursor: not-allowed;
 }
 
-.interactive img {
-    width: calc(var(--_interactive-height) - var(--_img-pad));
-    height: calc(var(--_interactive-height) - var(--_img-pad));
-
-    padding: .1em;
-
-    filter: brightness(200%) contrast(75%);
-    -webkit-filter: brightness(200%) contrast(75%);
-}
-
 .interactive p {
     display: inline-flex;
     align-items: center;
@@ -109,28 +105,49 @@
 }
 
 
+.interactive img {
+    width: calc(var(--_interactive-height) - var(--_img-pad));
+    height: calc(var(--_interactive-height) - var(--_img-pad));
+
+    padding: .1em;
+
+    filter: brightness(200%) contrast(75%);
+    -webkit-filter: brightness(200%) contrast(75%);
+}
+
+.interactive img:first-of-type {
+    transform: rotate(var(--_anim-rotate)) scale(var(--_scale));
+    transition: transform;
+    transition-duration: var(--_animation-speed);
+}
+
+.interactive:not(:disabled):hover, .interactive:not(:disabled):focus {
+    --anim-radius: var(--default-border-radius);
+    --filter: brightness(0.95);
+    outline: none;
+}
+
+.interactive:not(:disabled):hover, .interactive:not(:disabled):focus{
+    --scale: 1.05;
+    --anim-rotate: 10deg;
+}
+
+.interactive--spinny {
+    --animation-speed: var(--transition-duration-medium);
+}
+
+.interactive--spinny:not(:disabled):hover, .interactive--spinny:not(:disabled):focus {
+    --anim-rotate: 360deg;
+}
+
+.button:disabled:hover{
+    --anim-radius: var(--mild-border-radius); 
+}
 
 @media (hover: none) {
-    .interactive:hover, .interactive:focus {
-        border-radius: var(--default-border-radius);
-        --filter: brightness(0.95);
-
-        transition: filter, border-radius;
-        transition-duration: var(--transition-duration-fast);
-        outline: none;
-    }
-
-    .button:hover img, .button:focus img {
-        transform: scale(1.05) rotate(10deg);
-    }
-
-    .interactive:focus {
+    .interactive:not(:disabled):focus {
         outline: solid .1em var(--primary);
         outline-offset: -.1em;
-    }
-
-    .button:disabled:hover{
-        border-radius: var(--mild-border-radius); 
     }
 }
 
@@ -161,11 +178,21 @@ select option {
 .interactive-group {
     --gap: .75em;
     display: flex;
+    align-items: center;
     margin: calc(-1*var(--gap)) 0 0 calc(-1*var(--gap)) !important; /* It refuses to apply properly without this ??? */
+}
+
+/* Any interactive group within some body of other elements */
+*~.interactive-group {
+    margin: calc(-1*var(--gap) + 1em) 0 0 calc(-1*var(--gap)) !important; /* It refuses to apply properly without this ??? */
 }
 
 .interactive-group > * {
     margin: var(--gap) 0 0 var(--gap);
+}
+
+.interactive-group--medium {
+    --gap: .5em;
 }
 
 .interactive-group--tight {
@@ -176,6 +203,10 @@ select option {
     .interactive-group {
         gap: var(--gap);
         margin: 0 !important;
+    }
+
+    *~.interactive-group {
+        margin-top: 1em !important; /* It refuses to apply properly without this ??? */
     }
 
     .interactive-group > * {
