@@ -90,6 +90,7 @@
     align-items: center;
 
     height: 2.5em;
+    gap: 1em;
     
     padding: .25em .5em;
     border-radius: var(--mild-border-radius);
@@ -110,7 +111,7 @@
 }
 
 .book-entry .button {
-    --interactive-height: 2.5em;
+    --interactive-height: 2em;
 }
 
 .book-entry .interactive-group:hover, .book-entry .interactive-group:focus, .book-entry .interactive-group:has(:focus) .button {
@@ -166,9 +167,5 @@
     
     .book-entry .interactive-group {
         flex-wrap: nowrap;
-    }
-
-    .input__chapter  {
-        flex: 300%;
     }
 }

@@ -4,6 +4,7 @@
 .interactive {
     --_interactive-height: var(--interactive-height, 3em);
     --_interactive-width: var(--interactive-width, 3em);
+    --_flex: var(--flex, 1);
 
     /* Remove default styling */
     appearance: none;
@@ -16,16 +17,16 @@
     align-content: center;
 
     font-family: inherit;
-    flex: 1;
+    flex: var(--_flex);
 
-    min-width: max(100%, min(var(--interactive-width), var(--_interactive-height)));
-    width: max(fit-content,var(--_interactive-width));
+    min-width: min(100%, min(var(--interactive-width), var(--_interactive-height)));
+    width: max(100%,var(--_interactive-width));
     max-width: 100%;
     min-height: max(100%, var(--interactive-height));
     height: var(--_interactive-height);
     max-height: 100%;
 
-    padding: var(--mild-border-radius);
+    padding: calc(.5*var(--mild-border-radius)) var(--mild-border-radius);
 
     border: none; /* Backup unapplication */
     border-radius: var(--mild-border-radius);
@@ -48,6 +49,14 @@
     -webkit-filter: var(--filter);
 
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* Disables the ugly tap color that displays in mobile chrome */
+}
+
+.interactive--fit-width {
+    min-width: fit-content;
+}
+
+.interactive--triple-width {
+    --flex: 3;
 }
 
 .interactive--heavy,
@@ -127,6 +136,7 @@ select option {
 }
 
 .icon-only {
+    padding: .2em;
     min-width: var(--_interactive-height);
     max-width: var(--_interactive-height);
     min-height: var(--_interactive-height);

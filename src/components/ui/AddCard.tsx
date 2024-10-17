@@ -257,7 +257,7 @@ export function AddCard(){
                                         onblur={event => moveChapter(chapter().index, event)} 
                                         onchange={event => moveChapter(chapter().index, event)} 
                                         aria-required="true" required/>
-                                        <input class="input__chapter interactive interactive--input" id={"chapter-"+chapter().index+1} type="text" value={chapter().title} placeholder="Chapter title*" 
+                                        <input class="input__chapter interactive interactive--input interactive--triple-width" id={"chapter-"+chapter().index+1} type="text" value={chapter().title} placeholder="Chapter title*" 
                                         onblur={event => handleChapterTitlesChange(chapter().index, event)} 
                                         onchange={event => handleChapterTitlesChange(chapter().index, event)} 
                                         aria-required="true" required/>
