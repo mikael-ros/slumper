@@ -1,7 +1,7 @@
 .interactive-list, .book-disclaimer{
     display: flex;
     flex-direction: column;
-    --gap: .5em;
+    --gap: .75em;
 
     margin-top: calc(-1*var(--gap));
 
@@ -43,6 +43,14 @@
     .interactive-list{
         gap: var(--gap);
     }
+
+    .interactive-list > * {
+        margin-top: 0;
+    }
+}
+
+.book-list {
+    --gap: .25em;
 }
 
 /** Chapter inputs **/
@@ -79,9 +87,6 @@
     display: none;
 }
 
-.input__chapter  {
-    flex: 600%;
-}
 
 /** Book entries **/
 
