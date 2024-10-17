@@ -76,6 +76,7 @@
 
     .timer__config {
         flex-direction: row-reverse;
+        width: 100%;
     }
 
     .timer__config > p{
@@ -90,7 +91,7 @@
     .timer__display .timer__display__text {
         font-size: 1.5em;
         text-align: center; 
-        margin: 0;
+        margin-right: .5em;
     }
 
     .timer{
@@ -109,5 +110,9 @@
         --backdrop-filter: none;
 
         z-index: 2;
+    }
+
+    #timer__config__input {
+        --interactive-width: 100%;
     }
 }

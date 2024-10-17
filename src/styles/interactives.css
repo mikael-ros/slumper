@@ -49,6 +49,7 @@
     text-overflow: ellipsis;
 
     cursor: pointer;
+    overflow: hidden;
     
     transition: filter, border-radius;
     transition-duration: var(--transition-duration-fast), var(--transition-duration-fast);
@@ -304,6 +305,10 @@ input[type='checkbox']:checked + label {
 
 
 @media (max-width:900px)  {
+    .interactive-group {
+        flex-wrap: wrap;
+    }
+    
     .checkbox {
         margin: 0.25em;
     }

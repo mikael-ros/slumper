@@ -73,6 +73,10 @@
 
 @media (max-width:900px) {
 
+    #course-select-wrapper select {
+        --interactive-width: 100%;
+    }
+
     .output{
         position: relative;
         overflow: hidden;

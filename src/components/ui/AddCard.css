@@ -146,6 +146,7 @@
     }
 
     .add #form-controls .interactive, .add #form-controls label {
+        --interactive-width: 100%;
         margin: 0;
     }
 
