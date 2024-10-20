@@ -75,6 +75,7 @@
 
     #course-select-wrapper select {
         --interactive-width: 100%;
+        --flex: 100%;
     }
 
     .output{
@@ -86,17 +87,23 @@
 
     /* On mobile this becomes a weird element, it takes up extra space to account for the timer */
     .output #control-panel {
+        /* Also have to set this in Timer.css */
+        --_interactive-height: 3em; 
+        --spacing: 1em;
+        --_gap: .75em;
+
         flex-direction: row-reverse;
         position: fixed;
         justify-content: center;
+        align-items: flex-end;
 
         width: 100%;
-        height: 9em;
+        height: calc(2*var(--_interactive-height) + 2*var(--spacing) + var(--_gap));
         left: 0;
         bottom: 0;
         margin: 0 !important;
 
-        padding: 5em 1.25em 1em 1.25em;
+        padding: calc(var(--_interactive-height) + var(--_gap) + var(--spacing)) var(--spacing) var(--spacing) var(--spacing);
         border-radius: var(--default-border-radius) var(--default-border-radius) 0 0 !important;
         background-color: rgba(var(--backdrop-color),0.3);
 

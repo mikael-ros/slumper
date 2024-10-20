@@ -95,6 +95,12 @@
     }
 
     .timer{
+        /* Also have to set this in OutputCard.css */
+        --_interactive-height: 3em;
+        --spacing: 1em;
+        --_gap: .75em;
+
+
         display: flex;
         align-items: center;
         justify-content: center;
@@ -103,9 +109,9 @@
         height: fit-content;
     
         position: fixed;
-        bottom: 5em;
+        bottom: calc(var(--_interactive-height) + var(--spacing) + 1*var(--_gap));
         left: 0;
-        padding: 0 1.25em !important;
+        padding: 0 var(--spacing) !important;
 
         --backdrop-filter: none;
 

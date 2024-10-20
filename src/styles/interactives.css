@@ -180,6 +180,7 @@ select option {
     --gap: .75em;
     display: flex;
     align-items: center;
+    justify-content: center;
     margin: calc(-1*var(--gap)) 0 0 calc(-1*var(--gap)) !important; /* It refuses to apply properly without this ??? */
 }
 
