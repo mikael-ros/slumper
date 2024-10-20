@@ -4,8 +4,8 @@
 .interactive {
     --_interactive-height: var(--interactive-height, 3em);
     --_interactive-width: var(--interactive-width, 3em);
-    --_anim-radius: var(--anim-radius, var(--_radius));
-    --_radius: var(--radius, var(--mild-border-radius));
+    --_anim-int-radius: var(--anim-int-radius, var(--_int-radius));
+    --_int-radius: var(--int-radius, var(--mild-border-radius));
     --_flex: var(--flex, 1);
     --_img-pad: var(--img-pad, 1em);
 
@@ -34,10 +34,10 @@
     height: var(--_interactive-height);
     max-height: 100%;
 
-    padding: calc(.5*var(--_radius)) var(--_radius);
+    padding: calc(.5*var(--_int-radius)) var(--_int-radius);
 
     border: none; /* Backup unapplication */
-    border-radius: var(--_anim-radius);
+    border-radius: var(--_anim-int-radius);
     
     background: none; /* Backup unapplication */
     background-color: rgba(var(--backdrop-color),0.3);
@@ -122,13 +122,13 @@
     transition-duration: var(--_animation-speed);
 }
 
-.interactive:not(:disabled):hover, .interactive:not(:disabled):focus {
-    --anim-radius: var(--default-border-radius);
+.interactive:not(:disabled):hover, .interactive:not(:disabled):focus-visible {
+    --anim-int-radius: var(--default-border-radius);
     --filter: brightness(0.95);
     outline: none;
 }
 
-.interactive:not(:disabled):hover, .interactive:not(:disabled):focus{
+.interactive:not(:disabled):hover, .interactive:not(:disabled):focus-visible {
     --scale: 1.05;
     --anim-rotate: 10deg;
 }
@@ -137,12 +137,12 @@
     --animation-speed: var(--transition-duration-medium);
 }
 
-.interactive--spinny:not(:disabled):hover, .interactive--spinny:not(:disabled):focus {
+.interactive--spinny:not(:disabled):hover, .interactive--spinny:not(:disabled):focus-visible {
     --anim-rotate: 360deg;
 }
 
 .button:disabled:hover{
-    --anim-radius: var(--mild-border-radius); 
+    --anim-int-radius: var(--mild-border-radius); 
 }
 
 @media (hover: none) {
