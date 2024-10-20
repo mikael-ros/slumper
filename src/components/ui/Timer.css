@@ -69,6 +69,15 @@
         --current-color: none;
         animation: none;
     }
+
+    /* Button becomes small on mobile when menu is open */
+    .timer #toggle[data-open = "true"] {
+        max-width: 3em !important;
+    }
+
+    .timer #toggle[data-open = "true"] p {
+        display: none;
+    }
     
     .timer__display__text[data-elapsed = "true"]{
         animation: none;
