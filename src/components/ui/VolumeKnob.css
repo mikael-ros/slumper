@@ -18,7 +18,7 @@
 
 .knob {
     --interactive-height: 2.5em;
-    --radius: calc(var(--interactive-height) / 2);
+    --int-radius: calc(var(--interactive-height) / 2);
     
     --img-pad: .25em;
 
@@ -31,7 +31,7 @@
 }
 
 .knob:hover, .knob:focus {
-    --anim-radius: var(--radius) !important;
+    --anim-int-radius: var(--radius) !important;
     --anim-rotate: 90deg !important;
     --scale: 1 !important;
 }
