@@ -180,7 +180,6 @@ select option {
     --gap: .75em;
     display: flex;
     align-items: center;
-    justify-content: center;
     margin: calc(-1*var(--gap)) 0 0 calc(-1*var(--gap)) !important; /* It refuses to apply properly without this ??? */
 }
 
@@ -308,6 +307,7 @@ input[type='checkbox']:checked + label {
 @media (max-width:900px)  {
     .interactive-group {
         flex-wrap: wrap;
+        justify-content: center;
     }
     
     .checkbox {
