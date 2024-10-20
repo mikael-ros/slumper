@@ -45,7 +45,7 @@
     transition-duration: var(--transition-duration-medium);
 }
 
-.timer__display[data-open = "true"]{
+.timer[data-open = "true"] .timer__display{
     height: var(--open-height);
 }
 
@@ -56,8 +56,39 @@
     margin: 0;
 }
 
+#timer__config__input-wrapper {
+    height: 100%;
+    width: 0;
+    flex: 0;
+
+    overflow: hidden;
+    opacity: 0;
+    margin-top: 0 !important;
+
+    transition-property: flex, opacity;
+    transition-duration: var(--transition-duration-medium), var(--transition-duration-medium);
+}
+
+#timer__config__input-wrapper .interactive {
+    min-width: fit-content;
+}
+
+.timer[data-open = "true"] #timer__config__input-wrapper {
+    width: fit-content;
+    flex: 3;
+    opacity: 1;
+}
+
 .timer__config{
     height: var(--open-height);
+    --gap: 0;
+
+    transition-property: gap;
+    transition-duration: var(--transition-duration-medium);
+}
+
+.timer[data-open = "true"] .timer__config {
+    --gap: .75em; /* Sets back to inital. Needs to be same as in interactives.css */
 }
 
 *~.timer__config {
@@ -71,11 +102,11 @@
     }
 
     /* Button becomes small on mobile when menu is open */
-    .timer #toggle[data-open = "true"] {
+    .timer[data-open = "true"] #toggle {
         max-width: 3em !important;
     }
 
-    .timer #toggle[data-open = "true"] p {
+    .timer[data-open = "true"] #toggle p {
         display: none;
     }
     
@@ -86,10 +117,16 @@
     .timer__config {
         flex-direction: row-reverse;
         width: 100%;
+
+        transition-duration: var(--transition-duration-fast);
     }
 
-    .timer__config > p{
+    #timer__config__input-wrapper > p{
         display: none;
+    }
+
+    #timer__config__input-wrapper {
+        transition-duration: var(--transition-duration-fast), var(--transition-duration-medium);
     }
     
     .timer__display{
@@ -112,7 +149,7 @@
 
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-end;
         flex-direction: row !important;
 
         height: fit-content;

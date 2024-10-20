@@ -51,8 +51,14 @@
     cursor: pointer;
     overflow: hidden;
     
-    transition: filter, border-radius;
-    transition-duration: var(--transition-duration-fast), var(--transition-duration-fast);
+    transition: filter, border-radius, 
+                width, height, 
+                min-width, min-height, 
+                max-width, max-height;
+    transition-duration:    var(--transition-duration-fast), var(--transition-duration-fast), 
+                            var(--transition-duration-fast), var(--transition-duration-fast), 
+                            var(--transition-duration-fast), var(--transition-duration-fast), 
+                            var(--transition-duration-fast), var(--transition-duration-fast);
 
     filter: var(--filter);
     -webkit-filter: var(--filter);
