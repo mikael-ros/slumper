@@ -22,8 +22,8 @@
     --scale2: 1.2;
     --rotate2: 30deg;
 
-    transition-property: background;
-    transition-duration: var(--transition-duration-medium);
+    transition-property: background, border-radius;
+    transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
 }
 
 .output #done img:first-of-type{
@@ -44,7 +44,7 @@
     --rotate2: 390deg;
 }
 
-.output #done:focus {
+.output #done:focus-within:hover {
     --default-color: rgba(158, 240, 5, 0.2);
     --mid-flash-color: rgba(255,255,255,0);
     --current-color: var(--default-color);
