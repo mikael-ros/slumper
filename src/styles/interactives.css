@@ -322,8 +322,12 @@ select option {
     content: "-";
 }
 
-.checkbox[data-disabled="false"]:hover, .checkbox[data-disabled="false"]:focus-visible {
-    --anim-rotate: 0deg;
+.checkbox[data-disabled="true"]::after {
+    content: "X";
+}
+
+.checkbox:hover, .checkbox:focus-visible {
+    --anim-rotate: 0deg !important;
 }
 
 .checkbox input[type='checkbox'], .checkbox input[type='checkbox']:checked{ /* The checkbox itself */
