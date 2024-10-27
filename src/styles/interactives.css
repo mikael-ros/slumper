@@ -28,7 +28,6 @@
     font-family: inherit;
     flex: var(--_flex);
     flex-wrap: nowrap;
-    
 
     min-width: min(100%, min(var(--interactive-width), var(--_interactive-height)));
     width: max(100%,var(--_interactive-width));
@@ -69,16 +68,16 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* Disables the ugly tap color that displays in mobile chrome */
 }
 
-.interactive > *+* {
+.interactive:not(.icon-only) > *+* {
     margin-left: var(--gap);
 }
 
 @supports ((aspect-ratio: 1 / 1) and (gap: 0)) {
-    .interactive {
+    .interactive:not(.icon-only) {
         gap: var(--_gap);
     }
 
-    .interactive > *+* {
+    .interactive:not(.icon-only) > *+* {
         margin-left: 0;
     }
 }
