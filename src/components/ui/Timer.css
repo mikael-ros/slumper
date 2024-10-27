@@ -169,7 +169,7 @@
 
         --backdrop-filter: none;
 
-        z-index: 2;
+        z-index: 999;
     }
 
     #timer__config__input {
