@@ -32,7 +32,11 @@ export function OutputCard(){
 
     var randomizer : Randomizer = new Randomizer(book());
 
-    document.body.style.backgroundImage = "url(" + book().previewImagePath + ")"; 
+    document.body.style.backgroundImage = "url(" 
+    + (book().previewImagePath.length > 0 
+        ? book().previewImagePath 
+        : ("https://slumper.me/.netlify/images?url=/previews/" +  book().name.replaceAll(/[^a-zA-Z0-9]/g,"").toLowerCase() + "&width=500"))
+    + ")"; 
 
     function setNewBook(book : Book){
         setBook(book);
