@@ -102,6 +102,10 @@
     }
 }
 
+.timer[data-open = "false"] #timer__config__input-wrapper {
+    --gap: 0;
+}
+
 .timer[data-open = "true"] .timer__config {
     --gap: .75em; /* Sets back to inital. Needs to be same as in interactives.css */
 }

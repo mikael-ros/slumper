@@ -345,7 +345,7 @@ select option {
     font-size: .7em;
     padding: 0.2em;
     
-    color: var(--text-color);
+    color: rgba(var(--_checkbox-color),.9);
 
     text-shadow: none;
 
