@@ -10,9 +10,12 @@ import { writeFile } from 'fs/promises';
  * @returns The book object
  */
 export function generateBook(input: [string, number][], bookName: string, bookPreviewImagePath: string, source: string){
-    const generatorVersion = "1.0.5";
+    const generatorVersion = "1.0.6";
     
     var parsedChapters: Chapter[] = [];
+
+    const generatedBookPreviewImagePath = bookPreviewImagePath.length > 0 ? bookPreviewImagePath 
+        : "https://slumper.me/.netlify/images?url=/previews/" + bookName.replaceAll(/[^a-zA-Z0-9]/g,"").toLowerCase() + ".png&width=500";
 
     input.forEach(chapter => { // For every chapter given
         var taskList: Task[] = Array.from({length: chapter[1]}, (_, i) => {return {task: i + 1}}); // Create an array of tasks
@@ -28,7 +31,7 @@ export function generateBook(input: [string, number][], bookName: string, bookPr
 
     var book: Book =  {
         name: bookName,
-        previewImagePath: bookPreviewImagePath,
+        previewImagePath: generatedBookPreviewImagePath,
         source: source,
         chapters: parsedChapters,
         generatorVersion: generatorVersion,
