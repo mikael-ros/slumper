@@ -148,6 +148,16 @@ It should then print a line for each successfully generated book.
 
 To modify the included books, change the ``GenerateDefaults.ts`` file. Note that this also needs to be changed any time you change the book object format or generation behaviour (it has it's own copies of these, as I couldn't get it to run in terminal otherwise.).
 
+#### Creating images
+When creating the images available in this repository, for use as backgrounds, I go through the following process:
+1. Download the cover from an official source
+2. Load it onto [photopea](https://www.photopea.com)
+3. Image -> Image size -> Set width to 500 px (if bigger than that), otherwise default
+4. Filter -> Noise -> Median, 7px (or lower if image isn't bigger than 500 px width)
+5. Save as .png and name same as .json file
+
+This process is an attempt to "deface" the covers, such that noone would want to use them for further distrubution - protecting the rights of the copyright holders. You could use other methods. The important part is that it should remove any details whilst preserving colors and silhouettes.
+
 > Do note that this is my first website of this nature, so a lot of code might not "make sense". Feel free to correct me, but keep that in mind when communicating.
 
 </details>

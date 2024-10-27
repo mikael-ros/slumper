@@ -15,7 +15,7 @@ export function generateBook(input: [string, number][], bookName: string, bookPr
     var parsedChapters: Chapter[] = [];
 
     const generatedBookPreviewImagePath = bookPreviewImagePath.length > 0 ? bookPreviewImagePath 
-        : "https://slumper.me/.netlify/images?url=/previews/" + bookName.replaceAll(/[^a-zA-Z0-9]/g,"").toLowerCase() + ".png&width=500";
+        : "https://slumper.me/.netlify/images?url=/previews/" + bookName.replaceAll(/[^a-zA-Z0-9]/g,"").toLowerCase() + ".png&width=300";
 
     input.forEach(chapter => { // For every chapter given
         var taskList: Task[] = Array.from({length: chapter[1]}, (_, i) => {return {task: i + 1}}); // Create an array of tasks
@@ -182,28 +182,28 @@ export default async function generateDefaultLibrary(){
         [PGK1_2022, 
             [
                 "Introduktion till programmering med Scala, del 1", 
-                "https://github.com/lunduniversity/introprog/blob/master/img/compendium-cover-part1-2022.png?raw=true", 
+                "", 
                 "https://cs.lth.se/pgk/compendium/"
             ]
         ],
         [PGK2_2022, 
             [
                 "Introduktion till programmering med Scala, del 2", 
-                "https://github.com/lunduniversity/introprog/blob/master/img/compendium-cover-part2-2022.png?raw=true", 
+                "", 
                 "https://cs.lth.se/pgk/compendium/"
             ]
         ],
         [programmingInHaskell, 
             [
                 "Programming in Haskell, second edition", 
-                "https://www.cs.nott.ac.uk/~pszgmh/pih.jpg", 
+                "", 
                 "https://www.amazon.co.uk/Programming-Haskell-Graham-Hutton/dp/1316626229"
             ]
         ],
         [datakommunikationOchNatverk,
             [
                 "Datakommunikation och nätverk, andra upplagan",
-                "https://www.studentlitteratur.se/globalassets/inriver/resources/978-91-44-13502-1_01_coverimage2.jpg?preset=quality90",
+                "",
                 "https://www.studentlitteratur.se/kurslitteratur/teknik/tele--och-datakommunikation/datakommunikation-och-natverk/?srsltid=AfmBOor6Qss-WlACmeqRhSWCGIEnTvrmREXMb-HaluoK0BmoB3LyzqIg"
             ]
         ],
@@ -231,7 +231,7 @@ export default async function generateDefaultLibrary(){
         [computerOrganizationRISCV,
             [
                 "Computer Organization and Design RISC-V Edition 2017",
-                "https://shop.elsevier.com/_next/image?url=https%3A%2F%2Fsecure-ecsd.elsevier.com%2Fcovers%2F80%2FTango2%2Flarge%2F9780128122761.jpg&w=256&q=75",
+                "",
                 "https://shop.elsevier.com/books/computer-organization-and-design-risc-v-edition/patterson/978-0-12-812275-4"
             ]
         ]
