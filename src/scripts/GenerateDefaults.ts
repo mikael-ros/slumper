@@ -207,21 +207,21 @@ export default async function generateDefaultLibrary(){
         [h99,
             [
                 "H-99: Ninety-Nine Haskell Problems",
-                "https://github.com/mikael-ros/slumper/blob/main/src/assets/previews/h99.png?raw=true",
+                "",
                 "https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems"
             ]
         ],
         [reglerteknikKompendie,
             [
                 "Reglerteknik AK Övningsexempel 2022",
-                "https://github.com/mikael-ros/slumper/blob/main/src/assets/previews/regtek2022.png?raw=true",
+                "",
                 "https://control.lth.se/fileadmin/control/Education/EngineeringProgram/FRTF05/exempelsamling_print.pdf"
             ]
         ],
         [automaticcontrolCompendium,
             [
                 "Automatic Control Basic Course Exercises 2022",
-                "https://github.com/mikael-ros/slumper/blob/main/src/assets/previews/auto2022.png?raw=true",
+                "",
                 "https://control.lth.se/fileadmin/control/Education/EngineeringProgram/FRTF05/exercises_print.pdf"
             ]
         ],
