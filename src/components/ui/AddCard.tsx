@@ -205,7 +205,7 @@ export function AddCard(){
 
     const addEntry = () => {
         var newChapters = chapters(); 
-        newChapters.push({title: "", amount: 0, index: chapters().findLast(() => true)!.index+1}); 
+        newChapters.push({title: "", amount: 0, index: chapters()[chapters().length-1]!.index+1}); 
         setNewChapters(newChapters);
     }
 
