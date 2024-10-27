@@ -7,13 +7,38 @@
 
     width: 900px;
     max-width: 900px;
-    gap: 1em;
+    --gap: 1em;
+}
+
+.card-group > *+* {
+    margin-top: var(--gap);
 }
 
 /* A card group that is vertically shared */
 .card-group--vertical {
     flex-direction: row;
 }
+
+.card-group > *+* {
+    margin-top: var(--gap);
+}
+
+.card-group--vertical > *+* {
+    margin-top: 0;
+    margin-left: var(--gap);
+}
+
+@supports ((aspect-ratio: 1 / 1) and (gap: 0)) {
+    .card-group {   
+        gap: var(--gap);
+    }
+
+    .card-group > *+*, .card-group--vertical > *+* {
+        margin: 0;
+    }
+}
+
+
 
 .card{
     --_radius: var(--radius, var(--aggressive-border-radius));
