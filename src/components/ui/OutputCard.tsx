@@ -111,10 +111,10 @@ export function OutputCard(){
                 <Show when={book().chapters.length > 1}>
                     <div id="checkbox-wrapper">
                         <h4 id="checkbox-context">Filter chapters</h4>
-                        <div id="checkboxes">
+                        <div class="interactive-group" id="checkboxes">
                             <For each={book().chapters}>
                                 {(chapter) => 
-                                    <div class="checkbox">
+                                    <div class="checkbox interactive icon-only" data-checked={checked().has(chapter.number)} data-disabled={!checked().has(chapter.number) && randomizer.chapterIsDisabled(chapter)}>
                                         <input id={chapter.fullname.toLowerCase().replace(/\s/g, "")} type="checkbox" 
                                         disabled={!checked().has(chapter.number) && randomizer.chapterIsDisabled(chapter)} 
                                         checked={checked().has(chapter.number)} 
