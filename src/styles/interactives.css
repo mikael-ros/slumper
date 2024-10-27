@@ -8,11 +8,13 @@
     --_int-radius: var(--int-radius, var(--mild-border-radius));
     --_flex: var(--flex, 1);
     --_img-pad: var(--img-pad, 1em);
+    --_gap: var(--gap, .1em);
 
     --_animation-speed: var(--animation-speed, var(--transition-duration-fast));
     --_rotate: var(--rotate, 0deg);
     --_anim-rotate: var(--anim-rotate, var(--_rotate));
     --_scale: var(--scale, 1);
+    
 
     /* Remove default styling */
     appearance: none;
@@ -26,6 +28,7 @@
 
     font-family: inherit;
     flex: var(--_flex);
+    flex-wrap: nowrap;
 
     min-width: min(100%, min(var(--interactive-width), var(--_interactive-height)));
     width: max(100%,var(--_interactive-width));
@@ -66,6 +69,20 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* Disables the ugly tap color that displays in mobile chrome */
 }
 
+.interactive > *+* {
+    margin-left: var(--gap);
+}
+
+@supports ((aspect-ratio: 1 / 1) and (gap: 0)) {
+    .interactive {
+        gap: var(--_gap);
+    }
+
+    .interactive > *+* {
+        margin-left: 0;
+    }
+}
+
 .interactive--fit-width {
     min-width: fit-content;
 }
@@ -92,13 +109,7 @@
 }
 
 .interactive p {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
     color: var(--text-color-negative-dull);
-
-    padding-left: .35em;
 }
 
 .icon-only {
