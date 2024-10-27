@@ -306,8 +306,8 @@ select option {
 
     font-size: 2em;
     font-weight: 600;
-    text-shadow: .05em .05em 0px rgba(var(--_checkbox-color-darker),.8);
-    color: rgba(var(--_checkbox-color),.9);
+    text-shadow: .05em .05em 0px rgba(var(--_checkbox-color-darker),.6);
+    color: rgba(var(--_checkbox-color),.8);
     mix-blend-mode: multiply;
 
     --filter: brightness(120%);
@@ -367,10 +367,6 @@ input[type='checkbox']:checked + label {
     .interactive-group {
         flex-wrap: wrap;
         justify-content: center;
-    }
-    
-    .checkbox {
-        margin: 0.25em;
     }
 
     .interactive-group .button-group{
