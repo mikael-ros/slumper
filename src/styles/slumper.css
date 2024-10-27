@@ -35,7 +35,7 @@
     /* Font settings */
     font-family: Spline Sans Mono;
     font-size: 12pt;
-    line-height: 1.5em;
+    line-height: 1.5;
 }
 
 /* Sensible defaults */
@@ -100,7 +100,6 @@ header h1 {
     max-width: 50%; /* It can only take 50% of the header, itself being full screen width = half screen size */
 
     padding: .5em 1em;
-    line-height: 1.5em;
 
     margin: 0;
 
@@ -197,7 +196,6 @@ main{
         --aggressive-border-radius: 2.75rem;
 
         font-size: 16pt;
-        line-height: 1.5em;
     }
     
     body{
