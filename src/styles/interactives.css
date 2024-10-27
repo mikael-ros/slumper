@@ -24,11 +24,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    align-content: center;
 
     font-family: inherit;
     flex: var(--_flex);
     flex-wrap: nowrap;
+    
 
     min-width: min(100%, min(var(--interactive-width), var(--_interactive-height)));
     width: max(100%,var(--_interactive-width));
