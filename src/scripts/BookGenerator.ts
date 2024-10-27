@@ -31,7 +31,7 @@ export interface Book {
  * @returns The book object
  */
 export function generateBook(input: [string, number][], bookName: string, bookPreviewImagePath: string, source: string, custom: boolean){
-    const generatorVersion = "1.0.5";
+    const generatorVersion = "1.0.6";
     
     var parsedChapters: Chapter[] = [];
 
