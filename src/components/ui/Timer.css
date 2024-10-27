@@ -64,6 +64,7 @@
     overflow: hidden;
     opacity: 0;
     margin-top: 0 !important;
+    flex-wrap: nowrap;
 
     transition-property: flex, opacity;
     transition-duration: var(--transition-duration-medium), var(--transition-duration-medium);
@@ -87,13 +88,17 @@
     transition-duration: var(--transition-duration-medium);
 }
 
-.timer__config > * {
-    margin: 0 0 0 var(--gap);
+#timer__config__input-wrapper > *:first-child {
+    margin: 0 !important;
+}
+
+.timer__config > *, #timer__config__input-wrapper > * {
+    margin: 0 0 0 var(--gap) !important;
 }
 
 @supports ((aspect-ratio: 1 / 1) and (gap: 0)) {
-    .timer__config > * {
-        margin: 0;
+    .timer__config > *, #timer__config__input-wrapper > * {
+        margin: 0 !important;
     }
 }
 
