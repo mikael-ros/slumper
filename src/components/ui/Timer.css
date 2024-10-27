@@ -87,6 +87,16 @@
     transition-duration: var(--transition-duration-medium);
 }
 
+.timer__config > * {
+    margin: 0 0 0 var(--gap);
+}
+
+@supports ((aspect-ratio: 1 / 1) and (gap: 0)) {
+    .timer__config > * {
+        margin: 0;
+    }
+}
+
 .timer[data-open = "true"] .timer__config {
     --gap: .75em; /* Sets back to inital. Needs to be same as in interactives.css */
 }
@@ -124,9 +134,14 @@
     #timer__config__input-wrapper > p{
         display: none;
     }
-
+    
     #timer__config__input-wrapper {
+        --gap: 0;
         transition-duration: var(--transition-duration-fast), var(--transition-duration-medium);
+    }
+
+    .timer[data-open = "true"] #timer__config__input-wrapper {
+        padding-left: 0;
     }
     
     .timer__display{
@@ -134,18 +149,11 @@
         --closed-height: var(--open-height);
     }
 
-    .timer__display .timer__display__text {
-        font-size: 1.5em;
-        text-align: center; 
-        margin-right: .5em;
-    }
-
     .timer{
         /* Also have to set this in OutputCard.css */
         --_interactive-height: 3em;
         --spacing: 1em;
         --_gap: .75em;
-
 
         display: flex;
         align-items: center;
@@ -166,5 +174,9 @@
 
     #timer__config__input {
         --interactive-width: 100%;
+    }
+
+    .timer__display__text {
+        margin-right: calc(1.5*var(--_gap));
     }
 }

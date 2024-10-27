@@ -176,7 +176,6 @@ export function Timer(props: TimerProps){
                 <button class="interactive interactive--heavy interactive--triple-width button" aria-label="Toggle timer" aria-controls="timer-display" id="toggle" onclick={() => setDisplayTimer(!displayTimer())} disabled={props.closeOn()}><img src={timerIcon.src} alt="Timer icon"/><p>Timer</p></button>
                 <div class="interactive-group" id="timer__config__input-wrapper" style={"--interactive-width:" + (displayTimer() && !props.closeOn() ? "3em" : "0")}>
                     <input class="interactive interactive--input" id="timer__config__input" type="number" min="1" max="3600" inputmode="numeric" pattern="[0-9]*" 
-                    
                     placeholder={startTimer.toString()} 
                     onchange={handleChange} 
                     aria-required="false"/><p>seconds</p>
