@@ -54,20 +54,8 @@
 
 /** Chapter inputs **/
 
-.chapter-input {
-    --chapter-input-height: 2.5em;
-    height: var(--chapter-input-height) !important;
-}
-
 .chapter-input .interactive {
-    --interactive-height: var(--chapter-input-height);
-}
-
-.chapter-input label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+    --interactive-height: 2.5em;
 }
 
 .chapter-input:nth-of-type(n + 2){
@@ -138,28 +126,8 @@
 }
 
 @media (max-width:900px)  {
-    .add #form-controls {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        grid-gap: .5em;
-    }
-
-    .add #form-controls .interactive, .add #form-controls label {
-        --interactive-width: 100%;
-        margin: 0;
-    }
-
-    .add #add-entry {
-        width: 100%;
-    }
-
-    .add #chapter-inputs{
-        display: flex;
-        flex-direction: column;
-        gap: .5em;
-
-        max-height: fit-content;
+    .add #form-controls .interactive {
+        flex-basis: calc(50% - var(--gap));
     }
 
     .book-entry .interactive{
