@@ -45,7 +45,7 @@
     transition-duration: var(--transition-duration-medium);
 }
 
-.timer__display[data-open = "true"]{
+.timer[data-open = "true"] .timer__display{
     height: var(--open-height);
 }
 
@@ -56,63 +56,68 @@
     margin: 0;
 }
 
+#timer__config__input-wrapper {
+    height: 100%;
+    width: 0;
+    flex: 0;
+
+    overflow: hidden;
+    opacity: 0;
+    margin-top: 0 !important;
+
+    transition-property: flex, opacity;
+    transition-duration: var(--transition-duration-medium), var(--transition-duration-medium);
+}
+
+#timer__config__input-wrapper .interactive {
+    min-width: fit-content;
+}
+
+.timer[data-open = "true"] #timer__config__input-wrapper {
+    width: fit-content;
+    flex: 3;
+    opacity: 1;
+}
+
 .timer__config{
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: var(--open-height);
-    
-    margin: 0;
+    --gap: 0;
+
+    transition-property: gap;
+    transition-duration: var(--transition-duration-medium);
 }
 
-.timer__config button {
-    --filter: unset;
-    filter: var(--filter);
-    -webkit-filter: var(--filter);
-
-    height: 100%;
-    width: 100%;
-    margin-top: 0;
-
-    transition-property: width, border-radius, filter;
-    transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
+.timer__config > * {
+    margin: 0 0 0 var(--gap);
 }
 
-.timer__config button img {
-    max-height: 100%;
-    width: unset;
+@supports ((aspect-ratio: 1 / 1) and (gap: 0)) {
+    .timer__config > * {
+        margin: 0;
+    }
 }
 
-.timer__config button:hover{
-    border-radius: var(--default-border-radius);
-    
-    --filter: brightness(0.95);
-
-    transition-property: width, border-radius, filter;
-    transition-duration: var(--transition-duration-medium), var(--transition-duration-fast);
-}    
-
-.timer__config button:disabled:hover{
-    border-radius: var(--mild-border-radius);
-    --filter: brightness(70%);
-    cursor: not-allowed;
+.timer[data-open = "true"] .timer__config {
+    --gap: .75em; /* Sets back to inital. Needs to be same as in interactives.css */
 }
 
-.timer__config button[data-open = "true"]{
-    width: 70%;
+*~.timer__config {
+    margin-top: 0 !important;
 }
-
-#timer__config__input {
-    height: 100%;
-    margin: 0;
-}
-
 
 @media (max-width:900px) {
     .timer[data-elapsed = "true"]{
         --current-color: none;
         animation: none;
+    }
+
+    /* Button becomes small on mobile when menu is open */
+    .timer[data-open = "true"] #toggle {
+        max-width: 3em !important;
+    }
+
+    .timer[data-open = "true"] #toggle p {
+        display: none;
     }
     
     .timer__display__text[data-elapsed = "true"]{
@@ -122,10 +127,21 @@
     .timer__config {
         flex-direction: row-reverse;
         width: 100%;
+
+        transition-duration: var(--transition-duration-fast);
     }
 
-    .timer__config > p{
+    #timer__config__input-wrapper > p{
         display: none;
+    }
+    
+    #timer__config__input-wrapper {
+        --gap: 0;
+        transition-duration: var(--transition-duration-fast), var(--transition-duration-medium);
+    }
+
+    .timer[data-open = "true"] #timer__config__input-wrapper {
+        padding-left: 0;
     }
     
     .timer__display{
@@ -133,24 +149,23 @@
         --closed-height: var(--open-height);
     }
 
-    .timer__display .timer__display__text {
-        font-size: 1.5em;
-        text-align: center; 
-        margin: 0;
-    }
-
     .timer{
+        /* Also have to set this in OutputCard.css */
+        --_interactive-height: 3em;
+        --spacing: 1em;
+        --_gap: .75em;
+
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-end;
         flex-direction: row !important;
 
         height: fit-content;
     
         position: fixed;
-        bottom: 5em;
+        bottom: calc(var(--_interactive-height) + var(--spacing) + 1*var(--_gap));
         left: 0;
-        padding: 0 1.25em !important;
+        padding: 0 var(--spacing) !important;
 
         --backdrop-filter: none;
 
@@ -158,6 +173,10 @@
     }
 
     #timer__config__input {
-        margin-left: 1em;
+        --interactive-width: 100%;
+    }
+
+    .timer__display__text {
+        margin-right: calc(1.5*var(--_gap));
     }
 }

@@ -94,7 +94,7 @@ export function OutputCard(){
                 </div>
                 
                 <div role="menu" class="interactive-group button-group" id="control-panel">
-                    <Button iconOnly={true} id="random" label="Randomize" title="Randomize new task"
+                    <Button iconOnly={true} class="interactive--spinny" id="random" label="Randomize" title="Randomize new task"
                             disabled={abort()} onclick={() => random(false)} 
                             icons={[[refreshIcon, "Randomize"]]}
                     />
@@ -134,11 +134,11 @@ export function OutputCard(){
                     </div>
                 </Show>
 
-                <div id="course-select-wrapper">
-                    <select id="course-select" value={JSON.stringify(book())} name="course" onchange={event => {setNewBook(JSON.parse(event.target.value))}} title="Select a book" aria-label="Select a book" aria-required="false">
+                <div class="interactive-group interactive-group--medium" id="course-select-wrapper">
+                    <select class="interactive interactive--heavy" value={JSON.stringify(book())} name="course" onchange={event => {setNewBook(JSON.parse(event.target.value))}} title="Select a book" aria-label="Select a book" aria-required="false">
                         <For each={library()}>
                             {(book) =>
-                                <option value={JSON.stringify(book)}>{(book.custom ? "[P] " : "") + book.name}</option>
+                                <option class="interactive" value={JSON.stringify(book)}>{(book.custom ? "[P] " : "") + book.name}</option>
                             }
                         </For>
                     </select>
@@ -149,7 +149,7 @@ export function OutputCard(){
                         </a>
                     </Show>
                     <a class="link-with-button" role="button" href="add" id="add">
-                        <Button label="Add a custom book" title="Add a custom book (leaves page)" text="Add"
+                        <Button class="interactive--spinny" label="Add a custom book" title="Add a custom book (leaves page)" text="Add"
                                 icons={[[plusIcon, "Add book"]]} />
                     </a>
                 </div>

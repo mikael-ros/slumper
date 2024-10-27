@@ -1,12 +1,22 @@
-/***********/
-/* Buttons */
-/***********/
-button, 
-select, 
-option, 
-input:not([type='checkbox']), 
-.checkbox-label, 
-.faux-button{
+/************************************/
+/* Buttons, options, select, e.t.c. */
+/************************************/
+.interactive {
+    --_interactive-height: var(--interactive-height, 3em);
+    --_interactive-width: var(--interactive-width, 3em);
+    --_anim-int-radius: var(--anim-int-radius, var(--_int-radius));
+    --_int-radius: var(--int-radius, var(--mild-border-radius));
+    --_flex: var(--flex, 1);
+    --_img-pad: var(--img-pad, 1em);
+    --_gap: var(--gap, .1em);
+
+    --_animation-speed: var(--animation-speed, var(--transition-duration-fast));
+    --_rotate: var(--rotate, 0deg);
+    --_anim-rotate: var(--anim-rotate, var(--_rotate));
+    --_scale: var(--scale, 1);
+    
+
+    /* Remove default styling */
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -14,17 +24,24 @@ input:not([type='checkbox']),
     display: flex;
     align-items: center;
     justify-content: center;
-    align-content: center;
 
-    width: 100%;
+    font-family: inherit;
+    flex: var(--_flex);
+    flex-wrap: nowrap;
 
-    padding: var(--mild-border-radius);
+    min-width: min(100%, min(var(--interactive-width), var(--_interactive-height)));
+    width: max(100%,var(--_interactive-width));
+    max-width: 100%;
+    min-height: max(100%, var(--interactive-height));
+    height: var(--_interactive-height);
+    max-height: 100%;
 
-    border: none;
-    border-radius: var(--mild-border-radius);
+    padding: calc(.5*var(--_int-radius)) var(--_int-radius);
+
+    border: none; /* Backup unapplication */
+    border-radius: var(--_anim-int-radius);
     
-    background: none;
-    
+    background: none; /* Backup unapplication */
     background-color: rgba(var(--backdrop-color),0.3);
     color: var(--text-color-negative);
 
@@ -34,113 +51,118 @@ input:not([type='checkbox']),
     text-overflow: ellipsis;
 
     cursor: pointer;
+    overflow: hidden;
+    
+    transition: filter, border-radius, 
+                width, height, 
+                min-width, min-height, 
+                max-width, max-height;
+    transition-duration:    var(--transition-duration-fast), var(--transition-duration-fast), 
+                            var(--transition-duration-fast), var(--transition-duration-fast), 
+                            var(--transition-duration-fast), var(--transition-duration-fast), 
+                            var(--transition-duration-fast), var(--transition-duration-fast);
 
-    transition: filter, border-radius;
-    transition-duration: var(--transition-duration-fast);
-
-    --filter: unset;
     filter: var(--filter);
     -webkit-filter: var(--filter);
 
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* Disables the ugly tap color that displays in mobile chrome */
 }
 
-button, 
-select, 
-option, 
-.checkbox-label, 
-.faux-button {
+.interactive:not(.icon-only) > *+* {
+    margin-left: var(--gap);
+}
+
+@supports ((aspect-ratio: 1 / 1) and (gap: 0)) {
+    .interactive:not(.icon-only) {
+        gap: var(--_gap);
+    }
+
+    .interactive:not(.icon-only) > *+* {
+        margin-left: 0;
+    }
+}
+
+.interactive--fit-width {
+    min-width: fit-content;
+}
+
+.interactive--triple-width {
+    --flex: 3;
+}
+
+.interactive--heavy,
+.checkbox-label {
     font-weight: 600;
 }
 
 /* User invalid only colors when user has interacted, 
     and the other selector makes sure that it 
     starts coloring when the user IS interacting! */
-input:not([type='checkbox']):user-invalid, input:not([type='checkbox']):focus:invalid {
+.interactive--input:user-invalid, .interactive--input:focus:invalid {
     color: red;
 }
 
-button:disabled, 
-select:disabled, 
-option:disabled, 
-input:not([type='checkbox']):disabled, 
-.checkbox-label:disabled, 
-.faux-button:disabled{
+.interactive:disabled{
     --filter: brightness(70%);
     cursor: not-allowed;
 }
 
-button img, 
-select img, 
-option img, 
-input:not([type='checkbox']) img, 
-.checkbox-label img, 
-.faux-button img{
-    width: 2em;
-    height: 2em;
+.interactive p {
+    color: var(--text-color-negative-dull);
+}
+
+.icon-only {
+    padding: .2em;
+    min-width: var(--_interactive-height);
+    max-width: var(--_interactive-height);
+    min-height: var(--_interactive-height);
+    max-height: var(--_interactive-height);
+}
+
+
+.interactive img {
+    width: calc(var(--_interactive-height) - var(--_img-pad));
+    height: calc(var(--_interactive-height) - var(--_img-pad));
 
     padding: .1em;
 
-    transform: scale(0.9);
     filter: brightness(200%) contrast(75%);
     -webkit-filter: brightness(200%) contrast(75%);
 }
 
-button p, 
-select p, 
-option p, 
-input:not([type='checkbox']) p, 
-.checkbox-label p, 
-.faux-button p{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+.interactive img:first-of-type {
+    transform: rotate(var(--_anim-rotate)) scale(var(--_scale));
+    transition: transform;
+    transition-duration: var(--_animation-speed);
+}
 
-    color: var(--text-color-negative-dull);
+.interactive:not(:disabled):hover, .interactive:not(:disabled):focus-visible {
+    --anim-int-radius: var(--default-border-radius);
+    --filter: brightness(0.95);
+    outline: none;
+}
 
-    padding-left: .35em;
-    
-    min-width: 2em;
-    height: 100%;
+.interactive:not(:disabled):hover, .interactive:not(:disabled):focus-visible {
+    --scale: 1.05;
+    --anim-rotate: 10deg;
+}
+
+.interactive--spinny {
+    --animation-speed: var(--transition-duration-medium);
+}
+
+.interactive--spinny:not(:disabled):hover, .interactive--spinny:not(:disabled):focus-visible {
+    --anim-rotate: 360deg;
+}
+
+.button:disabled:hover{
+    --anim-int-radius: var(--mild-border-radius); 
 }
 
 @media (hover: none) {
-    button:hover, button:focus,
-    select:hover, select:focus,
-    option:hover, option:focus, 
-    input:not([type='checkbox']):hover, input:not([type='checkbox']):focus, 
-    .checkbox-label:hover, .checkbox-label::focus,
-    .faux-button:hover, .faux-button:focus {
-        border-radius: var(--default-border-radius);
-        --filter: brightness(0.95);
-
-        transition: filter, border-radius;
-        transition-duration: var(--transition-duration-fast);
-    }
-
-    button:hover img, button:focus img,
-    .faux-button:hover img, .faux-button:focus img {
-        transform: scale(1.05) rotate(10deg);
-    }
-
-    button:focus,
-    select:focus,
-    option:focus, 
-    input:not([type='checkbox']):focus, 
-    .checkbox-label::focus,
-    .faux-button:focus {
-        outline: none;
-    }
-
-    input:not([type='checkbox']):focus, 
-    .checkbox-label::focus,
-    .faux-button:focus {
+    .interactive:not(:disabled):focus {
         outline: solid .1em var(--primary);
         outline-offset: -.1em;
-    }
-
-    button:disabled:hover{
-        border-radius: var(--mild-border-radius); 
     }
 }
 
@@ -156,27 +178,36 @@ select option {
     text-decoration: none;
 }
 
-.icon-only{
-    max-width: 3em;
-}
+/**********/
+/* Groups */
+/**********/
 
 .button-group > * {
-    width: 100%;
     margin: 0;
 }
 
-.button-group input {
+.button-group .interactive--input-faux {
     display: none;
 }
 
 .interactive-group {
     --gap: .75em;
     display: flex;
+    align-items: center;
     margin: calc(-1*var(--gap)) 0 0 calc(-1*var(--gap)) !important; /* It refuses to apply properly without this ??? */
+}
+
+/* Any interactive group within some body of other elements */
+*~.interactive-group {
+    margin: calc(-1*var(--gap) + 1em) 0 0 calc(-1*var(--gap)) !important; /* It refuses to apply properly without this ??? */
 }
 
 .interactive-group > * {
     margin: var(--gap) 0 0 var(--gap);
+}
+
+.interactive-group--medium {
+    --gap: .5em;
 }
 
 .interactive-group--tight {
@@ -187,6 +218,10 @@ select option {
     .interactive-group {
         gap: var(--gap);
         margin: 0 !important;
+    }
+
+    *~.interactive-group {
+        margin-top: 1em !important; /* It refuses to apply properly without this ??? */
     }
 
     .interactive-group > * {
@@ -200,6 +235,7 @@ select option {
 
 .input-list {
     display: flex;
+    
     --gap: .75em;
     margin: calc(-1*var(--gap)) 0 0 calc(-1*var(--gap));
 }
@@ -228,21 +264,11 @@ select option {
     }
 }
 
-.input-group{
-    height: 2em;
-}
-
 .input-group * {
-    height: 100%;
-    
     color: var(--text-color-negative-dull);
 }
 
-.input-group p {
-    line-height: 2em;
-}
-
-.input-group input{
+.input-group .interactive--input{
     width: 100%;
 }
 
@@ -293,6 +319,11 @@ input[type='checkbox']:checked + label {
 
 
 @media (max-width:900px)  {
+    .interactive-group {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
     .checkbox {
         margin: 0.25em;
     }

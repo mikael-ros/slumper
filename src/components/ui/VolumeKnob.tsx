@@ -107,9 +107,9 @@ export function VolumeKnob(){
                     <figure id="slider" style={"--height: " + displayedVolume()}></figure>
                     <p>{(displayedVolume()).toString().split(".")[0]}</p>
                 </figure>
-            <button class="knob" onclick={handleKnob} onkeypress={handleKeyPress} aria-label="Toggle volume slider" aria-controls="volume-slider" title="Open/close volume slider">
-                <img id="only-dot" src={knobDot.src} alt="The dot of a volume knob"/>
+            <button class="knob icon-only interactive" onclick={handleKnob} onkeypress={handleKeyPress} aria-label="Toggle volume slider" aria-controls="volume-slider" title="Open/close volume slider">
                 <img id="no-dot" src={knobIcon.src} alt="The wheel of a volume knob"/>
+                <img id="only-dot" src={knobDot.src} alt="The dot of a volume knob"/>
             </button>
         </div>
     )

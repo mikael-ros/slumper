@@ -1,6 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap'); /* Import font */
+
+/* This file contains all the general styles for the website. This covers basic layout elements and typography */
+
+/*****************/
+/* Basic styling */
+/*****************/
 
 :root{
+    /* Color vairables */
     --background-color: #EEE;
     --body-background-color: var(--background-color);
     --text-color: #111;
@@ -15,6 +22,7 @@
     --secondary: #f1826e;
     --secondaryRGB: 241,130,110;
 
+    /* Other parameters */
     --mild-border-radius: .5rem;
     --default-border-radius: 1rem;
     --high-border-radius: 2rem;
@@ -24,11 +32,13 @@
     --transition-duration-fast: .25s;
     --transition-duration-veryfast: .125s;
 
+    /* Font settings */
     font-family: Spline Sans Mono;
     font-size: 12pt;
     line-height: 1.5em;
 }
 
+/* Sensible defaults */
 *,
 *::after,
 *::before {
@@ -40,16 +50,15 @@
 }
 
 html{
-    background-color: var(--background-color);
+    background-color: var(--background-color); /* Set a fallback background */
 }
 
 body{
+    /* Enforce minimums */
     min-height: 100vh;
     min-width: 100vw;
-
-    margin: 0 auto;
     
-    background: linear-gradient(200deg, var(--secondary), var(--primary));
+    background: linear-gradient(200deg, var(--secondary), var(--primary)); /* A fallback gradient. Will be applied if possible, otherwise html rule earlier */
     background-size: cover;
     
     z-index: 0;
@@ -69,7 +78,6 @@ footer, header {
     color: var(--text-color-negative);
 
     text-align: center;
-    z-index:2;
 }
 
 footer, header h1 {
@@ -80,15 +88,16 @@ footer, header h1 {
     -webkit-backdrop-filter: var(--backdrop-filter);
 }
 
+/* Wraps the header text */
 header{
     top: 2em;
     width: 100%;
     height: auto;
-    z-index: 999;
+    z-index: 999; /* Display as far above as possible */
 }
 
 header h1 {
-    max-width: 50%;
+    max-width: 50%; /* It can only take 50% of the header, itself being full screen width = half screen size */
 
     padding: .5em 1em;
     line-height: 1.5em;
@@ -109,6 +118,7 @@ footer {
     width: 100%;
 
     border-radius: var(--default-border-radius) var(--default-border-radius) 0 0;
+    z-index: 2; /* Display above body */
 }
 
 /*******************************/
@@ -125,13 +135,14 @@ h6{
     text-shadow: .1em .1em 0px var(--text-color-shadowed);
 }
 
+/* Used for warnings and tips. More subtle text */
 .tip, .warning {
     font-size: .9em;
     margin: .25em 0;
     opacity: .7;
 }
 
-/* Warning texts */
+/* Warning text */
 .warning {
     color: orangered;
 }
@@ -179,6 +190,7 @@ article{
 
 @media (max-width:900px)  {
     :root{
+        /* Set some new parameters */
         --mild-border-radius: .35rem;
         --default-border-radius: 0.8rem;
         --high-border-radius: 1.8rem;
@@ -220,15 +232,10 @@ article{
         
         width: 100vw;
     }
-
-    body:has(.output) footer{
-        padding-bottom: 9em;
-    }
     
     /*******************************/
     /* Default text settings stuff */
     /*******************************/
-    
     
     article {
         min-height: 70vh;

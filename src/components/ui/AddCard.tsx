@@ -230,11 +230,11 @@ export function AddCard(){
                 <h1>Add book</h1>
                 <form id="book-form" onsubmit={submitForm} onkeydown={(event) => {if (event.key === "Enter" && event.target.tagName == "INPUT" ) {event.preventDefault()}}}>
                     <div class="input-list">
-                        <input value={title()} placeholder="Book name*" oninput={handleTitleChange} onchange={handleTitleChange} required aria-required="true"></input>
-                        <input autocomplete="photo" type="url" value={link()} placeholder="Book image URL (optional)" oninput={event => setLink(event.target.value)} onchange={event => setLink(event.target.value)} aria-required="false"></input>
+                        <input class="interactive interactive--input" value={title()} placeholder="Book name*" oninput={handleTitleChange} onchange={handleTitleChange} required aria-required="true"></input>
+                        <input class="interactive interactive--input" autocomplete="photo" type="url" value={link()} placeholder="Book image URL (optional)" oninput={event => setLink(event.target.value)} onchange={event => setLink(event.target.value)} aria-required="false"></input>
                     </div>
                     
-                    <div id="chapter-inputs">
+                    <div class="interactive-list" id="chapter-inputs">
                         <div class="interactive-group button-group">
                             <Button id="add-entry" label="Add entry" title="Add an entry" type="button"
                                     onclick={addEntry} text="Add entry"
@@ -251,17 +251,17 @@ export function AddCard(){
                             <Index each={chapters()}>
                                 {chapter => 
                                     <li class="interactive-group input-group chapter-input" data-empty={chapter().amount == 0 && chapter().index != 0}>   
-                                        <input class="input__index" id={"index-"+chapter().index+1} type="number" value={chapter().index + 1}  
+                                        <input class="input__index interactive interactive--input" id={"index-"+chapter().index+1} type="number" value={chapter().index + 1}  
                                         min="1" max={chapters().length} 
                                         inputmode="numeric" pattern="[0-9]*"
                                         onblur={event => moveChapter(chapter().index, event)} 
                                         onchange={event => moveChapter(chapter().index, event)} 
                                         aria-required="true" required/>
-                                        <input class="input__chapter" id={"chapter-"+chapter().index+1} type="text" value={chapter().title} placeholder="Chapter title*" 
+                                        <input class="input__chapter interactive interactive--input interactive--triple-width" id={"chapter-"+chapter().index+1} type="text" value={chapter().title} placeholder="Chapter title*" 
                                         onblur={event => handleChapterTitlesChange(chapter().index, event)} 
                                         onchange={event => handleChapterTitlesChange(chapter().index, event)} 
                                         aria-required="true" required/>
-                                        <input class="input__amount" type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={chapter().amount} 
+                                        <input class="input__amount interactive interactive--input" type="number" min="0" inputmode="numeric" pattern="[0-9]*" value={chapter().amount} 
                                         onblur={event => handleAmountChange(chapter().index, event)} 
                                         onchange={event => handleAmountChange(chapter().index, event)}
                                         aria-required="true" required/>
@@ -292,8 +292,8 @@ export function AddCard(){
                                 onclick={() => setSave(false)} text="Export" type="submit"
                                 icons={[[downloadIcon, "Export book"]]}
                         />
-                        <input type="file" aria-label="Import file" aria-hidden="true" aria-labelledby="file-import-label" id="file-import" onchange={handleFileSelect} title="Import file from disk"></input>
-                        <label tabIndex="0" role="button" class="faux-button" id="file-import-label" aria-label="Import file" for="file-import"><img src={uploadIcon.src} alt="Import book" title="Import file from disk"/><p>Import</p></label>
+                        <input class="interactive interactive--input interactive--input-faux" type="file" aria-label="Import file" aria-hidden="true" aria-labelledby="file-import-label" id="file-import" onchange={handleFileSelect} title="Import file from disk"></input>
+                        <label tabIndex="0" role="button" class="interactive interactive--heavy button" id="file-import-label" aria-label="Import file" for="file-import"><img src={uploadIcon.src} alt="Import book" title="Import file from disk"/><p>Import</p></label>
 
                         <Button id="clear" label="Clear entries" title="Remove the entered values"
                                 onclick={() => clear()} text="Clear"
@@ -312,26 +312,26 @@ export function AddCard(){
                         </div>
                     </Match>
                     <Match when={library().length != 0}>
-                        <ol class="book-list">
+                        <ol class="book-list interactive-list">
                             <For each={library()}>
                                 {book =>
                                     <li tabIndex="0" class="book-entry"><h5>{book.name}</h5> 
                                         <div aria-label={"Make choices about the book named " + book.name} role="menu" class="interactive-group button-group interactive-group--tight" tabIndex="0">
-                                            <Button tabIndex={0} label={"Remove the book named " + book.name} title={"Remove \"" + book.name + "\""}
+                                            <Button tabIndex={0} label={"Remove the book named " + book.name} title={"Remove \"" + book.name + "\""} iconOnly={true}
                                                     onclick={() => remove(book)}
                                                     icons={[[trashIcon, "Remove book"]]}
                                             />
-                                            <Button tabIndex={0} label={"Export the book named " + book.name} title={"Remove \"" + book.name + "\""}
+                                            <Button tabIndex={0} label={"Export the book named " + book.name} title={"Remove \"" + book.name + "\""} iconOnly={true}
                                                     onclick={() => exportBook(book)}
                                                     icons={[[downloadIcon, "Export book"]]}
                                             />
-                                            <Button tabIndex={0} label={"Import the book named " + book.name} title={"Remove \"" + book.name + "\""}
+                                            <Button tabIndex={0} label={"Import the book named " + book.name} title={"Remove \"" + book.name + "\""} iconOnly={true}
                                                     onclick={() => importBook(book)}
                                                     icons={[[uploadIcon, "Import book"]]}
                                             />
                                             <a class="link-with-button" tabIndex="-1" href={"https://github.com/mikael-ros/slumper/issues/new?assignees=&labels=book+suggestion&projects=&template=book-suggestion.md&title=%5BBook+suggestion%5D+" + book.name} target="_blank">
                                                 <Button tabIndex={0} label={"Suggest the book named " + book.name + " to be added to the default library"} title={"Suggest \"" + book.name + "\" to be added to the default library"}
-                                                        icons={[[shareIcon, "Suggest book"]]}
+                                                        icons={[[shareIcon, "Suggest book"]]} iconOnly={true}
                                                 />
                                             </a>
                                         </div>

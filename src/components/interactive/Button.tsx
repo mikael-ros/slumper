@@ -19,7 +19,7 @@ interface ButtonProps {
 
 const Button: Component<ButtonProps> = (props: ButtonProps) => {
     return (
-        <button class={(props.iconOnly ? "icon-only " : "") + (props.class ?? "")} id={props.id ?? ""} aria-label={props.label}
+        <button class={"interactive interactive--heavy button " + (props.iconOnly ? "icon-only " : "") + (props.class ?? "")} id={props.id ?? ""} aria-label={props.label}
         onclick={props.onclick} onkeydown={props.onkeydown}
         disabled={props.disabled}
         title={props.title ? props.title : props.label}
