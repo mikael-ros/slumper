@@ -159,7 +159,7 @@ a {
 /* Articles */
 /************/
 
-article::before {
+main::before {
     content: '';
     position: absolute;
     top: 0;
@@ -176,7 +176,7 @@ article::before {
     z-index: 0; /* Ensure it is behind the article content */
 }
 
-article{
+main{
     position: relative; /* Ensure positioning context for pseudo-element */
     display: flex;
     justify-content: center;
@@ -237,7 +237,7 @@ article{
     /* Default text settings stuff */
     /*******************************/
     
-    article {
+    main {
         min-height: 70vh;
 
         z-index: 3;
