@@ -87,7 +87,7 @@
 
     /* On mobile this becomes a weird element, it takes up extra space to account for the timer */
     .output #control-panel {
-        /* Also have to set this in Timer.css */
+        /* Also have to set this in Timer.css, and Slumper.css */
         --_interactive-height: 3em; 
         --spacing: 1em;
         --_gap: .75em;

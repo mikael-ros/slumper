@@ -159,7 +159,7 @@
     }
 
     .timer{
-        /* Also have to set this in OutputCard.css */
+        /* Also have to set this in OutputCard.css and Slumper.css */
         --_interactive-height: 3em;
         --spacing: 1em;
         --_gap: .75em;
