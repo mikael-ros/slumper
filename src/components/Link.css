@@ -4,7 +4,8 @@
     justify-content: center;
     position: relative;
 
-    padding: 0 .5em;
+    --link-padding: .75em;
+    padding: 0 var(--link-padding);
 
     text-decoration: none;
     color: var(--text-color-negative);
@@ -22,7 +23,11 @@
 }
 
 .link p {
-    padding: 0 .25em;
+    padding: 0 calc(var(--link-padding) / 2);
+}
+
+.link-with-image p {
+    padding: 0 var(--link-padding);
 }
 
 .link img  {
@@ -35,15 +40,10 @@
     transition-duration: var(--transition-duration-fast);
 }
 
-.link-with-image p {
-    padding: 0 0.5em;
-}
 
 .link-container{
     position: relative;
     border-left: .1em var(--text-color-negative-dull) solid;
-
-    
 }
 
 .link-container[data-clipboard = "false"]:nth-of-type(1){
@@ -52,16 +52,8 @@
 
 @media (max-width:900px)  {
     .link  {
-        padding: .5em 0;
+        padding: var(--link-padding) 0;
     }
-
-    .link p {
-        padding: 0;
-    }
-
-    .link-with-image p {
-        padding: 0 0.5em;
-    } 
 
     .link-container{
         border: none;

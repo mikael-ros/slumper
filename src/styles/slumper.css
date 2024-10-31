@@ -112,7 +112,7 @@ footer {
     justify-content: center;
     
     bottom: 0;
-    height: 3em;
+    height: fit-content;
     padding: .75em;
     width: 100%;
 
@@ -230,7 +230,6 @@ main{
 
         background-color: rgba(var(--backdrop-color),0.6);
 
-        height: fit-content;
         --padding: .5em;
         padding: var(--padding) var(--padding) calc(2*var(--_interactive-height) + 2*var(--spacing) + var(--_gap) + var(--padding));
         
