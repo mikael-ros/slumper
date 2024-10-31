@@ -218,6 +218,11 @@ main{
     }
     
     footer {
+        /* Also have to set this in Timer.css, and OutputCard.css */
+        --_interactive-height: 3em; 
+        --spacing: 1em;
+        --_gap: .75em;
+
         position: relative;
         flex-direction: column;
 
@@ -225,8 +230,9 @@ main{
 
         background-color: rgba(var(--backdrop-color),0.6);
 
-        height: unset;
-        padding: .5em;
+        height: fit-content;
+        --padding: .5em;
+        padding: var(--padding) var(--padding) calc(2*var(--_interactive-height) + 2*var(--spacing) + var(--_gap) + var(--padding));
         
         width: 100vw;
     }
