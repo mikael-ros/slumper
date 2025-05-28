@@ -18,6 +18,9 @@
 Simply visit [slumper.netlify.app](https://slumper.netlify.app) and pick any of the included books, or add your own.
 > This website can also be run locally (see section on contributing), and will work the exact same way :) (just with different instances of localStorage)
 
+> [!WARN]
+> If you previously used this website through the ~~slumper.me~~ domain, refrain from doing so from now on, as I have cancelled the domain subscription until further notice - the site simply didn't prove popular enough.
+
 ### 🎰 Randomization
 - To randomize, simply hit the randomize button! *(the first button)* 
 - To mark a task as completed, and randomize a new one, press the *"tick"* button. 
