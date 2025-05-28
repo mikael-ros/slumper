@@ -1,4 +1,4 @@
-# [🎲 Slumper](https://www.slumper.me)
+# 🎲 Slumper
 
 ***A web tool for randomizing and gamifying exercises from books.***
 
@@ -15,7 +15,7 @@
 
 ## 🔨 Usage
 
-Simply visit [slumper.me](https://www.slumper.me) and pick any of the included books, or add your own.
+Simply visit [slumper.netlify.app](https://slumper.netlify.app) and pick any of the included books, or add your own.
 > This website can also be run locally (see section on contributing), and will work the exact same way :) (just with different instances of localStorage)
 
 ### 🎰 Randomization
